@@ -1,2 +1,2 @@
 # Pency V2
-Hecho con NextJS, Firebase y Chakra.
+Hecho con React, NextJS, Firebase y Chakra.
