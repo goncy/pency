@@ -32,13 +32,11 @@ const AdminScreen: React.FC = () => {
   );
 };
 
-export async function getServerSideProps({params: {slug}}) {
-  const tenant = await fetch(`http://localhost:3000/api/tenant?slug=${slug}`).then((res) =>
-    res.json(),
-  );
-  const products = await fetch(
-    `http://localhost:3000/api/product?tenant=${tenant.id}`,
-  ).then((res) => res.json());
+export async function getServerSideProps({params: {slug}, req}) {
+  const BASE_URL = `http://${req.headers.host}/api`;
+
+  const tenant = await fetch(`${BASE_URL}/tenant?slug=${slug}`).then((res) => res.json());
+  const products = await fetch(`${BASE_URL}/product?tenant=${tenant.id}`).then((res) => res.json());
 
   return {props: {tenant, products}};
 }
