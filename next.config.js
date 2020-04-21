@@ -1,6 +1,5 @@
 module.exports = {
   env: {
-    customKey: 'my-value',
     FIREBASE_API_KEY:"AIzaSyC4_5aVcyGdjzIE3Wi5IWURV-wNcB1vKJU",
     FIREBASE_AUTH_DOMAIN:"pency-7affe.firebaseapp.com",
     FIREBASE_DATABASE_URL:"https://pency-7affe.firebaseio.com",
