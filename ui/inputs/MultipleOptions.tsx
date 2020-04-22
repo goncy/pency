@@ -1,5 +1,7 @@
 import React from "react";
-import {Stack, Checkbox} from "@chakra-ui/core";
+import {SimpleGrid} from "@chakra-ui/core";
+
+import Checkbox from "./Checkbox";
 
 import {MultipleOptionItem} from "~/product/types";
 
@@ -32,25 +34,25 @@ const MultipleOptionsInput: React.FC<Props> = ({
   }
 
   return (
-    <Stack {...props}>
+    <SimpleGrid spacing={3} width="100%" {...props}>
       {options.map((option) => {
         const isSelected = Boolean(
           value?.find((selected) => selected[valueProp] === option[valueProp]),
         );
+        const isDisabled = isFull && !isSelected;
 
         return (
           <Checkbox
             key={option[valueProp]}
-            isDisabled={isFull && !isSelected}
-            value={option[valueProp]}
-            variantColor="primary"
-            onChange={(event) => handleChange(option, event.target.checked)}
+            isChecked={isSelected}
+            isDisabled={isDisabled}
+            onChange={(isSelected) => handleChange(option, isSelected)}
           >
             {option[labelProp]}
           </Checkbox>
         );
       })}
-    </Stack>
+    </SimpleGrid>
   );
 };
 

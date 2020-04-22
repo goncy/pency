@@ -20,40 +20,36 @@ export function useProducts() {
           : [
               {
                 id: "01",
-                title: "Aderezos",
+                title: "Acompañamiento",
                 type: "single",
                 options: [
                   {
                     id: "01",
-                    title: "Option 1",
+                    title: "Papas fritas",
                   },
                   {
                     id: "02",
-                    title: "Option 2",
-                  },
-                  {
-                    id: "03",
-                    title: "Option 3",
+                    title: "Batas fritas",
                   },
                 ],
               },
               {
                 id: "02",
-                title: "Extras",
+                title: "Aderezos",
                 type: "multiple",
                 count: 2,
                 options: [
                   {
                     id: "01",
-                    title: "Option 1",
+                    title: "Mayonesa",
                   },
                   {
                     id: "02",
-                    title: "Option 2",
+                    title: "Mostaza",
                   },
                   {
                     id: "03",
-                    title: "Option 3",
+                    title: "Ketchup",
                   },
                 ],
               },

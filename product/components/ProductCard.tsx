@@ -39,6 +39,8 @@ const ProductCard: React.FC<Props> = ({product, count, add, remove}) => {
   }
 
   function handleAddWithOptions(options) {
+    toggleOptions();
+
     return add({...product, options: options});
   }
 

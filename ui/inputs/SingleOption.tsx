@@ -1,5 +1,7 @@
 import React from "react";
-import {Stack, Radio} from "@chakra-ui/core";
+import {Stack, Radio, SimpleGrid} from "@chakra-ui/core";
+
+import Checkbox from "./Checkbox";
 
 import {SingleOptionItem} from "~/product/types";
 
@@ -20,18 +22,17 @@ const SingleOptionInput: React.FC<Props> = ({
   ...props
 }) => {
   return (
-    <Stack {...props}>
+    <SimpleGrid spacing={3} width="100%" {...props}>
       {options.map((option) => (
-        <Radio
+        <Checkbox
           key={option[valueProp]}
           isChecked={Boolean(value && value[valueProp] === option[valueProp])}
-          variantColor="primary"
           onChange={() => onChange(option)}
         >
           {option[labelProp]}
-        </Radio>
+        </Checkbox>
       ))}
-    </Stack>
+    </SimpleGrid>
   );
 };
 

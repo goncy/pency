@@ -1,6 +1,6 @@
 import React from "react";
 import produce from "immer";
-import {Box, Stack, Button, FormControl, FormLabel, FormErrorMessage} from "@chakra-ui/core";
+import {Flex, Stack, Button, FormControl, FormLabel, FormErrorMessage} from "@chakra-ui/core";
 import {useForm, Controller} from "react-hook-form";
 
 import {Product} from "../types";
@@ -27,14 +27,18 @@ const ProductOptionsForm: React.FC<Props> = ({options, onSubmit}) => {
   }
 
   return (
-    <Box>
-      {options.map((option, index) => {
-        switch (option.type) {
-          case "single": {
-            return (
-              <Stack key={option.id} spacing={{base: 3, sm: 6}}>
-                <FormControl isInvalid={Boolean(errors.options?.[index])} mb={{base: 3, sm: 6}}>
-                  <FormLabel htmlFor={`options[${index}]`}>{option.title}</FormLabel>
+    <Flex direction="column" height="100%" justifyContent="space-between" width="100%">
+      <Stack spacing={{base: 3, sm: 6}}>
+        {options.map((option, index) => {
+          switch (option.type) {
+            case "single": {
+              return (
+                <FormControl
+                  key={option.id}
+                  isInvalid={Boolean(errors.options?.[index])}
+                  mb={{base: 3, sm: 6}}
+                >
+                  <FormLabel htmlFor={`options[${index}]`}>{option.title} (elegí 1)</FormLabel>
                   <Controller
                     as={SingleOption}
                     control={control}
@@ -48,14 +52,16 @@ const ProductOptionsForm: React.FC<Props> = ({options, onSubmit}) => {
                     {errors.options?.[index] && "Seleccioná una opción"}
                   </FormErrorMessage>
                 </FormControl>
-              </Stack>
-            );
-          }
+              );
+            }
 
-          case "multiple": {
-            return (
-              <Stack key={option.id} spacing={{base: 3, sm: 6}}>
-                <FormControl isInvalid={Boolean(errors.options?.[index])} mb={{base: 3, sm: 6}}>
+            case "multiple": {
+              return (
+                <FormControl
+                  key={option.id}
+                  isInvalid={Boolean(errors.options?.[index])}
+                  mb={{base: 3, sm: 6}}
+                >
                   <FormLabel htmlFor={`options[${index}]`}>
                     {option.title} (elegí {option.count})
                   </FormLabel>
@@ -76,15 +82,16 @@ const ProductOptionsForm: React.FC<Props> = ({options, onSubmit}) => {
                     {errors.options?.[index] && `Seleccioná ${option.count}`}
                   </FormErrorMessage>
                 </FormControl>
-              </Stack>
-            );
-          }
+              );
+            }
 
-          default:
-            return null;
-        }
-      })}
+            default:
+              return null;
+          }
+        })}
+      </Stack>
       <Button
+        variantColor="primary"
         onClick={(event) => {
           event.stopPropagation();
           event.preventDefault();
@@ -94,7 +101,7 @@ const ProductOptionsForm: React.FC<Props> = ({options, onSubmit}) => {
       >
         Agregar
       </Button>
-    </Box>
+    </Flex>
   );
 };
 
