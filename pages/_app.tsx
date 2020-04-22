@@ -44,7 +44,8 @@ function App({Component, pageProps}) {
             height: 100% !important;
           }
 
-          #modal-image {
+          #modal-image,
+          #modal-options {
             height: inherit !important;
           }
         `}
@@ -52,7 +53,7 @@ function App({Component, pageProps}) {
       {tenant && products ? (
         <>
           <Head>
-            <link href="public/favicon.ico" rel="icon" />
+            <link href="/public/favicon.ico" rel="icon" />
             <meta
               content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
               name="viewport"
@@ -71,7 +72,7 @@ function App({Component, pageProps}) {
               content={tenant.keywords || "venta, whatsapp, tienda, online, delivery, productos"}
               name="keywords"
             />
-            <meta content={tenant.name || "Gonzalo Pozzo"} name="author" />
+            <meta content="Gonzalo Pozzo" name="author" />
             <meta content="summary_large_image" name="twitter:card" />
             <meta content="goncy" name="twitter:site" />
             <meta content="goncy" name="twitter:creator" />

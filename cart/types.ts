@@ -1,9 +1,10 @@
-import {Product} from "../product/types";
+import {Product, SingleOptionItem, MultipleOptionItem} from "../product/types";
 
 export interface CartItem {
   id: Product["id"];
   count: number;
   product: Product;
+  options?: (SingleOptionItem | MultipleOptionItem)[];
 }
 
 export type Cart = Record<Product["id"], CartItem>;

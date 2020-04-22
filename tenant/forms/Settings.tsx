@@ -117,7 +117,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 </option>
               ))}
             </Select>
-            <FormHelperText>Mientras menor el número, más claro</FormHelperText>
+            <FormHelperText>Mientras menor el número, más claro el color</FormHelperText>
             <FormErrorMessage>
               {(errors.color && errors.color.message) || "Este campo es inválido"}
             </FormErrorMessage>
@@ -145,8 +145,28 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             </FormErrorMessage>
           </FormControl>
           <FormControl>
+            <FormLabel htmlFor="title">Título de la página</FormLabel>
+            <Input ref={register} name="title" placeholder="Título de la página" />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="keywords">Palabras clave</FormLabel>
+            <Input ref={register} name="keywords" placeholder="Palabras clave" />
+            <FormHelperText>Separadas por comas</FormHelperText>
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="description">Descripción de la página</FormLabel>
+            <Input ref={register} name="description" placeholder="Descripción de la página" />
+          </FormControl>
+          <FormControl>
             <FormLabel htmlFor="logo">Logo</FormLabel>
             <Controller as={ImageInput} control={control} defaultValue="" name="logo" />
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor="banner">Banner</FormLabel>
+            <Controller as={ImageInput} control={control} defaultValue="" name="banner" />
+            <FormHelperText>
+              Se muestra al compartir el link por redes sociales (1200x630)
+            </FormHelperText>
           </FormControl>
         </Stack>
       </form>

@@ -7,6 +7,36 @@ export interface Product {
   image?: string | undefined;
   price: number;
   available: boolean;
+  options?: Option[];
+}
+
+export type Option = SingleOption | MultipleOption;
+
+interface SingleOption {
+  type: "single";
+  id: string;
+  title: string;
+  options: SingleOptionItem[];
+  value?: SingleOptionItem;
+}
+
+interface MultipleOption {
+  type: "multiple";
+  id: string;
+  title: string;
+  count: number;
+  options: MultipleOptionItem[];
+  value?: MultipleOptionItem;
+}
+
+export interface SingleOptionItem {
+  id: string;
+  title: string;
+}
+
+export interface MultipleOptionItem {
+  id: string;
+  title: string;
 }
 
 export interface State {

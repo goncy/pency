@@ -14,22 +14,33 @@ import {
   Image,
 } from "@chakra-ui/core";
 
+import ProductOptionsForm from "../forms/ProductOptions";
+
 import {Product} from "~/product/types";
 
 interface Props {
   product: Product;
-  add: () => void;
+  add: (product: Product) => void;
   remove: () => void;
   count: number;
 }
 
-const ProductCard: React.FC<Props> = ({
-  product: {category, image, description, title, price},
-  count,
-  add,
-  remove,
-}) => {
-  const {isOpen, onToggle} = useDisclosure();
+const ProductCard: React.FC<Props> = ({product, count, add, remove}) => {
+  const {category, image, description, title, price, options} = product;
+  const {isOpen: isImageOpen, onToggle: toggleImage} = useDisclosure();
+  const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
+
+  function handleAdd() {
+    if (options) {
+      return toggleOptions();
+    }
+
+    return add(product);
+  }
+
+  function handleAddWithOptions(options) {
+    return add({...product, options: options});
+  }
 
   return (
     <>
@@ -72,7 +83,7 @@ const ProductCard: React.FC<Props> = ({
             height={64}
             roundedTop="lg"
             width="100%"
-            onClick={onToggle}
+            onClick={toggleImage}
           />
         ) : (
           <Flex
@@ -128,15 +139,15 @@ const ProductCard: React.FC<Props> = ({
             {count ? (
               <ButtonGroup spacing={2}>
                 <Button onClick={remove}>-</Button>
-                <Button onClick={add}>+</Button>
+                <Button onClick={handleAdd}>+</Button>
               </ButtonGroup>
             ) : (
-              <Button onClick={add}>Agregar</Button>
+              <Button onClick={handleAdd}>Agregar</Button>
             )}
           </Flex>
         </Box>
       </Flex>
-      <Modal isCentered id="image" isOpen={isOpen} onClose={onToggle}>
+      <Modal isCentered id="image" isOpen={isImageOpen} onClose={toggleImage}>
         <ModalOverlay />
         <ModalCloseButton right="8px" size="lg" top="8px" />
         <ModalContent
@@ -152,6 +163,24 @@ const ProductCard: React.FC<Props> = ({
           <Image height="100%" objectFit="contain" src={image} width="100%" />
         </ModalContent>
       </Modal>
+      {options && (
+        <Modal isCentered id="options" isOpen={isOptionsOpen} onClose={toggleOptions}>
+          <ModalOverlay />
+          <ModalCloseButton right="8px" size="lg" top="8px" />
+          <ModalContent
+            alignItems="center"
+            background="transparent"
+            height="auto"
+            justifyContent="center"
+            margin={{base: 3, sm: 6}}
+            maxHeight="60vh"
+            maxWidth="640px"
+            padding={{base: 3, sm: 6}}
+          >
+            <ProductOptionsForm options={options} onSubmit={handleAddWithOptions} />
+          </ModalContent>
+        </Modal>
+      )}
     </>
   );
 };

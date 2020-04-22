@@ -5,7 +5,7 @@ import template from "lodash.template";
 interface Props {
   value?: string;
   onChange: (template: string) => void;
-  data: any;
+  data: Record<string, unknown>;
 }
 
 const TemplateInput: React.FC<Props> = ({value, onChange, data}) => {

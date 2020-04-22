@@ -11,7 +11,55 @@ export function useProducts() {
     state: {products},
   } = React.useContext(ProductContext);
 
-  return products;
+  return products.map(
+    (product, index): Product => ({
+      ...product,
+      options:
+        index % 2 === 0
+          ? null
+          : [
+              {
+                id: "01",
+                title: "Aderezos",
+                type: "single",
+                options: [
+                  {
+                    id: "01",
+                    title: "Option 1",
+                  },
+                  {
+                    id: "02",
+                    title: "Option 2",
+                  },
+                  {
+                    id: "03",
+                    title: "Option 3",
+                  },
+                ],
+              },
+              {
+                id: "02",
+                title: "Extras",
+                type: "multiple",
+                count: 2,
+                options: [
+                  {
+                    id: "01",
+                    title: "Option 1",
+                  },
+                  {
+                    id: "02",
+                    title: "Option 2",
+                  },
+                  {
+                    id: "03",
+                    title: "Option 3",
+                  },
+                ],
+              },
+            ],
+    }),
+  );
 }
 
 export function useProductActions() {

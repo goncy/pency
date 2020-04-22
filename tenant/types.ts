@@ -8,6 +8,10 @@ export interface Tenant {
   message: string;
   phone: number;
   hue: number;
+  title?: string;
+  keywords?: string;
+  banner?: string;
+  description?: string;
 }
 
 export interface State {

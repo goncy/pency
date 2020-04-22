@@ -67,7 +67,7 @@ const ProductsScreen: React.FC = () => {
                             {products.map((product) => (
                               <ProductCard
                                 key={product.id}
-                                add={() => add(product)}
+                                add={add}
                                 count={cart[product.id]?.count}
                                 product={product}
                                 remove={() => remove(product.id)}
