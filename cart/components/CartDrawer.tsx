@@ -45,7 +45,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
   }, [count, onClose]);
 
   return (
-    <Drawer isOpen={isOpen} placement="right" size="md" onClose={onClose}>
+    <Drawer id="cart" isOpen={isOpen} placement="right" size="md" onClose={onClose}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton right="8px" top="8px" />
@@ -66,22 +66,22 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
                         fontSize="12px"
                         height="20px"
                         icon="minus"
-                        minWidth="auto"
+                        minWidth="20px"
                         mr={2}
                         variantColor="red"
                         width="20px"
                         onClick={() => remove(id)}
                       />
-                      <Flex alignItems="center">
-                        <Text>{product.title}</Text>
-                        {count > 1 && (
-                          <Badge ml={2} variant="solid" variantColor="primary">
-                            {count}
-                          </Badge>
-                        )}
-                      </Flex>
+                      <Text>{product.title}</Text>
                     </Flex>
-                    <Text>${Number(product.price) * count}</Text>
+                    <Flex alignItems="center">
+                      {count > 1 && (
+                        <Badge mr={2} variant="solid" variantColor="primary">
+                          {count}
+                        </Badge>
+                      )}
+                      <Text>${Number(product.price) * count}</Text>
+                    </Flex>
                   </Flex>
                 ))}
               </Stack>

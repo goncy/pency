@@ -38,7 +38,7 @@ const EditProduct: React.FC<Props> = ({product, update, remove}) => {
                 isLoading={isRemoving}
                 mt={4}
                 variantColor="red"
-                onClick={remove}
+                onClick={handleRemove}
               >
                 Borrar
               </Button>

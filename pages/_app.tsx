@@ -36,13 +36,16 @@ function App({Component, pageProps}) {
             height: 100%;
           }
 
-          /* Drawer hack */
-          [role="dialog"] {
+          * {
+            touch-action: manipulation;
+          }
+
+          #drawer-cart {
             height: 100% !important;
           }
 
-          * {
-            touch-action: manipulation;
+          #modal-image {
+            height: inherit !important;
           }
         `}
       />
@@ -54,27 +57,41 @@ function App({Component, pageProps}) {
               content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
               name="viewport"
             />
-            <meta content={tenant.color} name="theme-color" />
-            <meta content={tenant.description} name="description" />
-            <link href={tenant.logo} rel="apple-touch-icon" />
-            <meta content={tenant.color} name="theme-color" />
-            <meta content={tenant.description} name="description" />
-            <meta content={tenant.keywords} name="keywords" />
-            <meta content={tenant.name} name="author" />
+            <meta content={tenant.color || "#00B5D8"} name="theme-color" />
+            <meta
+              content={
+                tenant.description ||
+                "Crea tu propia tienda en segundos y vendé por WhatsApp de forma fácil"
+              }
+              name="description"
+            />
+            <link href={tenant.logo || "/public/logo192.png"} rel="apple-touch-icon" />
+            <meta content={tenant.color || "#00B5D8"} name="theme-color" />
+            <meta
+              content={tenant.keywords || "venta, whatsapp, tienda, online, delivery, productos"}
+              name="keywords"
+            />
+            <meta content={tenant.name || "Gonzalo Pozzo"} name="author" />
             <meta content="summary_large_image" name="twitter:card" />
             <meta content="goncy" name="twitter:site" />
             <meta content="goncy" name="twitter:creator" />
             <meta content="https://pency.now.sh" property="og:url" />
             <meta content="website" property="og:type" />
-            <meta content={tenant.title} property="og:title" />
-            <meta content={tenant.description} property="og:description" />
-            <meta content={tenant.banner} property="og:image" />
-            <meta content={tenant.banner} property="og:image:url" />
+            <meta content={tenant.title || "Pency - Tu tienda online"} property="og:title" />
+            <meta
+              content={
+                tenant.description ||
+                "Crea tu propia tienda en segundos y vendé por WhatsApp de forma fácil"
+              }
+              property="og:description"
+            />
+            <meta content={tenant.banner || "/public/og-image.jpg"} property="og:image" />
+            <meta content={tenant.banner || "/public/og-image.jpg"} property="og:image:url" />
             <meta content="image/jpeg" property="og:image:type" />
             <meta content="1200" property="og:image:width" />
             <meta content="630" property="og:image:height" />
-            <meta content={tenant.title} property="og:image:alt" />
-            <title>{tenant.title}</title>
+            <meta content={tenant.title || "Pency - Tu tienda online"} property="og:image:alt" />
+            <title>{tenant.title || "Pency - Tu tienda online"}</title>
           </Head>
           <Flex direction="column" height="100%">
             <Flex
