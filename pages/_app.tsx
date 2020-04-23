@@ -52,7 +52,7 @@ function App({Component, pageProps}) {
       {tenant && products ? (
         <>
           <Head>
-            <link href="/public/favicon.ico" rel="icon" />
+            <link href="/favicon.ico" rel="icon" />
             <meta
               content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
               name="viewport"
@@ -65,7 +65,7 @@ function App({Component, pageProps}) {
               }
               name="description"
             />
-            <link href={tenant.logo || "/public/logo192.png"} rel="apple-touch-icon" />
+            <link href={tenant.logo || "/logo192.png"} rel="apple-touch-icon" />
             <meta content={tenant.color || "#00B5D8"} name="theme-color" />
             <meta
               content={tenant.keywords || "venta, whatsapp, tienda, online, delivery, productos"}
@@ -85,8 +85,8 @@ function App({Component, pageProps}) {
               }
               property="og:description"
             />
-            <meta content={tenant.banner || "/public/og-image.jpg"} property="og:image" />
-            <meta content={tenant.banner || "/public/og-image.jpg"} property="og:image:url" />
+            <meta content={tenant.banner || "/og-image.jpg"} property="og:image" />
+            <meta content={tenant.banner || "/og-image.jpg"} property="og:image:url" />
             <meta content="image/jpeg" property="og:image:type" />
             <meta content="1200" property="og:image:width" />
             <meta content="630" property="og:image:height" />
