@@ -20,7 +20,7 @@ import {groupBy} from "~/selectors/group";
 import CartDrawer from "~/cart/components/CartDrawer";
 
 const ProductsScreen: React.FC = () => {
-  const {add, remove, cart, count, total} = useCart();
+  const {add, count, total} = useCart();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts({available: true});
 
@@ -29,7 +29,7 @@ const ProductsScreen: React.FC = () => {
   return (
     <>
       <Flex direction="column" height="100%" overflowY="hidden">
-        <Box flex={1} overflowY="auto" padding={{base: 3, sm: 6}}>
+        <Box flex={1} overflowY="auto" padding={4}>
           {filters}
           {products.length ? (
             productsByCategory.map(([category, products]) => {
@@ -38,40 +38,29 @@ const ProductsScreen: React.FC = () => {
               );
 
               return (
-                <PseudoBox key={category} mt={{base: 3, sm: 6}}>
+                <PseudoBox key={category} mt={4}>
                   <Flex direction="column">
                     <Heading as="h2" size="xl" textTransform="capitalize">
                       {category}
                     </Heading>
                     {productsBySubcategory.map(([subcategory, products]) => (
-                      <PseudoBox key={subcategory} mt={{base: 3, sm: 6}}>
+                      <PseudoBox key={subcategory} mt={4}>
                         <Flex direction="column">
                           {subcategory && (
-                            <Heading
-                              as="h3"
-                              mb={{base: 3, sm: 6}}
-                              size="lg"
-                              textTransform="capitalize"
-                            >
+                            <Heading as="h3" mb={4} size="lg" textTransform="capitalize">
                               {subcategory}
                             </Heading>
                           )}
                           <Grid
                             autoRows="auto"
-                            gridGap={{base: 3, sm: 6}}
+                            gridGap={4}
                             templateColumns={{
                               base: "auto",
                               sm: "repeat(auto-fill, minmax(auto, 340px))",
                             }}
                           >
                             {products.map((product) => (
-                              <ProductCard
-                                key={product.id}
-                                add={add}
-                                count={cart[product.id]?.count}
-                                product={product}
-                                remove={() => remove(product.id)}
-                              />
+                              <ProductCard key={product.id} add={add} product={product} />
                             ))}
                           </Grid>
                         </Flex>
@@ -88,9 +77,9 @@ const ProductsScreen: React.FC = () => {
               flex={1}
               justifyContent="center"
               mt={{base: 12, sm: 24}}
-              px={{base: 3, sm: 6}}
+              px={4}
             >
-              <Icon color="gray.200" mb={{base: 3, sm: 6}} name="search" size="128px" />
+              <Icon color="gray.200" mb={4} name="search" size="128px" />
               <Text color="gray.500" fontSize="lg" textAlign="center">
                 No se encontraron productos
               </Text>

@@ -1,19 +1,19 @@
 import React from "react";
-import {Stack, Radio, SimpleGrid} from "@chakra-ui/core";
+import {SimpleGrid} from "@chakra-ui/core";
 
-import Checkbox from "./Checkbox";
+import {SingleOptionItem} from "../types";
 
-import {SingleOptionItem} from "~/product/types";
+import Checkbox from "~/ui/inputs/Checkbox";
 
 interface Props {
-  options: SingleOptionItem[];
+  options: Props["value"][];
   labelProp?: string;
   valueProp?: string;
   value?: SingleOptionItem;
-  onChange: (value: SingleOptionItem) => void;
+  onChange: (value: Props["value"]) => void;
 }
 
-const SingleOptionInput: React.FC<Props> = ({
+const ProductRadioInput: React.FC<Props> = ({
   options,
   value,
   labelProp = "label",
@@ -36,4 +36,4 @@ const SingleOptionInput: React.FC<Props> = ({
   );
 };
 
-export default SingleOptionInput;
+export default ProductRadioInput;

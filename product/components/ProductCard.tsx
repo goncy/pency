@@ -5,7 +5,6 @@ import {
   Flex,
   Badge,
   Button,
-  ButtonGroup,
   useDisclosure,
   Modal,
   ModalOverlay,
@@ -14,21 +13,21 @@ import {
   Image,
 } from "@chakra-ui/core";
 
-import ProductOptionsForm from "../forms/ProductOptions";
+import ProductOptionsForm from "../forms/ProductOptionsForm";
 
 import {Product} from "~/product/types";
+import {useProductCartCount} from "~/cart/hooks";
 
 interface Props {
   product: Product;
   add: (product: Product) => void;
-  remove: () => void;
-  count: number;
 }
 
-const ProductCard: React.FC<Props> = ({product, count, add, remove}) => {
-  const {category, image, description, title, price, options} = product;
+const ProductCard: React.FC<Props> = ({product, add}) => {
+  const {id, category, image, description, title, price, options} = product;
   const {isOpen: isImageOpen, onToggle: toggleImage} = useDisclosure();
   const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
+  const count = useProductCartCount(id);
 
   function handleAdd() {
     if (options) {
@@ -41,7 +40,7 @@ const ProductCard: React.FC<Props> = ({product, count, add, remove}) => {
   function handleAddWithOptions(options) {
     toggleOptions();
 
-    return add({...product, options: options});
+    return add({...product, options});
   }
 
   return (
@@ -80,6 +79,8 @@ const ProductCard: React.FC<Props> = ({product, count, add, remove}) => {
             backgroundPosition="center"
             backgroundSize="cover"
             borderBottom={1}
+            borderBottomStyle="solid"
+            borderColor="gray.100"
             cursor={"pointer"}
             flexShrink={0}
             height={64}
@@ -91,9 +92,9 @@ const ProductCard: React.FC<Props> = ({product, count, add, remove}) => {
           <Flex
             alignItems="center"
             backgroundColor="gray.100"
-            backgroundPosition="center"
-            backgroundSize="cover"
             borderBottom={1}
+            borderBottomStyle="solid"
+            borderColor="gray.100"
             flexShrink={0}
             height={64}
             justifyContent="center"
@@ -138,29 +139,22 @@ const ProductCard: React.FC<Props> = ({product, count, add, remove}) => {
             >
               ${price}
             </Text>
-            {count ? (
-              <ButtonGroup spacing={2}>
-                <Button onClick={remove}>-</Button>
-                <Button onClick={handleAdd}>+</Button>
-              </ButtonGroup>
-            ) : (
-              <Button onClick={handleAdd}>Agregar</Button>
-            )}
+            <Button onClick={handleAdd}>Agregar</Button>
           </Flex>
         </Box>
       </Flex>
       <Modal isCentered id="image" isOpen={isImageOpen} onClose={toggleImage}>
         <ModalOverlay />
-        <ModalCloseButton right="8px" size="lg" top="8px" />
+        <ModalCloseButton color="white" right={1} size="lg" top={1} zIndex={1500} />
         <ModalContent
           alignItems="center"
-          background="transparent"
+          backgroundColor="transparent"
+          boxShadow="none"
           height="auto"
           justifyContent="center"
-          margin={{base: 3, sm: 6}}
+          margin={4}
           maxHeight="60vh"
           maxWidth="640px"
-          padding={{base: 3, sm: 6}}
         >
           <Image height="100%" objectFit="contain" src={image} width="100%" />
         </ModalContent>
@@ -168,16 +162,15 @@ const ProductCard: React.FC<Props> = ({product, count, add, remove}) => {
       {options && (
         <Modal isCentered id="options" isOpen={isOptionsOpen} onClose={toggleOptions}>
           <ModalOverlay />
-          <ModalCloseButton right="8px" size="lg" top="8px" />
+          <ModalCloseButton color="white" right={1} size="lg" top={1} zIndex={1500} />
           <ModalContent
             alignItems="center"
-            background="transparent"
             height="auto"
             justifyContent="center"
-            margin={{base: 3, sm: 6}}
+            margin={4}
             maxHeight="60vh"
             maxWidth="640px"
-            padding={{base: 3, sm: 6}}
+            padding={4}
           >
             <ProductOptionsForm options={options} onSubmit={handleAddWithOptions} />
           </ModalContent>

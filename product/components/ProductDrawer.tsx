@@ -12,7 +12,7 @@ import {
 
 import {Product} from "../types";
 import {useProductActions} from "../hooks";
-import ProductForm from "../forms/Product";
+import ProductForm from "../forms/ProductForm";
 
 interface Props {
   isOpen: boolean;

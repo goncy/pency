@@ -27,7 +27,7 @@ const LoginScreen: React.FC<Props> = ({signIn, isRestoring}) => {
   return (
     <Flex alignItems="center" flex={1} justifyContent="center">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing={{base: 3, sm: 6}}>
+        <Stack spacing={4}>
           <FormControl isInvalid={Boolean(errors.email)}>
             <FormLabel htmlFor="email">Email</FormLabel>
             <Input ref={register({required: true})} name="email" placeholder="Email" />

@@ -1,12 +1,20 @@
 import React from "react";
 import produce from "immer";
-import {Flex, Stack, Button, FormControl, FormLabel, FormErrorMessage} from "@chakra-ui/core";
+import {
+  Flex,
+  Stack,
+  Button,
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  Divider,
+  Box,
+} from "@chakra-ui/core";
 import {useForm, Controller} from "react-hook-form";
 
 import {Product} from "../types";
-
-import MultipleOptions from "~/ui/inputs/MultipleOptions";
-import SingleOption from "~/ui/inputs/SingleOption";
+import ProductLimitedCheckboxInput from "../inputs/ProductLimitedCheckboxInput";
+import ProductRadioInput from "../inputs/ProductRadioInput";
 
 interface Props {
   options: Product["options"];
@@ -28,19 +36,15 @@ const ProductOptionsForm: React.FC<Props> = ({options, onSubmit}) => {
 
   return (
     <Flex direction="column" height="100%" justifyContent="space-between" width="100%">
-      <Stack spacing={{base: 3, sm: 6}}>
+      <Stack overflowY="auto" spacing={4}>
         {options.map((option, index) => {
           switch (option.type) {
             case "single": {
               return (
-                <FormControl
-                  key={option.id}
-                  isInvalid={Boolean(errors.options?.[index])}
-                  mb={{base: 3, sm: 6}}
-                >
+                <FormControl key={option.id} isInvalid={Boolean(errors.options?.[index])} mb={4}>
                   <FormLabel htmlFor={`options[${index}]`}>{option.title} (elegí 1)</FormLabel>
                   <Controller
-                    as={SingleOption}
+                    as={ProductRadioInput}
                     control={control}
                     labelProp="title"
                     name={`options[${index}].value`}
@@ -57,16 +61,12 @@ const ProductOptionsForm: React.FC<Props> = ({options, onSubmit}) => {
 
             case "multiple": {
               return (
-                <FormControl
-                  key={option.id}
-                  isInvalid={Boolean(errors.options?.[index])}
-                  mb={{base: 3, sm: 6}}
-                >
+                <FormControl key={option.id} isInvalid={Boolean(errors.options?.[index])} mb={4}>
                   <FormLabel htmlFor={`options[${index}]`}>
                     {option.title} (elegí {option.count})
                   </FormLabel>
                   <Controller
-                    as={MultipleOptions}
+                    as={ProductLimitedCheckboxInput}
                     control={control}
                     labelProp="title"
                     limit={option.count}
@@ -90,17 +90,21 @@ const ProductOptionsForm: React.FC<Props> = ({options, onSubmit}) => {
           }
         })}
       </Stack>
-      <Button
-        variantColor="primary"
-        onClick={(event) => {
-          event.stopPropagation();
-          event.preventDefault();
+      <Box>
+        <Divider marginY={4} />
+        <Button
+          variantColor="primary"
+          width="100%"
+          onClick={(event) => {
+            event.stopPropagation();
+            event.preventDefault();
 
-          submit(handleSubmit)(event);
-        }}
-      >
-        Agregar
-      </Button>
+            submit(handleSubmit)(event);
+          }}
+        >
+          Agregar
+        </Button>
+      </Box>
     </Flex>
   );
 };

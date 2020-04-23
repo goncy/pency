@@ -7,13 +7,12 @@ import Head from "next/head";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import {Provider as CartProvider} from "~/cart/context";
-import getTheme from "~/theme";
 
 function App({Component, pageProps}) {
   const {tenant, products} = pageProps;
 
   return (
-    <ThemeProvider theme={getTheme(tenant?.color)}>
+    <ThemeProvider>
       <CSSReset />
       <Global
         styles={css`
@@ -94,32 +93,31 @@ function App({Component, pageProps}) {
             <meta content={tenant.title || "Pency - Tu tienda online"} property="og:image:alt" />
             <title>{tenant.title || "Pency - Tu tienda online"}</title>
           </Head>
-          <Flex direction="column" height="100%">
-            <Flex
-              align="center"
-              as="nav"
-              bg={`primary.${tenant.hue}`}
-              color="white"
-              justifyContent="space-between"
-              paddingX={{base: 3, sm: 6}}
-              paddingY={3}
-              wrap="wrap"
-            >
-              <Link href={`/${tenant.slug}`}>
-                <Heading as="h1" size="lg">
-                  {tenant.logo ? <Image maxHeight={16} src={tenant.logo} /> : tenant.slug}
-                </Heading>
-              </Link>
-            </Flex>
+          <TenantProvider initialValue={tenant}>
+            <Flex direction="column" height="100%">
+              <Flex
+                align="center"
+                as="nav"
+                bg={`primary.${tenant.hue}`}
+                color="white"
+                justifyContent="space-between"
+                padding={3}
+                wrap="wrap"
+              >
+                <Link href={`/${tenant.slug}`}>
+                  <Heading as="h1" size="lg">
+                    {tenant.logo ? <Image maxHeight={16} src={tenant.logo} /> : tenant.slug}
+                  </Heading>
+                </Link>
+              </Flex>
 
-            <TenantProvider initialValue={tenant}>
               <ProductProvider initialValues={products}>
                 <CartProvider>
                   <Component {...pageProps} />
                 </CartProvider>
               </ProductProvider>
-            </TenantProvider>
-          </Flex>
+            </Flex>
+          </TenantProvider>
         </>
       ) : (
         <Component {...pageProps} />

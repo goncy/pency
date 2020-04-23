@@ -9,12 +9,12 @@ import TenantAdminScreen from "~/tenant/screens/Admin";
 const AdminScreen: React.FC = () => {
   return (
     <SessionProvider>
-      <Box height="100%" overflowY="auto" padding={{base: 3, sm: 6}}>
-        <Heading as="h1" mb={{base: 3, sm: 6}} size="2xl">
+      <Box height="100%" overflowY="auto" padding={4}>
+        <Heading as="h1" mb={4} size="2xl">
           Panel de administración
         </Heading>
         <Tabs variant="soft-rounded" variantColor="primary">
-          <TabList mb={{base: 3, sm: 6}}>
+          <TabList mb={4}>
             <Tab>Productos</Tab>
             <Tab>Tienda</Tab>
           </TabList>

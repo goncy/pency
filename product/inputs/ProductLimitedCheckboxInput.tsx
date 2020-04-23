@@ -1,20 +1,20 @@
 import React from "react";
 import {SimpleGrid} from "@chakra-ui/core";
 
-import Checkbox from "./Checkbox";
+import {MultipleOptionItem} from "../types";
 
-import {MultipleOptionItem} from "~/product/types";
+import Checkbox from "~/ui/inputs/Checkbox";
 
 interface Props {
-  options: MultipleOptionItem[];
+  options: Props["value"];
   labelProp?: string;
   valueProp?: string;
   value?: MultipleOptionItem[];
   limit?: number;
-  onChange: (value: MultipleOptionItem[]) => void;
+  onChange: (value: Props["value"]) => void;
 }
 
-const MultipleOptionsInput: React.FC<Props> = ({
+const ProductLimitedCheckboxInput: React.FC<Props> = ({
   limit,
   value,
   options,
@@ -56,4 +56,4 @@ const MultipleOptionsInput: React.FC<Props> = ({
   );
 };
 
-export default MultipleOptionsInput;
+export default ProductLimitedCheckboxInput;

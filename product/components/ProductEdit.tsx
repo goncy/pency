@@ -2,7 +2,7 @@ import React from "react";
 import {Flex, Button, Stack} from "@chakra-ui/core";
 
 import {Product} from "../types";
-import ProductForm from "../forms/Product";
+import ProductForm from "../forms/ProductForm";
 
 interface Props {
   product: Product;
@@ -10,7 +10,7 @@ interface Props {
   remove: () => void;
 }
 
-const EditProduct: React.FC<Props> = ({product, update, remove}) => {
+const ProductEdit: React.FC<Props> = ({product, update, remove}) => {
   const [isRemoving, setRemoving] = React.useState(false);
 
   function handleUpdate(product: Product) {
@@ -29,7 +29,7 @@ const EditProduct: React.FC<Props> = ({product, update, remove}) => {
     <ProductForm defaultValues={product} onSubmit={handleUpdate}>
       {({form, isLoading, submit}) => (
         <Flex>
-          <Stack spacing={{base: 3, sm: 6}} width="100%">
+          <Stack spacing={4} width="100%">
             {form}
             <Flex justifyContent="space-between">
               <Button
@@ -60,4 +60,4 @@ const EditProduct: React.FC<Props> = ({product, update, remove}) => {
   );
 };
 
-export default EditProduct;
+export default ProductEdit;

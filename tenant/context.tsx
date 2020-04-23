@@ -1,9 +1,12 @@
 import React from "react";
+import {ThemeProvider} from "@chakra-ui/core";
 
 import {useToast} from "../hooks/toast";
 
 import {Tenant, Context, State, Actions} from "./types";
 import api from "./api";
+
+import getTheme from "~/theme";
 
 interface Props {
   initialValue: Tenant;
@@ -39,7 +42,11 @@ const TenantProvider: React.FC<Props> = ({children, initialValue}) => {
   const state: State = {tenant};
   const actions: Actions = {update};
 
-  return <ProductTenant.Provider value={{state, actions}}>{children}</ProductTenant.Provider>;
+  return (
+    <ThemeProvider theme={getTheme(tenant.color)}>
+      <ProductTenant.Provider value={{state, actions}}>{children}</ProductTenant.Provider>
+    </ThemeProvider>
+  );
 };
 
 export {TenantProvider as Provider, ProductTenant as default};

@@ -9,7 +9,7 @@ const LandingScreen: React.FC = () => (
     height="100vh"
     justifyContent="center"
     overflow="hidden"
-    padding={{base: 3, sm: 6}}
+    padding={4}
     width="100vw"
   >
     <Text fontSize="xl" textAlign="center">

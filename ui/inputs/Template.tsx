@@ -24,7 +24,7 @@ const TemplateInput: React.FC<Props> = ({value, onChange, data}) => {
   }
 
   return (
-    <Stack spacing={{base: 3, sm: 6}}>
+    <Stack spacing={4}>
       <Textarea minHeight={48} value={value} onChange={handleChange} />
       <Box
         as="pre"

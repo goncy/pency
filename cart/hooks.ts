@@ -2,23 +2,27 @@ import React from "react";
 
 import CartContext from "./context";
 
+import {Product} from "~/product/types";
+
 export function useCart() {
   const {
     state: {cart},
     actions: {add, remove},
   } = React.useContext(CartContext);
 
-  const items = Object.values(cart);
-
   return {
     add,
     remove,
     cart,
-    items,
-    count: items.reduce((total, {count}) => Number(total) + count, 0),
-    total: items.reduce(
-      (total, {product, count}) => Number(total) + Number(product.price) * count,
-      0,
-    ),
+    count: cart.length,
+    total: cart.reduce((total, {product}) => Number(total) + Number(product.price), 0),
   };
+}
+
+export function useProductCartCount(id: Product["id"]) {
+  const {
+    state: {cart},
+  } = React.useContext(CartContext);
+
+  return cart.filter((item) => item.product.id === id).length || 0;
 }

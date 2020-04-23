@@ -12,9 +12,10 @@ import {
 
 import {Product} from "../types";
 import {useProductCategories} from "../hooks";
+import ProductOptionsInput from "../inputs/ProductOptionsInput";
 
-import ImageInput from "~/ui/inputs/Image";
-import SwitchInput from "~/ui/inputs/Switch";
+import Image from "~/ui/inputs/Image";
+import Switch from "~/ui/inputs/Switch";
 
 interface Props {
   defaultValues?: Product;
@@ -29,6 +30,7 @@ interface Props {
 const DEFAULT_VALUES: Partial<Product> = {
   available: true,
   image: "",
+  options: [],
 };
 
 const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children, onSubmit}) => {
@@ -43,6 +45,7 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
     product.category = product.category.trim();
     product.subcategory = product.subcategory?.trim();
     product.price = Number(product.price);
+    product.options = product.options || [];
 
     return onSubmit(product);
   }
@@ -62,7 +65,7 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
     submit: submit(handleSubmit),
     form: (
       <form onSubmit={submit(handleSubmit)}>
-        <Stack spacing={{base: 3, sm: 6}}>
+        <Stack spacing={4}>
           <FormControl isRequired isInvalid={Boolean(errors.title)}>
             <FormLabel htmlFor="title">Título</FormLabel>
             <Input ref={register({required: true})} name="title" placeholder="Título" />
@@ -79,7 +82,7 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
             <FormLabel htmlFor="category">Categoría</FormLabel>
             <Flex>
               <Input ref={register({required: true})} name="category" placeholder="Categoría" />
-              <Select flexShrink={2} marginLeft={{base: 3, sm: 6}} onChange={setCategory}>
+              <Select flexShrink={2} marginLeft={4} onChange={setCategory}>
                 <option value="">Cargar</option>
                 {categories.map((category) => (
                   <option key={category} value={category}>
@@ -92,11 +95,11 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
               {(errors.category && errors.category.message) || "Este campo es requerido"}
             </FormErrorMessage>
           </FormControl>
-          <FormControl isInvalid={Boolean(errors.subcategory)} mb={{base: 3, sm: 6}}>
+          <FormControl isInvalid={Boolean(errors.subcategory)} mb={4}>
             <FormLabel htmlFor="subcategory">Sub categoría</FormLabel>
             <Flex>
               <Input ref={register} name="subcategory" placeholder="Sub categoría" />
-              <Select flexShrink={2} marginLeft={{base: 3, sm: 6}} onChange={setSubCategory}>
+              <Select flexShrink={2} marginLeft={4} onChange={setSubCategory}>
                 <option value="">Cargar</option>
                 {subcategories.map((subcategory) => (
                   <option key={subcategory} value={subcategory}>
@@ -109,7 +112,7 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
               {(errors.subcategory && errors.subcategory.message) || "Este campo es requerido"}
             </FormErrorMessage>
           </FormControl>
-          <FormControl isRequired isInvalid={Boolean(errors.price)} mb={{base: 3, sm: 6}}>
+          <FormControl isRequired isInvalid={Boolean(errors.price)} mb={4}>
             <FormLabel htmlFor="price">Precio</FormLabel>
             <Input
               ref={register({required: true})}
@@ -121,20 +124,18 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
               {(errors.price && errors.price.message) || "Este campo es requerido"}
             </FormErrorMessage>
           </FormControl>
+          <FormControl mb={4}>
+            <FormLabel htmlFor="options">Opciones</FormLabel>
+            <Controller as={ProductOptionsInput} control={control} name="options" />
+          </FormControl>
           <FormControl isInvalid={Boolean(errors.image)}>
             <FormLabel htmlFor="image">Imágen</FormLabel>
-            <Controller as={ImageInput} control={control} defaultValue="" name="image" />
+            <Controller as={Image} control={control} defaultValue="" name="image" />
             <FormErrorMessage>{errors.image && errors.image.message}</FormErrorMessage>
           </FormControl>
-          <FormControl isInvalid={Boolean(errors.available)} mb={{base: 3, sm: 6}}>
+          <FormControl isInvalid={Boolean(errors.available)} mb={4}>
             <FormLabel htmlFor="available">Disponible</FormLabel>
-            <Controller
-              as={SwitchInput}
-              control={control}
-              display="block"
-              name="available"
-              size="lg"
-            />
+            <Controller as={Switch} control={control} display="block" name="available" size="lg" />
             <FormErrorMessage>
               {(errors.available && errors.available.message) || "Este campo es requerido"}
             </FormErrorMessage>

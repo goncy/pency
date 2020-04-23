@@ -1,5 +1,5 @@
 import React from "react";
-import produce from "immer";
+import shortid from "shortid";
 
 import {Product} from "../product/types";
 
@@ -12,41 +12,17 @@ interface Props {
 const CartContext = React.createContext({} as Context);
 
 const CartProvider = ({children}: Props) => {
-  const [cart, setCart] = React.useState<Cart>({});
+  const [cart, setCart] = React.useState<Cart>([]);
 
   const state: State = {cart};
   const actions: Actions = {add, remove};
 
   function add(product: Product) {
-    setCart(
-      produce((cart) => {
-        if (cart[product.id]) {
-          cart[product.id].count++;
-        } else {
-          cart[product.id] = {
-            id: product.id,
-            count: 1,
-            product,
-          };
-        }
-
-        return cart;
-      }),
-    );
+    setCart((cart) => cart.concat({id: shortid.generate(), product}));
   }
 
   function remove(id: CartItem["id"]) {
-    setCart(
-      produce((cart) => {
-        if (cart[id].count === 1) {
-          delete cart[id];
-        } else {
-          cart[id].count--;
-        }
-
-        return cart;
-      }),
-    );
+    setCart((cart) => cart.filter((item) => item.id !== id));
   }
 
   return <CartContext.Provider value={{state, actions}}>{children}</CartContext.Provider>;

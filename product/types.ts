@@ -12,7 +12,7 @@ export interface Product {
 
 export type Option = SingleOption | MultipleOption;
 
-interface SingleOption {
+export interface SingleOption {
   type: "single";
   id: string;
   title: string;
@@ -20,13 +20,13 @@ interface SingleOption {
   value?: SingleOptionItem;
 }
 
-interface MultipleOption {
+export interface MultipleOption {
   type: "multiple";
   id: string;
   title: string;
   count: number;
   options: MultipleOptionItem[];
-  value?: MultipleOptionItem;
+  value?: MultipleOptionItem[];
 }
 
 export interface SingleOptionItem {
@@ -53,11 +53,3 @@ export interface Context {
   state: State;
   actions: Actions;
 }
-
-export interface CartItem {
-  id: Product["id"];
-  count: number;
-  product: Product;
-}
-
-export type Cart = Record<Product["id"], CartItem>;

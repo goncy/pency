@@ -12,7 +12,6 @@ import {
   Divider,
   Text,
   Heading,
-  Badge,
   Button,
   IconButton,
 } from "@chakra-ui/core";
@@ -22,6 +21,7 @@ import {useCart} from "../hooks";
 
 import {groupBy} from "~/selectors/group";
 import {useTenant} from "~/tenant/hooks";
+import {getOptionsString} from "~/product/selectors";
 
 interface Props {
   isOpen: boolean;
@@ -29,13 +29,13 @@ interface Props {
 }
 
 const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
-  const {items, count, total, remove} = useCart();
+  const {cart, count, total, remove} = useCart();
   const {phone, message} = useTenant();
-  const productsByCategory = Object.entries(groupBy(items, (item) => item.product.category));
+  const productsByCategory = Object.entries(groupBy(cart, (item) => item.product.category));
 
   function send() {
     const compile = template(message);
-    const text = compile({products: items});
+    const text = compile({products: cart});
 
     window.open(`https://wa.me/${phone}?text=${encodeURI(text)}`, "_blank");
   }
@@ -57,7 +57,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
                 <Heading as="h4" size="md" textTransform="capitalize">
                   {category}
                 </Heading>
-                {items.map(({id, product, count}) => (
+                {items.map(({id, product}) => (
                   <Flex key={id} alignItems="center" justifyContent="space-between">
                     <Flex alignItems="center" mr={2}>
                       <IconButton
@@ -72,15 +72,17 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
                         width="20px"
                         onClick={() => remove(id)}
                       />
-                      <Text>{product.title}</Text>
+                      <Flex direction="column">
+                        <Text>{product.title}</Text>
+                        {product.options && (
+                          <Text color="gray.500" fontSize="sm">
+                            {getOptionsString(product.options)}
+                          </Text>
+                        )}
+                      </Flex>
                     </Flex>
                     <Flex alignItems="center">
-                      {count > 1 && (
-                        <Badge mr={2} variant="solid" variantColor="primary">
-                          {count}
-                        </Badge>
-                      )}
-                      <Text>${Number(product.price) * count}</Text>
+                      <Text>${Number(product.price)}</Text>
                     </Flex>
                   </Flex>
                 ))}

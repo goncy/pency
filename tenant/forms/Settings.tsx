@@ -78,7 +78,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
     submit: submit(handleSubmit),
     form: (
       <form onSubmit={submit(handleSubmit)}>
-        <Stack spacing={{base: 3, sm: 6}}>
+        <Stack spacing={4}>
           <FormControl isRequired isInvalid={Boolean(errors.phone)}>
             <FormLabel htmlFor="phone">Teléfono</FormLabel>
             <Input

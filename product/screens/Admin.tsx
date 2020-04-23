@@ -1,7 +1,7 @@
 import React from "react";
 import {Grid, Box, Icon, Text, Flex, Heading, Button, useDisclosure} from "@chakra-ui/core";
 
-import EditProduct from "../components/EditProduct";
+import ProductEdit from "../components/ProductEdit";
 import ProductDrawer from "../components/ProductDrawer";
 import {useFilteredProducts, useProductActions} from "../hooks";
 
@@ -19,7 +19,7 @@ const AdminScreen: React.FC = () => {
         <Box flex={1}>
           {filters}
           <Button
-            mt={{base: 3, sm: 6}}
+            mt={4}
             variantColor="primary"
             width={{base: "100%", sm: "auto"}}
             onClick={openDrawer}
@@ -33,27 +33,22 @@ const AdminScreen: React.FC = () => {
               );
 
               return (
-                <Box key={category} mt={{base: 3, sm: 6}}>
+                <Box key={category} mt={4}>
                   <Flex direction="column">
                     <Heading as="h2" size="xl" textTransform="capitalize">
                       {category}
                     </Heading>
                     {productsBySubcategory.map(([subcategory, products]) => (
-                      <Box key={subcategory} mt={{base: 3, sm: 6}}>
+                      <Box key={subcategory} mt={4}>
                         <Flex direction="column">
                           {subcategory && (
-                            <Heading
-                              as="h3"
-                              mb={{base: 3, sm: 6}}
-                              size="lg"
-                              textTransform="capitalize"
-                            >
+                            <Heading as="h3" mb={4} size="lg" textTransform="capitalize">
                               {subcategory}
                             </Heading>
                           )}
                           <Grid
                             autoRows="auto"
-                            gridGap={{base: 3, sm: 6}}
+                            gridGap={4}
                             templateColumns={{
                               base: "auto",
                               sm: "repeat(auto-fill, minmax(auto, 480px))",
@@ -61,7 +56,7 @@ const AdminScreen: React.FC = () => {
                           >
                             {products.map((product) => (
                               <Box key={product.id} borderWidth="1px" p={4}>
-                                <EditProduct
+                                <ProductEdit
                                   product={product}
                                   remove={() => remove(product.id)}
                                   update={update}
@@ -83,9 +78,9 @@ const AdminScreen: React.FC = () => {
               flex={1}
               justifyContent="center"
               mt={{base: 12, sm: 24}}
-              px={{base: 3, sm: 6}}
+              px={4}
             >
-              <Icon color="gray.200" mb={{base: 3, sm: 6}} name="search" size="128px" />
+              <Icon color="gray.200" mb={4} name="search" size="128px" />
               <Text color="gray.500" fontSize="lg" textAlign="center">
                 No se encontraron productos
               </Text>

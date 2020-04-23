@@ -17,13 +17,15 @@ const AdminScreen: React.FC = () => {
     <SettingsForm defaultValues={tenant} onSubmit={handleUpdate}>
       {({form, isLoading, submit}) => (
         <Flex maxWidth="480px">
-          <Stack spacing={{base: 3, sm: 6}} width="100%">
+          <Stack spacing={4} width="100%">
             {form}
             <Button
               alignSelf="flex-end"
               isLoading={isLoading}
               mt={4}
               type="submit"
+              variantColor="primary"
+              width={{base: "100%", sm: "auto"}}
               onClick={submit}
             >
               Guardar
