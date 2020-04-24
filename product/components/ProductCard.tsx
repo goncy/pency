@@ -1,17 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Text,
-  Flex,
-  Badge,
-  Button,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalCloseButton,
-  ModalContent,
-  Image,
-} from "@chakra-ui/core";
+import {Box, Text, Flex, Badge, Button, useDisclosure} from "@chakra-ui/core";
 
 import ProductOptionsDrawer from "./ProductOptionsDrawer";
 import ProductImageModal from "./ProductImageModal";
