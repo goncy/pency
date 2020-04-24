@@ -9,6 +9,6 @@ export function simplify(cart: Cart) {
     price,
     title,
     description,
-    options: getOptionsString(options),
+    options: options && getOptionsString(options),
   }));
 }

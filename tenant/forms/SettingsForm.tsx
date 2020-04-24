@@ -16,6 +16,7 @@ import {Tenant} from "../types";
 import {COLORS, HUES} from "~/constants";
 import ImageInput from "~/ui/inputs/Image";
 import TemplateInput from "~/ui/inputs/Template";
+import {SIMPLIFIED_CART_MOCK} from "~/cart/consants";
 
 interface Props {
   defaultValues?: Tenant;
@@ -26,41 +27,6 @@ interface Props {
     submit: (e?: React.BaseSyntheticEvent<object, any, any> | undefined) => Promise<void>;
   }) => JSX.Element;
 }
-
-const PRODUCTS = {
-  products: [
-    {
-      id: "2a1pQ1hMshgVvZ3RBEEC",
-      count: 2,
-      product: {
-        id: "2a1pQ1hMshgVvZ3RBEEC",
-        subcategory: "Yerba",
-        category: "Almacén",
-        price: 100,
-        available: true,
-        title: "Yerba Playadito",
-        description: "1 KG",
-        image:
-          "https://res.cloudinary.com/goncy/image/upload/v1587147934/pency/upzwq8wtqdbzkeblizfb.jpg",
-      },
-    },
-    {
-      id: "2a1pQ1hMshgVvZ3RBEED",
-      count: 4,
-      product: {
-        id: "2a1pQ1hMshgVvZ3RBEED",
-        subcategory: "Arroz",
-        category: "Almacén",
-        price: 100,
-        available: true,
-        title: "Arroz Gallo",
-        description: "1 KG",
-        image:
-          "https://res.cloudinary.com/goncy/image/upload/v1587147934/pency/upzwq8wtqdbzkeblizfb.jpg",
-      },
-    },
-  ],
-};
 
 const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit}) => {
   const {handleSubmit: submit, errors, register, control, formState} = useForm<Tenant>({
@@ -127,7 +93,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             <Controller
               as={TemplateInput}
               control={control}
-              data={PRODUCTS}
+              data={{products: SIMPLIFIED_CART_MOCK}}
               name="message"
               rules={{
                 validate: (value: string) => !value.includes("Este mensaje no es válido"),

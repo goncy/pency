@@ -2,7 +2,7 @@ import React from "react";
 import {Flex, Button, Stack} from "@chakra-ui/core";
 
 import {Tenant} from "../types";
-import SettingsForm from "../forms/Settings";
+import SettingsForm from "../forms/SettingsForm";
 import {useTenant, useTenantActions} from "../hooks";
 
 const AdminScreen: React.FC = () => {
