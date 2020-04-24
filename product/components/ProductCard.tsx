@@ -30,7 +30,7 @@ const ProductCard: React.FC<Props> = ({product, add}) => {
   const count = useProductCartCount(id);
 
   function handleAdd() {
-    if (options) {
+    if (options?.length) {
       return toggleOptions();
     }
 
@@ -159,7 +159,7 @@ const ProductCard: React.FC<Props> = ({product, add}) => {
           <Image height="100%" objectFit="contain" src={image} width="100%" />
         </ModalContent>
       </Modal>
-      {options?.length && (
+      {Boolean(options?.length) && (
         <Modal isCentered id="options" isOpen={isOptionsOpen} onClose={toggleOptions}>
           <ModalOverlay />
           <ModalContent
