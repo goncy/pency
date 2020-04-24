@@ -46,6 +46,7 @@ function App({Component, pageProps}) {
           #modal-image,
           #modal-options {
             height: inherit !important;
+            margin: 0 !important;
           }
         `}
       />

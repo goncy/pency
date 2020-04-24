@@ -18,10 +18,11 @@ import ProductRadioInput from "../inputs/ProductRadioInput";
 
 interface Props {
   options: Product["options"];
+  onCancel: () => void;
   onSubmit: (values: Product["options"]) => void;
 }
 
-const ProductOptionsForm: React.FC<Props> = ({options, onSubmit}) => {
+const ProductOptionsForm: React.FC<Props> = ({options, onSubmit, onCancel}) => {
   const {handleSubmit: submit, control, errors} = useForm<{options: Product["options"]}>();
 
   function handleSubmit(values) {
@@ -36,7 +37,7 @@ const ProductOptionsForm: React.FC<Props> = ({options, onSubmit}) => {
 
   return (
     <Flex direction="column" height="100%" justifyContent="space-between" width="100%">
-      <Stack overflowY="auto" spacing={4}>
+      <Stack overflowY="auto" padding={4} spacing={4}>
         {options.map((option, index) => {
           switch (option.type) {
             case "single": {
@@ -90,20 +91,25 @@ const ProductOptionsForm: React.FC<Props> = ({options, onSubmit}) => {
           }
         })}
       </Stack>
-      <Box>
-        <Divider marginY={4} />
-        <Button
-          variantColor="primary"
-          width="100%"
-          onClick={(event) => {
-            event.stopPropagation();
-            event.preventDefault();
+      <Box padding={2}>
+        <Divider marginY={2} />
+        <Stack spacing={2}>
+          <Button variant="ghost" width="100%" onClick={onCancel}>
+            Cancelar
+          </Button>
+          <Button
+            variantColor="primary"
+            width="100%"
+            onClick={(event) => {
+              event.stopPropagation();
+              event.preventDefault();
 
-            submit(handleSubmit)(event);
-          }}
-        >
-          Agregar
-        </Button>
+              submit(handleSubmit)(event);
+            }}
+          >
+            Agregar
+          </Button>
+        </Stack>
       </Box>
     </Flex>
   );

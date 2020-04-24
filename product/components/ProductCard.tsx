@@ -162,17 +162,20 @@ const ProductCard: React.FC<Props> = ({product, add}) => {
       {options && (
         <Modal isCentered id="options" isOpen={isOptionsOpen} onClose={toggleOptions}>
           <ModalOverlay />
-          <ModalCloseButton color="white" right={1} size="lg" top={1} zIndex={1500} />
           <ModalContent
             alignItems="center"
             height="auto"
             justifyContent="center"
-            margin={4}
-            maxHeight="60vh"
-            maxWidth="640px"
-            padding={4}
+            margin={{base: 0, sm: 4}}
+            maxHeight={{base: "none", sm: "60vh"}}
+            maxWidth={{base: "none", sm: "640px"}}
+            rounded={{base: 0, sm: "lg"}}
           >
-            <ProductOptionsForm options={options} onSubmit={handleAddWithOptions} />
+            <ProductOptionsForm
+              options={options}
+              onCancel={toggleOptions}
+              onSubmit={handleAddWithOptions}
+            />
           </ModalContent>
         </Modal>
       )}
