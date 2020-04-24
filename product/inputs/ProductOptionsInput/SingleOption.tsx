@@ -1,78 +1,91 @@
 import React from "react";
 import shortid from "shortid";
-import {Stack, Input, Button, IconButton} from "@chakra-ui/core";
+import {Stack, Input, Button, IconButton, FormLabel} from "@chakra-ui/core";
 import produce from "immer";
 
-import {SingleOption, SingleOptionItem} from "../../types";
+import {SingleOption} from "../../types";
+
+import FormControl from "~/ui/controls/FormControl";
 
 interface Props {
-  value: SingleOption;
-  onChange: (value: SingleOption) => void;
+  index: number;
+  value: Partial<SingleOption>;
+  error?: string;
+  onChange: (option: Partial<SingleOption>) => void;
 }
 
-const SingleOptionInput: React.FC<Props> = ({value, onChange}) => {
-  function handleChange(title: SingleOption["title"], index) {
+const SingleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
+  function handleChange(subindex, title) {
     onChange(
       produce(value, (value) => {
-        value.options[index].title = title;
+        value.options[subindex].title = title;
       }),
     );
   }
 
-  function handleAddOption() {
+  function handleChangeTitle(event) {
     onChange(
       produce(value, (value) => {
-        value.options.push({
-          id: shortid.generate(),
-          title: "",
-        });
+        value.title = event.target.value;
       }),
     );
   }
 
-  function handleRemoveOption(index) {
+  function handleAdd() {
     onChange(
       produce(value, (value) => {
-        delete value.options[index];
+        value.options.push({id: shortid.generate(), title: ""});
       }),
     );
   }
 
-  function handleTitleChange(title: SingleOption["title"]) {
+  function handleRemove(subindex) {
     onChange(
       produce(value, (value) => {
-        value.title = title;
+        value.options.splice(subindex, 1);
       }),
     );
   }
 
   return (
     <Stack spacing={3}>
-      <Input
-        placeholder="Título (ej: Salsa)"
-        type="text"
-        value={value.title}
-        onChange={(event) => handleTitleChange(event.target.value)}
-      />
-      {value.options.map((option, index) => (
-        <Stack key={index} isInline spacing={1}>
-          <Input
-            autoFocus
-            value={option.title}
-            onChange={(event) =>
-              handleChange(event.target.value as SingleOptionItem["title"], index)
-            }
-          />
-          <IconButton
-            aria-label="Borrar sub opción"
-            icon="delete"
-            variant="ghost"
-            variantColor="red"
-            onClick={() => handleRemoveOption(index)}
-          />
+      <FormControl
+        isRequired
+        error={error === "title" && !value.title && "Este campo es requerido"}
+        label="Título"
+      >
+        <Input
+          placeholder="Título (ej: Salsa)"
+          type="text"
+          value={value.title}
+          onChange={handleChangeTitle}
+        />
+      </FormControl>
+      {value.options.length && <FormLabel marginBottom={0}>Sub opciones</FormLabel>}
+      {value.options.map((option, subindex) => (
+        <Stack key={option.id} isInline spacing={1}>
+          <FormControl
+            error={error === "options" && !option.title && "Este campo es requerido"}
+            width="100%"
+          >
+            <Input
+              autoFocus
+              value={option.title}
+              onChange={(event) => handleChange(subindex, event.target.value)}
+            />
+          </FormControl>
+          {value.options.length > 1 && (
+            <IconButton
+              aria-label="Borrar sub opción"
+              icon="delete"
+              variant="ghost"
+              variantColor="red"
+              onClick={() => handleRemove(subindex)}
+            />
+          )}
         </Stack>
       ))}
-      <Button size="sm" variant="ghost" variantColor="primary" onClick={handleAddOption}>
+      <Button size="sm" variant="ghost" variantColor="primary" onClick={handleAdd}>
         Agregar sub opción
       </Button>
     </Stack>

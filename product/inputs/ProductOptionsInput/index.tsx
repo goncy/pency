@@ -1,6 +1,7 @@
 import React from "react";
-import produce from "immer";
 import {Stack, Button, Select} from "@chakra-ui/core";
+import produce from "immer";
+import {useFormContext} from "react-hook-form";
 
 import {Option} from "../../types";
 
@@ -8,19 +9,18 @@ import {DEFAULT_OPTIONS} from "./constants";
 import SingleOptionInput from "./SingleOption";
 import MultipleOptionInput from "./MultipleOption";
 
+import FormControl from "~/ui/controls/FormControl";
+
 interface Props {
-  value?: Option[];
-  onChange: (value: Props["value"]) => void;
+  value?: Partial<Option[]>;
+  onChange: (options: Option[]) => void;
 }
 
 const ProductOptionsInput: React.FC<Props> = ({value, onChange}) => {
-  function handleAdd() {
-    const option = DEFAULT_OPTIONS.single;
+  const {errors} = useFormContext();
+  const error = errors.options?.type;
 
-    onChange(value ? value.concat(option) : [option]);
-  }
-
-  function handleTypeChange(type: Option["type"], index) {
+  function handleTypeChange(type, index) {
     onChange(
       produce(value, (value) => {
         value[index] = DEFAULT_OPTIONS[type];
@@ -28,10 +28,10 @@ const ProductOptionsInput: React.FC<Props> = ({value, onChange}) => {
     );
   }
 
-  function handleChange(option, index) {
+  function handleAdd() {
     onChange(
       produce(value, (value) => {
-        value[index] = option;
+        value.push(DEFAULT_OPTIONS["single"]);
       }),
     );
   }
@@ -44,22 +44,42 @@ const ProductOptionsInput: React.FC<Props> = ({value, onChange}) => {
     );
   }
 
+  function handleChange(index, option) {
+    onChange(
+      produce(value, (value) => {
+        value[index] = option;
+      }),
+    );
+  }
+
   return (
     <Stack spacing={3}>
       {value?.map((option, index) => (
         <Stack key={option.id} backgroundColor="gray.100" padding={3} spacing={3}>
-          <Select
-            value={option.type}
-            onChange={(event) => handleTypeChange(event.target.value as Option["type"], index)}
-          >
-            <option value="single">Una opción</option>
-            <option value="multiple">Multiples opciónes</option>
-          </Select>
+          <FormControl isRequired label="Tipo">
+            <Select
+              value={option.type}
+              onChange={(event) => handleTypeChange(event.target.value, index)}
+            >
+              <option value="single">Selección única</option>
+              <option value="multiple">Multiples selecciones</option>
+            </Select>
+          </FormControl>
           {option.type === "single" && (
-            <SingleOptionInput value={option} onChange={(value) => handleChange(value, index)} />
+            <SingleOptionInput
+              error={error}
+              index={index}
+              value={option}
+              onChange={(value) => handleChange(index, value)}
+            />
           )}
           {option.type === "multiple" && (
-            <MultipleOptionInput value={option} onChange={(value) => handleChange(value, index)} />
+            <MultipleOptionInput
+              error={error}
+              index={index}
+              value={option}
+              onChange={(value) => handleChange(index, value)}
+            />
           )}
           <Button
             mt={3}

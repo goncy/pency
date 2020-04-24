@@ -21,7 +21,7 @@
     "next": "canary",
     "react": "16.13.1",
     "react-dom": "16.13.1",
-    "react-hook-form": "^5.4.2",
+    "react-hook-form": "^5.5.3",
     "shortid": "^2.2.15"
   },
   "devDependencies": {

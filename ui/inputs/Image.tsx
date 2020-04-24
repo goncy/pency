@@ -25,7 +25,7 @@ const ImageInput: React.FC<Props> = ({value, onChange}) => {
       backgroundColor="gray.100"
       cursor="pointer"
       justifyContent="center"
-      p={6}
+      p={4}
       position="relative"
     >
       {isLoading && (

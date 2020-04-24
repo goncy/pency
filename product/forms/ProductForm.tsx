@@ -1,5 +1,5 @@
 import React from "react";
-import {useForm, Controller} from "react-hook-form";
+import {useForm, Controller, FormContext} from "react-hook-form";
 import {
   FormControl,
   FormLabel,
@@ -10,7 +10,7 @@ import {
   Select,
 } from "@chakra-ui/core";
 
-import {Product} from "../types";
+import {Product, Option} from "../types";
 import {useProductCategories} from "../hooks";
 import ProductOptionsInput from "../inputs/ProductOptionsInput";
 
@@ -35,9 +35,8 @@ const DEFAULT_VALUES: Partial<Product> = {
 
 const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children, onSubmit}) => {
   const {categories, subcategories} = useProductCategories();
-  const {handleSubmit: submit, errors, register, formState, setValue, control} = useForm<Product>({
-    defaultValues,
-  });
+  const form = useForm<Product>({defaultValues});
+  const {handleSubmit: submit, errors, register, formState, setValue, control} = form;
 
   function handleSubmit(values: Product) {
     const product = {...defaultValues, ...values};
@@ -64,84 +63,112 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
     isLoading: formState.isSubmitting,
     submit: submit(handleSubmit),
     form: (
-      <form onSubmit={submit(handleSubmit)}>
-        <Stack spacing={4}>
-          <FormControl isRequired isInvalid={Boolean(errors.title)}>
-            <FormLabel htmlFor="title">Título</FormLabel>
-            <Input ref={register({required: true})} name="title" placeholder="Título" />
-            <FormErrorMessage>
-              {(errors.title && errors.title.message) || "Este campo es requerido"}
-            </FormErrorMessage>
-          </FormControl>
-          <FormControl>
-            <FormLabel htmlFor="description">Descripción</FormLabel>
-            <Input ref={register} name="description" placeholder="Descripción" />
-            <FormErrorMessage>{errors.description && errors.description.message}</FormErrorMessage>
-          </FormControl>
-          <FormControl isRequired isInvalid={Boolean(errors.category)}>
-            <FormLabel htmlFor="category">Categoría</FormLabel>
-            <Flex>
-              <Input ref={register({required: true})} name="category" placeholder="Categoría" />
-              <Select flexShrink={2} marginLeft={4} onChange={setCategory}>
-                <option value="">Cargar</option>
-                {categories.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
-                  </option>
-                ))}
-              </Select>
-            </Flex>
-            <FormErrorMessage>
-              {(errors.category && errors.category.message) || "Este campo es requerido"}
-            </FormErrorMessage>
-          </FormControl>
-          <FormControl isInvalid={Boolean(errors.subcategory)} mb={4}>
-            <FormLabel htmlFor="subcategory">Sub categoría</FormLabel>
-            <Flex>
-              <Input ref={register} name="subcategory" placeholder="Sub categoría" />
-              <Select flexShrink={2} marginLeft={4} onChange={setSubCategory}>
-                <option value="">Cargar</option>
-                {subcategories.map((subcategory) => (
-                  <option key={subcategory} value={subcategory}>
-                    {subcategory}
-                  </option>
-                ))}
-              </Select>
-            </Flex>
-            <FormErrorMessage>
-              {(errors.subcategory && errors.subcategory.message) || "Este campo es requerido"}
-            </FormErrorMessage>
-          </FormControl>
-          <FormControl isRequired isInvalid={Boolean(errors.price)} mb={4}>
-            <FormLabel htmlFor="price">Precio</FormLabel>
-            <Input
-              ref={register({required: true})}
-              name="price"
-              placeholder="Precio"
-              type="number"
-            />
-            <FormErrorMessage>
-              {(errors.price && errors.price.message) || "Este campo es requerido"}
-            </FormErrorMessage>
-          </FormControl>
-          <FormControl mb={4}>
-            <FormLabel htmlFor="options">Opciones</FormLabel>
-            <Controller as={ProductOptionsInput} control={control} name="options" />
-          </FormControl>
-          <FormControl isInvalid={Boolean(errors.image)}>
-            <FormLabel htmlFor="image">Imágen</FormLabel>
-            <Controller as={Image} control={control} defaultValue="" name="image" />
-            <FormErrorMessage>{errors.image && errors.image.message}</FormErrorMessage>
-          </FormControl>
-          <FormControl isInvalid={Boolean(errors.available)} mb={4}>
-            <FormLabel htmlFor="available">Disponible</FormLabel>
-            <Controller as={Switch} control={control} display="block" name="available" size="lg" />
-            <FormErrorMessage>
-              {(errors.available && errors.available.message) || "Este campo es requerido"}
-            </FormErrorMessage>
-          </FormControl>
-        </Stack>
-      </form>
+      <FormContext {...form}>
+        <form onSubmit={submit(handleSubmit)}>
+          <Stack spacing={4}>
+            <FormControl isRequired isInvalid={Boolean(errors.title)}>
+              <FormLabel htmlFor="title">Título</FormLabel>
+              <Input ref={register({required: true})} name="title" placeholder="Título" />
+              <FormErrorMessage>
+                {(errors.title && errors.title.message) || "Este campo es requerido"}
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="description">Descripción</FormLabel>
+              <Input ref={register} name="description" placeholder="Descripción" />
+              <FormErrorMessage>
+                {errors.description && errors.description.message}
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl isRequired isInvalid={Boolean(errors.category)}>
+              <FormLabel htmlFor="category">Categoría</FormLabel>
+              <Flex>
+                <Input ref={register({required: true})} name="category" placeholder="Categoría" />
+                <Select flexShrink={2} marginLeft={4} onChange={setCategory}>
+                  <option value="">Cargar</option>
+                  {categories.map((category) => (
+                    <option key={category} value={category}>
+                      {category}
+                    </option>
+                  ))}
+                </Select>
+              </Flex>
+              <FormErrorMessage>
+                {(errors.category && errors.category.message) || "Este campo es requerido"}
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={Boolean(errors.subcategory)} mb={4}>
+              <FormLabel htmlFor="subcategory">Sub categoría</FormLabel>
+              <Flex>
+                <Input ref={register} name="subcategory" placeholder="Sub categoría" />
+                <Select flexShrink={2} marginLeft={4} onChange={setSubCategory}>
+                  <option value="">Cargar</option>
+                  {subcategories.map((subcategory) => (
+                    <option key={subcategory} value={subcategory}>
+                      {subcategory}
+                    </option>
+                  ))}
+                </Select>
+              </Flex>
+              <FormErrorMessage>
+                {(errors.subcategory && errors.subcategory.message) || "Este campo es requerido"}
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl isRequired isInvalid={Boolean(errors.price)} mb={4}>
+              <FormLabel htmlFor="price">Precio</FormLabel>
+              <Input
+                ref={register({required: true})}
+                name="price"
+                placeholder="Precio"
+                type="number"
+              />
+              <FormErrorMessage>
+                {(errors.price && errors.price.message) || "Este campo es requerido"}
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl mb={4}>
+              <FormLabel htmlFor="options">Opciones</FormLabel>
+              <Controller
+                as={ProductOptionsInput}
+                control={control}
+                name="options"
+                rules={{
+                  validate: {
+                    title: (options: Option[]) => !options.some((option) => !option.title),
+                    count: (options: Option[]) =>
+                      !options.some((option) => option.type === "multiple" && !option.count),
+                    optionsCount: (options: Option[]) =>
+                      !options.some(
+                        (option) =>
+                          option.type === "multiple" && option.count > option.options.length,
+                      ),
+                    options: (options: Option[]) =>
+                      !options.some((option) => option.options.some((option) => !option.title)),
+                  },
+                }}
+              />
+            </FormControl>
+            <FormControl isInvalid={Boolean(errors.image)}>
+              <FormLabel htmlFor="image">Imágen</FormLabel>
+              <Controller as={Image} control={control} defaultValue="" name="image" />
+              <FormErrorMessage>{errors.image && errors.image.message}</FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={Boolean(errors.available)} mb={4}>
+              <FormLabel htmlFor="available">Disponible</FormLabel>
+              <Controller
+                as={Switch}
+                control={control}
+                display="block"
+                name="available"
+                size="lg"
+              />
+              <FormErrorMessage>
+                {(errors.available && errors.available.message) || "Este campo es requerido"}
+              </FormErrorMessage>
+            </FormControl>
+          </Stack>
+        </form>
+      </FormContext>
     ),
   });
 };

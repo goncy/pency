@@ -27,6 +27,10 @@ export const DEFAULT_OPTIONS = {
           id: shortid.generate(),
           title: "",
         },
+        {
+          id: shortid.generate(),
+          title: "",
+        },
       ],
     };
   },
