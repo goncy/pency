@@ -1,6 +1,6 @@
 import React from "react";
 import fetch from "isomorphic-unfetch";
-import {Box, Icon, PseudoBox, Flex, Text, Heading, Button, useDisclosure} from "@chakra-ui/core";
+import {Box, Icon, Stack, Flex, Text, Heading, Button, useDisclosure} from "@chakra-ui/core";
 
 import ProductCard from "../components/ProductCard";
 import {useFilteredProducts} from "../hooks";
@@ -22,11 +22,11 @@ const ProductsScreen: React.FC = () => {
   return (
     <>
       <Flex direction="column" height="100%" overflowY="hidden">
-        <Box flex={1} overflowY="auto" padding={4}>
+        <Stack flex={1} overflowY="auto" padding={4} spacing={4}>
           {filters}
           {featuredProducts.length && (
-            <>
-              <Heading as="h2" size="xl" textTransform="capitalize">
+            <Box>
+              <Heading as="h2" mb={4} size="xl">
                 Destacados
               </Heading>
               <ProductsGrid>
@@ -34,7 +34,7 @@ const ProductsScreen: React.FC = () => {
                   <ProductCard key={product.id} add={add} product={product} />
                 ))}
               </ProductsGrid>
-            </>
+            </Box>
           )}
           {products.length ? (
             productsByCategory.map(([category, products]) => {
@@ -43,29 +43,25 @@ const ProductsScreen: React.FC = () => {
               );
 
               return (
-                <PseudoBox key={category} mt={4}>
-                  <Flex direction="column">
-                    <Heading as="h2" size="xl" textTransform="capitalize">
-                      {category}
-                    </Heading>
-                    {productsBySubcategory.map(([subcategory, products]) => (
-                      <PseudoBox key={subcategory} mt={4}>
-                        <Flex direction="column">
-                          {subcategory && (
-                            <Heading as="h3" mb={4} size="lg" textTransform="capitalize">
-                              {subcategory}
-                            </Heading>
-                          )}
-                          <ProductsGrid>
-                            {products.map((product) => (
-                              <ProductCard key={product.id} add={add} product={product} />
-                            ))}
-                          </ProductsGrid>
-                        </Flex>
-                      </PseudoBox>
-                    ))}
-                  </Flex>
-                </PseudoBox>
+                <Flex key={category} direction="column" mt={4}>
+                  <Heading as="h2" size="xl">
+                    {category}
+                  </Heading>
+                  {productsBySubcategory.map(([subcategory, products]) => (
+                    <Flex key={subcategory} direction="column" mt={4}>
+                      {subcategory && (
+                        <Heading as="h3" mb={4} size="lg">
+                          {subcategory}
+                        </Heading>
+                      )}
+                      <ProductsGrid>
+                        {products.map((product) => (
+                          <ProductCard key={product.id} add={add} product={product} />
+                        ))}
+                      </ProductsGrid>
+                    </Flex>
+                  ))}
+                </Flex>
               );
             })
           ) : (
@@ -83,7 +79,7 @@ const ProductsScreen: React.FC = () => {
               </Text>
             </Flex>
           )}
-        </Box>
+        </Stack>
         {Boolean(count) && (
           <Flex
             alignItems="center"

@@ -154,7 +154,7 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
               <FormErrorMessage>{errors.image && errors.image.message}</FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={Boolean(errors.available)} mb={4}>
-              <FormLabel htmlFor="available">Disponible</FormLabel>
+              <FormLabel htmlFor="available">En stock</FormLabel>
               <Controller
                 as={Switch}
                 control={control}
@@ -164,6 +164,13 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
               />
               <FormErrorMessage>
                 {(errors.available && errors.available.message) || "Este campo es requerido"}
+              </FormErrorMessage>
+            </FormControl>
+            <FormControl isInvalid={Boolean(errors.featured)} mb={4}>
+              <FormLabel htmlFor="featured">Destacado</FormLabel>
+              <Controller as={Switch} control={control} display="block" name="featured" size="lg" />
+              <FormErrorMessage>
+                {(errors.featured && errors.featured.message) || "Este campo es requerido"}
               </FormErrorMessage>
             </FormControl>
           </Stack>
