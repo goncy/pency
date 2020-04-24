@@ -59,6 +59,7 @@ const MultipleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
       <FormControl
         isRequired
         error={error === "title" && !value.title && "Este campo es requerido"}
+        help="Tip: Usá una sola palabra"
         label="Título"
       >
         <Input

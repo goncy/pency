@@ -104,11 +104,11 @@ function App({Component, pageProps}) {
                 padding={3}
                 wrap="wrap"
               >
-                <Link href={`/${tenant.slug}`}>
-                  <Heading as="h1" size="lg">
+                <Heading as="h1" size="lg">
+                  <Link href={`/${tenant.slug}`}>
                     {tenant.logo ? <Image maxHeight={16} src={tenant.logo} /> : tenant.slug}
-                  </Heading>
-                </Link>
+                  </Link>
+                </Heading>
               </Flex>
 
               <ProductProvider initialValues={products}>
