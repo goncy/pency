@@ -79,7 +79,7 @@ const ProductOptionsForm: React.FC<Props> = ({options, onSubmit}) => {
                     valueProp="title"
                   />
                   <FormErrorMessage>
-                    {errors.options?.[index] && `Seleccioná ${option.count}`}
+                    {errors.options?.[index] && `Seleccioná ${option.count} opciones`}
                   </FormErrorMessage>
                 </FormControl>
               );
