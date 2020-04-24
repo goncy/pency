@@ -23,7 +23,7 @@ const ProductsScreen: React.FC = () => {
     <>
       <Flex direction="column" height="100%" overflowY="hidden">
         <Stack flex={1} overflowY="auto" padding={4} spacing={4}>
-          {filters}
+          <Box>{filters}</Box>
           {featuredProducts.length && (
             <Box>
               <Heading as="h2" mb={4} size="xl">
@@ -43,25 +43,27 @@ const ProductsScreen: React.FC = () => {
               );
 
               return (
-                <Flex key={category} direction="column" mt={4}>
-                  <Heading as="h2" size="xl">
-                    {category}
-                  </Heading>
-                  {productsBySubcategory.map(([subcategory, products]) => (
-                    <Flex key={subcategory} direction="column" mt={4}>
-                      {subcategory && (
-                        <Heading as="h3" mb={4} size="lg">
-                          {subcategory}
-                        </Heading>
-                      )}
-                      <ProductsGrid>
-                        {products.map((product) => (
-                          <ProductCard key={product.id} add={add} product={product} />
-                        ))}
-                      </ProductsGrid>
-                    </Flex>
-                  ))}
-                </Flex>
+                <Box>
+                  <Flex key={category} direction="column" mt={4}>
+                    <Heading as="h2" size="xl">
+                      {category}
+                    </Heading>
+                    {productsBySubcategory.map(([subcategory, products]) => (
+                      <Flex key={subcategory} direction="column" mt={4}>
+                        {subcategory && (
+                          <Heading as="h3" mb={4} size="lg">
+                            {subcategory}
+                          </Heading>
+                        )}
+                        <ProductsGrid>
+                          {products.map((product) => (
+                            <ProductCard key={product.id} add={add} product={product} />
+                          ))}
+                        </ProductsGrid>
+                      </Flex>
+                    ))}
+                  </Flex>
+                </Box>
               );
             })
           ) : (

@@ -168,7 +168,14 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
             </FormControl>
             <FormControl isInvalid={Boolean(errors.featured)} mb={4}>
               <FormLabel htmlFor="featured">Destacado</FormLabel>
-              <Controller as={Switch} control={control} display="block" name="featured" size="lg" />
+              <Controller
+                as={Switch}
+                control={control}
+                defaultValue={false}
+                display="block"
+                name="featured"
+                size="lg"
+              />
               <FormErrorMessage>
                 {(errors.featured && errors.featured.message) || "Este campo es requerido"}
               </FormErrorMessage>
