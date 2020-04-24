@@ -134,16 +134,16 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
                 name="options"
                 rules={{
                   validate: {
-                    title: (options: Option[]) => !options.some((option) => !option.title),
+                    title: (options: Option[]) => !options?.some((option) => !option.title),
                     count: (options: Option[]) =>
-                      !options.some((option) => option.type === "multiple" && !option.count),
+                      !options?.some((option) => option.type === "multiple" && !option.count),
                     optionsCount: (options: Option[]) =>
-                      !options.some(
+                      !options?.some(
                         (option) =>
                           option.type === "multiple" && option.count > option.options.length,
                       ),
                     options: (options: Option[]) =>
-                      !options.some((option) => option.options.some((option) => !option.title)),
+                      !options?.some((option) => option.options?.some((option) => !option.title)),
                   },
                 }}
               />
