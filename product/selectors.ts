@@ -18,3 +18,7 @@ export function getOptionsString(options: Product["options"]) {
     })
     .join(" - ");
 }
+
+export function sortByFeatured(products: Product[]) {
+  return [...products].sort((a, b) => (a.featured ? (b.featured ? 0 : 1) : b.featured ? -1 : 0));
+}

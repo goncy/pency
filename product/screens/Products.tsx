@@ -1,23 +1,15 @@
 import React from "react";
 import fetch from "isomorphic-unfetch";
-import {
-  Grid,
-  Box,
-  Icon,
-  PseudoBox,
-  Flex,
-  Text,
-  Heading,
-  Button,
-  useDisclosure,
-} from "@chakra-ui/core";
+import {Box, Icon, PseudoBox, Flex, Text, Heading, Button, useDisclosure} from "@chakra-ui/core";
 
 import ProductCard from "../components/ProductCard";
 import {useFilteredProducts} from "../hooks";
+import ProductsGrid from "../components/ProductsGrid";
 
 import {useCart} from "~/cart/hooks";
 import {groupBy} from "~/selectors/group";
 import CartDrawer from "~/cart/components/CartDrawer";
+import {filterBy} from "~/selectors/filter";
 
 const ProductsScreen: React.FC = () => {
   const {add, count, total} = useCart();
@@ -25,12 +17,25 @@ const ProductsScreen: React.FC = () => {
   const {products, filters} = useFilteredProducts({available: true});
 
   const productsByCategory = Object.entries(groupBy(products, (product) => product.category));
+  const featuredProducts = filterBy(products, {featured: true});
 
   return (
     <>
       <Flex direction="column" height="100%" overflowY="hidden">
         <Box flex={1} overflowY="auto" padding={4}>
           {filters}
+          {featuredProducts.length && (
+            <>
+              <Heading as="h2" size="xl" textTransform="capitalize">
+                Destacados
+              </Heading>
+              <ProductsGrid>
+                {featuredProducts.map((product) => (
+                  <ProductCard key={product.id} add={add} product={product} />
+                ))}
+              </ProductsGrid>
+            </>
+          )}
           {products.length ? (
             productsByCategory.map(([category, products]) => {
               const productsBySubcategory = Object.entries(
@@ -51,18 +56,11 @@ const ProductsScreen: React.FC = () => {
                               {subcategory}
                             </Heading>
                           )}
-                          <Grid
-                            autoRows="auto"
-                            gridGap={4}
-                            templateColumns={{
-                              base: "auto",
-                              sm: "repeat(auto-fill, minmax(auto, 340px))",
-                            }}
-                          >
+                          <ProductsGrid>
                             {products.map((product) => (
                               <ProductCard key={product.id} add={add} product={product} />
                             ))}
-                          </Grid>
+                          </ProductsGrid>
                         </Flex>
                       </PseudoBox>
                     ))}

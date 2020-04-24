@@ -15,7 +15,9 @@ const ProductContext = React.createContext({} as Context);
 const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
   const tenant = useTenant();
   const toast = useToast();
-  const [products, setProducts] = React.useState<Product[]>(initialValues);
+  const [products, setProducts] = React.useState<Product[]>(
+    [...initialValues].sort((a, b) => a.title.localeCompare(b.title)),
+  );
 
   function create(product: Product) {
     return api.create(tenant.id, product).then((product) => setProducts(products.concat(product)));

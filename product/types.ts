@@ -8,6 +8,7 @@ export interface Product {
   price: number;
   available: boolean;
   options?: Option[];
+  featured?: boolean;
 }
 
 export type Option = SingleOption | MultipleOption;
