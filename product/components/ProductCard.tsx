@@ -13,7 +13,8 @@ import {
   Image,
 } from "@chakra-ui/core";
 
-import ProductOptionsForm from "../forms/ProductOptionsForm";
+import ProductOptionsDrawer from "./ProductOptionsDrawer";
+import ProductImageModal from "./ProductImageModal";
 
 import {Product} from "~/product/types";
 import {useProductCartCount} from "~/cart/hooks";
@@ -143,42 +144,13 @@ const ProductCard: React.FC<Props> = ({product, add}) => {
           </Flex>
         </Box>
       </Flex>
-      <Modal isCentered id="image" isOpen={isImageOpen} onClose={toggleImage}>
-        <ModalOverlay />
-        <ModalCloseButton color="white" right={1} size="lg" top={1} zIndex={1500} />
-        <ModalContent
-          alignItems="center"
-          backgroundColor="transparent"
-          boxShadow="none"
-          height="auto"
-          justifyContent="center"
-          margin={4}
-          maxHeight="60vh"
-          maxWidth="640px"
-        >
-          <Image height="100%" objectFit="contain" src={image} width="100%" />
-        </ModalContent>
-      </Modal>
-      {Boolean(options?.length) && (
-        <Modal isCentered id="options" isOpen={isOptionsOpen} onClose={toggleOptions}>
-          <ModalOverlay />
-          <ModalContent
-            alignItems="center"
-            height="auto"
-            justifyContent="center"
-            margin={{base: 0, sm: 4}}
-            maxHeight={{base: "none", sm: "60vh"}}
-            maxWidth={{base: "none", sm: "640px"}}
-            rounded={{base: 0, sm: "lg"}}
-          >
-            <ProductOptionsForm
-              options={options}
-              onCancel={toggleOptions}
-              onSubmit={handleAddWithOptions}
-            />
-          </ModalContent>
-        </Modal>
-      )}
+      <ProductImageModal image={image} isOpen={isImageOpen} onClose={toggleImage} />
+      <ProductOptionsDrawer
+        isOpen={options?.length && isOptionsOpen}
+        options={options}
+        onClose={toggleOptions}
+        onSubmit={handleAddWithOptions}
+      />
     </>
   );
 };

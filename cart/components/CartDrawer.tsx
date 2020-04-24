@@ -65,12 +65,12 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
                         isRound
                         aria-label="Borrar elemento"
                         fontSize="12px"
-                        height="24px"
+                        height={6}
                         icon="minus"
-                        minWidth="24px"
-                        mr={2}
+                        minWidth={6}
+                        mr={4}
                         variantColor="red"
-                        width="24px"
+                        width={6}
                         onClick={() => remove(id)}
                       />
                       <Flex direction="column">

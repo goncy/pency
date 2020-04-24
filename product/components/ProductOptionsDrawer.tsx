@@ -1,32 +1,33 @@
 import React from "react";
 import {
-  DrawerCloseButton,
-  DrawerBody,
-  DrawerHeader,
-  DrawerContent,
-  DrawerOverlay,
-  DrawerFooter,
   Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerHeader,
+  DrawerBody,
+  DrawerFooter,
   Button,
 } from "@chakra-ui/core";
 
-import {Product} from "../types";
-import ProductForm from "../forms/ProductForm";
+import ProductOptionsForm from "../forms/ProductOptionsForm";
+import {Option} from "../types";
 
 interface Props {
   isOpen: boolean;
+  options: Option[];
   onClose: () => void;
-  onSubmit: (values: Product) => void;
+  onSubmit: (values: Option[]) => void;
 }
 
-const ProductDrawer: React.FC<Props> = ({isOpen, onClose, onSubmit}) => {
+const ProductOptionsDrawer: React.FC<Props> = ({isOpen, onClose, onSubmit, options}) => {
   return (
     <Drawer isOpen={isOpen} placement="right" size="md" onClose={onClose}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton right="8px" top="8px" />
-        <DrawerHeader p={4}>Agregar producto</DrawerHeader>
-        <ProductForm onSubmit={onSubmit}>
+        <DrawerHeader p={4}>Opciones</DrawerHeader>
+        <ProductOptionsForm options={options} onSubmit={onSubmit}>
           {({form, submit, isLoading}) => (
             <>
               <DrawerBody overflowY="auto" p={4}>
@@ -51,10 +52,10 @@ const ProductDrawer: React.FC<Props> = ({isOpen, onClose, onSubmit}) => {
               </DrawerFooter>
             </>
           )}
-        </ProductForm>
+        </ProductOptionsForm>
       </DrawerContent>
     </Drawer>
   );
 };
 
-export default ProductDrawer;
+export default ProductOptionsDrawer;

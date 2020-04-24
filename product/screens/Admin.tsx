@@ -4,14 +4,21 @@ import {Grid, Box, Icon, Text, Flex, Heading, Button, useDisclosure} from "@chak
 import ProductEdit from "../components/ProductEdit";
 import ProductDrawer from "../components/ProductDrawer";
 import {useFilteredProducts, useProductActions} from "../hooks";
+import {Product} from "../types";
 
 import {groupBy} from "~/selectors/group";
 
 const AdminScreen: React.FC = () => {
   const {isOpen: isDrawerOpen, onOpen: openDrawer, onClose: closeDrawer} = useDisclosure();
   const {products, filters} = useFilteredProducts();
-  const {update, remove} = useProductActions();
+  const {update, remove, create} = useProductActions();
   const productsByCategory = Object.entries(groupBy(products, (product) => product.category));
+
+  async function handleCreate(values: Product) {
+    await create(values);
+
+    closeDrawer();
+  }
 
   return (
     <>
@@ -88,7 +95,7 @@ const AdminScreen: React.FC = () => {
           )}
         </Box>
       </Flex>
-      <ProductDrawer isOpen={isDrawerOpen} onClose={closeDrawer} />
+      <ProductDrawer isOpen={isDrawerOpen} onClose={closeDrawer} onSubmit={handleCreate} />
     </>
   );
 };
