@@ -18,6 +18,7 @@ import {
 import template from "lodash.template";
 
 import {useCart} from "../hooks";
+import {simplify} from "../selectors";
 
 import {groupBy} from "~/selectors/group";
 import {useTenant} from "~/tenant/hooks";
@@ -35,7 +36,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
 
   function send() {
     const compile = template(message);
-    const text = compile({products: cart});
+    const text = compile({products: simplify(cart)});
 
     window.open(`https://wa.me/${phone}?text=${encodeURI(text)}`, "_blank");
   }
