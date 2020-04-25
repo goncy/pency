@@ -17,16 +17,17 @@ interface Props {
   isOpen: boolean;
   onClose: () => void;
   onSubmit: (values: Product) => void;
+  defaultValues?: Product;
 }
 
-const ProductDrawer: React.FC<Props> = ({isOpen, onClose, onSubmit}) => {
+const ProductDrawer: React.FC<Props> = ({isOpen, defaultValues, onClose, onSubmit}) => {
   return (
     <Drawer isOpen={isOpen} placement="right" size="md" onClose={onClose}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton right="8px" top="8px" />
         <DrawerHeader p={4}>Agregar producto</DrawerHeader>
-        <ProductForm onSubmit={onSubmit}>
+        <ProductForm defaultValues={defaultValues} onSubmit={onSubmit}>
           {({form, submit, isLoading}) => (
             <>
               <DrawerBody overflowY="auto" p={4}>
@@ -46,7 +47,7 @@ const ProductDrawer: React.FC<Props> = ({isOpen, onClose, onSubmit}) => {
                     submit();
                   }}
                 >
-                  Agregar
+                  {defaultValues ? "Guardar" : "Agregar"}
                 </Button>
               </DrawerFooter>
             </>

@@ -1,7 +1,18 @@
 import React from "react";
-import {Grid, Box, Icon, Text, Flex, Heading, Button, useDisclosure} from "@chakra-ui/core";
+import {
+  Stack,
+  IconButton,
+  AspectRatioBox,
+  Image,
+  Box,
+  Icon,
+  Text,
+  Flex,
+  Heading,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/core";
 
-import ProductEdit from "../components/ProductEdit";
 import ProductDrawer from "../components/ProductDrawer";
 import {useFilteredProducts, useProductActions} from "../hooks";
 import {Product} from "../types";
@@ -9,15 +20,42 @@ import {Product} from "../types";
 import {groupBy} from "~/selectors/group";
 
 const AdminScreen: React.FC = () => {
-  const {isOpen: isDrawerOpen, onOpen: openDrawer, onClose: closeDrawer} = useDisclosure();
+  const [selected, setSelected] = React.useState<Product | undefined>(undefined);
+  const {isOpen: isDrawerOpen, onOpen, onClose} = useDisclosure();
   const {products, filters} = useFilteredProducts();
   const {update, remove, create} = useProductActions();
   const productsByCategory = Object.entries(groupBy(products, (product) => product.category));
 
-  async function handleCreate(values: Product) {
-    await create(values);
+  async function handleCreate(product: Product) {
+    await create(product);
 
     closeDrawer();
+  }
+
+  async function handleUpdate(product: Product) {
+    await update(product);
+
+    closeDrawer();
+  }
+
+  function onCreate() {
+    openDrawer();
+  }
+
+  function onEdit(product: Product) {
+    setSelected(product);
+
+    openDrawer();
+  }
+
+  function closeDrawer() {
+    setSelected(undefined);
+
+    onClose();
+  }
+
+  function openDrawer() {
+    onOpen();
   }
 
   return (
@@ -29,7 +67,7 @@ const AdminScreen: React.FC = () => {
             mt={4}
             variantColor="primary"
             width={{base: "100%", sm: "auto"}}
-            onClick={openDrawer}
+            onClick={onCreate}
           >
             Agregar producto
           </Button>
@@ -53,24 +91,44 @@ const AdminScreen: React.FC = () => {
                               {subcategory}
                             </Heading>
                           )}
-                          <Grid
-                            autoRows="auto"
-                            gridGap={4}
-                            templateColumns={{
-                              base: "auto",
-                              sm: "repeat(auto-fill, minmax(auto, 480px))",
-                            }}
-                          >
+                          <Stack spacing={4}>
                             {products.map((product) => (
-                              <Box key={product.id} borderWidth="1px" p={4}>
-                                <ProductEdit
-                                  product={product}
-                                  remove={() => remove(product.id)}
-                                  update={update}
+                              <Flex
+                                key={product.id}
+                                alignItems="center"
+                                borderWidth={1}
+                                cursor="pointer"
+                                padding={2}
+                                rounded="lg"
+                                onClick={() => onEdit(product)}
+                              >
+                                <AspectRatioBox maxWidth={16} ratio={1} width="100%">
+                                  <Image
+                                    backgroundColor="gray.100"
+                                    borderWidth={1}
+                                    rounded="lg"
+                                    src={product.image}
+                                  />
+                                </AspectRatioBox>
+                                <Text flex={1} fontSize="lg" marginX={4}>
+                                  {product.title}
+                                </Text>
+                                <IconButton
+                                  alignSelf="flex-end"
+                                  aria-label="Borrar producto"
+                                  icon="delete"
+                                  margin="auto"
+                                  variant="ghost"
+                                  variantColor="red"
+                                  onClick={(event) => {
+                                    event.stopPropagation();
+
+                                    remove(product.id);
+                                  }}
                                 />
-                              </Box>
+                              </Flex>
                             ))}
-                          </Grid>
+                          </Stack>
                         </Flex>
                       </Box>
                     ))}
@@ -95,7 +153,12 @@ const AdminScreen: React.FC = () => {
           )}
         </Box>
       </Flex>
-      <ProductDrawer isOpen={isDrawerOpen} onClose={closeDrawer} onSubmit={handleCreate} />
+      <ProductDrawer
+        defaultValues={selected}
+        isOpen={isDrawerOpen}
+        onClose={closeDrawer}
+        onSubmit={selected ? handleUpdate : handleCreate}
+      />
     </>
   );
 };

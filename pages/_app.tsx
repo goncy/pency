@@ -106,9 +106,7 @@ function App({Component, pageProps}) {
                 wrap="wrap"
               >
                 <Heading as="h1" size="lg">
-                  <Link href={`/${tenant.slug}`}>
-                    {tenant.logo ? <Image maxHeight={16} src={tenant.logo} /> : tenant.slug}
-                  </Link>
+                  {tenant.logo ? <Image maxHeight={16} src={tenant.logo} /> : tenant.slug}
                 </Heading>
               </Flex>
 
