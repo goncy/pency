@@ -1,17 +1,5 @@
 import React from "react";
-import {
-  Stack,
-  IconButton,
-  AspectRatioBox,
-  Image,
-  Box,
-  Icon,
-  Text,
-  Flex,
-  Heading,
-  Button,
-  useDisclosure,
-} from "@chakra-ui/core";
+import {Stack, Box, Icon, Text, Flex, Heading, Button, useDisclosure} from "@chakra-ui/core";
 
 import ProductDrawer from "../components/ProductDrawer";
 import {useFilteredProducts, useProductActions} from "../hooks";
@@ -94,12 +82,9 @@ const AdminScreen: React.FC = () => {
                           )}
                           <Stack spacing={4}>
                             {products.map((product) => (
-                              <ProductRow
-                                key={product.id}
-                                onClick={onEdit}
-                                onRemove={remove}
-                                {...product}
-                              />
+                              <Box key={product.id}>
+                                <ProductRow onClick={onEdit} onRemove={remove} {...product} />
+                              </Box>
                             ))}
                           </Stack>
                         </Flex>

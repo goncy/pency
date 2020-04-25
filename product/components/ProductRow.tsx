@@ -34,7 +34,13 @@ const ProductRow: React.FC<Props> = ({onClick, onRemove, ...product}) => {
       onClick={() => onClick(product)}
     >
       <AspectRatioBox maxWidth={16} ratio={1} width="100%">
-        <Image backgroundColor="gray.100" borderWidth={1} rounded="lg" src={product.image} />
+        <Image
+          backgroundColor="gray.100"
+          borderWidth={1}
+          objectFit="cover"
+          rounded="lg"
+          src={product.image}
+        />
       </AspectRatioBox>
       <Text flex={1} fontSize="lg" marginX={4}>
         {product.title}
@@ -45,6 +51,7 @@ const ProductRow: React.FC<Props> = ({onClick, onRemove, ...product}) => {
         icon="delete"
         isLoading={status === "pending"}
         margin="auto"
+        size="lg"
         variant="ghost"
         variantColor="red"
         onClick={(event) => {
