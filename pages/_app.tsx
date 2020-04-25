@@ -1,8 +1,9 @@
 import React from "react";
 import {Global, css} from "@emotion/core";
 import {Flex, Heading, Image, ThemeProvider, CSSReset} from "@chakra-ui/core";
-import Link from "next/link";
 import Head from "next/head";
+
+import NotFoundScreen from "./404";
 
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
@@ -119,7 +120,7 @@ function App({Component, pageProps}) {
           </TenantProvider>
         </>
       ) : (
-        <Component {...pageProps} />
+        <NotFoundScreen {...pageProps} />
       )}
     </ThemeProvider>
   );
