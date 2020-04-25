@@ -1,6 +1,6 @@
 import React from "react";
 import fetch from "isomorphic-unfetch";
-import {Box, Icon, Stack, Flex, Text, Heading, Button, useDisclosure} from "@chakra-ui/core";
+import {Box, Icon, PseudoBox, Flex, Text, Heading, Button, useDisclosure} from "@chakra-ui/core";
 
 import ProductCard from "../components/ProductCard";
 import {useFilteredProducts} from "../hooks";
@@ -22,11 +22,11 @@ const ProductsScreen: React.FC = () => {
   return (
     <>
       <Flex direction="column" height="100%" overflowY="hidden">
-        <Stack flex={1} overflowY="auto" padding={4} spacing={4}>
-          <Box>{filters}</Box>
+        <Box flex={1} overflowY="auto" padding={4}>
+          {filters}
           {featuredProducts.length && (
-            <Box>
-              <Heading as="h2" mb={4} size="xl">
+            <Box mt={4}>
+              <Heading as="h2" mb={4} size="xl" textTransform="capitalize">
                 Destacados
               </Heading>
               <ProductsGrid>
@@ -43,27 +43,29 @@ const ProductsScreen: React.FC = () => {
               );
 
               return (
-                <Box>
-                  <Flex key={category} direction="column" mt={4}>
-                    <Heading as="h2" size="xl">
+                <PseudoBox key={category} mt={4}>
+                  <Flex direction="column">
+                    <Heading as="h2" size="xl" textTransform="capitalize">
                       {category}
                     </Heading>
                     {productsBySubcategory.map(([subcategory, products]) => (
-                      <Flex key={subcategory} direction="column" mt={4}>
-                        {subcategory && (
-                          <Heading as="h3" mb={4} size="lg">
-                            {subcategory}
-                          </Heading>
-                        )}
-                        <ProductsGrid>
-                          {products.map((product) => (
-                            <ProductCard key={product.id} add={add} product={product} />
-                          ))}
-                        </ProductsGrid>
-                      </Flex>
+                      <PseudoBox key={subcategory} mt={4}>
+                        <Flex direction="column">
+                          {subcategory && (
+                            <Heading as="h3" mb={4} size="lg" textTransform="capitalize">
+                              {subcategory}
+                            </Heading>
+                          )}
+                          <ProductsGrid>
+                            {products.map((product) => (
+                              <ProductCard key={product.id} add={add} product={product} />
+                            ))}
+                          </ProductsGrid>
+                        </Flex>
+                      </PseudoBox>
                     ))}
                   </Flex>
-                </Box>
+                </PseudoBox>
               );
             })
           ) : (
@@ -81,7 +83,7 @@ const ProductsScreen: React.FC = () => {
               </Text>
             </Flex>
           )}
-        </Stack>
+        </Box>
         {Boolean(count) && (
           <Flex
             alignItems="center"
@@ -106,16 +108,5 @@ const ProductsScreen: React.FC = () => {
     </>
   );
 };
-
-export async function getServerSideProps({params: {slug}}) {
-  const tenant = await fetch(`http://localhost:3000/api/tenant?slug=${slug}`).then((res) =>
-    res.json(),
-  );
-  const products = await fetch(
-    `http://localhost:3000/api/product?tenant=${tenant.id}`,
-  ).then((res) => res.json());
-
-  return {props: {tenant, products}};
-}
 
 export default ProductsScreen;
