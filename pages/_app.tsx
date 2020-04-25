@@ -5,12 +5,13 @@ import Head from "next/head";
 
 import NotFoundScreen from "./404";
 
+import ErrorScreen from "~/app/screens/Error";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import {Provider as CartProvider} from "~/cart/context";
 
 function App({Component, pageProps}) {
-  const {tenant, products} = pageProps;
+  const {tenant, products, error} = pageProps;
 
   return (
     <ThemeProvider>
@@ -51,7 +52,9 @@ function App({Component, pageProps}) {
           }
         `}
       />
-      {tenant && products ? (
+      {error ? (
+        <ErrorScreen {...pageProps} />
+      ) : tenant && products ? (
         <>
           <Head>
             <link href="/favicon.ico" rel="icon" />
@@ -120,7 +123,7 @@ function App({Component, pageProps}) {
           </TenantProvider>
         </>
       ) : (
-        <NotFoundScreen {...pageProps} />
+        <Component {...pageProps} />
       )}
     </ThemeProvider>
   );

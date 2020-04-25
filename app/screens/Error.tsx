@@ -1,7 +1,11 @@
 import React from "react";
 import {Flex, Text} from "@chakra-ui/core";
 
-const NotFoundScreen: React.FC = () => (
+interface Props {
+  error: string;
+}
+
+const NotFoundScreen: React.FC<Props> = ({error}) => (
   <Flex
     alignItems="center"
     backgroundColor="gray.100"
@@ -13,7 +17,7 @@ const NotFoundScreen: React.FC = () => (
     width="100vw"
   >
     <Text color="gray.500" fontSize="xl" textAlign="center">
-      Esta página no existe
+      {error}
     </Text>
   </Flex>
 );
