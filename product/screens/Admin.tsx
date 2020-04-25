@@ -16,6 +16,7 @@ import {
 import ProductDrawer from "../components/ProductDrawer";
 import {useFilteredProducts, useProductActions} from "../hooks";
 import {Product} from "../types";
+import ProductRow from "../components/ProductRow";
 
 import {groupBy} from "~/selectors/group";
 
@@ -93,40 +94,12 @@ const AdminScreen: React.FC = () => {
                           )}
                           <Stack spacing={4}>
                             {products.map((product) => (
-                              <Flex
+                              <ProductRow
                                 key={product.id}
-                                alignItems="center"
-                                borderWidth={1}
-                                cursor="pointer"
-                                padding={2}
-                                rounded="lg"
-                                onClick={() => onEdit(product)}
-                              >
-                                <AspectRatioBox maxWidth={16} ratio={1} width="100%">
-                                  <Image
-                                    backgroundColor="gray.100"
-                                    borderWidth={1}
-                                    rounded="lg"
-                                    src={product.image}
-                                  />
-                                </AspectRatioBox>
-                                <Text flex={1} fontSize="lg" marginX={4}>
-                                  {product.title}
-                                </Text>
-                                <IconButton
-                                  alignSelf="flex-end"
-                                  aria-label="Borrar producto"
-                                  icon="delete"
-                                  margin="auto"
-                                  variant="ghost"
-                                  variantColor="red"
-                                  onClick={(event) => {
-                                    event.stopPropagation();
-
-                                    remove(product.id);
-                                  }}
-                                />
-                              </Flex>
+                                onClick={onEdit}
+                                onRemove={remove}
+                                {...product}
+                              />
                             ))}
                           </Stack>
                         </Flex>
