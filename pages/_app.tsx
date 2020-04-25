@@ -39,12 +39,12 @@ function App({Component, pageProps}) {
             touch-action: manipulation;
           }
 
-          #drawer-cart {
+          #drawer-cart,
+          #drawer-options {
             height: 100% !important;
           }
 
-          #modal-image,
-          #modal-options {
+          #modal-image {
             height: inherit !important;
             margin: 0 !important;
           }

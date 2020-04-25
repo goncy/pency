@@ -1,5 +1,4 @@
 import React from "react";
-import fetch from "isomorphic-unfetch";
 import {Box, Icon, PseudoBox, Flex, Text, Heading, Button, useDisclosure} from "@chakra-ui/core";
 
 import ProductCard from "../components/ProductCard";
@@ -24,7 +23,7 @@ const ProductsScreen: React.FC = () => {
       <Flex direction="column" height="100%" overflowY="hidden">
         <Box flex={1} overflowY="auto" padding={4}>
           {filters}
-          {featuredProducts.length && (
+          {Boolean(featuredProducts.length) && (
             <Box mt={4}>
               <Heading as="h2" mb={4} size="xl" textTransform="capitalize">
                 Destacados
@@ -36,7 +35,7 @@ const ProductsScreen: React.FC = () => {
               </ProductsGrid>
             </Box>
           )}
-          {products.length ? (
+          {Boolean(products.length) ? (
             productsByCategory.map(([category, products]) => {
               const productsBySubcategory = Object.entries(
                 groupBy(products, (product) => product.subcategory),
