@@ -11,16 +11,16 @@ export async function getServerSideProps({params: {slug}, req}) {
   const BASE_URL = `http://${req.headers.host}/api`;
 
   try {
-    const tenant = await fetch(`${BASE_URL}/tenant?slug=${slug}`).then((res) => res.json());
+    const tenant = await fetch(`${BASE_URL}/tenant?slug=${slug}`).then((res) =>
+      res.ok ? res.json() : Promise.reject(res.status),
+    );
     const products = await fetch(`${BASE_URL}/product?tenant=${tenant.id}`).then((res) =>
-      res.json(),
+      res.ok ? res.json() : Promise.reject(res.status),
     );
 
     return {props: {tenant, products}};
-  } catch (e) {
-    console.log("Error: ", e, JSON.stringify(e));
-
-    return {props: {status: "No se encontró la tienda"}};
+  } catch (error) {
+    return {props: {error}};
   }
 }
 
