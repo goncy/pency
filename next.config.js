@@ -24,5 +24,6 @@ module.exports = {
     FIREBASE_AUTH_PROVIDER_X509_CERT_URL: process.env.FIREBASE_AUTH_PROVIDER_X509_CERT_URL,
     FIREBASE_CLIENT_X509_CERT_URL: process.env.FIREBASE_CLIENT_X509_CERT_URL,
     FIREBASE_PRIVATE_KEY: Buffer.from(process.env.FIREBASE_PRIVATE_KEY, 'base64').toString('binary'),
+    BASE_URL: process.env.NODE_ENV === "production" ? process.env.VERCEL_URL : "http://localhost:3000"
   }
 }
