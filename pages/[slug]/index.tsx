@@ -18,7 +18,9 @@ export async function getServerSideProps({params: {slug}, req}) {
 
     return {props: {tenant, products}};
   } catch (e) {
-    return {props: {error: "No se encontró la tienda"}};
+    console.log("Error: ", e, JSON.stringify(e));
+
+    return {props: {status: "No se encontró la tienda"}};
   }
 }
 
