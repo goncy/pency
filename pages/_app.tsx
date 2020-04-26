@@ -3,12 +3,11 @@ import {Global, css} from "@emotion/core";
 import {Flex, Heading, Image, ThemeProvider, CSSReset} from "@chakra-ui/core";
 import Head from "next/head";
 
-import NotFoundScreen from "./404";
-
 import ErrorScreen from "~/app/screens/Error";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import {Provider as CartProvider} from "~/cart/context";
+import {Provider as AnalyticsProvider} from "~/analytics/context";
 
 function App({Component, pageProps}) {
   const {tenant, products, error} = pageProps;
@@ -97,6 +96,7 @@ function App({Component, pageProps}) {
             <meta content="630" property="og:image:height" />
             <meta content={tenant.title || "Pency - Tu tienda online"} property="og:image:alt" />
             <title>{tenant.title || "Pency - Tu tienda online"}</title>
+            <script async src="https://www.googletagmanager.com/gtag/js" />
           </Head>
           <TenantProvider initialValue={tenant}>
             <Flex direction="column" height="100%">
@@ -115,9 +115,11 @@ function App({Component, pageProps}) {
               </Flex>
 
               <ProductProvider initialValues={products}>
-                <CartProvider>
-                  <Component {...pageProps} />
-                </CartProvider>
+                <AnalyticsProvider>
+                  <CartProvider>
+                    <Component {...pageProps} />
+                  </CartProvider>
+                </AnalyticsProvider>
               </ProductProvider>
             </Flex>
           </TenantProvider>

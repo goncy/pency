@@ -15,13 +15,10 @@ import {
   Button,
   IconButton,
 } from "@chakra-ui/core";
-import template from "lodash.template";
 
 import {useCart} from "../hooks";
-import {simplify} from "../selectors";
 
 import {groupBy} from "~/selectors/group";
-import {useTenant} from "~/tenant/hooks";
 import {getOptionsString} from "~/product/selectors";
 
 interface Props {
@@ -30,16 +27,8 @@ interface Props {
 }
 
 const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
-  const {cart, count, total, remove} = useCart();
-  const {phone, message} = useTenant();
+  const {cart, count, total, remove, checkout} = useCart();
   const productsByCategory = Object.entries(groupBy(cart, (item) => item.product.category));
-
-  function send() {
-    const compile = template(message);
-    const text = compile({products: simplify(cart)});
-
-    window.open(`https://wa.me/${phone}?text=${encodeURI(text)}`, "_blank");
-  }
 
   React.useEffect(() => {
     if (!count) onClose();
@@ -105,7 +94,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
               color="white"
               variantColor="primary"
               w="100%"
-              onClick={send}
+              onClick={checkout}
             >
               Pedir
             </Button>

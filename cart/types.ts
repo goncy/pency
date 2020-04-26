@@ -14,6 +14,7 @@ export interface State {
 export interface Actions {
   add: (product: Product) => void;
   remove: (id: CartItem["id"]) => void;
+  checkout: () => void;
 }
 
 export interface Context {

@@ -7,12 +7,13 @@ import {Product} from "~/product/types";
 export function useCart() {
   const {
     state: {cart},
-    actions: {add, remove},
+    actions: {add, remove, checkout},
   } = React.useContext(CartContext);
 
   return {
     add,
     remove,
+    checkout,
     cart,
     count: cart.length,
     total: cart.reduce((total, {product}) => Number(total) + Number(product.price), 0),
