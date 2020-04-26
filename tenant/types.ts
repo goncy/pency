@@ -1,4 +1,4 @@
-import {VariantColor} from "@chakra-ui/core";
+import {VariantColor, ColorHues} from "@chakra-ui/core";
 
 export interface Tenant {
   id: string;
@@ -7,7 +7,7 @@ export interface Tenant {
   color: Exclude<VariantColor, "black" | "white">;
   message: string;
   phone: number;
-  hue: number;
+  hue: keyof ColorHues;
   title?: string;
   keywords?: string;
   banner?: string;

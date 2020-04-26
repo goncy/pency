@@ -1,6 +1,6 @@
 import React from "react";
 import {Global, css} from "@emotion/core";
-import {Flex, Heading, Image, ThemeProvider, CSSReset} from "@chakra-ui/core";
+import {Flex, ThemeProvider, CSSReset} from "@chakra-ui/core";
 import Head from "next/head";
 
 import ErrorScreen from "~/app/screens/Error";
@@ -8,6 +8,7 @@ import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import {Provider as CartProvider} from "~/cart/context";
 import {Provider as AnalyticsProvider} from "~/analytics/context";
+import Header from "~/app/components/Header";
 
 function App({Component, pageProps}) {
   const {tenant, products, error} = pageProps;
@@ -100,20 +101,7 @@ function App({Component, pageProps}) {
           </Head>
           <TenantProvider initialValue={tenant}>
             <Flex direction="column" height="100%">
-              <Flex
-                align="center"
-                as="nav"
-                bg={`primary.${tenant.hue}`}
-                color="white"
-                justifyContent="space-between"
-                padding={3}
-                wrap="wrap"
-              >
-                <Heading as="h1" size="lg">
-                  {tenant.logo ? <Image maxHeight={16} src={tenant.logo} /> : tenant.slug}
-                </Heading>
-              </Flex>
-
+              <Header />
               <ProductProvider initialValues={products}>
                 <AnalyticsProvider>
                   <CartProvider>

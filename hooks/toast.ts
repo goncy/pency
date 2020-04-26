@@ -16,6 +16,7 @@ export function useToast() {
         duration: 3000,
         isClosable: true,
       }),
-    [toast],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 }

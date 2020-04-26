@@ -20,7 +20,15 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
   );
 
   function create(product: Product) {
-    return api.create(tenant.id, product).then((product) => setProducts(products.concat(product)));
+    return api.create(tenant.id, product).then((product) => {
+      setProducts(products.concat(product));
+
+      toast({
+        title: "Producto creado",
+        description: "Tu producto fue creado correctamente",
+        status: "success",
+      });
+    });
   }
 
   function update(product: Product) {

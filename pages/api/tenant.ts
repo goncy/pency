@@ -1,5 +1,6 @@
 import {Tenant} from "~/tenant/types";
-import {database} from "~/firebase/admin";
+import {database, auth} from "~/firebase/admin";
+import {DEFAULT_TENANT} from "~/tenant/constants";
 
 interface Request {
   method: "GET" | "PATCH";
@@ -17,7 +18,31 @@ interface PatchRequest extends Request {
   };
 }
 
+interface PostRequest extends Request {
+  query: {
+    slug: Tenant["slug"];
+    email: string;
+    password: string;
+  };
+}
+
 const api = {
+  create: (email: string, password: string, slug: string) =>
+    auth
+      .createUser({
+        email,
+        password,
+      })
+      .then((user) => {
+        database
+          .collection("tenants")
+          .doc(user.uid)
+          .create({
+            id: user.uid,
+            slug,
+            ...DEFAULT_TENANT,
+          });
+      }),
   update: (tenant: Tenant) => database.collection("tenants").doc(tenant.id).update(tenant),
   fetch: (slug: Tenant["slug"]) =>
     database
@@ -32,6 +57,16 @@ const api = {
 };
 
 export default (req, res) => {
+  if (req.method === "POST") {
+    const {
+      query: {slug, email, password},
+    } = req as PostRequest;
+
+    if (process.env.NODE_ENV === "production") res.status(404);
+
+    return api.create(email, password, slug).then(() => res.status(200).json({success: true}));
+  }
+
   if (req.method === "GET") {
     const {
       query: {slug},
