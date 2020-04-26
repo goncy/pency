@@ -20,7 +20,7 @@ const Header = () => {
       padding={3}
       wrap="wrap"
     >
-      <Heading as="h1" size="lg" onClick={handleScrollTop}>
+      <Heading as="h1" cursor="pointer" size="lg" onClick={handleScrollTop}>
         {logo ? <Image maxHeight={16} src={logo} /> : slug}
       </Heading>
     </Flex>

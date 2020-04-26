@@ -57,16 +57,6 @@ const api = {
 };
 
 export default (req, res) => {
-  if (req.method === "POST") {
-    const {
-      query: {slug, email, password},
-    } = req as PostRequest;
-
-    if (process.env.NODE_ENV === "production") res.status(404);
-
-    return api.create(email, password, slug).then(() => res.status(200).json({success: true}));
-  }
-
   if (req.method === "GET") {
     const {
       query: {slug},
@@ -85,6 +75,16 @@ export default (req, res) => {
     if (!tenant) res.status(304);
 
     return api.update(tenant).then((tenant) => res.status(200).json(tenant));
+  }
+
+  if (req.method === "POST") {
+    const {
+      query: {slug, email, password},
+    } = req as PostRequest;
+
+    if (process.env.NODE_ENV === "production") res.status(404);
+
+    return api.create(email, password, slug).then(() => res.status(200).json({success: true}));
   }
 
   res.status(304).end();
