@@ -22,7 +22,7 @@ const CartProvider = ({children}: Props) => {
   const [cart, setCart] = React.useState<Cart>([]);
 
   function add(product: Product) {
-    log("add", {
+    log("product_add", {
       content_type: "product",
       description: `[${product.category}] ${product.title}`,
       value: product.price,
@@ -39,7 +39,7 @@ const CartProvider = ({children}: Props) => {
     const compile = template(message);
     const text = compile({products: simplify(cart)});
 
-    log("checkout", {
+    log("cart_checkout", {
       content_type: "cart",
       items: cart,
     });
