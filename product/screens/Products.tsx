@@ -21,7 +21,7 @@ const ProductsScreen: React.FC = () => {
   return (
     <>
       <Flex direction="column" height="100%" overflowY="hidden">
-        <Box flex={1} overflowY="auto" padding={4}>
+        <Box as="main" flex={1} overflowY="auto" padding={4}>
           {filters}
           {Boolean(featuredProducts.length) && (
             <Box mt={4}>

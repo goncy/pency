@@ -22,6 +22,7 @@ const ProductImageModal: React.FC<Props> = ({isOpen, onClose, image}) => (
       margin={4}
       maxHeight="60vh"
       maxWidth="640px"
+      padding={4}
     >
       <Image height="100%" objectFit="contain" src={image} width="100%" />
     </ModalContent>
