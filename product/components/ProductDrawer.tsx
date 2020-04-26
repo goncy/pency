@@ -26,7 +26,7 @@ const ProductDrawer: React.FC<Props> = ({isOpen, defaultValues, onClose, onSubmi
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton right="8px" top="8px" />
-        <DrawerHeader p={4}>Agregar producto</DrawerHeader>
+        <DrawerHeader p={4}>{defaultValues ? "Editar" : "Agregar"} producto</DrawerHeader>
         <ProductForm defaultValues={defaultValues} onSubmit={onSubmit}>
           {({form, submit, isLoading}) => (
             <>

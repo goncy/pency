@@ -16,7 +16,7 @@ interface Props {
   onChange: (options: Option[]) => void;
 }
 
-const ProductOptionsInput: React.FC<Props> = ({value, onChange}) => {
+const ProductOptionsInput: React.FC<Props> = ({value = [], onChange}) => {
   const {errors} = useFormContext();
   const error = errors.options?.type;
 

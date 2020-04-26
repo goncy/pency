@@ -20,6 +20,7 @@ import {useCart} from "../hooks";
 
 import {groupBy} from "~/selectors/group";
 import {getOptionsString} from "~/product/selectors";
+import WhatsAppIcon from "~/ui/icons/WhatsApp";
 
 interface Props {
   isOpen: boolean;
@@ -96,7 +97,8 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
               w="100%"
               onClick={checkout}
             >
-              Pedir
+              <WhatsAppIcon marginRight={1} />
+              Completar pedido
             </Button>
           </Stack>
         </DrawerFooter>
