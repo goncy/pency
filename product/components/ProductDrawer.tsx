@@ -22,7 +22,7 @@ interface Props {
 
 const ProductDrawer: React.FC<Props> = ({isOpen, defaultValues, onClose, onSubmit}) => {
   return (
-    <Drawer isOpen={isOpen} placement="right" size="md" onClose={onClose}>
+    <Drawer id="product" isOpen={isOpen} placement="right" size="md" onClose={onClose}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton right="8px" top="8px" />

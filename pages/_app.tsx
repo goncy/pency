@@ -42,6 +42,7 @@ function App({Component, pageProps}) {
           }
 
           #drawer-cart,
+          #drawer-product,
           #drawer-options {
             height: 100% !important;
           }
