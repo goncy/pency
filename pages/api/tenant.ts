@@ -3,18 +3,12 @@ import {database, auth} from "~/firebase/admin";
 import {DEFAULT_TENANT} from "~/tenant/constants";
 
 interface Request {
-  method: "GET" | "PATCH";
+  method: "GET" | "POST";
 }
 
 interface GetRequest extends Request {
   query: {
     slug: Tenant["slug"];
-  };
-}
-
-interface PatchRequest extends Request {
-  query: {
-    tenant: Tenant;
   };
 }
 
@@ -43,7 +37,6 @@ const api = {
             ...DEFAULT_TENANT,
           });
       }),
-  update: (tenant: Tenant) => database.collection("tenants").doc(tenant.id).update(tenant),
   fetch: (slug: Tenant["slug"]) =>
     database
       .collection("tenants")
@@ -51,7 +44,9 @@ const api = {
       .limit(1)
       .get()
       .then((snapshot) =>
-        snapshot.empty ? Promise.reject("La tienda no existe") : snapshot.docs[0],
+        snapshot.empty
+          ? Promise.reject({statusText: "La tienda no existe", status: 404})
+          : snapshot.docs[0],
       )
       .then((doc) => ({id: doc.id, ...(doc.data() as Tenant)})),
 };
@@ -64,17 +59,10 @@ export default (req, res) => {
 
     if (!slug) res.status(304);
 
-    return api.fetch(slug).then((tenant) => res.status(200).json(tenant));
-  }
-
-  if (req.method === "PATCH") {
-    const {
-      query: {tenant},
-    } = req as PatchRequest;
-
-    if (!tenant) res.status(304);
-
-    return api.update(tenant).then((tenant) => res.status(200).json(tenant));
+    return api
+      .fetch(slug)
+      .then((tenant) => res.status(200).json(tenant))
+      .catch((error) => res.status(error.status).end(error.statusText));
   }
 
   if (req.method === "POST") {

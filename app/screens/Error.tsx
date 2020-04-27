@@ -1,11 +1,16 @@
 import React from "react";
 import {Flex, Text} from "@chakra-ui/core";
 
+import {ERRORS} from "../constants";
+
 interface Props {
-  error: string | number;
+  error: {
+    status: Response["status"];
+    text: Response["statusText"];
+  };
 }
 
-const Error: React.FC<Props> = ({error}) => (
+const ErrorScreen: React.FC<Props> = ({error}) => (
   <Flex
     alignItems="center"
     backgroundColor="gray.100"
@@ -17,13 +22,9 @@ const Error: React.FC<Props> = ({error}) => (
     width="100vw"
   >
     <Text color="gray.500" fontSize="xl" textAlign="center">
-      {Number(error) === 500
-        ? "Estamos experimentando una sobrecarga en este momento, volvé mas tarde"
-        : Number(error) === 404
-        ? "Esta página no existe"
-        : error}
+      {ERRORS[Number(error.status)] || error.text}
     </Text>
   </Flex>
 );
 
-export default Error;
+export default ErrorScreen;

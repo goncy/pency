@@ -37,15 +37,15 @@ export async function getServerSideProps({params: {slug}, req}) {
 
   try {
     const tenant = await fetch(`${BASE_URL}/tenant?slug=${slug}`).then((res) =>
-      res.ok ? res.json() : Promise.reject(res.status),
+      res.ok ? res.json() : Promise.reject(res),
     );
     const products = await fetch(`${BASE_URL}/product?tenant=${tenant.id}`).then((res) =>
-      res.ok ? res.json() : Promise.reject(res.status),
+      res.ok ? res.json() : Promise.reject(res),
     );
 
     return {props: {tenant, products}};
-  } catch (error) {
-    return {props: {error}};
+  } catch ({status, statusText: text}) {
+    return {props: {error: {status, text}}};
   }
 }
 

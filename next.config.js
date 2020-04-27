@@ -1,7 +1,5 @@
 require("dotenv").config({
-  path: process.env.NODE_ENV !== "production"
-    ? ".env.development"
-    : ".env"
+  path: `.env.${process.env.NODE_ENV}`
 });
 
 module.exports = {
