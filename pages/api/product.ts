@@ -51,24 +51,17 @@ interface DeleteRequest extends Request {
 
 export const api = {
   list: async (tenant: Tenant["id"]): Promise<Product[]> => {
-    if (!tenant) return Promise.reject({statusText: "Llamada incorrecta", status: 304});
+    return database
+      .collection("tenants")
+      .doc(tenant)
+      .collection("products")
+      .get()
+      .then((snapshot) => snapshot.docs.map((doc) => ({id: doc.id, ...(doc.data() as Product)})))
+      .then((products) => {
+        cache.set(tenant, products);
 
-    const cached = cache.get(tenant);
-
-    return (
-      cached ||
-      database
-        .collection("tenants")
-        .doc(tenant)
-        .collection("products")
-        .get()
-        .then((snapshot) => snapshot.docs.map((doc) => ({id: doc.id, ...(doc.data() as Product)})))
-        .then((products) => {
-          cache.set(tenant, products);
-
-          return products;
-        })
-    );
+        return products;
+      });
   },
   create: (tenant: Tenant["id"], product: Product) =>
     database
@@ -89,15 +82,27 @@ export const api = {
       .update(product),
 };
 
-export default (req: Request, res) => {
+export default async (req: Request, res) => {
   if (req.method === "GET") {
     const {
       query: {tenant},
     } = req as GetRequest;
 
+    if (!tenant) return res.status(304).end();
+
+    const cached = cache.get(tenant);
+
+    if (cached) {
+      return res.status(200).json(cached);
+    }
+
     return api
       .list(tenant)
-      .then((products) => res.status(200).json(products))
+      .then((products) => {
+        cache.set(tenant, products);
+
+        return res.status(200).json(products || []);
+      })
       .catch(({status, statusText}) => res.status(status).end(statusText));
   }
 
