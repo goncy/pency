@@ -39,7 +39,7 @@ interface PostRequest extends Request {
 
 const cache = new NodeCache();
 
-const api = {
+export const api = {
   create: (email: string, password: string, slug: string) =>
     auth
       .createUser({
@@ -56,18 +56,31 @@ const api = {
             ...DEFAULT_TENANT,
           });
       }),
-  fetch: async (slug: Tenant["slug"]) =>
-    database
-      .collection("tenants")
-      .where("slug", "==", slug)
-      .limit(1)
-      .get()
-      .then((snapshot) =>
-        snapshot.empty
-          ? Promise.reject({statusText: "La tienda no existe", status: 404})
-          : snapshot.docs[0],
-      )
-      .then((doc) => ({id: doc.id, ...(doc.data() as Tenant)})),
+  fetch: async (slug: Tenant["slug"]): Promise<Tenant> => {
+    if (!slug) return Promise.reject({statusText: "Llamada incorrecta", status: 304});
+
+    const cached = cache.get<Tenant>(slug);
+
+    return (
+      cached ||
+      database
+        .collection("tenants")
+        .where("slug", "==", slug)
+        .limit(1)
+        .get()
+        .then((snapshot) =>
+          snapshot.empty
+            ? Promise.reject({statusText: "La tienda no existe", status: 404})
+            : snapshot.docs[0],
+        )
+        .then((doc) => ({id: doc.id, ...(doc.data() as Tenant)}))
+        .then((tenant) => {
+          cache.set(slug, tenant);
+
+          return tenant;
+        })
+    );
+  },
   update: async (tenant: Tenant) => database.collection("tenants").doc(tenant.id).update(tenant),
 };
 
@@ -77,19 +90,9 @@ export default (req, res) => {
       query: {slug},
     } = req as GetRequest;
 
-    if (!slug) return res.status(304).end();
-
-    const cached = cache.get(slug);
-
-    if (cached) return res.status(200).json(cached);
-
     return api
       .fetch(slug)
-      .then((tenant) => {
-        cache.set(slug, tenant);
-
-        return res.status(200).json(tenant);
-      })
+      .then((tenant) => res.status(200).json(tenant))
       .catch(({status, statusText}) => res.status(status).end(statusText));
   }
 

@@ -6,6 +6,7 @@ import {database, auth} from "~/firebase/admin";
 
 interface Request {
   method: "GET" | "PATCH" | "DELETE" | "POST";
+  query?: any;
 }
 
 interface GetRequest extends Request {
@@ -50,14 +51,27 @@ interface DeleteRequest extends Request {
 
 const cache = new NodeCache();
 
-const api = {
-  list: async (tenant: Tenant["id"]) =>
-    database
-      .collection("tenants")
-      .doc(tenant)
-      .collection("products")
-      .get()
-      .then((snapshot) => snapshot.docs.map((doc) => ({id: doc.id, ...(doc.data() as Product)}))),
+export const api = {
+  list: async (tenant: Tenant["id"]): Promise<Product[]> => {
+    if (!tenant) return Promise.reject({statusText: "Llamada incorrecta", status: 304});
+
+    const cached = cache.get<Product[]>(tenant);
+
+    return (
+      cached ||
+      database
+        .collection("tenants")
+        .doc(tenant)
+        .collection("products")
+        .get()
+        .then((snapshot) => snapshot.docs.map((doc) => ({id: doc.id, ...(doc.data() as Product)})))
+        .then((products) => {
+          cache.set(tenant, products);
+
+          return products;
+        })
+    );
+  },
   create: (tenant: Tenant["id"], product: Product) =>
     database
       .collection("tenants")
@@ -83,17 +97,10 @@ export default (req: Request, res) => {
       query: {tenant},
     } = req as GetRequest;
 
-    if (!tenant) return res.status(304).end();
-
-    const cached = cache.get(tenant);
-
-    if (cached) return res.status(200).json(cached);
-
-    return api.list(tenant).then((products) => {
-      cache.set(tenant, products);
-
-      return res.status(200).json(products);
-    });
+    return api
+      .list(tenant)
+      .then((products) => res.status(200).json(products))
+      .catch(({status, statusText}) => res.status(status).end(statusText));
   }
 
   if (req.method === "POST") {

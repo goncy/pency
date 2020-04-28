@@ -5,7 +5,7 @@ export default function fetch(
   path: string,
   body: Record<string, any> = null,
 ) {
-  return unfetch(`${process.env.BASE_URL}/api${path}`, {
+  return unfetch(`/api${path}`, {
     method: method,
     headers: {
       "content-type": "application/json",
