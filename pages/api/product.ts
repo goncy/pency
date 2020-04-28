@@ -1,8 +1,7 @@
-import NodeCache from "node-cache";
-
 import {Product} from "~/product/types";
 import {Tenant} from "~/tenant/types";
 import {database, auth} from "~/firebase/admin";
+import cache from "~/product/cache";
 
 interface Request {
   method: "GET" | "PATCH" | "DELETE" | "POST";
@@ -48,8 +47,6 @@ interface DeleteRequest extends Request {
     product: Product["id"];
   };
 }
-
-const cache = new NodeCache();
 
 export const api = {
   list: async (tenant: Tenant["id"]): Promise<Product[]> => {

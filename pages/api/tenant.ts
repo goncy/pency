@@ -1,8 +1,7 @@
-import NodeCache from "node-cache";
-
 import {Tenant} from "~/tenant/types";
 import {database, auth} from "~/firebase/admin";
 import {DEFAULT_TENANT} from "~/tenant/constants";
+import cache from "~/tenant/cache";
 
 interface Request {
   method: "GET" | "POST" | "PATCH";
@@ -36,8 +35,6 @@ interface PostRequest extends Request {
     slug: Tenant["slug"];
   };
 }
-
-const cache = new NodeCache();
 
 export const api = {
   create: (email: string, password: string, slug: string) =>
