@@ -1,5 +1,7 @@
-import NodeCache from "node-cache";
+const cache = new Map();
 
-const cache = new NodeCache();
-
-export default cache;
+export default {
+  get: (key) => cache.get(key),
+  set: (key, value) => cache.set(key, value),
+  del: (key) => cache.delete(key),
+};

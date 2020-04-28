@@ -56,7 +56,9 @@ export const api = {
   fetch: async (slug: Tenant["slug"]): Promise<Tenant> => {
     if (!slug) return Promise.reject({statusText: "Llamada incorrecta", status: 304});
 
-    const cached = cache.get<Tenant>(slug);
+    const cached = cache.get(slug);
+
+    console.log(cached);
 
     return (
       cached ||
