@@ -90,6 +90,12 @@ const SessionProvider: React.FC = ({children}) => {
     [toast, tenant],
   );
 
+  React.useEffect(() => {
+    if (user) {
+      user.getIdToken().then((token) => localStorage.setItem("token", token));
+    }
+  }, [user]);
+
   if (!user) return <LoginScreen isRestoring={status === "pending"} signIn={signIn} />;
 
   return <SessionContext.Provider value={{state, actions}}>{children}</SessionContext.Provider>;

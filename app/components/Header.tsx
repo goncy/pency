@@ -1,5 +1,6 @@
 import React from "react";
 import {Flex, Heading, Image} from "@chakra-ui/core";
+import Link from "next/link";
 
 import {useTenant} from "~/tenant/hooks";
 
@@ -20,9 +21,11 @@ const Header = () => {
       padding={3}
       wrap="wrap"
     >
-      <Heading as="h1" cursor="pointer" size="lg" onClick={handleScrollTop}>
-        {logo ? <Image maxHeight={16} src={logo} /> : slug}
-      </Heading>
+      <Link href={`/${slug}`}>
+        <Heading as="h1" cursor="pointer" size="lg" onClick={handleScrollTop}>
+          {logo ? <Image maxHeight={16} src={logo} /> : slug}
+        </Heading>
+      </Link>
     </Flex>
   );
 };

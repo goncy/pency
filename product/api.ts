@@ -1,28 +1,15 @@
-import firebase from "../firebase/client";
 import {Tenant} from "../tenant/types";
 
 import {Product} from "./types";
 
+import fetch from "~/utils/fetch";
+
 export default {
+  list: (tenant: Tenant["id"]) => fetch("GET", `/product?tenant=${tenant}`),
   create: (tenant: Tenant["id"], product: Product) =>
-    firebase.database
-      .collection("tenants")
-      .doc(tenant)
-      .collection("products")
-      .add(product)
-      .then((snapshot) => ({...product, id: snapshot.id})),
+    fetch("POST", `/product?tenant=${tenant}`, {product}),
   remove: (tenant: Tenant["id"], product: Product["id"]) =>
-    firebase.database
-      .collection("tenants")
-      .doc(tenant)
-      .collection("products")
-      .doc(product)
-      .delete(),
+    fetch("DELETE", `/product?tenant=${tenant}&product=${product}`),
   update: (tenant: Tenant["id"], product: Product) =>
-    firebase.database
-      .collection("tenants")
-      .doc(tenant)
-      .collection("products")
-      .doc(product.id)
-      .update(product),
+    fetch("PATCH", `/product?tenant=${tenant}`, {product}),
 };

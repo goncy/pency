@@ -1,7 +1,8 @@
 import React from "react";
 import {Box, Tabs, TabList, Tab, TabPanels, TabPanel, Heading} from "@chakra-ui/core";
-import fetch from "isomorphic-unfetch";
 
+import tenantApi from "~/tenant/api";
+import productsApi from "~/product/api";
 import {Provider as SessionProvider} from "~/session/context";
 import ProductsAdminScreen from "~/product/screens/Admin";
 import TenantAdminScreen from "~/tenant/screens/Admin";
@@ -32,16 +33,10 @@ const AdminScreen: React.FC = () => {
   );
 };
 
-export async function getServerSideProps({params: {slug}, req}) {
-  const BASE_URL = `http://${req.headers.host}/api`;
-
+export async function getServerSideProps({params: {slug}}) {
   try {
-    const tenant = await fetch(`${BASE_URL}/tenant?slug=${slug}`).then((res) =>
-      res.ok ? res.json() : Promise.reject(res),
-    );
-    const products = await fetch(`${BASE_URL}/product?tenant=${tenant.id}`).then((res) =>
-      res.ok ? res.json() : Promise.reject(res),
-    );
+    const tenant = await tenantApi.fetch(slug);
+    const products = await productsApi.list(tenant.id);
 
     return {props: {tenant, products}};
   } catch ({status, statusText: text}) {

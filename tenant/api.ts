@@ -1,7 +1,8 @@
-import firebase from "../firebase/client";
-
 import {Tenant} from "./types";
 
+import fetch from "~/utils/fetch";
+
 export default {
-  update: (tenant: Tenant) => firebase.database.collection("tenants").doc(tenant.id).update(tenant),
+  fetch: (slug: Tenant["slug"]) => fetch("GET", `/tenant?slug=${slug}`),
+  update: (tenant: Tenant) => fetch("PATCH", `/tenant?tenant=${tenant.id}`, {tenant}),
 };

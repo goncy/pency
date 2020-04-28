@@ -13,7 +13,7 @@ const NotFoundScreen: React.FC = () => (
     width="100vw"
   >
     <Text color="gray.500" fontSize="xl" textAlign="center">
-      Esta página no existe
+      Esta tienda no existe
     </Text>
   </Flex>
 );
