@@ -1,7 +1,6 @@
 import {Tenant} from "~/tenant/types";
 import {database, auth} from "~/firebase/admin";
 import {DEFAULT_TENANT} from "~/tenant/constants";
-import cache from "~/tenant/cache";
 
 interface Request {
   method: "GET" | "POST" | "PATCH";
@@ -36,6 +35,8 @@ interface PostRequest extends Request {
   };
 }
 
+const cache = new Map();
+
 export const api = {
   create: (email: string, password: string, slug: string) =>
     auth
@@ -54,11 +55,11 @@ export const api = {
           }),
       ),
   fetch: async (slug: Tenant["slug"]): Promise<Tenant> => {
-    if (!slug) return Promise.reject({statusText: "Llamada incorrecta", status: 304});
+    // if (!slug) return Promise.reject({statusText: "Llamada incorrecta", status: 304});
 
     const cached = cache.get(slug);
 
-    console.log(cached);
+    console.log(`cache for ${slug}`, cached);
 
     return (
       cached ||
@@ -89,8 +90,6 @@ export default (req, res) => {
       query: {slug},
     } = req as GetRequest;
 
-    res.setHeader("cache-control", "no-cache");
-
     return api
       .fetch(slug)
       .then((tenant) => res.status(200).json(tenant))
@@ -116,18 +115,20 @@ export default (req, res) => {
       headers: {authorization: token},
     } = req as PatchRequest;
 
-    if (!tenant) return res.status(304).end();
+    // if (!tenant) return res.status(304).end();
 
     return auth.verifyIdToken(token).then(({uid}) => {
       if (uid !== tenant.id) return res.status(403).end();
 
       return api.update(tenant).then(() => {
-        cache.del(tenant.slug);
+        cache.delete(tenant.slug);
+
+        console.log(`deleting cache for ${tenant.slug} on patch, `, cache.get(tenant.slug));
 
         return res.status(200).json(tenant);
       });
     });
   }
 
-  return res.status(304).end();
+  // return res.status(304).end();
 };

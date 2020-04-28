@@ -1,21 +1,26 @@
 import React from "react";
 
-import {api as productApi} from "~/pages/api/product";
-import {api as tenantApi} from "~/pages/api/tenant";
+import fetch from "~/utils/fetch";
 import ProductsScreen from "~/product/screens/Products";
 
 const SlugIndexRoute: React.FC = () => {
   return <ProductsScreen />;
 };
 
-export async function getServerSideProps({params: {slug}}) {
+export async function getServerSideProps({
+  req: {
+    headers: {host},
+  },
+  params: {slug},
+}) {
   try {
-    const tenant = await tenantApi.fetch(slug);
-    const products = await productApi.list(tenant.id);
+    const BASE_URL = `http://${host}/api`;
+
+    const tenant = await fetch("GET", `${BASE_URL}/tenant?slug=${slug}`);
+    const products = await fetch("GET", `${BASE_URL}/products?tenant=${tenant.id}`);
 
     return {props: {tenant, products}};
-  } catch (e) {
-    const {status, statusText: text} = e;
+  } catch ({status, statusText: text}) {
     return {props: {error: {status, text}}};
   }
 }

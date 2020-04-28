@@ -1,7 +1,6 @@
 import {Product} from "~/product/types";
 import {Tenant} from "~/tenant/types";
 import {database, auth} from "~/firebase/admin";
-import cache from "~/product/cache";
 
 interface Request {
   method: "GET" | "PATCH" | "DELETE" | "POST";
@@ -25,6 +24,8 @@ interface PostRequest extends Request {
     product: Product;
   };
 }
+
+const cache = new Map();
 
 interface PatchRequest extends Request {
   headers: {
@@ -52,7 +53,7 @@ export const api = {
   list: async (tenant: Tenant["id"]): Promise<Product[]> => {
     if (!tenant) return Promise.reject({statusText: "Llamada incorrecta", status: 304});
 
-    const cached = cache.get<Product[]>(tenant);
+    const cached = cache.get(tenant);
 
     return (
       cached ||
@@ -113,7 +114,7 @@ export default (req: Request, res) => {
       if (uid !== tenant) return res.status(403).end();
 
       return api.create(tenant, product).then((product) => {
-        cache.del(tenant);
+        cache.delete(tenant);
 
         return res.status(200).json(product);
       });
@@ -133,7 +134,7 @@ export default (req: Request, res) => {
       if (uid !== tenant) return res.status(403).end();
 
       return api.update(tenant, product).then(() => {
-        cache.del(tenant);
+        cache.delete(tenant);
 
         return res.status(200).json(product);
       });
@@ -152,7 +153,7 @@ export default (req: Request, res) => {
       if (uid !== tenant) return res.status(403).end();
 
       return api.remove(tenant, product).then(() => {
-        cache.del(tenant);
+        cache.delete(tenant);
 
         return res.status(200).json({success: true});
       });

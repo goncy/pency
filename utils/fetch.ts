@@ -5,7 +5,7 @@ export default function fetch(
   path: string,
   body: Record<string, any> = null,
 ) {
-  return unfetch(`/api${path}`, {
+  return unfetch(path, {
     method: method,
     headers: {
       "content-type": "application/json",
