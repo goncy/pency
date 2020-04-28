@@ -89,6 +89,8 @@ export default (req, res) => {
       query: {slug},
     } = req as GetRequest;
 
+    res.setHeader("cache-control", "no-cache");
+
     return api
       .fetch(slug)
       .then((tenant) => res.status(200).json(tenant))
