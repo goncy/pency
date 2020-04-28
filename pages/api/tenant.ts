@@ -55,11 +55,9 @@ export const api = {
           }),
       ),
   fetch: async (slug: Tenant["slug"]): Promise<Tenant> => {
-    // if (!slug) return Promise.reject({statusText: "Llamada incorrecta", status: 304});
+    if (!slug) return Promise.reject({statusText: "Llamada incorrecta", status: 304});
 
     const cached = cache.get(slug);
-
-    console.log(`cache for ${slug}`, cached);
 
     return (
       cached ||
@@ -115,7 +113,7 @@ export default (req, res) => {
       headers: {authorization: token},
     } = req as PatchRequest;
 
-    // if (!tenant) return res.status(304).end();
+    if (!tenant) return res.status(304).end();
 
     return auth.verifyIdToken(token).then(({uid}) => {
       if (uid !== tenant.id) return res.status(403).end();
@@ -123,12 +121,10 @@ export default (req, res) => {
       return api.update(tenant).then(() => {
         cache.delete(tenant.slug);
 
-        console.log(`deleting cache for ${tenant.slug} on patch, `, cache.get(tenant.slug));
-
         return res.status(200).json(tenant);
       });
     });
   }
 
-  // return res.status(304).end();
+  return res.status(304).end();
 };
