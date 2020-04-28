@@ -46,7 +46,7 @@ export const api = {
         email,
         password,
       })
-      .then((user) => {
+      .then((user) =>
         database
           .collection("tenants")
           .doc(user.uid)
@@ -54,8 +54,8 @@ export const api = {
             id: user.uid,
             slug,
             ...DEFAULT_TENANT,
-          });
-      }),
+          }),
+      ),
   fetch: async (slug: Tenant["slug"]): Promise<Tenant> => {
     if (!slug) return Promise.reject({statusText: "Llamada incorrecta", status: 304});
 
@@ -111,18 +111,17 @@ export default (req, res) => {
 
   if (req.method === "PATCH") {
     const {
-      query: {slug},
       body: {tenant},
       headers: {authorization: token},
     } = req as PatchRequest;
 
-    if (!slug) return res.status(304).end();
+    if (!tenant) return res.status(304).end();
 
     return auth.verifyIdToken(token).then(({uid}) => {
       if (uid !== tenant.id) return res.status(403).end();
 
       return api.update(tenant).then(() => {
-        cache.del(slug);
+        cache.del(tenant.slug);
 
         return res.status(200).json(tenant);
       });
