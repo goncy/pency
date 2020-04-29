@@ -1,15 +1,10 @@
 import React from "react";
-import {Flex, Heading, Image} from "@chakra-ui/core";
-import Link from "next/link";
+import {Flex, Box, Image, Heading} from "@chakra-ui/core";
 
 import {useTenant} from "~/tenant/hooks";
 
 const Header = () => {
   const {logo, slug, hue} = useTenant();
-
-  function handleScrollTop() {
-    document.querySelector("main")?.scrollTo({top: 0});
-  }
 
   return (
     <Flex
@@ -21,11 +16,15 @@ const Header = () => {
       padding={3}
       wrap="wrap"
     >
-      <Link href={`/${slug}`}>
-        <Heading as="h1" cursor="pointer" size="lg" onClick={handleScrollTop}>
-          {logo ? <Image maxHeight={16} src={logo} /> : slug}
-        </Heading>
-      </Link>
+      <Box height="100%">
+        {logo ? (
+          <Image height="100%" maxHeight={{base: 8, sm: 12}} src={logo} />
+        ) : (
+          <Heading as="h1" size="lg">
+            {slug}
+          </Heading>
+        )}
+      </Box>
     </Flex>
   );
 };

@@ -41,8 +41,8 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
   return {
     products: productsBySearch,
     filters: (
-      <Flex flexDirection={{base: "column", sm: "row"}} width="100%">
-        <InputGroup mb={{base: 3, sm: 0}} mr={{base: 0, sm: 6}}>
+      <Flex width="100%">
+        <InputGroup flex={{base: 1, sm: "inherit"}} mr={4}>
           <InputLeftElement
             children={<Icon color="gray.300" name="search" />}
             color="gray.300"
@@ -55,10 +55,12 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
           />
         </InputGroup>
         <Select
+          flex={{base: 1, sm: "inherit"}}
           maxW={{base: "100%", sm: "220px"}}
+          width="auto"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCategory(e.target.value)}
         >
-          <option value="">Todos los productos</option>
+          <option value="">Todo</option>
           {categories.map((category) => (
             <option key={category} value={category}>
               {category}

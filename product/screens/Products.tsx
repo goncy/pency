@@ -1,5 +1,15 @@
 import React from "react";
-import {Box, Icon, PseudoBox, Flex, Text, Heading, Button, useDisclosure} from "@chakra-ui/core";
+import {
+  Stack,
+  Box,
+  Icon,
+  PseudoBox,
+  Flex,
+  Text,
+  Heading,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/core";
 
 import ProductCard from "../components/ProductCard";
 import {useFilteredProducts} from "../hooks";
@@ -21,10 +31,10 @@ const ProductsScreen: React.FC = () => {
   return (
     <>
       <Flex direction="column" height="100%" overflowY="hidden">
-        <Box as="main" flex={1} overflowY="auto" padding={4}>
-          {filters}
+        <Box padding={4}>{filters}</Box>
+        <Stack as="main" flex={1} overflowY="auto" padding={4} paddingTop={0} spacing={4}>
           {Boolean(featuredProducts.length) && (
-            <Box mt={4}>
+            <Box>
               <Heading as="h2" mb={4} size="xl" textTransform="capitalize">
                 Destacados
               </Heading>
@@ -42,7 +52,7 @@ const ProductsScreen: React.FC = () => {
               );
 
               return (
-                <PseudoBox key={category} mt={4}>
+                <PseudoBox key={category}>
                   <Flex direction="column">
                     <Heading as="h2" size="xl" textTransform="capitalize">
                       {category}
@@ -82,7 +92,7 @@ const ProductsScreen: React.FC = () => {
               </Text>
             </Flex>
           )}
-        </Box>
+        </Stack>
         {Boolean(count) && (
           <Flex
             alignItems="center"
