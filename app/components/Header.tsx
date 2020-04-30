@@ -13,12 +13,13 @@ const Header = () => {
       bg={`primary.${hue}`}
       color="white"
       justifyContent="space-between"
-      padding={3}
+      paddingX={4}
+      paddingY={2}
       wrap="wrap"
     >
       <Box height="100%">
         {logo ? (
-          <Image height="100%" maxHeight={{base: 8, sm: 12}} src={logo} />
+          <Image height="100%" maxHeight={12} src={logo} />
         ) : (
           <Heading as="h1" size="lg">
             {slug}
