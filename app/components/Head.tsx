@@ -23,7 +23,6 @@ const Head: React.FC<Props> = ({tenant, track = false}) => (
       name="description"
     />
     <link href={tenant.logo || "/logo192.png"} rel="apple-touch-icon" />
-    <meta content={tenant.color || "#00B5D8"} name="theme-color" />
     <meta
       content={tenant.keywords || "venta, whatsapp, tienda, online, delivery, productos"}
       name="keywords"
