@@ -1,13 +1,13 @@
 import React from "react";
 import {SimpleGrid} from "@chakra-ui/core";
 
-import {SingleOptionItem} from "../types";
+import {SingleOptionItem} from "../types/options";
 
 import Checkbox from "~/ui/inputs/Checkbox";
 
 interface Props {
   options: Props["value"][];
-  labelProp?: string;
+  label?: (value: SingleOptionItem) => string;
   valueProp?: string;
   value?: SingleOptionItem;
   onChange: (value: Props["value"]) => void;
@@ -16,7 +16,7 @@ interface Props {
 const ProductRadioInput: React.FC<Props> = ({
   options,
   value,
-  labelProp = "label",
+  label,
   valueProp = "value",
   onChange,
   ...props
@@ -29,7 +29,7 @@ const ProductRadioInput: React.FC<Props> = ({
           isChecked={Boolean(value && value[valueProp] === option[valueProp])}
           onChange={() => onChange(option)}
         >
-          {option[labelProp]}
+          {label(option)}
         </Checkbox>
       ))}
     </SimpleGrid>

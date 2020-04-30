@@ -19,7 +19,7 @@ import {
 import {useCart} from "../hooks";
 
 import {groupBy} from "~/selectors/group";
-import {getOptionsString} from "~/product/selectors";
+import {getOptionsString, getPrice} from "~/product/selectors";
 import WhatsAppIcon from "~/ui/icons/WhatsApp";
 
 interface Props {
@@ -73,7 +73,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
                       </Flex>
                     </Flex>
                     <Flex alignItems="center">
-                      <Text>${Number(product.price)}</Text>
+                      <Text>${getPrice(product)}</Text>
                     </Flex>
                   </Flex>
                 ))}

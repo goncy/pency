@@ -3,7 +3,7 @@ import {Stack, Button, Select} from "@chakra-ui/core";
 import produce from "immer";
 import {useFormContext} from "react-hook-form";
 
-import {Option} from "../../types";
+import {Option} from "../../types/options";
 
 import {DEFAULT_OPTIONS} from "./constants";
 import SingleOptionInput from "./SingleOption";

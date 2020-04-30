@@ -1,9 +1,10 @@
 import React from "react";
-import shortid from "shortid";
 import {Stack, Input, Button, IconButton, FormLabel} from "@chakra-ui/core";
 import produce from "immer";
 
-import {MultipleOption} from "../../types";
+import {MultipleOption} from "../../types/options";
+
+import {DEFAULT_OPTION} from "./constants";
 
 import FormControl from "~/ui/controls/FormControl";
 interface Props {
@@ -14,10 +15,10 @@ interface Props {
 }
 
 const MultipleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
-  function handleChange(subindex, title) {
+  function handleChange(subindex, prop, newValue) {
     onChange(
       produce(value, (value) => {
-        value.options[subindex].title = title;
+        value.options[subindex][prop] = newValue;
       }),
     );
   }
@@ -41,7 +42,7 @@ const MultipleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
   function handleAdd() {
     onChange(
       produce(value, (value) => {
-        value.options.push({id: shortid.generate(), title: ""});
+        value.options.push(DEFAULT_OPTION.multiple);
       }),
     );
   }
@@ -91,13 +92,31 @@ const MultipleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
       {value.options.map((option, subindex) => (
         <Stack key={option.id} isInline spacing={1}>
           <FormControl
-            error={error === "options" && !option.title && "Este campo es requerido"}
+            error={error === "optionsTitle" && !option.title && "Este campo es requerido"}
             width="100%"
           >
             <Input
               autoFocus
+              placeholder="Título"
               value={option.title}
-              onChange={(event) => handleChange(subindex, event.target.value)}
+              onChange={(event) => handleChange(subindex, "title", event.target.value)}
+            />
+          </FormControl>
+          <FormControl
+            error={error === "optionsPrice" && !option.price && "Este campo es requerido"}
+            width="100%"
+          >
+            <Input
+              placeholder="Precio"
+              type="number"
+              value={option.price}
+              onChange={(event) =>
+                handleChange(
+                  subindex,
+                  "price",
+                  event.target.value ? Number(event.target.value) : "",
+                )
+              }
             />
           </FormControl>
           {value.options.length > value.count && (

@@ -1,15 +1,6 @@
 import React from "react";
 import produce from "immer";
-import {
-  Flex,
-  Stack,
-  Button,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Divider,
-  Box,
-} from "@chakra-ui/core";
+import {Stack, FormControl, FormLabel, FormErrorMessage} from "@chakra-ui/core";
 import {useForm, Controller} from "react-hook-form";
 
 import {Product} from "../types";
@@ -56,7 +47,9 @@ const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
                     <Controller
                       as={ProductRadioInput}
                       control={control}
-                      labelProp="title"
+                      label={(option) =>
+                        `${option.title} ${option.price ? ` ($${option.price})` : ""}`
+                      }
                       name={`options[${index}].value`}
                       options={option.options}
                       rules={{required: true}}
@@ -78,7 +71,9 @@ const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
                     <Controller
                       as={ProductLimitedCheckboxInput}
                       control={control}
-                      labelProp="title"
+                      label={(option) =>
+                        `${option.title} ${option.price ? ` ($${option.price})` : ""}`
+                      }
                       limit={option.count}
                       name={`options[${index}].value`}
                       options={option.options}

@@ -142,7 +142,11 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
                         (option) =>
                           option.type === "multiple" && option.count > option.options.length,
                       ),
-                    options: (options: Option[]) =>
+                    optionsPrice: (options: Option[]) =>
+                      !options?.some((option) =>
+                        option.options?.some((option) => isNaN(Number(option.price))),
+                      ),
+                    optionsTitle: (options: Option[]) =>
                       !options?.some((option) => option.options?.some((option) => !option.title)),
                   },
                 }}

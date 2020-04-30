@@ -57,6 +57,7 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
         <Select
           flex={{base: 1, sm: "inherit"}}
           maxW={{base: "100%", sm: "220px"}}
+          minWidth="128px"
           width="auto"
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCategory(e.target.value)}
         >
