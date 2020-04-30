@@ -2,9 +2,20 @@ import React from "react";
 
 import fetch from "~/utils/fetch";
 import ProductsScreen from "~/product/screens/Products";
+import {Tenant} from "~/tenant/types";
+import Head from "~/app/components/Head";
 
-const SlugIndexRoute: React.FC = () => {
-  return <ProductsScreen />;
+interface Props {
+  tenant: Tenant;
+}
+
+const SlugIndexRoute: React.FC<Props> = ({tenant}) => {
+  return (
+    <>
+      <Head track tenant={tenant} />
+      <ProductsScreen />
+    </>
+  );
 };
 
 export async function getServerSideProps({
