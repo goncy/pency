@@ -21,6 +21,10 @@ export function getTotal(cart: Cart): number {
   return cart.reduce((total, {product}) => total + getPrice(product), 0);
 }
 
+export function getSummary(cart: Cart): string {
+  return `[${getTotal(cart)}] ${cart.map(({product}) => product.title).join(", ")}`;
+}
+
 export function getProductCount(cart: Cart, id: CartItem["product"]["id"]): number {
   return cart.filter((item) => item.product.id === id).length || 0;
 }

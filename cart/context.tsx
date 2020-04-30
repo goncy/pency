@@ -4,7 +4,7 @@ import template from "lodash.template";
 
 import {Product} from "../product/types";
 
-import {getSimplifiedCart} from "./selectors";
+import {getSimplifiedCart, getSummary} from "./selectors";
 import {CartItem, Context, State, Actions, Cart} from "./types";
 
 import {useAnalytics} from "~/analytics/hooks";
@@ -41,6 +41,7 @@ const CartProvider = ({children}: Props) => {
 
     log("cart_checkout", {
       content_type: "cart",
+      description: getSummary(cart),
       items: cart,
     });
 
