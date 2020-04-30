@@ -2,7 +2,6 @@ import React from "react";
 import {Global, css} from "@emotion/core";
 import {Flex, ThemeProvider, CSSReset} from "@chakra-ui/core";
 import Head from "next/head";
-import vhFix from "viewport-units-buggyfill";
 
 import ErrorScreen from "~/app/screens/Error";
 import {Provider as ProductProvider} from "~/product/context";
@@ -15,7 +14,7 @@ function App({Component, pageProps}) {
   const {tenant, products, error} = pageProps;
 
   React.useEffect(() => {
-    vhFix.init();
+    require("viewport-units-buggyfill").init();
   }, []);
 
   return (
