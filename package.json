@@ -19,11 +19,11 @@
     "isomorphic-unfetch": "^3.0.0",
     "lodash.template": "^4.5.0",
     "next": "canary",
-    "node-cache": "^5.1.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-hook-form": "^5.5.3",
-    "shortid": "^2.2.15"
+    "shortid": "^2.2.15",
+    "viewport-units-buggyfill": "^0.6.2"
   },
   "devDependencies": {
     "@types/lodash.template": "^4.4.6",
