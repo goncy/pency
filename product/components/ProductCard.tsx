@@ -44,24 +44,6 @@ const ProductCard: React.FC<Props> = ({product, add}) => {
         rounded="lg"
         transition="transform 0.2s"
       >
-        {Boolean(count) && (
-          <Flex
-            alignItems="center"
-            backgroundColor="primary.500"
-            border="2px solid white"
-            borderRadius="50%"
-            color="white"
-            fontSize="16px"
-            height="26px"
-            justifyContent="center"
-            position="absolute"
-            right="-13px"
-            top="-13px"
-            width="26px"
-          >
-            {count}
-          </Flex>
-        )}
         {image ? (
           <Box
             backgroundImage={`url(${image})`}
@@ -128,7 +110,27 @@ const ProductCard: React.FC<Props> = ({product, add}) => {
             >
               ${price}
             </Text>
-            <Button onClick={handleAdd}>Agregar</Button>
+            <Box position="relative">
+              <Button onClick={handleAdd}>Agregar</Button>
+              {Boolean(count) && (
+                <Flex
+                  alignItems="center"
+                  backgroundColor="primary.500"
+                  border="2px solid white"
+                  borderRadius="50%"
+                  color="white"
+                  fontSize="16px"
+                  height="26px"
+                  justifyContent="center"
+                  position="absolute"
+                  right="-13px"
+                  top="-13px"
+                  width="26px"
+                >
+                  {count}
+                </Flex>
+              )}
+            </Box>
           </Flex>
         </Box>
       </Flex>
