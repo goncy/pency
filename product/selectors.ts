@@ -38,7 +38,7 @@ export function getPrice(product: Product): number {
           }
 
           case "single": {
-            return total + Number(option.value.price);
+            return total + Number(option.value.price || 0);
           }
 
           default:

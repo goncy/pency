@@ -5,12 +5,32 @@ import Head from "next/head";
 const LandingScreen: React.FC = () => (
   <>
     <Head>
+      <link href="/favicon.ico" rel="icon" />
+      <meta content="#00B5D8" name="theme-color" />
       <title>Pency - Tu tienda online</title>
-      <script
-        async
-        data-ad-client={process.env.AD_SENSE_ID}
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+      <meta
+        content="Crea tu propia tienda en segundos y vendé por WhatsApp de forma fácil"
+        name="description"
       />
+      <link href="/logo192.png" rel="apple-touch-icon" />
+      <meta content="tienda, online, fácil, delivery, compra, venta" name="keywords" />
+      <meta content="Gonzalo Pozzo" name="author" />
+      <meta content="summary_large_image" name="twitter:card" />
+      <meta content="goncy" name="twitter:site" />
+      <meta content="goncy" name="twitter:creator" />
+      <meta content="https://pency.now.sh" property="og:url" />
+      <meta content="website" property="og:type" />
+      <meta content="Pency - Tu tienda online" property="og:title" />
+      <meta
+        content="Crea tu propia tienda en segundos y vendé por WhatsApp de forma fácil"
+        property="og:description"
+      />
+      <meta content="/og-image.jpg" property="og:image" />
+      <meta content="/og-image.jpg" property="og:image:url" />
+      <meta content="image/jpeg" property="og:image:type" />
+      <meta content="1200" property="og:image:width" />
+      <meta content="630" property="og:image:height" />
+      <meta content="Pency - Tu tienda online" property="og:image:alt" />
     </Head>
     <Flex
       alignItems="center"
