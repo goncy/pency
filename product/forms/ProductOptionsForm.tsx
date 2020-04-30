@@ -48,7 +48,7 @@ const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
                       as={ProductRadioInput}
                       control={control}
                       label={(option) =>
-                        `${option.title} ${option.price ? ` ($${option.price})` : ""}`
+                        `${option.title}${option.price ? ` + $${option.price}` : ""}`
                       }
                       name={`options[${index}].value`}
                       options={option.options}
