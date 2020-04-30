@@ -18,6 +18,7 @@ function App({Component, pageProps}) {
       <CSSReset />
       <Global
         styles={css`
+          html,
           body {
             height: 100%;
             max-height: 100vh;
