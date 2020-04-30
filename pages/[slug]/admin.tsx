@@ -5,30 +5,39 @@ import {Provider as SessionProvider} from "~/session/context";
 import ProductsAdminScreen from "~/product/screens/Admin";
 import TenantAdminScreen from "~/tenant/screens/Admin";
 import fetch from "~/utils/fetch";
+import {Tenant} from "~/tenant/types";
+import Head from "~/app/components/Head";
 
-const AdminScreen: React.FC = () => {
+interface Props {
+  tenant: Tenant;
+}
+
+const AdminScreen: React.FC<Props> = ({tenant}) => {
   return (
-    <SessionProvider>
-      <Box as="main" height="100%" overflowY="auto" padding={4}>
-        <Heading as="h1" mb={4} size="2xl">
-          Panel de administración
-        </Heading>
-        <Tabs variant="soft-rounded" variantColor="primary">
-          <TabList mb={4}>
-            <Tab>Productos</Tab>
-            <Tab>Tienda</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <ProductsAdminScreen />
-            </TabPanel>
-            <TabPanel>
-              <TenantAdminScreen />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </Box>
-    </SessionProvider>
+    <>
+      <Head tenant={tenant} />
+      <SessionProvider>
+        <Box as="main" height="100%" overflowY="auto" padding={4}>
+          <Heading as="h1" mb={4} size="2xl">
+            Panel de administración
+          </Heading>
+          <Tabs variant="soft-rounded" variantColor="primary">
+            <TabList mb={4}>
+              <Tab>Productos</Tab>
+              <Tab>Tienda</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <ProductsAdminScreen />
+              </TabPanel>
+              <TabPanel>
+                <TenantAdminScreen />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </Box>
+      </SessionProvider>
+    </>
   );
 };
 
