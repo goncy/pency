@@ -83,8 +83,7 @@ const ProductsScreen: React.FC = () => {
               direction="column"
               flex={1}
               justifyContent="center"
-              mt={{base: 12, sm: 24}}
-              px={4}
+              paddingX={4}
             >
               <Icon color="gray.200" mb={4} name="search" size="128px" />
               <Text color="gray.500" fontSize="lg" textAlign="center">

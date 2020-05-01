@@ -56,7 +56,7 @@ export async function getServerSideProps({
 
     return {props: {tenant, products}};
   } catch (err) {
-    return {props: {error: err?.statusCode || res?.statusCode || 404}};
+    return {props: {statusCode: err?.status || res?.statusCode || 404}};
   }
 }
 
