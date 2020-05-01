@@ -2,7 +2,8 @@ import React from "react";
 import {Global, css} from "@emotion/core";
 import {Flex, ThemeProvider, CSSReset} from "@chakra-ui/core";
 
-import ErrorScreen from "~/app/screens/Error";
+import ErrorScreen from "./_error";
+
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import {Provider as CartProvider} from "~/cart/context";
@@ -10,9 +11,14 @@ import {Provider as AnalyticsProvider} from "~/analytics/context";
 import Header from "~/app/components/Header";
 
 function App({Component, pageProps}) {
-  const {tenant, products, error} = pageProps;
+  const {tenant, products, statusCode: error} = pageProps;
 
   React.useEffect(() => {
+    /**
+     * This help us fix a bug in embed browsers like
+     * the Instagram one where the bottom bar chops
+     * the complete order button
+     */
     require("viewport-units-buggyfill").init();
   }, []);
 
@@ -58,7 +64,7 @@ function App({Component, pageProps}) {
         `}
       />
       {error ? (
-        <ErrorScreen {...pageProps} />
+        <ErrorScreen statusCode={error} />
       ) : tenant && products ? (
         <TenantProvider initialValue={tenant}>
           <Flex direction="column" height="100%">
