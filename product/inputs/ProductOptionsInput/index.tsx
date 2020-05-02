@@ -8,6 +8,7 @@ import {Option} from "../../types/options";
 import {DEFAULT_OPTIONS} from "./constants";
 import SingleOptionInput from "./SingleOption";
 import MultipleOptionInput from "./MultipleOption";
+import validator from "./validator";
 
 import FormControl from "~/ui/controls/FormControl";
 
@@ -96,5 +97,7 @@ const ProductOptionsInput: React.FC<Props> = ({value = [], onChange}) => {
     </Stack>
   );
 };
+
+export {validator};
 
 export default ProductOptionsInput;

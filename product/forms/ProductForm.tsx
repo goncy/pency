@@ -10,9 +10,11 @@ import {
   Select,
 } from "@chakra-ui/core";
 
-import {Product, Option} from "../types";
+import {Product} from "../types";
 import {useProductCategories} from "../hooks";
-import ProductOptionsInput from "../inputs/ProductOptionsInput";
+import ProductOptionsInput, {
+  validator as ProductOptionsInputValidator,
+} from "../inputs/ProductOptionsInput";
 
 import Image from "~/ui/inputs/Image";
 import Switch from "~/ui/inputs/Switch";
@@ -133,22 +135,7 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
                 control={control}
                 name="options"
                 rules={{
-                  validate: {
-                    title: (options: Option[]) => !options?.some((option) => !option.title),
-                    count: (options: Option[]) =>
-                      !options?.some((option) => option.type === "multiple" && !option.count),
-                    optionsCount: (options: Option[]) =>
-                      !options?.some(
-                        (option) =>
-                          option.type === "multiple" && option.count > option.options.length,
-                      ),
-                    optionsPrice: (options: Option[]) =>
-                      !options?.some((option) =>
-                        option.options?.some((option) => isNaN(Number(option.price))),
-                      ),
-                    optionsTitle: (options: Option[]) =>
-                      !options?.some((option) => option.options?.some((option) => !option.title)),
-                  },
+                  validate: ProductOptionsInputValidator,
                 }}
               />
             </FormControl>
