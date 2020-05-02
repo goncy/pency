@@ -21,7 +21,7 @@ import CartDrawer from "~/cart/components/CartDrawer";
 import {filterBy} from "~/selectors/filter";
 
 const ProductsScreen: React.FC = () => {
-  const {add, count, total} = useCart();
+  const {add, pop, count, total} = useCart();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts({available: true});
 
@@ -40,7 +40,7 @@ const ProductsScreen: React.FC = () => {
               </Heading>
               <ProductsGrid>
                 {featuredProducts.map((product) => (
-                  <ProductCard key={product.id} add={add} product={product} />
+                  <ProductCard key={product.id} add={add} pop={pop} product={product} />
                 ))}
               </ProductsGrid>
             </Box>
@@ -67,7 +67,7 @@ const ProductsScreen: React.FC = () => {
                           )}
                           <ProductsGrid>
                             {products.map((product) => (
-                              <ProductCard key={product.id} add={add} product={product} />
+                              <ProductCard key={product.id} add={add} pop={pop} product={product} />
                             ))}
                           </ProductsGrid>
                         </Flex>

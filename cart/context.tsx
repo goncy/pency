@@ -1,6 +1,7 @@
 import React from "react";
 import shortid from "shortid";
 import template from "lodash.template";
+import produce from "immer";
 
 import {Product} from "../product/types";
 
@@ -35,6 +36,16 @@ const CartProvider = ({children}: Props) => {
     setCart((cart) => cart.filter((item) => item.id !== id));
   }
 
+  function pop(id: Product["id"]) {
+    setCart(
+      produce((cart) => {
+        const index = cart.findIndex((item) => item.product.id === id);
+
+        cart.splice(index, 1);
+      }),
+    );
+  }
+
   function checkout() {
     const compile = template(message);
     const text = compile({products: getSimplifiedCart(cart)});
@@ -49,7 +60,7 @@ const CartProvider = ({children}: Props) => {
   }
 
   const state: State = {cart};
-  const actions: Actions = {add, remove, checkout};
+  const actions: Actions = {add, pop, remove, checkout};
 
   return <CartContext.Provider value={{state, actions}}>{children}</CartContext.Provider>;
 };
