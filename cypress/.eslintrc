@@ -3,12 +3,12 @@
   "extends": [
     "react-app",
     "plugin:prettier/recommended",
+    "plugin:cypress/recommended",
     "prettier/react"
   ],
-  "plugins": ["react-hooks"],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-      "project": "tsconfig.json"
+  "plugins": ["cypress", "react-hooks"],
+  "env": {
+    "cypress/globals": true
   },
   "settings": {
     "react": {

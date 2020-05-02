@@ -38,6 +38,7 @@ const ProductCard: React.FC<Props> = ({product, add}) => {
         alignItems="flex-end"
         borderColor={Boolean(count) ? "primary.500" : "gray.200"}
         borderWidth="1px"
+        data-test-id="product"
         direction="column"
         justifyContent="space-between"
         position="relative"
@@ -100,14 +101,7 @@ const ProductCard: React.FC<Props> = ({product, add}) => {
             )}
           </Flex>
           <Flex alignItems="flex-end">
-            <Text
-              color="primary.500"
-              flex={1}
-              fontSize="lg"
-              fontWeight="bold"
-              letterSpacing="wide"
-              textTransform="uppercase"
-            >
+            <Text color="primary.500" flex={1} fontSize="lg" fontWeight="bold" letterSpacing="wide">
               ${price}
             </Text>
             <Box position="relative">

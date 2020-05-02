@@ -37,7 +37,7 @@ interface PostRequest extends Request {
 
 const cache = new Map();
 
-export const api = {
+const api = {
   create: (email: string, password: string, slug: string) =>
     auth
       .createUser({

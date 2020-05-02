@@ -49,9 +49,9 @@ interface DeleteRequest extends Request {
   };
 }
 
-export const api = {
-  list: async (tenant: Tenant["id"]): Promise<Product[]> => {
-    return database
+const api = {
+  list: async (tenant: Tenant["id"]): Promise<Product[]> =>
+    database
       .collection("tenants")
       .doc(tenant)
       .collection("products")
@@ -61,8 +61,7 @@ export const api = {
         cache.set(tenant, products);
 
         return products;
-      });
-  },
+      }),
   create: (tenant: Tenant["id"], product: Product) =>
     database
       .collection("tenants")
@@ -70,9 +69,8 @@ export const api = {
       .collection("products")
       .add(product)
       .then((snapshot) => ({...product, id: snapshot.id})),
-  remove: (tenant: Tenant["id"], product: Product["id"]) => {
-    return database.collection("tenants").doc(tenant).collection("products").doc(product).delete();
-  },
+  remove: (tenant: Tenant["id"], product: Product["id"]) =>
+    database.collection("tenants").doc(tenant).collection("products").doc(product).delete(),
   update: (tenant: Tenant["id"], product: Product) =>
     database
       .collection("tenants")

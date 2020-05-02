@@ -41,7 +41,7 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
   return {
     products: productsBySearch,
     filters: (
-      <Flex width="100%">
+      <Flex data-test-id="filters" width="100%">
         <InputGroup flex={{base: 1, sm: "inherit"}} mr={4}>
           <InputLeftElement
             children={<Icon color="gray.300" name="search" />}

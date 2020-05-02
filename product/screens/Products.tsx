@@ -35,7 +35,7 @@ const ProductsScreen: React.FC = () => {
         <Stack as="main" flex={1} overflowY="auto" padding={4} paddingTop={0} spacing={4}>
           {Boolean(featuredProducts.length) && (
             <Box>
-              <Heading as="h2" mb={4} size="xl" textTransform="capitalize">
+              <Heading as="h2" mb={4} size="xl">
                 Destacados
               </Heading>
               <ProductsGrid>
@@ -54,14 +54,14 @@ const ProductsScreen: React.FC = () => {
               return (
                 <PseudoBox key={category}>
                   <Flex direction="column">
-                    <Heading as="h2" size="xl" textTransform="capitalize">
+                    <Heading as="h2" size="xl">
                       {category}
                     </Heading>
                     {productsBySubcategory.map(([subcategory, products]) => (
                       <PseudoBox key={subcategory} mt={4}>
                         <Flex direction="column">
                           {subcategory && (
-                            <Heading as="h3" mb={4} size="lg" textTransform="capitalize">
+                            <Heading as="h3" mb={4} size="lg">
                               {subcategory}
                             </Heading>
                           )}
@@ -80,6 +80,7 @@ const ProductsScreen: React.FC = () => {
           ) : (
             <Flex
               alignItems="center"
+              data-test-id="empty"
               direction="column"
               flex={1}
               justifyContent="center"

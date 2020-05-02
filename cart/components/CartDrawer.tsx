@@ -45,7 +45,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
           <Stack spacing={6}>
             {productsByCategory.map(([category, items]) => (
               <Stack key={category} spacing={6}>
-                <Heading as="h4" size="md" textTransform="capitalize">
+                <Heading as="h4" size="md">
                   {category}
                 </Heading>
                 {items.map(({id, product}) => (

@@ -69,14 +69,14 @@ const AdminScreen: React.FC = () => {
               return (
                 <Box key={category} mt={4}>
                   <Flex direction="column">
-                    <Heading as="h2" size="xl" textTransform="capitalize">
+                    <Heading as="h2" size="xl">
                       {category}
                     </Heading>
                     {productsBySubcategory.map(([subcategory, products]) => (
                       <Box key={subcategory} mt={4}>
                         <Flex direction="column">
                           {subcategory && (
-                            <Heading as="h3" mb={4} size="lg" textTransform="capitalize">
+                            <Heading as="h3" mb={4} size="lg">
                               {subcategory}
                             </Heading>
                           )}
