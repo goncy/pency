@@ -1,23 +1,23 @@
 # Pency
 Tu tienda online
 
-## Que es?
-Pency es una tienda online multiproposito, pensada para quienes venden (o quieren vender) via WhatsApp.
+## Qué es?
+Pency es una tienda online multipropósito, pensada para quienes venden (o quieren vender) via WhatsApp.
 
-## Que tiene?
-* Catalogo online
+## Qué tiene?
+* Catálogo online
 * Panel de administración para cargar productos
 * Carrito de compra
-* Imágen, precio y descripción para cada producto
-* Opciónes para cada producto (pueden modificar el precio del producto)
+* Imagen, precio y descripción para cada producto
+* Opciones para cada producto (pueden modificar el precio del producto)
 * Envío del pedido via WhatsApp
-* Configuración de la tienda (color, título, descripcion, imágen, logo, etc)
+* Configuración de la tienda (color, título, descripción, imagen, logo, etc)
 
 ## Algo no me anda!
 Podés crear un `issue` acá en GitHub
 
 ## Quiero ayudar!
-Entra a los `issues` acá en GitHub
+Entrá a los `issues` acá en GitHub
 
 ## Quiero mi tienda!
 Mandame un mail a gonzalo.pozzo4@gmail.com
@@ -39,5 +39,5 @@ npm install
 npm start
 ```
 
-## Que puedo hacer con Pency?
+## Qué puedo hacer con Pency?
 Podés leer la licencia [acá](./LICENSE.md).
