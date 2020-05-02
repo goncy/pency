@@ -38,3 +38,6 @@ yarn start
 npm install
 npm start
 ```
+
+## Que puedo hacer con Pency?
+Podés leer la licencia [acá](./LICENSE.md).
