@@ -8,7 +8,7 @@ import {Product} from "~/product/types";
 export function useCart() {
   const {
     state: {cart},
-    actions: {add, remove, checkout},
+    actions: {add, pop, remove, checkout},
   } = React.useContext(CartContext);
 
   return {
@@ -16,6 +16,7 @@ export function useCart() {
     remove,
     checkout,
     cart,
+    pop,
     count: cart.length,
     total: getTotal(cart),
   };

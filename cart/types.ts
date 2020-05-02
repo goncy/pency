@@ -12,6 +12,7 @@ export interface State {
 }
 
 export interface Actions {
+  pop: (id: Product["id"]) => void;
   add: (product: Product) => void;
   remove: (id: CartItem["id"]) => void;
   checkout: () => void;
