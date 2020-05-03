@@ -22,11 +22,7 @@ const CartProvider = ({children}: Props) => {
   const log = useAnalytics();
   const {phone, message} = useTenant();
   const [cart, setCart] = React.useState<Cart>({});
-  const items = React.useMemo(() => {
-    const items = Object.values(cart);
-
-    return items.length ? items.flat() : items;
-  }, [cart]);
+  const items = React.useMemo(() => [].concat(...Object.values(cart)), [cart]);
 
   function add(product: Product) {
     log("product_add", {
