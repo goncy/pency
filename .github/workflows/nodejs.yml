@@ -7,7 +7,7 @@ on:
   push:
     branches: [ master ]
   pull_request:
-    branches: [ master, development ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -49,7 +49,7 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
-    - run: npm run build
-    - run: npm start
-    - run: npm run integration
+    - run: yarn install --frozen-lockfile
+    - run: yarn build
+    - run: yarn start & npx wait-on http://localhost:3000
+    - run: yarn integration

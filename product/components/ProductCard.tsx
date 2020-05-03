@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Text, Flex, Badge, Button, useDisclosure} from "@chakra-ui/core";
+import {Box, Text, Flex, Badge, Button, useDisclosure, ButtonGroup} from "@chakra-ui/core";
 
 import ProductOptionsDrawer from "./ProductOptionsDrawer";
 import ProductImageModal from "./ProductImageModal";
@@ -10,20 +10,27 @@ import {useProductCartCount} from "~/cart/hooks";
 interface Props {
   product: Product;
   add: (product: Product) => void;
+  pop: (id: Product["id"]) => void;
 }
 
-const ProductCard: React.FC<Props> = ({product, add}) => {
+const ProductCard: React.FC<Props> = ({product, pop, add}) => {
   const {id, category, image, description, title, price, options} = product;
   const {isOpen: isImageOpen, onToggle: toggleImage} = useDisclosure();
   const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
   const count = useProductCartCount(id);
+  const hasOptions = Boolean(product.options?.length);
+  const isInCart = Boolean(count);
 
   function handleAdd() {
-    if (options?.length) {
+    if (hasOptions) {
       return toggleOptions();
     }
 
     return add(product);
+  }
+
+  function handlePop() {
+    pop(product.id);
   }
 
   function handleAddWithOptions(options) {
@@ -36,7 +43,7 @@ const ProductCard: React.FC<Props> = ({product, add}) => {
     <>
       <Flex
         alignItems="flex-end"
-        borderColor={Boolean(count) ? "primary.500" : "gray.200"}
+        borderColor={isInCart ? "primary.500" : "gray.200"}
         borderWidth="1px"
         data-test-id="product"
         direction="column"
@@ -105,8 +112,15 @@ const ProductCard: React.FC<Props> = ({product, add}) => {
               ${price}
             </Text>
             <Box position="relative">
-              <Button onClick={handleAdd}>Agregar</Button>
-              {Boolean(count) && (
+              {!hasOptions && isInCart ? (
+                <ButtonGroup>
+                  <Button onClick={handlePop}>-</Button>
+                  <Button onClick={handleAdd}>+</Button>
+                </ButtonGroup>
+              ) : (
+                <Button onClick={handleAdd}>Agregar</Button>
+              )}
+              {isInCart && (
                 <Flex
                   alignItems="center"
                   backgroundColor="primary.500"
@@ -120,6 +134,7 @@ const ProductCard: React.FC<Props> = ({product, add}) => {
                   right="-13px"
                   top="-13px"
                   width="26px"
+                  zIndex={1}
                 >
                   {count}
                 </Flex>
@@ -130,7 +145,7 @@ const ProductCard: React.FC<Props> = ({product, add}) => {
       </Flex>
       <ProductImageModal image={image} isOpen={isImageOpen} onClose={toggleImage} />
       <ProductOptionsDrawer
-        isOpen={options?.length && isOptionsOpen}
+        isOpen={hasOptions && isOptionsOpen}
         options={options}
         onClose={toggleOptions}
         onSubmit={handleAddWithOptions}
