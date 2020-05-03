@@ -1,17 +1,19 @@
-export const SIMPLIFIED_CART_MOCK = [
+export const CART_MOCK = [
   {
-    category: "BEBIDAS",
+    category: "Bebidas",
     subcategory: "",
+    count: 1,
     price: 85,
     title: "COCA COLA 600 CC",
     description: "",
   },
   {
-    category: "HAMBURGUESAS",
-    subcategory: "POLLO",
+    category: "Hamburguesas",
+    subcategory: "Pollo",
+    count: 3,
     price: 320,
-    title: "HAMBURGUESA POLLO CRISPY GUACAMOLE (INCLUYE PAPAS FRITAS)",
-    description: "PAN CASERO + POLLO REBOZADO + TOMATE + LECHUGA + GUACAMOLE + PAPAS FRITAS ",
-    options: "ACOMPAÑAMIENTO: ENSALADA DE VERDES - ADEREZOS: SALSA BBQ",
+    title: "Hamburguesa de pollo crispy",
+    description: "Pan caseros con pollo rebosado",
+    options: "Acompañamiento: Ensalada de verdes - Aderezos: Salsa BBQ",
   },
 ];

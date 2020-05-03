@@ -16,7 +16,7 @@ import {Tenant} from "../types";
 import {COLORS, HUES} from "~/constants";
 import ImageInput from "~/ui/inputs/Image";
 import TemplateInput from "~/ui/inputs/Template";
-import {SIMPLIFIED_CART_MOCK} from "~/cart/consants";
+import {CART_MOCK} from "~/cart/consants";
 
 interface Props {
   defaultValues?: Tenant;
@@ -93,7 +93,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             <Controller
               as={TemplateInput}
               control={control}
-              data={{products: SIMPLIFIED_CART_MOCK}}
+              data={{products: CART_MOCK}}
               name="message"
               rules={{
                 validate: (value: string) => !value.includes("Este mensaje no es válido"),

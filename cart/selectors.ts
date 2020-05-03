@@ -1,30 +1,9 @@
-import {Cart, CartItem} from "./types";
+import {CartItem} from "./types";
 
-import {getOptionsString, getPrice} from "~/product/selectors";
-
-export function getSimplifiedCart(cart: Cart) {
-  return cart.map(({product}) => {
-    const {category, subcategory, title, description, options} = product;
-
-    return {
-      category,
-      subcategory,
-      price: getPrice(product),
-      title,
-      description,
-      options: getOptionsString(options),
-    };
-  });
+export function getTotal(items: CartItem[]): number {
+  return items.reduce((total, item) => total + item.price * item.count, 0);
 }
 
-export function getTotal(cart: Cart): number {
-  return cart.reduce((total, {product}) => total + getPrice(product), 0);
-}
-
-export function getSummary(cart: Cart): string {
-  return `[${getTotal(cart)}] ${cart.map(({product}) => product.title).join(", ")}`;
-}
-
-export function getProductCount(cart: Cart, id: CartItem["product"]["id"]): number {
-  return cart.filter((item) => item.product.id === id).length || 0;
+export function getSummary(items: CartItem[]): string {
+  return `[${getTotal(items)}] ${items.map(({title}) => title).join(", ")}`;
 }
