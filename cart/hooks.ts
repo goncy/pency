@@ -1,14 +1,13 @@
 import React from "react";
 
 import CartContext from "./context";
-import {getTotal, getProductCount} from "./selectors";
-
-import {Product} from "~/product/types";
+import {getTotal} from "./selectors";
+import {CartItem} from "./types";
 
 export function useCart() {
   const {
-    state: {cart},
-    actions: {add, pop, remove, checkout},
+    state: {items, cart},
+    actions: {add, remove, checkout},
   } = React.useContext(CartContext);
 
   return {
@@ -16,16 +15,16 @@ export function useCart() {
     remove,
     checkout,
     cart,
-    pop,
-    count: cart.length,
-    total: getTotal(cart),
+    items,
+    count: items.length,
+    total: getTotal(items),
   };
 }
 
-export function useProductCartCount(id: Product["id"]) {
+export function useProductCartCount(id: CartItem["product"]) {
   const {
-    state: {cart},
+    state: {items},
   } = React.useContext(CartContext);
 
-  return getProductCount(cart, id);
+  return items.filter((item) => item.product === id).reduce((count, item) => count + item.count, 0);
 }

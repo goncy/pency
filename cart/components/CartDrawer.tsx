@@ -16,7 +16,6 @@ import {
 } from "@chakra-ui/core";
 
 import {useCart} from "../hooks";
-import {getSimplifiedCart} from "../selectors";
 
 import WhatsAppIcon from "~/ui/icons/WhatsApp";
 import Badge from "~/ui/feedback/Badge";
@@ -27,8 +26,7 @@ interface Props {
 }
 
 const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
-  const {cart, count, total, remove, checkout} = useCart();
-  const items = getSimplifiedCart(cart);
+  const {items, count, total, remove, checkout} = useCart();
 
   React.useEffect(() => {
     if (!count) onClose();
@@ -70,7 +68,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
                   </Flex>
                 </Flex>
                 <Flex alignItems="center">
-                  <Text>${price}</Text>
+                  <Text>${price * count}</Text>
                 </Flex>
               </Flex>
             ))}
