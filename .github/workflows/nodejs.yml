@@ -51,5 +51,4 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: yarn install --frozen-lockfile
     - run: npm run build
-    - run: npm start
-    - run: npm run integration
+    - run: npx start-server-and-test start http-get://localhost:3000 integration
