@@ -20,5 +20,6 @@ declare namespace NodeJS {
     FIREBASE_CLIENT_X509_CERT_URL: string;
     FIREBASE_PRIVATE_KEY: string;
     SECRET: string;
+    SENTRY_DSN: string;
   }
 }
