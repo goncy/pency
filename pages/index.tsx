@@ -69,14 +69,19 @@ const LandingScreen: React.FC = () => (
         textAlign={{base: "center", md: "inherit"}}
         width="100%"
       >
-        <Stack flex={0.8} justifyContent="center" padding={12} spacing={4}>
+        <Stack
+          flex={{base: 1, md: 0.8}}
+          justifyContent="center"
+          padding={{base: 6, md: 12}}
+          spacing={4}
+        >
           <Heading as="h1" size="2xl">
             Tu tienda online, <Text color="cyan.500">fácil y gratis</Text>
           </Heading>
           <Text color="gray.500" fontSize="2xl">
             Cargá tus productos y recibí los pedidos de tus clientes por WhatsApp en minútos.
           </Text>
-          <Stack isInline spacing={4}>
+          <Stack isInline justifyContent={{base: "center", md: "flex-start"}} spacing={4}>
             <UnstyledLink href="/blondies">
               <Button size="lg">Mirá un demo</Button>
             </UnstyledLink>
