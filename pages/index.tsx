@@ -1,5 +1,5 @@
 import React from "react";
-import {Flex, Text} from "@chakra-ui/core";
+import {Flex, Text, Image, Stack, Box, Heading, Button} from "@chakra-ui/core";
 import Head from "next/head";
 
 const LandingScreen: React.FC = () => (
@@ -32,19 +32,71 @@ const LandingScreen: React.FC = () => (
       <meta content="630" property="og:image:height" />
       <meta content="Pency - Tu tienda online" property="og:image:alt" />
     </Head>
-    <Flex
-      alignItems="center"
-      backgroundColor="cyan.500"
-      color="white"
-      height="100vh"
-      justifyContent="center"
-      overflow="hidden"
-      padding={4}
-      width="100vw"
-    >
-      <Text fontSize="xl" textAlign="center">
-        Estamos en construcción, date una vuelta en unos días.
-      </Text>
+    <Flex backgroundColor="gray.50" height="100vh">
+      <Flex
+        alignItems="center"
+        display={{base: "none", md: "inherit"}}
+        justifyContent="space-between"
+        paddingX={12}
+        paddingY={6}
+        position="absolute"
+        width="100%"
+        zIndex={2}
+      >
+        <Heading>Pency</Heading>
+        <Stack isInline display="none">
+          <Button size="sm" variantColor="cyan">
+            Mirá un demo
+          </Button>
+          <Button size="sm" variantColor="cyan">
+            Creá tu tienda
+          </Button>
+        </Stack>
+      </Flex>
+      <Flex
+        alignItems="center"
+        backgroundImage="url(./lines.svg)"
+        backgroundPosition="top"
+        backgroundRepeat="no-repeat"
+        backgroundSize="cover"
+        justifyContent="center"
+        position="relative"
+        textAlign={{base: "center", md: "inherit"}}
+        width="100%"
+      >
+        <Stack flex={0.8} justifyContent="center" padding={12} spacing={4}>
+          <Heading as="h1" size="2xl">
+            Tu tienda online, <Text color="cyan.500">fácil</Text>
+          </Heading>
+          <Text color="gray.500" fontSize="2xl">
+            Cargá tus productos y recibí los pedidos de tus clientes por WhatsApp en minútos.
+          </Text>
+          <Stack isInline spacing={4}>
+            <Button size="lg">Mirá un demo</Button>
+            <Button size="lg" variantColor="cyan">
+              Creá tu tienda
+            </Button>
+          </Stack>
+        </Stack>
+        <Box
+          display={{base: "none", md: "inherit"}}
+          flex={1}
+          height="100%"
+          position="relative"
+          width="100%"
+        >
+          <Image
+            height="100%"
+            objectFit="contain"
+            position="absolute"
+            right={0}
+            src="/iphone-top.png"
+            width="100%"
+            zIndex={1}
+          />
+          <Image height="100%" position="absolute" right={0} src="/circles-top.svg" width="100%" />
+        </Box>
+      </Flex>
     </Flex>
   </>
 );
