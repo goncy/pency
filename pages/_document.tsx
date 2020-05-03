@@ -2,7 +2,7 @@ import React from "react";
 import * as Sentry from "@sentry/browser";
 import Document, {Main, NextScript} from "next/document";
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "production" && process.env.SENTRY_DSN) {
   process.on("unhandledRejection", (err) => {
     Sentry.captureException(err);
   });
