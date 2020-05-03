@@ -10,10 +10,10 @@ import {useProductCartCount} from "~/cart/hooks";
 interface Props {
   product: Product;
   add: (product: Product) => void;
-  pop: (id: Product["id"]) => void;
+  remove: (id: Product["id"]) => void;
 }
 
-const ProductCard: React.FC<Props> = ({product, pop, add}) => {
+const ProductCard: React.FC<Props> = ({product, remove, add}) => {
   const {id, category, image, description, title, price, options} = product;
   const {isOpen: isImageOpen, onToggle: toggleImage} = useDisclosure();
   const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
@@ -29,8 +29,8 @@ const ProductCard: React.FC<Props> = ({product, pop, add}) => {
     return add(product);
   }
 
-  function handlePop() {
-    pop(product.id);
+  function handleRemove() {
+    remove(product.id);
   }
 
   function handleAddWithOptions(options) {
@@ -114,7 +114,7 @@ const ProductCard: React.FC<Props> = ({product, pop, add}) => {
             <Box position="relative">
               {!hasOptions && isInCart ? (
                 <ButtonGroup>
-                  <Button onClick={handlePop}>-</Button>
+                  <Button onClick={handleRemove}>-</Button>
                   <Button onClick={handleAdd}>+</Button>
                 </ButtonGroup>
               ) : (

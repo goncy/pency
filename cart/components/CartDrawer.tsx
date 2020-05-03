@@ -11,16 +11,14 @@ import {
   Drawer,
   Divider,
   Text,
-  Heading,
   Button,
   IconButton,
 } from "@chakra-ui/core";
 
 import {useCart} from "../hooks";
 
-import {groupBy} from "~/selectors/group";
-import {getOptionsString, getPrice} from "~/product/selectors";
 import WhatsAppIcon from "~/ui/icons/WhatsApp";
+import Badge from "~/ui/feedback/Badge";
 
 interface Props {
   isOpen: boolean;
@@ -28,8 +26,7 @@ interface Props {
 }
 
 const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
-  const {cart, count, total, remove, checkout} = useCart();
-  const productsByCategory = Object.entries(groupBy(cart, (item) => item.product.category));
+  const {items, count, total, remove, checkout} = useCart();
 
   React.useEffect(() => {
     if (!count) onClose();
@@ -43,41 +40,37 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
         <DrawerHeader p={4}>Tu carrito ({count})</DrawerHeader>
         <DrawerBody overflowY="auto" p={4}>
           <Stack spacing={6}>
-            {productsByCategory.map(([category, items]) => (
-              <Stack key={category} spacing={6}>
-                <Heading as="h4" size="md">
-                  {category}
-                </Heading>
-                {items.map(({id, product}) => (
-                  <Flex key={id} alignItems="center" justifyContent="space-between">
-                    <Flex alignItems="center" mr={2}>
-                      <IconButton
-                        isRound
-                        aria-label="Borrar elemento"
-                        fontSize="12px"
-                        height={6}
-                        icon="minus"
-                        minWidth={6}
-                        mr={4}
-                        variantColor="red"
-                        width={6}
-                        onClick={() => remove(id)}
-                      />
-                      <Flex direction="column">
-                        <Text>{product.title}</Text>
-                        {product.options && (
-                          <Text color="gray.500" fontSize="sm">
-                            {getOptionsString(product.options)}
-                          </Text>
-                        )}
-                      </Flex>
-                    </Flex>
+            {items.map(({id, title, options, price, count}) => (
+              <Flex key={id} alignItems="center" justifyContent="space-between">
+                <Flex alignItems="center" mr={2}>
+                  <IconButton
+                    isRound
+                    aria-label="Borrar elemento"
+                    fontSize="12px"
+                    height={6}
+                    icon="minus"
+                    minWidth={6}
+                    mr={4}
+                    variantColor="red"
+                    width={6}
+                    onClick={() => remove(id)}
+                  />
+                  <Flex direction="column">
                     <Flex alignItems="center">
-                      <Text>${getPrice(product)}</Text>
+                      <Text>{title}</Text>
+                      <Badge count={count} marginLeft={2} variantColor="primary" />
                     </Flex>
+                    {options && (
+                      <Text color="gray.500" fontSize="sm">
+                        {options}
+                      </Text>
+                    )}
                   </Flex>
-                ))}
-              </Stack>
+                </Flex>
+                <Flex alignItems="center">
+                  <Text>${price * count}</Text>
+                </Flex>
+              </Flex>
             ))}
           </Stack>
         </DrawerBody>
