@@ -1,4 +1,4 @@
-{
+module.exports = {
   "root": true,
   "extends": [
     "react-app",
@@ -8,7 +8,8 @@
   "plugins": ["react-hooks"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-      "project": "tsconfig.json"
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": __dirname
   },
   "settings": {
     "react": {

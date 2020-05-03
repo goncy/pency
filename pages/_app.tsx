@@ -1,5 +1,4 @@
 import React from "react";
-import {Global, css} from "@emotion/core";
 import {Flex, ThemeProvider, CSSReset} from "@chakra-ui/core";
 
 import ErrorScreen from "./_error";
@@ -25,44 +24,6 @@ function App({Component, pageProps}) {
   return (
     <ThemeProvider>
       <CSSReset />
-      <Global
-        styles={css`
-          html,
-          body {
-            height: 100%;
-            max-height: 100vh;
-            width: 100%;
-            max-width: 100vw;
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-              "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overscroll-behavior: contain;
-            overflow: hidden;
-            position: fixed;
-          }
-
-          #__next {
-            height: 100%;
-          }
-
-          * {
-            touch-action: manipulation;
-          }
-
-          #drawer-cart,
-          #drawer-product,
-          #drawer-options {
-            height: 100% !important;
-          }
-
-          #modal-image {
-            height: inherit !important;
-            margin: 0 !important;
-          }
-        `}
-      />
       {error ? (
         <ErrorScreen statusCode={error} />
       ) : tenant && products ? (
