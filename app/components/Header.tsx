@@ -19,7 +19,7 @@ const Header = () => {
     >
       <Box height="100%">
         {logo ? (
-          <Image height="100%" maxHeight={12} src={logo} />
+          <Image height="100%" maxHeight={12} objectFit="contain" src={logo} />
         ) : (
           <Heading as="h1" size="lg">
             {slug}
