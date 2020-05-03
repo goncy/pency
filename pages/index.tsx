@@ -1,6 +1,11 @@
 import React from "react";
-import {Flex, Text, Image, Stack, Box, Heading, Button} from "@chakra-ui/core";
+import {Flex, Link, Text, Image, Stack, Box, Heading, Button} from "@chakra-ui/core";
 import Head from "next/head";
+import styled from "@emotion/styled";
+
+const UnstyledLink = styled(Link)`
+  text-decoration: none !important;
+`;
 
 const LandingScreen: React.FC = () => (
   <>
@@ -66,16 +71,20 @@ const LandingScreen: React.FC = () => (
       >
         <Stack flex={0.8} justifyContent="center" padding={12} spacing={4}>
           <Heading as="h1" size="2xl">
-            Tu tienda online, <Text color="cyan.500">fácil</Text>
+            Tu tienda online, <Text color="cyan.500">fácil y gratis</Text>
           </Heading>
           <Text color="gray.500" fontSize="2xl">
             Cargá tus productos y recibí los pedidos de tus clientes por WhatsApp en minútos.
           </Text>
           <Stack isInline spacing={4}>
-            <Button size="lg">Mirá un demo</Button>
-            <Button size="lg" variantColor="cyan">
-              Creá tu tienda
-            </Button>
+            <UnstyledLink href="/blondies">
+              <Button size="lg">Mirá un demo</Button>
+            </UnstyledLink>
+            <UnstyledLink isExternal href="https://forms.gle/FWd3VNM5i9EvpfXZ7">
+              <Button size="lg" variantColor="cyan">
+                Creá tu tienda
+              </Button>
+            </UnstyledLink>
           </Stack>
         </Stack>
         <Box
