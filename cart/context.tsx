@@ -34,8 +34,10 @@ const CartProvider = ({children}: Props) => {
     setCart(
       produce((cart) => {
         if (product.options?.length) {
-          const item = {
-            id: shortid.generate(),
+          const id = shortid.generate();
+
+          cart[id] = {
+            id,
             product: product.id,
             count: 1,
             category: product.category,
@@ -45,12 +47,6 @@ const CartProvider = ({children}: Props) => {
             description: product.description,
             options: getOptionsString(product.options),
           };
-
-          if (cart["options"]) {
-            cart["options"].push(item);
-          } else {
-            cart["options"] = [item];
-          }
         } else {
           if (cart[product.id]) {
             cart[product.id].count++;
@@ -76,11 +72,7 @@ const CartProvider = ({children}: Props) => {
   function remove(id: CartItem["id"]) {
     setCart(
       produce((cart) => {
-        if (!cart[id]) {
-          const index = cart["options"].findIndex((item) => item.id === id);
-
-          cart["options"].splice(index, 1);
-        } else if (cart[id].count === 1) {
+        if (cart[id].count === 1) {
           delete cart[id];
         } else {
           cart[id].count--;
