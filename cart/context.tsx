@@ -76,7 +76,11 @@ const CartProvider = ({children}: Props) => {
   function remove(id: CartItem["id"]) {
     setCart(
       produce((cart) => {
-        if (cart[id].count === 1) {
+        if (!cart[id]) {
+          const index = cart["options"].findIndex((item) => item.id === id);
+
+          cart["options"].splice(index, 1);
+        } else if (cart[id].count === 1) {
           delete cart[id];
         } else {
           cart[id].count--;
