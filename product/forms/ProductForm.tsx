@@ -16,8 +16,8 @@ import ProductOptionsInput, {
   validator as ProductOptionsInputValidator,
 } from "../inputs/ProductOptionsInput";
 
-import Image from "~/ui/inputs/Image";
-import Switch from "~/ui/inputs/Switch";
+import ImageInput from "~/ui/inputs/Image";
+import SwitchInput from "~/ui/inputs/Switch";
 
 interface Props {
   defaultValues?: Product;
@@ -141,13 +141,19 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
             </FormControl>
             <FormControl isInvalid={Boolean(errors.image)}>
               <FormLabel htmlFor="image">Imágen</FormLabel>
-              <Controller as={Image} control={control} defaultValue="" name="image" />
+              <Controller
+                as={ImageInput}
+                control={control}
+                defaultValue=""
+                format="jpg"
+                name="image"
+              />
               <FormErrorMessage>{errors.image && errors.image.message}</FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={Boolean(errors.available)} mb={4}>
               <FormLabel htmlFor="available">En stock</FormLabel>
               <Controller
-                as={Switch}
+                as={SwitchInput}
                 control={control}
                 display="block"
                 name="available"
@@ -160,7 +166,7 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
             <FormControl isInvalid={Boolean(errors.featured)} mb={4}>
               <FormLabel htmlFor="featured">Destacado</FormLabel>
               <Controller
-                as={Switch}
+                as={SwitchInput}
                 control={control}
                 defaultValue={false}
                 display="block"

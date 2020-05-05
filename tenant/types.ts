@@ -5,7 +5,6 @@ export interface Tenant {
   slug: string;
   logo?: string;
   color: Exclude<VariantColor, "black" | "white">;
-  message: string;
   phone: number;
   hue: keyof ColorHues;
   title?: string;

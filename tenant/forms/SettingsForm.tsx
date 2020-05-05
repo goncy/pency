@@ -8,15 +8,12 @@ import {
   Stack,
   Select,
   FormHelperText,
-  Link,
 } from "@chakra-ui/core";
 
 import {Tenant} from "../types";
 
 import {COLORS, HUES} from "~/constants";
 import ImageInput from "~/ui/inputs/Image";
-import TemplateInput from "~/ui/inputs/Template";
-import {CART_MOCK} from "~/cart/consants";
 
 interface Props {
   defaultValues?: Tenant;
@@ -88,28 +85,6 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               {(errors.color && errors.color.message) || "Este campo es inválido"}
             </FormErrorMessage>
           </FormControl>
-          <FormControl isRequired isInvalid={Boolean(errors.message)}>
-            <FormLabel htmlFor="message">Mensaje</FormLabel>
-            <Controller
-              as={TemplateInput}
-              control={control}
-              data={{products: CART_MOCK}}
-              name="message"
-              rules={{
-                validate: (value: string) => !value.includes("Este mensaje no es válido"),
-              }}
-            />
-            <FormHelperText>
-              <span>Este campo usa </span>
-              <Link isExternal href="https://lodash.com/docs/#template" textDecoration="underline">
-                Lodash templates
-              </Link>
-              <span> para configurarse</span>
-            </FormHelperText>
-            <FormErrorMessage>
-              {(errors.message && errors.message.message) || "Este campo es inválido"}
-            </FormErrorMessage>
-          </FormControl>
           <FormControl>
             <FormLabel htmlFor="title">Título de la página</FormLabel>
             <Input ref={register} name="title" placeholder="Título de la página" />
@@ -125,11 +100,23 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="logo">Logo</FormLabel>
-            <Controller as={ImageInput} control={control} defaultValue="" name="logo" />
+            <Controller
+              as={ImageInput}
+              control={control}
+              defaultValue=""
+              format="png"
+              name="logo"
+            />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="banner">Banner</FormLabel>
-            <Controller as={ImageInput} control={control} defaultValue="" name="banner" />
+            <Controller
+              as={ImageInput}
+              control={control}
+              defaultValue=""
+              format="png"
+              name="banner"
+            />
             <FormHelperText>
               Se muestra al compartir el link por redes sociales (1200x630)
             </FormHelperText>

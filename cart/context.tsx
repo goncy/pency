@@ -1,12 +1,11 @@
 import React from "react";
 import shortid from "shortid";
-import template from "lodash.template";
 import produce from "immer";
 
 import {Product} from "../product/types";
 
 import {CartItem, Context, State, Actions, Cart} from "./types";
-import {getSummary} from "./selectors";
+import {getSummary, getMessage} from "./selectors";
 
 import {useAnalytics} from "~/analytics/hooks";
 import {useTenant} from "~/tenant/hooks";
@@ -20,7 +19,7 @@ const CartContext = React.createContext({} as Context);
 
 const CartProvider = ({children}: Props) => {
   const log = useAnalytics();
-  const {phone, message} = useTenant();
+  const {phone} = useTenant();
   const [cart, setCart] = React.useState<Cart>({});
   const items = React.useMemo(() => [].concat(...Object.values(cart)), [cart]);
 
@@ -84,16 +83,13 @@ const CartProvider = ({children}: Props) => {
   }
 
   function checkout() {
-    const compile = template(message);
-    const text = compile({products: items});
-
     log("cart_checkout", {
       content_type: "cart",
       description: getSummary(items),
       items,
     });
 
-    window.open(`https://wa.me/${phone}?text=${encodeURI(text)}`, "_blank");
+    window.open(`https://wa.me/${phone}?text=${encodeURI(getMessage(items))}`, "_blank");
   }
 
   const state: State = {items, cart};

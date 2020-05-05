@@ -1,22 +1,37 @@
 import React from "react";
 import {Image, Input, Flex, Spinner, Button} from "@chakra-ui/core";
 
-import storage from "../../storage/api";
+import storage from "~/storage/api";
+import {Format} from "~/storage/types";
+import {useToast} from "~/hooks/toast";
 
 interface Props {
   value?: string;
+  format?: Format;
   onChange: (value: string) => void;
 }
 
-const ImageInput: React.FC<Props> = ({value, onChange}) => {
+const ImageInput: React.FC<Props> = ({value, onChange, format = "jpg"}) => {
   const [isLoading, setLoading] = React.useState(false);
+  const toast = useToast();
 
   async function upload(file?: File) {
     if (!file) return;
 
-    setLoading(true);
-    onChange(await storage.upload(file));
-    setLoading(false);
+    try {
+      setLoading(true);
+
+      const url = await storage.upload(file, format);
+
+      onChange(url);
+      setLoading(false);
+    } catch (e) {
+      toast({
+        title: "Error",
+        description: "Hubo un error subiendo la imágen, intentá de nuevo mas tarde",
+        status: "error",
+      });
+    }
   }
 
   return (
