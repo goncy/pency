@@ -8,6 +8,7 @@ import {
   Text,
   Heading,
   Button,
+  Badge,
   useDisclosure,
 } from "@chakra-ui/core";
 
@@ -97,26 +98,41 @@ const ProductsScreen: React.FC = () => {
               </Text>
             </Flex>
           )}
-        </Stack>
-        {Boolean(count) && (
-          <Flex
-            alignItems="center"
-            borderTopWidth="1px"
-            display={["block", "flex"]}
-            justifyContent="center"
-            padding={2}
-          >
-            <Button
-              backgroundColor="primary.500"
-              color="white"
-              variantColor="primary"
-              w={{base: "100%", sm: "auto"}}
-              onClick={openCart}
+          {Boolean(count) && (
+            <Flex
+              alignItems="center"
+              bottom={0}
+              boxShadow="0 0 6px currentColor"
+              color="primary.500"
+              display="block"
+              justifyContent="center"
+              position="sticky"
             >
-              Revisar pedido (${total})
-            </Button>
-          </Flex>
-        )}
+              <Button
+                backgroundColor="primary.500"
+                color="white"
+                display="flex"
+                justifyContent="space-between"
+                variantColor="primary"
+                width={{base: "100%", sm: "auto"}}
+                onClick={openCart}
+              >
+                <Badge
+                  backgroundColor="primary.700"
+                  color="primary.50"
+                  fontSize="sm"
+                  paddingX={2}
+                  paddingY={1}
+                  variantColor="primary"
+                >
+                  {count}
+                </Badge>
+                <Text>Revisar pedido</Text>
+                <Text>${total}</Text>
+              </Button>
+            </Flex>
+          )}
+        </Stack>
       </Flex>
       <CartDrawer isOpen={isCartOpen} onClose={closeCart} />
     </>
