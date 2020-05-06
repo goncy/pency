@@ -1,5 +1,5 @@
 import React from "react";
-import {SimpleGrid} from "@chakra-ui/core";
+import {SimpleGrid, Icon, Text} from "@chakra-ui/core";
 
 import {SingleOptionItem} from "../types/options";
 
@@ -17,23 +17,22 @@ const ProductRadioInput: React.FC<Props> = ({
   options,
   value,
   label,
-  valueProp = "value",
   onChange,
+  valueProp = "value",
   ...props
-}) => {
-  return (
-    <SimpleGrid spacing={3} width="100%" {...props}>
-      {options.map((option) => (
-        <Checkbox
-          key={option[valueProp]}
-          isChecked={Boolean(value && value[valueProp] === option[valueProp])}
-          onChange={() => onChange(option)}
-        >
-          {label(option)}
+}) => (
+  <SimpleGrid spacing={3} width="100%" {...props}>
+    {options.map((option) => {
+      const isChecked = Boolean(value && value[valueProp] === option[valueProp]);
+
+      return (
+        <Checkbox key={option[valueProp]} isChecked={isChecked} onChange={() => onChange(option)}>
+          <Text>{label(option)}</Text>
+          {isChecked && <Icon color="primary.500" marginLeft={2} name="check-circle" />}
         </Checkbox>
-      ))}
-    </SimpleGrid>
-  );
-};
+      );
+    })}
+  </SimpleGrid>
+);
 
 export default ProductRadioInput;
