@@ -4,7 +4,7 @@ import {Stack, FormControl, FormLabel, FormErrorMessage} from "@chakra-ui/core";
 import {useForm, Controller} from "react-hook-form";
 
 import {Product} from "../types";
-import ProductLimitedCheckboxInput from "../inputs/ProductLimitedCheckboxInput";
+import ProductLimitedCheckboxInput from "../inputs/ProductCheckboxInput";
 import ProductRadioInput from "../inputs/ProductRadioInput";
 
 interface Props {

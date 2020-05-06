@@ -1,10 +1,10 @@
 import React from "react";
-import {Box, Flex, Icon, Text} from "@chakra-ui/core";
+import {Box, Flex} from "@chakra-ui/core";
 
 interface Props {
   isDisabled?: boolean;
   isChecked: boolean;
-  onChange: (boolean) => void;
+  onChange?: (boolean) => void;
 }
 
 const Checkbox: React.FC<Props> = ({onChange, isDisabled, isChecked, children}) => (
@@ -16,11 +16,10 @@ const Checkbox: React.FC<Props> = ({onChange, isDisabled, isChecked, children}) 
     opacity={isDisabled ? 0.5 : 1}
     padding={3}
     pointerEvents={isDisabled ? "none" : "auto"}
-    onClick={() => onChange(!isChecked)}
+    onClick={() => onChange && onChange(!isChecked)}
   >
     <Flex alignItems="center" justifyContent="space-between">
-      <Text>{children}</Text>
-      {isChecked && <Icon color="primary.500" marginLeft={2} name="check-circle" />}
+      {children}
     </Flex>
   </Box>
 );
