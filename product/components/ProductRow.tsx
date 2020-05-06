@@ -1,5 +1,6 @@
 import React from "react";
 import {Flex, AspectRatioBox, IconButton, Image, Text} from "@chakra-ui/core";
+import LazyLoad from "react-lazy-load";
 
 import {Product} from "../types";
 
@@ -33,15 +34,17 @@ const ProductRow: React.FC<Props> = ({onClick, onRemove, ...product}) => {
       rounded="lg"
       onClick={() => onClick(product)}
     >
-      <AspectRatioBox maxWidth={16} ratio={1} width="100%">
-        <Image
-          backgroundColor="gray.100"
-          borderWidth={1}
-          objectFit="cover"
-          rounded="lg"
-          src={product.image}
-        />
-      </AspectRatioBox>
+      <LazyLoad height={64} offsetVertical={128} width={64}>
+        <AspectRatioBox maxWidth={16} ratio={1} width="100%">
+          <Image
+            backgroundColor="gray.100"
+            borderWidth={1}
+            objectFit="cover"
+            rounded="lg"
+            src={product.image}
+          />
+        </AspectRatioBox>
+      </LazyLoad>
       <Text flex={1} fontSize="lg" marginX={4}>
         {product.title}
       </Text>
