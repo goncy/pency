@@ -47,7 +47,12 @@ const ProductLimitedCheckboxInput: React.FC<Props> = ({
         const isDisabled = isFull && !count;
 
         return (
-          <Checkbox key={option[valueProp]} isChecked={Boolean(count)} isDisabled={isDisabled}>
+          <Checkbox
+            key={option[valueProp]}
+            isReadOnly
+            isChecked={Boolean(count)}
+            isDisabled={isDisabled}
+          >
             <Text>{label(option)}</Text>
             <Stack isInline>
               <Button isDisabled={count === 0} size="xs" onClick={() => handleDecrease(option)}>

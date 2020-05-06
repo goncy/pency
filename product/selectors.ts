@@ -1,4 +1,5 @@
 import {Product} from "~/product/types";
+import {groupBy} from "~/selectors/group";
 
 export function getOptionsString(options: Product["options"]): string {
   if (!options?.length) return "";
@@ -11,7 +12,11 @@ export function getOptionsString(options: Product["options"]): string {
         }
 
         case "multiple": {
-          return `${option.title}: ${option.value.map((value) => value.title).join(", ")}`;
+          const groups = groupBy(option.value, ({title}) => title);
+
+          return `${option.title}: ${Object.entries(groups)
+            .map(([title, items]) => `${title}${items.length > 1 ? ` X${items.length}` : ``}`)
+            .join(", ")}`;
         }
 
         default:
