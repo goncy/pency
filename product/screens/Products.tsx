@@ -107,6 +107,7 @@ const ProductsScreen: React.FC = () => {
               display="block"
               justifyContent="center"
               position="sticky"
+              zIndex={2}
             >
               <Button
                 backgroundColor="primary.500"
