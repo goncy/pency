@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f4cfcce4-d3b8-473c-ba34-66cc4f53137c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/CreateLocalStore.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +40,7 @@
       <option name="presentableId" value="Default" />
       <updated>1588721721427</updated>
       <workItem from="1588721724667" duration="17000" />
-      <workItem from="1588721743393" duration="3412000" />
+      <workItem from="1588721743393" duration="3543000" />
     </task>
     <servers />
   </component>
