@@ -1,5 +1,6 @@
 import React from "react";
 import {Box, Text, Flex, Badge, Button, useDisclosure, ButtonGroup} from "@chakra-ui/core";
+import LazyLoad from "react-lazy-load";
 
 import ProductOptionsDrawer from "./ProductOptionsDrawer";
 import ProductImageModal from "./ProductImageModal";
@@ -53,20 +54,22 @@ const ProductCard: React.FC<Props> = ({product, remove, add}) => {
         transition="transform 0.2s"
       >
         {image ? (
-          <Box
-            backgroundImage={`url(${image})`}
-            backgroundPosition="center"
-            backgroundSize="cover"
-            borderBottom={1}
-            borderBottomStyle="solid"
-            borderColor="gray.100"
-            cursor={"pointer"}
-            flexShrink={0}
-            height={64}
-            roundedTop="lg"
-            width="100%"
-            onClick={toggleImage}
-          />
+          <LazyLoad height={256} offsetVertical={512} width="100%">
+            <Box
+              backgroundImage={`url(${image})`}
+              backgroundPosition="center"
+              backgroundSize="cover"
+              borderBottom={1}
+              borderBottomStyle="solid"
+              borderColor="gray.100"
+              cursor={"pointer"}
+              flexShrink={0}
+              height={64}
+              roundedTop="lg"
+              width="100%"
+              onClick={toggleImage}
+            />
+          </LazyLoad>
         ) : (
           <Flex
             alignItems="center"
