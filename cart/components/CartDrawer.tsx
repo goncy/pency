@@ -74,7 +74,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
             ))}
           </Stack>
         </DrawerBody>
-        <DrawerFooter padding={2}>
+        <DrawerFooter padding={4}>
           <Stack spacing={4} width="100%">
             <Divider />
             <Flex alignItems="center" justifyContent="flex-end">

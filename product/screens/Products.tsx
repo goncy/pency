@@ -106,6 +106,7 @@ const ProductsScreen: React.FC = () => {
               color="primary.500"
               display="block"
               justifyContent="center"
+              margin={{base: 0, sm: "auto"}}
               position="sticky"
               rounded={4}
               zIndex={2}
@@ -119,18 +120,20 @@ const ProductsScreen: React.FC = () => {
                 width={{base: "100%", sm: "auto"}}
                 onClick={openCart}
               >
-                <Badge
-                  backgroundColor="primary.700"
-                  color="primary.50"
-                  fontSize="sm"
-                  paddingX={2}
-                  paddingY={1}
-                  variantColor="primary"
-                >
-                  {count}
-                </Badge>
-                <Text>Revisar pedido</Text>
-                <Text>${total}</Text>
+                <Stack isInline alignItems="center" flex={1} spacing={4}>
+                  <Badge
+                    backgroundColor="primary.700"
+                    color="primary.50"
+                    fontSize="sm"
+                    paddingX={2}
+                    paddingY={1}
+                    variantColor="primary"
+                  >
+                    {count}
+                  </Badge>
+                  <Text flex={1}>Revisar pedido</Text>
+                  <Text>${total}</Text>
+                </Stack>
               </Button>
             </Flex>
           )}
