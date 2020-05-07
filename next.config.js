@@ -1,4 +1,4 @@
-require("dotenv").config({
+require("dotenv-safe").config({
   path: `.env.${process.env.NODE_ENV}`
 });
 
