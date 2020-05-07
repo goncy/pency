@@ -55,13 +55,13 @@ const ProductLimitedCheckboxInput: React.FC<Props> = ({
           >
             <Text>{label(option)}</Text>
             <Stack isInline>
-              <Button isDisabled={count === 0} size="xs" onClick={() => handleDecrease(option)}>
+              <Button isDisabled={count === 0} size="sm" onClick={() => handleDecrease(option)}>
                 -
               </Button>
               <Text alignSelf="center" minWidth={6} textAlign="center">
                 {count}
               </Text>
-              <Button isDisabled={isFull} size="xs" onClick={() => handleIncrease(option)}>
+              <Button isDisabled={isFull} size="sm" onClick={() => handleIncrease(option)}>
                 +
               </Button>
             </Stack>
