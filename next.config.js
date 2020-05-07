@@ -1,6 +1,10 @@
+console.log('process.env 1:', process.env);
+
 require("dotenv-safe").config({
   path: `.env.${process.env.NODE_ENV}`
 });
+
+console.log('process.env 2', process.env);
 
 const withSourceMaps = require('@zeit/next-source-maps')
 
