@@ -32,7 +32,7 @@ Luego en consola ejecutá:
 ```bash
 # Yarn
 yarn
-yarn run dev
+yarn dev
 
 # O si usas npm
 npm install
