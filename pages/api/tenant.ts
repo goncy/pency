@@ -39,20 +39,29 @@ const cache = new Map();
 
 const api = {
   create: (email: string, password: string, slug: string) =>
-    auth
-      .createUser({
-        email,
-        password,
-      })
-      .then((user) =>
-        database
-          .collection("tenants")
-          .doc(user.uid)
-          .create({
-            id: user.uid,
-            slug,
-            ...DEFAULT_TENANT,
-          }),
+    database
+      .collection("tenants")
+      .where("slug", "==", slug)
+      .limit(1)
+      .get()
+      .then((snapshot) =>
+        snapshot.empty
+          ? auth
+              .createUser({
+                email,
+                password,
+              })
+              .then((user) =>
+                database
+                  .collection("tenants")
+                  .doc(user.uid)
+                  .create({
+                    id: user.uid,
+                    slug,
+                    ...DEFAULT_TENANT,
+                  }),
+              )
+          : Promise.reject({statusText: "Esa tienda ya existe", status: 409}),
       ),
   fetch: async (slug: Tenant["slug"]): Promise<Tenant> =>
     database
@@ -99,11 +108,13 @@ export default async (req, res) => {
       body: {email, password, secret},
     } = req as PostRequest;
 
-    if (process.env.NODE_ENV === "production") return res.status(404);
     if (!email || !password || !slug || !secret || secret !== process.env.SECRET)
       return res.status(304).end();
 
-    return api.create(email, password, slug).then(() => res.status(200).json({success: true}));
+    return api
+      .create(email, password, slug)
+      .then(() => res.status(200).json({success: true}))
+      .catch(({status, statusText}) => res.status(status).end(statusText));
   }
 
   if (req.method === "PATCH") {
