@@ -8,6 +8,8 @@ import {
   Stack,
   Select,
   FormHelperText,
+  Box,
+  Flex,
 } from "@chakra-ui/core";
 
 import {Tenant} from "../types";
@@ -60,6 +62,22 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
           </FormControl>
           <FormControl isRequired isInvalid={Boolean(errors.color)}>
             <FormLabel htmlFor="color">Color</FormLabel>
+            <Flex justifyContent="space-between">
+              {Object.entries(COLORS).map(([_, value]) => (
+                <Box
+                  key={value}
+                  bg={`${value}.400`}
+                  border="5px solid #FED7D7"
+                  borderRadius={4}
+                  h="40px"
+                  mx="5px"
+                  p={5}
+                  rounded="10px"
+                  shadow="lg"
+                  w="40px"
+                />
+              ))}
+            </Flex>
             <Select ref={register({required: true})} name="color" placeholder="Color">
               {Object.entries(COLORS).map(([label, value]) => (
                 <option key={value} value={value}>
