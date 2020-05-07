@@ -32,11 +32,11 @@ Luego en consola ejecutá:
 ```bash
 # Yarn
 yarn
-yarn start
+yarn run dev
 
 # O si usas npm
 npm install
-npm start
+npm run dev
 ```
 
 ## ¿Cómo crear tienda estando en modo *desarrollo*?
