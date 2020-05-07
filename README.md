@@ -28,6 +28,8 @@ Mandame un mail a gonzalo.pozzo4@gmail.com
 ## ¿Cómo puedo correr el proyecto?
 Completá todas las variables que aparecen en `.env.template` y guardalo como `.env.development`
 
+> Todas las variables de firebase se sacan del proyecto y las de firebase admin de una cuenta de servicio que podés encontrar en firebase yendo a `Configuración > Usuarios y permisos > Cuentas de servicio` y generando una nueva clave privada. El único campo diferente es `FIREBASE_PRIVATE_KEY` que antes de agregarlo al archivo `.env.[ambiente]` lo tenés que pasar a Base64 (podés usar cualquier convertor online). Luego el `next.config.js` se encarga de decodificarlo. Copialo con los \n, los espacios, todo, exactamente igual que como está en el archivo .json.
+
 Luego en consola ejecutá:
 ```bash
 # Yarn
@@ -38,7 +40,6 @@ yarn start
 npm install
 npm start
 ```
-
 > Necesitás tener un .env.[ambiente] para cada ambiente en el que vas a correr la app
 
 ## ¿Cómo crear tienda estando en modo *desarrollo*?
@@ -53,7 +54,6 @@ yarn && yarn dev
 # o si usas npm
 npm install && npm run dev
 ```
-
 
 ## Creando la tienda
  - Bajamos y abrimos [Postman](https://www.postman.com/downloads/).
