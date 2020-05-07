@@ -1,5 +1,6 @@
 require("dotenv-safe").config({
-  path: `.env.${process.env.NODE_ENV}`
+  path: `.env.${process.env.NODE_ENV}`,
+  allowEmptyValues: process.env.CI ? true : false // Fix for the missing variablesin CI
 });
 
 const withSourceMaps = require('@zeit/next-source-maps')
