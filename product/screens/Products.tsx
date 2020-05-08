@@ -65,7 +65,7 @@ const ProductsScreen: React.FC = () => {
         <Flex
           alignItems="center"
           backgroundColor="rgba(255,255,255,0.8)"
-          boxShadow="md"
+          boxShadow="sm"
           justifyContent="flex-end"
           marginBottom={-12}
           padding={4}
@@ -77,11 +77,11 @@ const ProductsScreen: React.FC = () => {
         </Flex>
         {/* <Box padding={4}>{filters}</Box> */}
         {Boolean(featuredProducts.length) && (
-          <Box marginTop={1} paddingX={4}>
+          <Box marginBottom={4} marginTop={1} paddingX={4}>
             <Heading
               as="h4"
               fontWeight={600}
-              marginBottom={2}
+              marginBottom={5}
               paddingY={2}
               position="sticky"
               size="md"
@@ -92,7 +92,7 @@ const ProductsScreen: React.FC = () => {
             </Heading>
             <ProductsGrid>
               {featuredProducts.map((product) => (
-                <ProductCard key={product.id} add={add} product={product} remove={remove} />
+                <ProductCard key={product.id} product={product} onAdd={add} onRemove={remove} />
               ))}
             </ProductsGrid>
           </Box>
@@ -101,7 +101,7 @@ const ProductsScreen: React.FC = () => {
           productsByCategory.map(([category, products]) => {
             const productsBySubcategory = Object.entries(
               groupBy(products, (product) => product.subcategory),
-            );
+            ).sort(([subcategory]) => (!subcategory ? -1 : 0));
 
             return (
               <PseudoBox key={category} marginBottom={4} marginTop={1} paddingX={4}>
@@ -109,7 +109,7 @@ const ProductsScreen: React.FC = () => {
                   <Heading
                     as="h4"
                     fontWeight={600}
-                    marginBottom={2}
+                    marginBottom={1}
                     paddingY={2}
                     position="sticky"
                     size="md"
@@ -119,10 +119,10 @@ const ProductsScreen: React.FC = () => {
                     {category}
                   </Heading>
                   {productsBySubcategory.map(([subcategory, products]) => (
-                    <PseudoBox key={subcategory} mt={4}>
+                    <PseudoBox key={subcategory} marginTop={4}>
                       <Flex direction="column">
                         {subcategory && (
-                          <Heading as="h3" mb={4} size="lg">
+                          <Heading as="h3" fontSize="lg" fontWeight={400} mb={4}>
                             {subcategory}
                           </Heading>
                         )}
@@ -130,9 +130,9 @@ const ProductsScreen: React.FC = () => {
                           {products.map((product) => (
                             <ProductCard
                               key={product.id}
-                              add={add}
                               product={product}
-                              remove={remove}
+                              onAdd={add}
+                              onRemove={remove}
                             />
                           ))}
                         </ProductsGrid>

@@ -1,44 +1,22 @@
 import React from "react";
-import {Box, Text, Flex, Stack, Button, useDisclosure, ButtonGroup} from "@chakra-ui/core";
-import LazyLoad from "react-lazy-load";
+import {Box, Text, Flex, Stack} from "@chakra-ui/core";
 
-import ProductOptionsDrawer from "./ProductOptionsDrawer";
-import ProductImageModal from "./ProductImageModal";
+import ProductImage from "./ProductImage";
+import ProductButtons from "./ProductButtons";
 
 import {Product} from "~/product/types";
 import {useProductCartCount} from "~/cart/hooks";
 
 interface Props {
   product: Product;
-  add: (product: Product) => void;
-  remove: (id: Product["id"]) => void;
+  onAdd: (product: Product) => void;
+  onRemove: (id: Product["id"]) => void;
 }
 
-const ProductCard: React.FC<Props> = ({product, remove, add}) => {
-  const {id, image, description, title, price, options} = product;
-  const {isOpen: isImageOpen, onToggle: toggleImage} = useDisclosure();
-  const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
+const ProductCard: React.FC<Props> = ({product, onRemove, onAdd}) => {
+  const {id, image, description, title, price} = product;
   const count = useProductCartCount(id);
-  const hasOptions = Boolean(product.options?.length);
   const isInCart = Boolean(count);
-
-  function handleAdd() {
-    if (hasOptions) {
-      return toggleOptions();
-    }
-
-    return add(product);
-  }
-
-  function handleRemove() {
-    remove(product.id);
-  }
-
-  function handleAddWithOptions(options) {
-    toggleOptions();
-
-    return add({...product, options});
-  }
 
   return (
     <>
@@ -69,26 +47,11 @@ const ProductCard: React.FC<Props> = ({product, remove, add}) => {
               </Text>
             )}
           </Stack>
-          <Box alignSelf="flex-start" data-test-id="product-image">
-            {image && (
-              <LazyLoad height={96} offsetVertical={512}>
-                <Box
-                  backgroundImage={`url(${image})`}
-                  backgroundPosition="center"
-                  backgroundSize="cover"
-                  border={1}
-                  borderColor="gray.100"
-                  borderStyle="solid"
-                  cursor="pointer"
-                  flexShrink={0}
-                  height={24}
-                  rounded="lg"
-                  width={24}
-                  onClick={toggleImage}
-                />
-              </LazyLoad>
-            )}
-          </Box>
+          {image && (
+            <Box alignSelf="flex-start" data-test-id="product-image">
+              <ProductImage image={image} />
+            </Box>
+          )}
         </Stack>
         <Flex
           alignItems="flex-end"
@@ -106,44 +69,9 @@ const ProductCard: React.FC<Props> = ({product, remove, add}) => {
           >
             ${price}
           </Text>
-          {!hasOptions && isInCart ? (
-            <ButtonGroup width={24}>
-              <Button onClick={handleRemove}>-</Button>
-              <Button onClick={handleAdd}>+</Button>
-            </ButtonGroup>
-          ) : (
-            <Button width={24} onClick={handleAdd}>
-              Agregar
-            </Button>
-          )}
-          {isInCart && (
-            <Flex
-              alignItems="center"
-              backgroundColor="primary.500"
-              border="2px solid white"
-              borderRadius="50%"
-              color="white"
-              fontSize="16px"
-              height="26px"
-              justifyContent="center"
-              position="absolute"
-              right="-13px"
-              top="-13px"
-              width="26px"
-              zIndex={1}
-            >
-              {count}
-            </Flex>
-          )}
+          <ProductButtons count={count} product={product} onAdd={onAdd} onRemove={onRemove} />
         </Flex>
       </Stack>
-      <ProductImageModal image={image} isOpen={isImageOpen} onClose={toggleImage} />
-      <ProductOptionsDrawer
-        isOpen={hasOptions && isOptionsOpen}
-        options={options}
-        onClose={toggleOptions}
-        onSubmit={handleAddWithOptions}
-      />
     </>
   );
 };
