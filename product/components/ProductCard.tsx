@@ -21,10 +21,11 @@ const ProductCard: React.FC<Props> = ({product, onRemove, onAdd}) => {
   return (
     <>
       <Stack
+        borderBottomWidth={1}
         borderColor={isInCart ? "primary.500" : "gray.200"}
-        borderWidth="1px"
+        borderWidth={{base: 0, sm: 1}}
         data-test-id="product"
-        padding={4}
+        padding={{base: 0, sm: 4}}
         rounded="lg"
         spacing={4}
         transition="transform 0.2s"

@@ -6,6 +6,7 @@ import {
   DrawerContent,
   DrawerOverlay,
   Drawer,
+  Box,
   Input,
   InputGroup,
   Text,
@@ -57,13 +58,19 @@ const ProductFiltersDrawer: React.FC<Props> = ({
           </InputGroup>
         </DrawerHeader>
         <DrawerBody overflowY="auto" paddingX={4} paddingY={0}>
-          <Flex cursor="pointer" direction="column" onClick={() => onCategoryChange("")}>
-            <Text fontSize="md" fontWeight={600} paddingY={3}>
+          <Flex cursor="pointer" direction="column">
+            <Text
+              fontSize="md"
+              fontWeight={600}
+              paddingY={3}
+              width="100%"
+              onClick={() => onCategoryChange("")}
+            >
               Todos los productos
             </Text>
             <Divider marginY={0} />
             {categories.map((value) => (
-              <>
+              <Box key={value}>
                 <Flex
                   alignItems="center"
                   cursor="pointer"
@@ -77,7 +84,7 @@ const ProductFiltersDrawer: React.FC<Props> = ({
                   {category === value && <Icon color="primary.500" name="check" />}
                 </Flex>
                 <Divider marginY={0} />
-              </>
+              </Box>
             ))}
           </Flex>
         </DrawerBody>
