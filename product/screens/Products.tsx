@@ -86,7 +86,6 @@ const ProductsScreen: React.FC = () => {
               <Heading
                 as="h4"
                 fontWeight={600}
-                marginBottom={4}
                 paddingY={2}
                 position="sticky"
                 size="md"
@@ -96,11 +95,13 @@ const ProductsScreen: React.FC = () => {
               >
                 Destacados
               </Heading>
-              <ProductsGrid>
-                {featuredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} onAdd={add} onRemove={remove} />
-                ))}
-              </ProductsGrid>
+              <Box marginTop={4}>
+                <ProductsGrid>
+                  {featuredProducts.map((product) => (
+                    <ProductCard key={product.id} product={product} onAdd={add} onRemove={remove} />
+                  ))}
+                </ProductsGrid>
+              </Box>
             </Box>
           )}
           {Boolean(products.length) ? (
