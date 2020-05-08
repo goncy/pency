@@ -1,5 +1,15 @@
 import React from "react";
-import {Stack, Box, Icon, Text, Flex, Heading, Button, useDisclosure} from "@chakra-ui/core";
+import {
+  Stack,
+  IconButton,
+  Box,
+  Icon,
+  Text,
+  Flex,
+  Heading,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/core";
 
 import ProductDrawer from "../components/ProductDrawer";
 import {useFilteredProducts, useProductActions} from "../hooks";
@@ -11,7 +21,7 @@ import {groupBy} from "~/selectors/group";
 const AdminScreen: React.FC = () => {
   const [selected, setSelected] = React.useState<Product | undefined>(undefined);
   const {isOpen: isDrawerOpen, onOpen, onClose} = useDisclosure();
-  const {products, filters} = useFilteredProducts();
+  const {products, filters, open: openFilters, hasFilters} = useFilteredProducts();
   const {update, remove, create} = useProductActions();
   const productsByCategory = Object.entries(groupBy(products, (product) => product.category));
 
@@ -51,15 +61,27 @@ const AdminScreen: React.FC = () => {
     <>
       <Flex direction="column" height="100%">
         <Box flex={1}>
-          {filters}
-          <Button
-            mt={4}
-            variantColor="primary"
-            width={{base: "100%", sm: "auto"}}
-            onClick={onCreate}
-          >
-            Agregar producto
-          </Button>
+          <Stack isInline marginTop={4} spacing={4}>
+            <Button variantColor="primary" width={{base: "100%", sm: "auto"}} onClick={onCreate}>
+              Agregar producto
+            </Button>
+            <Box position="relative">
+              {hasFilters && (
+                <Box
+                  backgroundColor="primary.500"
+                  border="2px solid white"
+                  borderRadius="50%"
+                  height={4}
+                  position="absolute"
+                  right={-8}
+                  top={-8}
+                  width={4}
+                  zIndex={1}
+                />
+              )}
+              <IconButton aria-label="Buscar productos" icon="search" onClick={openFilters} />
+            </Box>
+          </Stack>
           {products.length ? (
             productsByCategory.map(([category, products]) => {
               const productsBySubcategory = Object.entries(
@@ -117,6 +139,7 @@ const AdminScreen: React.FC = () => {
         onClose={closeDrawer}
         onSubmit={selected ? handleUpdate : handleCreate}
       />
+      {filters}
     </>
   );
 };

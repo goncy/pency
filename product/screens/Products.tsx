@@ -9,15 +9,14 @@ import {
   Flex,
   Text,
   Heading,
-  Button,
   Divider,
-  Badge,
   useDisclosure,
 } from "@chakra-ui/core";
 
 import ProductCard from "../components/ProductCard";
 import {useFilteredProducts} from "../hooks";
 import ProductsGrid from "../components/ProductsGrid";
+import ProductCheckoutButton from "../components/ProductCheckoutButton";
 
 import {useCart} from "~/cart/hooks";
 import {groupBy} from "~/selectors/group";
@@ -31,7 +30,7 @@ const ProductsScreen: React.FC = () => {
   const {add, remove, count, total} = useCart();
   const {banner, description, title, logo, phone} = useTenant();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
-  const {products, filters} = useFilteredProducts({available: true});
+  const {products, open: openFilters, filters, hasFilters} = useFilteredProducts({available: true});
 
   const productsByCategory = Object.entries(groupBy(products, (product) => product.category));
   const featuredProducts = filterBy(products, {featured: true});
@@ -62,142 +61,128 @@ const ProductsScreen: React.FC = () => {
           <Text color="gray.500">{description}</Text>
         </Stack>
         <Divider borderColor="gray.300" marginBottom={0} marginTop={4} />
-        <Flex
-          alignItems="center"
-          backgroundColor="rgba(255,255,255,0.8)"
-          boxShadow="sm"
-          justifyContent="flex-end"
-          marginBottom={-12}
-          padding={4}
-          position="sticky"
-          top={0}
-          zIndex={1}
-        >
-          <Icon name="search" />
-        </Flex>
-        {/* <Box padding={4}>{filters}</Box> */}
-        {Boolean(featuredProducts.length) && (
-          <Box marginBottom={4} marginTop={1} paddingX={4}>
-            <Heading
-              as="h4"
-              fontWeight={600}
-              marginBottom={5}
-              paddingY={2}
-              position="sticky"
-              size="md"
-              top={1}
-              zIndex={2}
-            >
-              Destacados
-            </Heading>
-            <ProductsGrid>
-              {featuredProducts.map((product) => (
-                <ProductCard key={product.id} product={product} onAdd={add} onRemove={remove} />
-              ))}
-            </ProductsGrid>
-          </Box>
-        )}
-        {Boolean(products.length) ? (
-          productsByCategory.map(([category, products]) => {
-            const productsBySubcategory = Object.entries(
-              groupBy(products, (product) => product.subcategory),
-            ).sort(([subcategory]) => (!subcategory ? -1 : 0));
-
-            return (
-              <PseudoBox key={category} marginBottom={4} marginTop={1} paddingX={4}>
-                <Flex direction="column">
-                  <Heading
-                    as="h4"
-                    fontWeight={600}
-                    marginBottom={1}
-                    paddingY={2}
-                    position="sticky"
-                    size="md"
-                    top={1}
-                    zIndex={2}
-                  >
-                    {category}
-                  </Heading>
-                  {productsBySubcategory.map(([subcategory, products]) => (
-                    <PseudoBox key={subcategory} marginTop={4}>
-                      <Flex direction="column">
-                        {subcategory && (
-                          <Heading as="h3" fontSize="lg" fontWeight={400} mb={4}>
-                            {subcategory}
-                          </Heading>
-                        )}
-                        <ProductsGrid>
-                          {products.map((product) => (
-                            <ProductCard
-                              key={product.id}
-                              product={product}
-                              onAdd={add}
-                              onRemove={remove}
-                            />
-                          ))}
-                        </ProductsGrid>
-                      </Flex>
-                    </PseudoBox>
-                  ))}
-                </Flex>
-              </PseudoBox>
-            );
-          })
-        ) : (
-          <Empty data-test-id="empty" icon="search" paddingX={4}>
-            No se encontraron productos
-          </Empty>
-        )}
-        {Boolean(count) && (
+        <Stack spacing={4}>
           <Flex
             alignItems="center"
-            bottom={0}
-            display="block"
-            justifyContent="center"
-            margin={{base: 0, sm: "auto"}}
+            backgroundColor="rgba(255,255,255,0.8)"
+            boxShadow="sm"
+            justifyContent="flex-end"
             padding={4}
-            paddingTop={0}
             position="sticky"
+            style={{marginBottom: -48}}
+            top={0}
             zIndex={2}
           >
+            <Box lineHeight="normal" position="relative">
+              {hasFilters && (
+                <Box
+                  backgroundColor="primary.500"
+                  border="2px solid white"
+                  borderRadius="50%"
+                  height={3}
+                  position="absolute"
+                  right={-1}
+                  top={-1}
+                  width={3}
+                />
+              )}
+              <Icon cursor="pointer" name="search" onClick={openFilters} />
+            </Box>
+          </Flex>
+          {Boolean(featuredProducts.length) && (
+            <Box paddingX={4}>
+              <Heading
+                as="h4"
+                fontWeight={600}
+                marginBottom={4}
+                paddingY={3}
+                position="sticky"
+                size="md"
+                top={0}
+                width="calc(100% - 48px)"
+                zIndex={3}
+              >
+                Destacados
+              </Heading>
+              <ProductsGrid>
+                {featuredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} onAdd={add} onRemove={remove} />
+                ))}
+              </ProductsGrid>
+            </Box>
+          )}
+          {Boolean(products.length) ? (
+            productsByCategory.map(([category, products]) => {
+              const productsBySubcategory = Object.entries(
+                groupBy(products, (product) => product.subcategory),
+              ).sort(([subcategory]) => (!subcategory ? -1 : 0));
+
+              return (
+                <PseudoBox key={category} paddingX={4}>
+                  <Flex direction="column">
+                    <Heading
+                      as="h4"
+                      fontWeight={600}
+                      paddingY={3}
+                      position="sticky"
+                      size="md"
+                      top={0}
+                      width="calc(100% - 48px)"
+                      zIndex={3}
+                    >
+                      {category}
+                    </Heading>
+                    {productsBySubcategory.map(([subcategory, products]) => (
+                      <PseudoBox key={subcategory} marginTop={4}>
+                        <Flex direction="column">
+                          {subcategory && (
+                            <Heading as="h3" fontSize="md" fontWeight={600} mb={4}>
+                              {subcategory}
+                            </Heading>
+                          )}
+                          <ProductsGrid>
+                            {products.map((product) => (
+                              <ProductCard
+                                key={product.id}
+                                product={product}
+                                onAdd={add}
+                                onRemove={remove}
+                              />
+                            ))}
+                          </ProductsGrid>
+                        </Flex>
+                      </PseudoBox>
+                    ))}
+                  </Flex>
+                </PseudoBox>
+              );
+            })
+          ) : (
+            <Empty data-test-id="empty" icon="search" paddingX={4}>
+              No se encontraron productos
+            </Empty>
+          )}
+          {Boolean(count) && (
             <Flex
               alignItems="center"
               bottom={0}
-              boxShadow="0 0 6px currentColor"
-              color="primary.500"
               display="block"
               justifyContent="center"
-              rounded={4}
+              margin={{base: 0, sm: "auto"}}
+              padding={4}
+              paddingTop={0}
+              position="sticky"
+              zIndex={3}
             >
-              <Button
-                backgroundColor="primary.500"
-                color="white"
-                display="flex"
-                justifyContent="space-between"
-                variantColor="primary"
-                width={{base: "100%", sm: "auto"}}
-                onClick={openCart}
-              >
-                <Stack isInline alignItems="center" flex={1} spacing={4}>
-                  <Badge
-                    backgroundColor="primary.700"
-                    color="primary.50"
-                    fontSize="sm"
-                    paddingX={2}
-                    paddingY={1}
-                    variantColor="primary"
-                  >
-                    {count}
-                  </Badge>
-                  <Text flex={1}>Revisar pedido</Text>
-                  <Text>${total}</Text>
-                </Stack>
-              </Button>
+              <ProductCheckoutButton count={count} total={total} zIndex={3} onClick={openCart}>
+                Revisar pedido
+              </ProductCheckoutButton>
             </Flex>
-          </Flex>
-        )}
+          )}
+        </Stack>
       </Flex>
       <CartDrawer isOpen={isCartOpen} onClose={closeCart} />
+      {filters}
     </>
   );
 };

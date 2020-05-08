@@ -1,8 +1,9 @@
 import React from "react";
-import {Icon, Input, Flex, Select, InputGroup, InputLeftElement} from "@chakra-ui/core";
+import {useDisclosure} from "@chakra-ui/core";
 
 import ProductContext from "./context";
 import {Product} from "./types";
+import ProductFiltersDrawer from "./components/ProductFiltersDrawer";
 
 import {extractUniqueBy, filterBy} from "~/selectors/filter";
 
@@ -35,40 +36,30 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
   const products = useProducts();
   const [query, setQuery] = React.useState("");
   const [category, setCategory] = React.useState("");
+  const {isOpen, onOpen, onClose} = useDisclosure();
   const categories = extractUniqueBy(products, (product) => product.category);
   const productsBySearch = filterBy(products, {category, title: query, ...filters});
 
+  function handleCategoryChange(selected) {
+    setCategory(selected);
+
+    onClose();
+  }
+
   return {
     products: productsBySearch,
+    hasFilters: Boolean(query || category),
+    open: onOpen,
     filters: (
-      <Flex data-test-id="filters" width="100%">
-        <InputGroup flex={{base: 1, sm: "inherit"}} mr={4}>
-          <InputLeftElement
-            children={<Icon color="gray.300" name="search" />}
-            color="gray.300"
-            fontSize="1.2em"
-          />
-          <Input
-            placeholder="Buscar..."
-            value={query}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
-          />
-        </InputGroup>
-        <Select
-          flex={{base: 1, sm: "inherit"}}
-          maxW={{base: "100%", sm: "220px"}}
-          minWidth="128px"
-          width="auto"
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setCategory(e.target.value)}
-        >
-          <option value="">Todo</option>
-          {categories.map((category) => (
-            <option key={category} value={category}>
-              {category}
-            </option>
-          ))}
-        </Select>
-      </Flex>
+      <ProductFiltersDrawer
+        categories={categories}
+        category={category}
+        isOpen={isOpen}
+        query={query}
+        onCategoryChange={handleCategoryChange}
+        onClose={onClose}
+        onQueryChange={setQuery}
+      />
     ),
   };
 }
