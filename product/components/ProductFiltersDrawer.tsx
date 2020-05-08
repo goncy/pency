@@ -56,18 +56,19 @@ const ProductFiltersDrawer: React.FC<Props> = ({
             />
           </InputGroup>
         </DrawerHeader>
-        <DrawerBody overflowY="auto" padding={4}>
+        <DrawerBody overflowY="auto" paddingX={4} paddingY={0}>
           <Flex direction="column">
-            <Text fontSize="md" fontWeight={600} onClick={() => onCategoryChange("")}>
+            <Text fontSize="md" fontWeight={600} paddingY={3} onClick={() => onCategoryChange("")}>
               Todos los productos
             </Text>
-            <Divider marginY={3} />
+            <Divider marginY={0} />
             {categories.map((value) => (
               <>
                 <Flex
                   alignItems="center"
                   cursor="pointer"
                   justifyContent="space-between"
+                  paddingY={3}
                   onClick={() => onCategoryChange(value)}
                 >
                   <Text fontSize="md" fontWeight={600}>
@@ -75,7 +76,7 @@ const ProductFiltersDrawer: React.FC<Props> = ({
                   </Text>
                   {category === value && <Icon color="primary.500" name="check" />}
                 </Flex>
-                <Divider marginY={3} />
+                <Divider marginY={0} />
               </>
             ))}
           </Flex>
