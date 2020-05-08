@@ -57,8 +57,8 @@ const ProductFiltersDrawer: React.FC<Props> = ({
           </InputGroup>
         </DrawerHeader>
         <DrawerBody overflowY="auto" paddingX={4} paddingY={0}>
-          <Flex direction="column">
-            <Text fontSize="md" fontWeight={600} paddingY={3} onClick={() => onCategoryChange("")}>
+          <Flex cursor="pointer" direction="column" onClick={() => onCategoryChange("")}>
+            <Text fontSize="md" fontWeight={600} paddingY={3}>
               Todos los productos
             </Text>
             <Divider marginY={0} />
