@@ -2,7 +2,6 @@ import React from "react";
 import {
   Stack,
   Box,
-  Icon,
   IconButton,
   PseudoBox,
   Link,
@@ -61,45 +60,38 @@ const ProductsScreen: React.FC = () => {
           <Text color="gray.500">{description}</Text>
         </Stack>
         <Divider borderColor="gray.300" marginBottom={0} marginTop={4} />
-        <Stack spacing={4}>
+        <Flex direction="column">
           <Flex
             alignItems="center"
             backgroundColor="rgba(255,255,255,0.8)"
             boxShadow="sm"
             justifyContent="flex-end"
-            padding={4}
             position="sticky"
-            style={{marginBottom: -48}}
+            style={{marginBottom: -40}}
             top={0}
             zIndex={2}
           >
-            <Box lineHeight="normal" position="relative">
-              {hasFilters && (
-                <Box
-                  backgroundColor="primary.500"
-                  border="2px solid white"
-                  borderRadius="50%"
-                  height={3}
-                  position="absolute"
-                  right={-1}
-                  top={-1}
-                  width={3}
-                />
-              )}
-              <Icon cursor="pointer" name="search" onClick={openFilters} />
-            </Box>
+            <IconButton
+              aria-label="Buscar productos"
+              cursor="pointer"
+              icon="search"
+              marginRight={2}
+              variant="ghost"
+              variantColor={hasFilters ? "primary" : "gray"}
+              onClick={openFilters}
+            />
           </Flex>
           {Boolean(featuredProducts.length) && (
-            <Box paddingX={4}>
+            <Box marginBottom={4} paddingX={4}>
               <Heading
                 as="h4"
                 fontWeight={600}
                 marginBottom={4}
-                paddingY={3}
+                paddingY={2}
                 position="sticky"
                 size="md"
                 top={0}
-                width="calc(100% - 48px)"
+                width="calc(100% - 40px)"
                 zIndex={3}
               >
                 Destacados
@@ -118,16 +110,16 @@ const ProductsScreen: React.FC = () => {
               ).sort(([subcategory]) => (!subcategory ? -1 : 0));
 
               return (
-                <PseudoBox key={category} paddingX={4}>
+                <PseudoBox key={category} marginBottom={4} paddingX={4}>
                   <Flex direction="column">
                     <Heading
                       as="h4"
                       fontWeight={600}
-                      paddingY={3}
+                      paddingY={2}
                       position="sticky"
                       size="md"
                       top={0}
-                      width="calc(100% - 48px)"
+                      width="calc(100% - 40px)"
                       zIndex={3}
                     >
                       {category}
@@ -158,7 +150,7 @@ const ProductsScreen: React.FC = () => {
               );
             })
           ) : (
-            <Empty data-test-id="empty" icon="search" paddingX={4}>
+            <Empty data-test-id="empty" icon="search" marginBottom={4} paddingX={4}>
               No se encontraron productos
             </Empty>
           )}
@@ -169,8 +161,8 @@ const ProductsScreen: React.FC = () => {
               display="block"
               justifyContent="center"
               margin={{base: 0, sm: "auto"}}
-              padding={4}
-              paddingTop={0}
+              paddingBottom={4}
+              paddingX={4}
               position="sticky"
               zIndex={3}
             >
@@ -179,7 +171,7 @@ const ProductsScreen: React.FC = () => {
               </ProductCheckoutButton>
             </Flex>
           )}
-        </Stack>
+        </Flex>
       </Flex>
       <CartDrawer isOpen={isCartOpen} onClose={closeCart} />
       {filters}
