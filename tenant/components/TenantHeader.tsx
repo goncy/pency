@@ -16,8 +16,8 @@ const TenantHeader = () => {
         backgroundPosition="center"
         backgroundRepeat="no-repeat"
         backgroundSize="cover"
-        height={32}
-        minHeight={32}
+        height={{base: 32, sm: 64}}
+        minHeight={{base: 32, sm: 64}}
         width="100%"
       />
       <Flex justifyContent="space-between" padding={4}>

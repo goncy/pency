@@ -30,7 +30,7 @@ const ProductsScreen: React.FC = () => {
           flex={1}
           height="100%"
           marginX="auto"
-          maxWidth={1200}
+          maxWidth={1120}
           overflowY="auto"
         >
           <TenantHeader />
@@ -61,7 +61,7 @@ const ProductsScreen: React.FC = () => {
               />
             </Flex>
             {Boolean(featuredProducts.length) && (
-              <Box paddingX={4}>
+              <Box marginBottom={4} paddingX={4}>
                 <Heading
                   as="h4"
                   fontSize="3xl"
@@ -95,14 +95,14 @@ const ProductsScreen: React.FC = () => {
                 ).sort(([subcategory]) => (!subcategory ? -1 : 0));
 
                 return (
-                  <PseudoBox key={category} paddingX={4}>
+                  <PseudoBox key={category} marginBottom={4} paddingX={4}>
                     <Flex direction="column">
                       <Heading
                         as="h4"
                         fontSize="3xl"
                         fontWeight={600}
                         lineHeight="64px"
-                        marginY={4}
+                        marginBottom={4}
                         position="sticky"
                         top={0}
                         width="calc(100% - 64px)"
