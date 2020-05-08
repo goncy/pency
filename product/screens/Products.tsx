@@ -20,6 +20,7 @@ import {useCart} from "~/cart/hooks";
 import {groupBy} from "~/selectors/group";
 import CartDrawer from "~/cart/components/CartDrawer";
 import {filterBy} from "~/selectors/filter";
+import TenantHeader from "~/tenant/components/TenantHeader";
 
 const ProductsScreen: React.FC = () => {
   const {add, remove, count, total} = useCart();
@@ -31,11 +32,14 @@ const ProductsScreen: React.FC = () => {
 
   return (
     <>
-      <Flex direction="column" height="100%" overflowY="hidden">
-        <Box padding={4}>{filters}</Box>
-        <Stack as="main" flex={1} overflowY="auto" padding={4} paddingTop={0} spacing={4}>
+      <Flex direction="column" height="100%">
+        <Flex as="main" direction="column" flex={1} overflowY="auto">
+          <TenantHeader marginBottom={4} />
+          <Box marginBottom={4} paddingX={4}>
+            {filters}
+          </Box>
           {Boolean(featuredProducts.length) && (
-            <Box>
+            <Box marginBottom={4} paddingX={4}>
               <Heading as="h2" mb={4} size="xl">
                 Destacados
               </Heading>
@@ -53,7 +57,7 @@ const ProductsScreen: React.FC = () => {
               );
 
               return (
-                <PseudoBox key={category}>
+                <PseudoBox key={category} marginBottom={4} paddingX={4}>
                   <Flex direction="column">
                     <Heading as="h2" size="xl">
                       {category}
@@ -90,6 +94,7 @@ const ProductsScreen: React.FC = () => {
               direction="column"
               flex={1}
               justifyContent="center"
+              marginBottom={4}
               paddingX={4}
             >
               <Icon color="gray.200" mb={4} name="search" size="128px" />
@@ -99,45 +104,45 @@ const ProductsScreen: React.FC = () => {
             </Flex>
           )}
           {Boolean(count) && (
-            <Flex
-              alignItems="center"
-              bottom={0}
-              boxShadow="0 0 6px currentColor"
-              color="primary.500"
-              display="block"
-              justifyContent="center"
-              margin={{base: 0, sm: "auto"}}
-              position="sticky"
-              rounded={4}
-              zIndex={2}
-            >
-              <Button
-                backgroundColor="primary.500"
-                color="white"
-                display="flex"
-                justifyContent="space-between"
-                variantColor="primary"
-                width={{base: "100%", sm: "auto"}}
-                onClick={openCart}
+            <Box bottom={0} padding={4} paddingTop={0} position="sticky">
+              <Flex
+                alignItems="center"
+                boxShadow="0 0 6px currentColor"
+                color="primary.500"
+                display="block"
+                justifyContent="center"
+                margin={{base: 0, sm: "auto"}}
+                rounded={4}
+                zIndex={2}
               >
-                <Stack isInline alignItems="center" flex={1} spacing={4}>
-                  <Badge
-                    backgroundColor="primary.700"
-                    color="primary.50"
-                    fontSize="sm"
-                    paddingX={2}
-                    paddingY={1}
-                    variantColor="primary"
-                  >
-                    {count}
-                  </Badge>
-                  <Text flex={1}>Revisar pedido</Text>
-                  <Text>${total}</Text>
-                </Stack>
-              </Button>
-            </Flex>
+                <Button
+                  backgroundColor="primary.500"
+                  color="white"
+                  display="flex"
+                  justifyContent="space-between"
+                  variantColor="primary"
+                  width={{base: "100%", sm: "auto"}}
+                  onClick={openCart}
+                >
+                  <Stack isInline alignItems="center" flex={1} spacing={4}>
+                    <Badge
+                      backgroundColor="primary.700"
+                      color="primary.50"
+                      fontSize="sm"
+                      paddingX={2}
+                      paddingY={1}
+                      variantColor="primary"
+                    >
+                      {count}
+                    </Badge>
+                    <Text flex={1}>Revisar pedido</Text>
+                    <Text>${total}</Text>
+                  </Stack>
+                </Button>
+              </Flex>
+            </Box>
           )}
-        </Stack>
+        </Flex>
       </Flex>
       <CartDrawer isOpen={isCartOpen} onClose={closeCart} />
     </>
