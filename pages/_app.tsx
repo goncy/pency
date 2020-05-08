@@ -9,7 +9,6 @@ import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import {Provider as CartProvider} from "~/cart/context";
 import {Provider as AnalyticsProvider} from "~/analytics/context";
-import Header from "~/app/components/Header";
 
 if (process.env.NODE_ENV === "production" && process.env.SENTRY_DSN) {
   Sentry.init({
@@ -53,7 +52,6 @@ export default class Pency extends App {
         ) : tenant && products ? (
           <TenantProvider initialValue={tenant}>
             <Flex direction="column" height="100%">
-              <Header />
               <ProductProvider initialValues={products}>
                 <AnalyticsProvider>
                   <CartProvider>
