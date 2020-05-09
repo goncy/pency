@@ -10,33 +10,42 @@ interface Props {
   onChange?: (boolean) => void;
 }
 
-const ColorRadio: React.FC<Props> = ({color, ...rest}) => {
+const ColorRadio: React.ForwardRefExoticComponent<Props> = React.forwardRef((props, ref) => {
+  const {isChecked, isDisabled, name, color, onChange, ...rest} = props;
   return (
     <label>
-      {/*
+      {/* READ COMMENT BEFORE REMOVE @ts-ignore
+      At version 0.7.0 Chakra UI is still migrating
+      to typescript, so VisuallyHidden component doesn't accept
+      props from the component that will be displayed (in this case Input)
+      Check the link below to see Chakra UI migration status 
+      https://github.com/chakra-ui/chakra-ui/issues/205
+      
       // @ts-ignore */}
       <VisuallyHidden
+        ref={ref}
         as="input"
         // @ts-ignore
-        checked={rest.isChecked}
+        checked={isChecked}
+        disabled={isDisabled}
+        name={name}
         type="radio"
-        value={rest.value}
-        onChange={rest.onChange}
+        value={color}
+        onChange={onChange}
+        {...rest}
       />
 
+      {/* 
+      The box inside control box is the one that is shown
+      when the input sibling is checked 
+      */}
       <ControlBox
-        _checked={{
-          border: `5px solid black`,
-          borderColor: `${color}.100`,
-          borderRadius: 4,
-          shadow: "lg",
-          rounded: "10px",
-        }}
         bg={`${color}.400`}
+        borderColor="inherit"
         mx="5px"
-        p={5}
         rounded="5px"
         size="40px"
+        type="radio"
       >
         <Box
           bg={`${color}.400`}
@@ -44,7 +53,6 @@ const ColorRadio: React.FC<Props> = ({color, ...rest}) => {
           borderColor={`${color}.100`}
           borderRadius={4}
           h="40px"
-          mx="5px"
           p={5}
           rounded="10px"
           shadow="lg"
@@ -53,6 +61,6 @@ const ColorRadio: React.FC<Props> = ({color, ...rest}) => {
       </ControlBox>
     </label>
   );
-};
+});
 
 export default ColorRadio;

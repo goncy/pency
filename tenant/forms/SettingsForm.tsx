@@ -32,7 +32,6 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
   const {handleSubmit: submit, errors, register, control, formState, watch} = useForm<Tenant>({
     defaultValues,
   });
-  const watchColor = watch("color");
 
   function handleSubmit(values: Tenant) {
     const tenant = {...defaultValues, ...values};
@@ -63,10 +62,10 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             </FormErrorMessage>
           </FormControl>
           <FormControl isRequired isInvalid={Boolean(errors.color)}>
-            <FormLabel htmlFor="color">Color: {watchColor}</FormLabel>
+            <FormLabel htmlFor="color">Color</FormLabel>
             <Controller
               as={
-                <RadioGroup isInline spacing={5}>
+                <RadioGroup isInline>
                   {Object.entries(COLORS).map(([label, value]) => (
                     <ColorRadio key={label} color={value} name="color" value={value} />
                   ))}
@@ -74,14 +73,8 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               }
               control={control}
               name="color"
+              rules={{required: true}}
             />
-            {/* <Select ref={register({required: true})} name="color" placeholder="Color">
-              {Object.entries(COLORS).map(([label, value]) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </Select> */}
             <FormErrorMessage>
               {(errors.color && errors.color.message) || "Este campo es inválido"}
             </FormErrorMessage>
