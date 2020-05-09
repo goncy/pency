@@ -8,8 +8,8 @@ import {
   Stack,
   Select,
   FormHelperText,
-  Box,
-  Flex,
+  RadioGroup,
+  Radio,
 } from "@chakra-ui/core";
 
 import {Tenant} from "../types";
@@ -28,9 +28,10 @@ interface Props {
 }
 
 const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit}) => {
-  const {handleSubmit: submit, errors, register, control, formState} = useForm<Tenant>({
+  const {handleSubmit: submit, errors, register, control, formState, watch} = useForm<Tenant>({
     defaultValues,
   });
+  const watchColor = watch("color");
 
   function handleSubmit(values: Tenant) {
     const tenant = {...defaultValues, ...values};
@@ -61,30 +62,27 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             </FormErrorMessage>
           </FormControl>
           <FormControl isRequired isInvalid={Boolean(errors.color)}>
-            <FormLabel htmlFor="color">Color</FormLabel>
-            <Flex justifyContent="space-between">
-              {Object.entries(COLORS).map(([_, value]) => (
-                <Box
-                  key={value}
-                  bg={`${value}.400`}
-                  border="5px solid #FED7D7"
-                  borderRadius={4}
-                  h="40px"
-                  mx="5px"
-                  p={5}
-                  rounded="10px"
-                  shadow="lg"
-                  w="40px"
-                />
-              ))}
-            </Flex>
-            <Select ref={register({required: true})} name="color" placeholder="Color">
+            <FormLabel htmlFor="color">Color: {watchColor}</FormLabel>
+            <Controller
+              as={
+                <RadioGroup isInline spacing={5}>
+                  {Object.entries(COLORS).map(([label, value]) => (
+                    <Radio key={label} value={value} variantColor={value}>
+                      {label}
+                    </Radio>
+                  ))}
+                </RadioGroup>
+              }
+              control={control}
+              name="color"
+            />
+            {/* <Select ref={register({required: true})} name="color" placeholder="Color">
               {Object.entries(COLORS).map(([label, value]) => (
                 <option key={value} value={value}>
                   {label}
                 </option>
               ))}
-            </Select>
+            </Select> */}
             <FormErrorMessage>
               {(errors.color && errors.color.message) || "Este campo es inválido"}
             </FormErrorMessage>
