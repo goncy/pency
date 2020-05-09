@@ -13,16 +13,15 @@ interface Props {
 const ColorRadio: React.FC<Props> = ({color, ...rest}) => {
   return (
     <label>
-      {/* This is the sibling input, it's visually hidden */}
+      {/*
+      // @ts-ignore */}
       <VisuallyHidden
-        as={() => (
-          <input
-            checked={rest.isChecked}
-            type="radio"
-            value={rest.value}
-            onChange={rest.onChange}
-          />
-        )}
+        as="input"
+        // @ts-ignore
+        checked={rest.isChecked}
+        type="radio"
+        value={rest.value}
+        onChange={rest.onChange}
       />
 
       <ControlBox
