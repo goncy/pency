@@ -1,19 +1,16 @@
-{
+module.exports = {
   "root": true,
   "extends": [
-    "react-app",
     "plugin:prettier/recommended",
-    "plugin:cypress/recommended",
-    "prettier/react"
+    "plugin:cypress/recommended"
   ],
-  "plugins": ["cypress", "react-hooks"],
+  "plugins": ["cypress"],
   "env": {
     "cypress/globals": true
   },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "tsconfigRootDir": __dirname
   },
   "rules": {
     "no-console": "warn",
@@ -36,16 +33,6 @@
         "bracketSpacing": false,
         "arrowParens": "always"
       }
-    ],
-    "import/order": ["warn", {"newlines-between": "always"}],
-    "react/self-closing-comp": "warn",
-    "react-hooks/rules-of-hooks": "warn",
-    "react-hooks/exhaustive-deps": "warn",
-    "react/jsx-sort-props": ["warn", {
-      "callbacksLast": true,
-      "shorthandFirst": true,
-      "noSortAlphabetically": false,
-      "reservedFirst": true
-    }]
+    ]
   }
 }
