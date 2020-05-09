@@ -19,7 +19,7 @@ const CartContext = React.createContext({} as Context);
 
 const CartProvider = ({children}: Props) => {
   const log = useAnalytics();
-  const {phone} = useTenant();
+  const {message, phone} = useTenant();
   const [cart, setCart] = React.useState<Cart>({});
   const items = React.useMemo(() => [].concat(...Object.values(cart)), [cart]);
 
@@ -89,7 +89,7 @@ const CartProvider = ({children}: Props) => {
       items,
     });
 
-    window.open(`https://wa.me/${phone}?text=${encodeURI(getMessage(items))}`, "_blank");
+    window.open(`https://wa.me/${phone}?text=${encodeURI(getMessage(message, items))}`, "_blank");
   }
 
   const state: State = {items, cart};

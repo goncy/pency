@@ -7,6 +7,7 @@ export interface Tenant {
   color: Exclude<VariantColor, "black" | "white">;
   phone: number;
   title?: string;
+  message?: string;
   keywords?: string;
   banner?: string;
   description?: string;
