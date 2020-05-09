@@ -4,4 +4,11 @@ export const DEFAULT_TENANT = {
   title: "Pency - Tu tienda online fácil",
   description: "Armá tu tienda y recibí los pedidos via WhatsApp",
   keywords: "pency, tienda, online, whatsapp, delivery, pedidos",
+  message: `Hola, quería pedir:
+
+{{productos}}
+
+Total: {{total}}
+
+Gracias.`,
 };

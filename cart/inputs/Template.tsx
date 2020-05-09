@@ -1,22 +1,22 @@
 import React from "react";
 import {Textarea, Stack, Box, Text, Button, Flex} from "@chakra-ui/core";
-import template from "lodash.template";
+
+import {getMessage} from "../selectors";
+import {CartItem} from "../types";
 
 interface Props {
   value?: string;
   onChange: (template: string) => void;
-  data: Record<string, unknown>;
+  data: CartItem[];
 }
 
 const TemplateInput: React.FC<Props> = ({value, onChange, data}) => {
   const [isEnabled, setEnabled] = React.useState(false);
   const preview = React.useMemo(() => {
     try {
-      const compile = template(value);
-
-      return value ? compile(data) : "";
+      return value ? getMessage(value, data) : "";
     } catch (e) {
-      return `Este mensaje no es valido: ${e}`;
+      return `ERROR: Este mensaje no es valido: ${e}`;
     }
   }, [data, value]);
 
@@ -57,7 +57,7 @@ const TemplateInput: React.FC<Props> = ({value, onChange, data}) => {
         </Flex>
       )}
       <Textarea isDisabled={!isEnabled} minHeight={48} value={value} onChange={handleChange} />
-      {isEnabled && (
+      {isEnabled && value && (
         <Box
           as="pre"
           backgroundColor="primary.50"
