@@ -161,7 +161,14 @@ const ProductsScreen: React.FC = () => {
               </Flex>
             )}
             {Boolean(count) && (
-              <Box bottom={0} margin="auto" padding={4} paddingTop={0} position="sticky">
+              <Flex
+                bottom={0}
+                justifyContent="center"
+                padding={4}
+                paddingTop={0}
+                position="sticky"
+                zIndex={2}
+              >
                 <Flex
                   alignItems="center"
                   boxShadow="0 0 6px currentColor"
@@ -170,7 +177,7 @@ const ProductsScreen: React.FC = () => {
                   justifyContent="center"
                   margin={{base: 0, sm: "auto"}}
                   rounded={4}
-                  zIndex={2}
+                  width={{base: "100%", sm: "auto"}}
                 >
                   <Button
                     backgroundColor="primary.500"
@@ -178,7 +185,7 @@ const ProductsScreen: React.FC = () => {
                     display="flex"
                     justifyContent="space-between"
                     variantColor="primary"
-                    width={{base: "100%", sm: "auto"}}
+                    width="100%"
                     onClick={openCart}
                   >
                     <Stack isInline alignItems="center" flex={1} spacing={4}>
@@ -197,7 +204,7 @@ const ProductsScreen: React.FC = () => {
                     </Stack>
                   </Button>
                 </Flex>
-              </Box>
+              </Flex>
             )}
           </Box>
         </Flex>
