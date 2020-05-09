@@ -10,5 +10,3 @@ export const COLORS = {
   Turquesa: "teal",
   Verde: "green",
 };
-
-export const HUES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];

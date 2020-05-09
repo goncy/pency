@@ -12,7 +12,7 @@ import {
 
 import {Tenant} from "../types";
 
-import {COLORS, HUES} from "~/constants";
+import {COLORS} from "~/constants";
 import ImageInput from "~/ui/inputs/Image";
 
 interface Props {
@@ -67,20 +67,6 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 </option>
               ))}
             </Select>
-            <FormErrorMessage>
-              {(errors.color && errors.color.message) || "Este campo es inválido"}
-            </FormErrorMessage>
-          </FormControl>
-          <FormControl isRequired isInvalid={Boolean(errors.hue)}>
-            <FormLabel htmlFor="hue">Intensidad de la barra de navegación</FormLabel>
-            <Select ref={register({required: true})} name="hue" placeholder="Intensidad">
-              {HUES.map((hue) => (
-                <option key={hue} value={hue}>
-                  {hue}
-                </option>
-              ))}
-            </Select>
-            <FormHelperText>Mientras menor el número, más claro el color</FormHelperText>
             <FormErrorMessage>
               {(errors.color && errors.color.message) || "Este campo es inválido"}
             </FormErrorMessage>
