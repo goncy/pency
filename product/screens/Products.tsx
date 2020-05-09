@@ -66,7 +66,6 @@ const ProductsScreen: React.FC = () => {
                   base: `auto`,
                   sm: `auto 1fr auto`,
                 }}
-                justifyContent="space-between"
               >
                 <TenantAvatar
                   gridArea="avatar"
@@ -92,9 +91,9 @@ const ProductsScreen: React.FC = () => {
                   marginTop={4}
                   spacing={4}
                 >
-                  <Link isExternal href={`tel:${phone}`}>
+                  <Link isExternal href={`whatsapp://send?phone=${phone}`}>
                     <IconButton
-                      aria-label="phone"
+                      aria-label="Enviar mensaje por WhatsApp"
                       icon="phone"
                       rounded="50%"
                       variantColor="primary"

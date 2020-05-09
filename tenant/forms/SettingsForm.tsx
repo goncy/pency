@@ -73,16 +73,20 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="title">Título de la página</FormLabel>
-            <Input ref={register} name="title" placeholder="Título de la página" />
+            <Input ref={register} name="title" placeholder="Pastelerías Pency" />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="keywords">Palabras clave</FormLabel>
-            <Input ref={register} name="keywords" placeholder="Palabras clave" />
+            <Input ref={register} name="keywords" placeholder="delivery, pasteleria, cupcakes" />
             <FormHelperText>Separadas por comas</FormHelperText>
           </FormControl>
           <FormControl>
-            <FormLabel htmlFor="description">Descripción de la página</FormLabel>
-            <Input ref={register} name="description" placeholder="Descripción de la página" />
+            <FormLabel htmlFor="description">Descripción</FormLabel>
+            <Input
+              ref={register}
+              name="description"
+              placeholder="Somos una tienda de venta de pastelería, pedidos de lunes a viernes de 9 a 18"
+            />
           </FormControl>
           <FormControl>
             <FormLabel htmlFor="logo">Logo</FormLabel>
@@ -95,7 +99,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             />
           </FormControl>
           <FormControl>
-            <FormLabel htmlFor="banner">Banner</FormLabel>
+            <FormLabel htmlFor="banner">Foto de encabezado</FormLabel>
             <Controller
               as={ImageInput}
               control={control}
@@ -103,9 +107,6 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               format="png"
               name="banner"
             />
-            <FormHelperText>
-              Se muestra al compartir el link por redes sociales (1200x630)
-            </FormHelperText>
           </FormControl>
         </Stack>
       </form>
