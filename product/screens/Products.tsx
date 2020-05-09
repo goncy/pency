@@ -51,6 +51,7 @@ const ProductsScreen: React.FC = () => {
           />
           <Box
             backgroundColor="white"
+            flex={1}
             margin="auto"
             maxWidth={{base: "100%", xl: "80em"}}
             paddingX={{base: 4, xl: 12}}
@@ -176,8 +177,7 @@ const ProductsScreen: React.FC = () => {
               <Flex
                 bottom={0}
                 justifyContent="center"
-                padding={4}
-                paddingTop={0}
+                paddingBottom={4}
                 position="sticky"
                 zIndex={2}
               >
