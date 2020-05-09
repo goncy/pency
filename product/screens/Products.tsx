@@ -172,10 +172,15 @@ const ProductsScreen: React.FC = () => {
                 direction="column"
                 flex={1}
                 justifyContent="center"
-                marginBottom={4}
+                marginTop={16}
               >
-                <Icon color="gray.200" marginBottom={4} name="search" size="128px" />
-                <Text color="gray.500" fontSize="lg" textAlign="center">
+                <Icon
+                  color="gray.200"
+                  fontSize={{base: 64, sm: 96}}
+                  marginBottom={4}
+                  name="search"
+                />
+                <Text color="gray.300" fontSize={{base: "md", sm: "lg"}} textAlign="center">
                   No se encontraron productos
                 </Text>
               </Flex>
