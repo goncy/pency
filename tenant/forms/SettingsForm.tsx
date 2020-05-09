@@ -16,6 +16,7 @@ import {Tenant} from "../types";
 
 import {COLORS, HUES} from "~/constants";
 import ImageInput from "~/ui/inputs/Image";
+import ColorRadio from "~/ui/inputs/ColorRadio";
 
 interface Props {
   defaultValues?: Tenant;
@@ -67,9 +68,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               as={
                 <RadioGroup isInline spacing={5}>
                   {Object.entries(COLORS).map(([label, value]) => (
-                    <Radio key={label} value={value} variantColor={value}>
-                      {label}
-                    </Radio>
+                    <ColorRadio key={label} color={value} name="color" value={value} />
                   ))}
                 </RadioGroup>
               }
