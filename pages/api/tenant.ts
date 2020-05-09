@@ -114,15 +114,9 @@ export default async (req, res) => {
     return api
       .create(email, password, slug)
       .then(() => res.status(200).json({success: true}))
-      .catch(({status, statusText, errorInfo}) => status ? res.status(status).end(statusText) : res.status(400).json(errorInfo)
-        if (status) {
-          res.status(status).end(statusText);
-        } else {
-          const {message, code} = firebaseMessage;
-
-          res.status(400).json({code, message});
-        }
-      });
+      .catch(({status, statusText, errorInfo}) =>
+        status ? res.status(status).end(statusText) : res.status(400).json(errorInfo),
+      );
   }
 
   if (req.method === "PATCH") {
