@@ -1,7 +1,7 @@
-require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`
+require("dotenv-safe").config({
+  path: `.env.${process.env.NODE_ENV}`,
+  allowEmptyValues: process.env.CI ? true : false
 });
-
 const withSourceMaps = require('@zeit/next-source-maps')
 
 module.exports = withSourceMaps({
