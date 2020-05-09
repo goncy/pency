@@ -14,7 +14,7 @@
     "@emotion/styled": "^10.0.27",
     "@sentry/browser": "^5.15.5",
     "@zeit/next-source-maps": "^0.0.3",
-    "dotenv-safe": "^8.2.0",
+    "dotenv": "^8.2.0",
     "emotion-theming": "^10.0.27",
     "firebase": "^7.14.1",
     "firebase-admin": "^8.10.0",
