@@ -3,7 +3,6 @@ import {
   Stack,
   Box,
   Icon,
-  Avatar,
   PseudoBox,
   Flex,
   Text,
@@ -13,6 +12,7 @@ import {
   useDisclosure,
   Link,
   IconButton,
+  Grid,
 } from "@chakra-ui/core";
 
 import ProductCard from "../components/ProductCard";
@@ -24,6 +24,7 @@ import {groupBy} from "~/selectors/group";
 import CartDrawer from "~/cart/components/CartDrawer";
 import {filterBy} from "~/selectors/filter";
 import {useTenant} from "~/tenant/hooks";
+import TenantAvatar from "~/tenant/components/TenantAvatar";
 
 const ProductsScreen: React.FC = () => {
   const {add, remove, count, total} = useCart();
@@ -50,33 +51,35 @@ const ProductsScreen: React.FC = () => {
           />
           <Box backgroundColor="white" margin="auto" maxWidth="1120px" width="100%">
             <Box margin="auto" marginBottom={4}>
-              <Flex justifyContent="space-between" padding={4}>
-                {logo ? (
-                  <Box
-                    backgroundColor="primary.500"
-                    backgroundImage={`url(${logo})`}
-                    backgroundPosition="center"
-                    backgroundRepeat="no-repeat"
-                    backgroundSize="contain"
-                    border="4px solid white"
-                    height={24}
-                    marginTop={-12}
-                    minHeight={24}
-                    minWidth={24}
-                    rounded="50%"
-                    width={24}
-                  />
-                ) : (
-                  <Avatar
-                    border="4px solid white"
-                    height={24}
-                    marginTop={-12}
-                    name={title}
-                    src={logo}
-                    width={24}
-                  />
-                )}
-                <Stack isInline spacing={4}>
+              <Grid
+                gridTemplateAreas={{
+                  base: `"avatar links" "information information"`,
+                  sm: `"avatar information links"`,
+                }}
+                gridTemplateColumns={{
+                  base: `auto`,
+                  sm: `auto 1fr auto`,
+                }}
+                justifyContent="space-between"
+                paddingX={4}
+              >
+                <TenantAvatar
+                  gridArea="avatar"
+                  logo={logo}
+                  marginRight={{base: 0, sm: 4}}
+                  title={title}
+                />
+                <Stack gridArea="information" marginTop={4}>
+                  <Heading as="h1">{title}</Heading>
+                  <Text color="gray.500">{description}</Text>
+                </Stack>
+                <Stack
+                  isInline
+                  gridArea="links"
+                  justifyContent="flex-end"
+                  marginTop={4}
+                  spacing={4}
+                >
                   <Link isExternal href={`tel:${phone}`}>
                     <IconButton
                       aria-label="phone"
@@ -86,11 +89,7 @@ const ProductsScreen: React.FC = () => {
                     />
                   </Link>
                 </Stack>
-              </Flex>
-              <Stack paddingX={4}>
-                <Heading as="h1">{title}</Heading>
-                <Text color="gray.500">{description}</Text>
-              </Stack>
+              </Grid>
             </Box>
             <Box marginBottom={4} paddingX={4}>
               {filters}
