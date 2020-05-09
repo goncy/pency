@@ -9,7 +9,6 @@ import {
   Select,
   FormHelperText,
   RadioGroup,
-  Radio,
 } from "@chakra-ui/core";
 
 import {Tenant} from "../types";
@@ -29,7 +28,7 @@ interface Props {
 }
 
 const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit}) => {
-  const {handleSubmit: submit, errors, register, control, formState, watch} = useForm<Tenant>({
+  const {handleSubmit: submit, errors, register, control, formState} = useForm<Tenant>({
     defaultValues,
   });
 
