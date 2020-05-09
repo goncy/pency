@@ -38,7 +38,14 @@ const ProductsScreen: React.FC = () => {
   return (
     <>
       <Flex direction="column" height="100%">
-        <Flex as="main" backgroundColor="primary.50" direction="column" flex={1} overflowY="auto">
+        <Flex
+          as="main"
+          backgroundColor="primary.50"
+          direction="column"
+          flex={1}
+          height="100%"
+          overflowY="auto"
+        >
           <Box
             backgroundColor="primary.500"
             backgroundImage={`url(${banner})`}
