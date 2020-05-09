@@ -1,17 +1,14 @@
 import React from "react";
-import {Box, Avatar, BoxProps, AvatarProps} from "@chakra-ui/core";
+import {Box, Avatar, AvatarProps} from "@chakra-ui/core";
 
 import {Tenant} from "../types";
 
-interface Props extends BoxProps, Omit<AvatarProps, "size"> {
+interface Props extends AvatarProps {
   logo: Tenant["logo"];
   title: Tenant["title"];
-  size?: number;
 }
 
-const RATIO = 1.5;
-
-const TenantAvatar: React.FC<Props> = ({logo, title, size = 32, ...props}) => {
+const TenantAvatar: React.FC<Props> = ({logo, title, ...props}) => {
   return logo ? (
     <Box
       backgroundColor="primary.500"
@@ -20,24 +17,24 @@ const TenantAvatar: React.FC<Props> = ({logo, title, size = 32, ...props}) => {
       backgroundRepeat="no-repeat"
       backgroundSize="contain"
       border="4px solid white"
-      height={{base: size, sm: size * RATIO}}
-      marginTop={{base: -(size / 2), sm: -((size * RATIO) / 2)}}
-      minHeight={{base: size, sm: size * RATIO}}
-      minWidth={{base: size, sm: size * RATIO}}
+      height={{base: 24, sm: 32}}
+      marginTop={{base: -6, sm: -8}}
+      minHeight={{base: 24, sm: 32}}
+      minWidth={{base: 24, sm: 32}}
       rounded="50%"
-      width={{base: size, sm: size * RATIO}}
+      width={{base: 24, sm: 32}}
       {...props}
     />
   ) : (
     <Avatar
       border="4px solid white"
-      height={{base: size, sm: size * RATIO}}
-      marginTop={{base: -(size / 2), sm: -((size * RATIO) / 2)}}
-      minHeight={{base: size, sm: size * RATIO}}
-      minWidth={{base: size, sm: size * RATIO}}
+      height={{base: 24, sm: 32}}
+      marginTop={{base: -6, sm: -8}}
+      minHeight={{base: 24, sm: 32}}
+      minWidth={{base: 24, sm: 32}}
       name={title}
       src={logo}
-      width={{base: size, sm: size * RATIO}}
+      width={{base: 24, sm: 32}}
       {...props}
     />
   );

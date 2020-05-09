@@ -45,11 +45,17 @@ const ProductsScreen: React.FC = () => {
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
-            height={{base: 32, sm: 64}}
-            minHeight={{base: 32, sm: 64}}
+            height={{base: 24, sm: 56}}
+            minHeight={{base: 24, sm: 56}}
             width="100%"
           />
-          <Box backgroundColor="white" margin="auto" maxWidth="1120px" width="100%">
+          <Box
+            backgroundColor="white"
+            margin="auto"
+            maxWidth={{base: "100%", xl: "80em"}}
+            paddingX={{base: 4, xl: 12}}
+            width="100%"
+          >
             <Box margin="auto" marginBottom={4}>
               <Grid
                 gridTemplateAreas={{
@@ -61,7 +67,6 @@ const ProductsScreen: React.FC = () => {
                   sm: `auto 1fr auto`,
                 }}
                 justifyContent="space-between"
-                paddingX={4}
               >
                 <TenantAvatar
                   gridArea="avatar"
@@ -69,8 +74,15 @@ const ProductsScreen: React.FC = () => {
                   marginRight={{base: 0, sm: 4}}
                   title={title}
                 />
-                <Stack gridArea="information" marginTop={4}>
-                  <Heading as="h1">{title}</Heading>
+                <Stack gridArea="information" marginTop={{base: 0, sm: 4}}>
+                  <Heading
+                    as="h1"
+                    fontSize={{base: "2xl", sm: "3xl"}}
+                    fontWeight="bold"
+                    style={{margin: 0}}
+                  >
+                    {title}
+                  </Heading>
                   <Text color="gray.500">{description}</Text>
                 </Stack>
                 <Stack
@@ -91,12 +103,10 @@ const ProductsScreen: React.FC = () => {
                 </Stack>
               </Grid>
             </Box>
-            <Box marginBottom={4} paddingX={4}>
-              {filters}
-            </Box>
+            <Box marginBottom={4}>{filters}</Box>
             {Boolean(featuredProducts.length) && (
-              <Box marginBottom={4} paddingX={4}>
-                <Heading as="h2" mb={4} size="xl">
+              <Box marginBottom={4}>
+                <Heading as="h2" fontSize={{base: "2xl", sm: "3xl"}} marginBottom={4}>
                   Destacados
                 </Heading>
                 <ProductsGrid>
@@ -113,16 +123,21 @@ const ProductsScreen: React.FC = () => {
                 );
 
                 return (
-                  <PseudoBox key={category} marginBottom={4} paddingX={4}>
+                  <PseudoBox key={category} marginBottom={4}>
                     <Flex direction="column">
-                      <Heading as="h2" size="xl">
+                      <Heading as="h2" fontSize={{base: "2xl", sm: "3xl"}}>
                         {category}
                       </Heading>
                       {productsBySubcategory.map(([subcategory, products]) => (
                         <PseudoBox key={subcategory} mt={4}>
                           <Flex direction="column">
                             {subcategory && (
-                              <Heading as="h3" mb={4} size="lg">
+                              <Heading
+                                as="h3"
+                                fontSize={{base: "xl", sm: "2xl"}}
+                                fontWeight={500}
+                                marginBottom={4}
+                              >
                                 {subcategory}
                               </Heading>
                             )}
@@ -151,9 +166,8 @@ const ProductsScreen: React.FC = () => {
                 flex={1}
                 justifyContent="center"
                 marginBottom={4}
-                paddingX={4}
               >
-                <Icon color="gray.200" mb={4} name="search" size="128px" />
+                <Icon color="gray.200" marginBottom={4} name="search" size="128px" />
                 <Text color="gray.500" fontSize="lg" textAlign="center">
                   No se encontraron productos
                 </Text>
