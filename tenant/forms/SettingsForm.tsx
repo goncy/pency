@@ -60,18 +60,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             isInvalid={Boolean(errors.color)}
             label={"Color"}
           >
-            <Controller
-              as={
-                <RadioGroup isInline>
-                  {Object.entries(COLORS).map(([label, value]) => (
-                    <ColorRadio key={label} color={value} name="color" value={value} />
-                  ))}
-                </RadioGroup>
-              }
-              control={control}
-              name="color"
-              rules={{required: true}}
-            />
+            <Controller as={ColorRadio} control={control} name="color" rules={{required: true}} />
           </FormControl>
           <FormControl
             isRequired
