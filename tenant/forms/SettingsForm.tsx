@@ -1,10 +1,9 @@
 import React from "react";
 import {useForm, Controller} from "react-hook-form";
-import {Input, Stack, RadioGroup} from "@chakra-ui/core";
+import {Input, Stack} from "@chakra-ui/core";
 
 import {Tenant} from "../types";
 
-import {COLORS} from "~/constants";
 import ImageInput from "~/ui/inputs/Image";
 import ColorRadio from "~/ui/inputs/ColorRadio";
 import FormControl from "~/ui/controls/FormControl";
@@ -58,7 +57,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             isRequired
             error={(errors.color && errors.color.message) || "Este campo es inválido"}
             isInvalid={Boolean(errors.color)}
-            label={"Color"}
+            label="Color"
           >
             <Controller as={ColorRadio} control={control} name="color" rules={{required: true}} />
           </FormControl>
