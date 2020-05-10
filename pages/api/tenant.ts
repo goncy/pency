@@ -115,9 +115,7 @@ export default async (req, res) => {
     return api
       .create(email, password, slug)
       .then(() => res.status(200).json({success: true}))
-      .catch(({status, statusText, errorInfo}) =>
-        status ? res.status(status).end(statusText) : res.status(400).json(errorInfo),
-      );
+      .catch(({status, statusText}) => res.status(status).end(statusText));
   }
 
   if (req.method === "PATCH") {
