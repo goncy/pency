@@ -85,15 +85,15 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
           <FormControl label="Título de la página" name="title">
             <Input ref={register} name="title" placeholder="Pastelerías Pency" />
           </FormControl>
-          <FormControl help="Separadas por comas" label="Palabras clave" name="keywords">
-            <Input ref={register} name="keywords" placeholder="delivery, pasteleria, cupcakes" />
-          </FormControl>
           <FormControl label="Descripción" name="description">
             <Input
               ref={register}
               name="description"
               placeholder="Somos una tienda de venta de pastelería, pedidos de lunes a viernes de 9 a 18"
             />
+          </FormControl>
+          <FormControl help="Separadas por comas" label="Palabras clave" name="keywords">
+            <Input ref={register} name="keywords" placeholder="delivery, pasteleria, cupcakes" />
           </FormControl>
           <FormControl label="Logo" name="logo">
             <Controller
