@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Text, Flex, Badge, Button, useDisclosure, ButtonGroup} from "@chakra-ui/core";
+import {Box, Text, Flex, Button, useDisclosure, ButtonGroup} from "@chakra-ui/core";
 import LazyLoad from "react-lazy-load";
 
 import ProductOptionsDrawer from "./ProductOptionsDrawer";
@@ -98,9 +98,6 @@ const ProductCard: React.FC<Props> = ({product, remove, add}) => {
           width="100%"
         >
           <Flex direction="column">
-            <Badge mb={2} variantColor="primary" width="fit-content">
-              {category}
-            </Badge>
             <Text display="block" fontSize="lg" fontWeight="semibold" lineHeight="normal" mb={2}>
               {title}
             </Text>
