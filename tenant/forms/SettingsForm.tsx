@@ -8,7 +8,6 @@ import {COLORS} from "~/constants";
 import ImageInput from "~/ui/inputs/Image";
 import FormControl from "~/ui/controls/FormControl";
 import TemplateInput from "~/cart/inputs/Template";
-import {MOCK_CART} from "~/cart/constants";
 
 interface Props {
   defaultValues?: Tenant;
@@ -77,7 +76,6 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             <Controller
               as={TemplateInput}
               control={control}
-              data={MOCK_CART}
               defaultValue=""
               name="message"
               rules={{

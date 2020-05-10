@@ -1,24 +1,23 @@
 import React from "react";
 import {Textarea, Stack, Box, Text, Button, Flex} from "@chakra-ui/core";
 
+import {MOCK_CART} from "../constants";
 import {getMessage} from "../selectors";
-import {CartItem} from "../types";
 
 interface Props {
   value?: string;
   onChange: (template: string) => void;
-  data: CartItem[];
 }
 
-const TemplateInput: React.FC<Props> = ({value, onChange, data}) => {
+const TemplateInput: React.FC<Props> = ({value, onChange}) => {
   const [isEnabled, setEnabled] = React.useState(false);
   const preview = React.useMemo(() => {
     try {
-      return value ? getMessage(value, data) : "";
+      return value ? getMessage(value, MOCK_CART) : "";
     } catch (e) {
       return `ERROR: Este mensaje no es valido: ${e}`;
     }
-  }, [data, value]);
+  }, [value]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     return onChange(event.target.value);
