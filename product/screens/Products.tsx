@@ -44,6 +44,7 @@ const ProductsScreen: React.FC = () => {
           direction="column"
           flex={1}
           height="100%"
+          overflowX="hidden"
           overflowY="auto"
         >
           <Box
