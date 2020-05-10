@@ -15,9 +15,9 @@ const ColorRadio: React.FC<Props> = (props) => {
   return (
     <Grid
       alignItems="center"
+      gridAutoRows={40}
       gridGap={2}
       gridTemplateColumns="repeat(auto-fit, minmax(40px,1fr));"
-      gridTemplateRows={40}
       justifyContent="center"
     >
       {Object.values(COLORS).map((color) => {
