@@ -1,11 +1,11 @@
 import React from "react";
 import {useForm, Controller} from "react-hook-form";
-import {Input, Stack, Select} from "@chakra-ui/core";
+import {Input, Stack} from "@chakra-ui/core";
 
 import {Tenant} from "../types";
 
-import {COLORS} from "~/constants";
 import ImageInput from "~/ui/inputs/Image";
+import ColorRadio from "~/ui/inputs/ColorRadio";
 import FormControl from "~/ui/controls/FormControl";
 import TemplateInput from "~/cart/inputs/Template";
 
@@ -58,13 +58,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             isInvalid={Boolean(errors.color)}
             label="Color"
           >
-            <Select ref={register({required: true})} name="color" placeholder="Color">
-              {Object.entries(COLORS).map(([label, value]) => (
-                <option key={value} value={value}>
-                  {label}
-                </option>
-              ))}
-            </Select>
+            <Controller as={ColorRadio} control={control} name="color" rules={{required: true}} />
           </FormControl>
           <FormControl
             isRequired
