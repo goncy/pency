@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Box, Icon, Text, Flex, Heading, Button, useDisclosure} from "@chakra-ui/core";
+import {Stack, Box, Icon, Text, Flex, Heading, Button} from "@chakra-ui/core";
 
 import ProductDrawer from "../components/ProductDrawer";
 import {useFilteredProducts, useProductActions} from "../hooks";
@@ -9,42 +9,31 @@ import ProductRow from "../components/ProductRow";
 import {groupBy} from "~/selectors/group";
 
 const AdminScreen: React.FC = () => {
-  const [selected, setSelected] = React.useState<Product | undefined>(undefined);
-  const {isOpen: isDrawerOpen, onOpen, onClose} = useDisclosure();
+  const [selected, setSelected] = React.useState<Partial<Product> | undefined>(undefined);
   const {products, filters} = useFilteredProducts();
   const {update, remove, create} = useProductActions();
   const productsByCategory = Object.entries(groupBy(products, (product) => product.category));
 
-  async function handleCreate(product: Product) {
-    await create(product);
-
-    closeDrawer();
-  }
-
-  async function handleUpdate(product: Product) {
-    await update(product);
+  async function handleSubmit(product: Product) {
+    if (product.id) {
+      await update(product);
+    } else {
+      await create(product);
+    }
 
     closeDrawer();
   }
 
   function onCreate() {
-    openDrawer();
+    setSelected({});
   }
 
   function onEdit(product: Product) {
     setSelected(product);
-
-    openDrawer();
   }
 
   function closeDrawer() {
     setSelected(undefined);
-
-    onClose();
-  }
-
-  function openDrawer() {
-    onOpen();
   }
 
   return (
@@ -113,9 +102,9 @@ const AdminScreen: React.FC = () => {
       </Flex>
       <ProductDrawer
         defaultValues={selected}
-        isOpen={isDrawerOpen}
+        isOpen={Boolean(selected)}
         onClose={closeDrawer}
-        onSubmit={selected ? handleUpdate : handleCreate}
+        onSubmit={handleSubmit}
       />
     </>
   );
