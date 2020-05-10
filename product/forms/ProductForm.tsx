@@ -20,8 +20,8 @@ import ImageInput from "~/ui/inputs/Image";
 import SwitchInput from "~/ui/inputs/Switch";
 
 interface Props {
-  defaultValues?: Product;
-  onSubmit: (values: Product) => void;
+  defaultValues?: Partial<Product>;
+  onSubmit: (values: Partial<Product>) => void;
   children: (options: {
     form: JSX.Element;
     isLoading: boolean;
@@ -37,10 +37,10 @@ const DEFAULT_VALUES: Partial<Product> = {
 
 const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children, onSubmit}) => {
   const {categories, subcategories} = useProductCategories();
-  const form = useForm<Product>({defaultValues});
+  const form = useForm<Partial<Product>>({defaultValues});
   const {handleSubmit: submit, errors, register, formState, setValue, control} = form;
 
-  function handleSubmit(values: Product) {
+  function handleSubmit(values: Partial<Product>) {
     const product = {...defaultValues, ...values};
 
     product.category = product.category.trim();
@@ -70,7 +70,7 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
           <Stack spacing={4}>
             <FormControl isRequired isInvalid={Boolean(errors.title)}>
               <FormLabel htmlFor="title">Título</FormLabel>
-              <Input ref={register({required: true})} name="title" placeholder="Título" />
+              <Input ref={register({required: true})} autoFocus name="title" placeholder="Título" />
               <FormErrorMessage>
                 {(errors.title && errors.title.message) || "Este campo es requerido"}
               </FormErrorMessage>
