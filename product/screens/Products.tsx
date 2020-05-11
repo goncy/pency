@@ -80,6 +80,7 @@ const ProductsScreen: React.FC = () => {
                   gridArea="avatar"
                   logo={logo}
                   marginRight={{base: 0, sm: 4}}
+                  marginTop={{base: -6, sm: -8}}
                   title={title}
                 />
                 <Stack gridArea="information" marginTop={{base: 0, sm: 4}}>
