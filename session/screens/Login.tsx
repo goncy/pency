@@ -55,6 +55,7 @@ const LoginScreen: React.FC<Props> = ({signIn, isRestoring, title, logo}) => {
               <FormLabel htmlFor="email">E-mail</FormLabel>
               <Input
                 ref={register({required: true})}
+                autoFocus
                 focusBorderColor="primary.300"
                 name="email"
                 placeholder="Email"
