@@ -145,8 +145,8 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
                 as={ImageInput}
                 control={control}
                 defaultValue=""
-                format="jpg"
                 name="image"
+                quality="low"
               />
               <FormErrorMessage>{errors.image && errors.image.message}</FormErrorMessage>
             </FormControl>
