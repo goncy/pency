@@ -61,6 +61,7 @@ const api = {
                     ...DEFAULT_TENANT,
                   }),
               )
+              .catch(({errorInfo}) => Promise.reject({statusText: errorInfo.message, status: 400}))
           : Promise.reject({statusText: "Esa tienda ya existe", status: 409}),
       ),
   fetch: async (slug: Tenant["slug"]): Promise<Tenant> =>
