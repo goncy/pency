@@ -100,8 +100,8 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               as={ImageInput}
               control={control}
               defaultValue=""
-              format="png"
               name="logo"
+              quality="low"
             />
           </FormControl>
           <FormControl label="Foto de encabezado" name="banner">
@@ -109,8 +109,8 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               as={ImageInput}
               control={control}
               defaultValue=""
-              format="png"
               name="banner"
+              quality="high"
             />
           </FormControl>
         </Stack>
