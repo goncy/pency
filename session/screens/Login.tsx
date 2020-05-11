@@ -33,11 +33,11 @@ const LoginScreen: React.FC<Props> = ({signIn, isRestoring, title, logo}) => {
   return (
     <Flex
       alignItems="center"
-      backgroundColor="gray.50"
+      backgroundColor={{base: "white", sm: "gray.50"}}
       flex={1}
       flexDirection="column"
       justifyContent="center"
-      padding={8}
+      padding={{base: 0, sm: 8}}
     >
       <Flex
         alignItems="center"
@@ -46,7 +46,7 @@ const LoginScreen: React.FC<Props> = ({signIn, isRestoring, title, logo}) => {
         minWidth={{base: "100%", sm: 400}}
         padding={8}
         rounded="lg"
-        shadow="md"
+        shadow={{base: "none", sm: "md"}}
       >
         <TenantAvatar logo={logo} marginBottom={6} marginTop={{base: -12, sm: -16}} title={title} />
         <Box as="form" width="100%" onSubmit={handleSubmit(onSubmit)}>
