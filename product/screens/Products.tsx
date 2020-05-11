@@ -114,7 +114,7 @@ const ProductsScreen: React.FC = () => {
             </Box>
             <Box marginBottom={4}>{filters}</Box>
             {Boolean(featuredProducts.length) && (
-              <Box marginBottom={4}>
+              <Box marginBottom={12}>
                 <Heading as="h2" fontSize={{base: "2xl", sm: "3xl"}} marginBottom={4}>
                   Destacados
                 </Heading>
@@ -130,13 +130,13 @@ const ProductsScreen: React.FC = () => {
                 const productsBySubcategory = groupBy(products, (product) => product.subcategory);
 
                 return (
-                  <PseudoBox key={category} marginBottom={4}>
+                  <PseudoBox key={category} marginBottom={12}>
                     <Flex direction="column">
                       <Heading as="h2" fontSize={{base: "2xl", sm: "3xl"}}>
                         {category}
                       </Heading>
                       {productsBySubcategory.map(([subcategory, products]) => (
-                        <PseudoBox key={subcategory} mt={4}>
+                        <PseudoBox key={subcategory} marginTop={4}>
                           <Flex direction="column">
                             {subcategory && (
                               <Heading

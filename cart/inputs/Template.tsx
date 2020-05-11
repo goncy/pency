@@ -42,14 +42,7 @@ const TemplateInput: React.FC<Props> = ({value, onChange}) => {
             rounded="sm"
             width="100%"
           />
-          <Stack
-            backgroundColor="primary.50"
-            margin={4}
-            padding={4}
-            rounded="sm"
-            spacing={4}
-            zIndex={1}
-          >
+          <Stack backgroundColor="white" margin={4} padding={4} rounded="sm" spacing={4} zIndex={1}>
             <Text>Este es un campo avanzado, solo cambialo si sabés como hacerlo.</Text>
             <Button onClick={() => setEnabled(true)}>Habilitar</Button>
           </Stack>
