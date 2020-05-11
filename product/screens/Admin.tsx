@@ -12,7 +12,7 @@ const AdminScreen: React.FC = () => {
   const [selected, setSelected] = React.useState<Partial<Product> | undefined>(undefined);
   const {products, filters} = useFilteredProducts();
   const {update, remove, create} = useProductActions();
-  const productsByCategory = Object.entries(groupBy(products, (product) => product.category));
+  const productsByCategory = groupBy(products, (product) => product.category);
 
   async function handleSubmit(product: Product) {
     if (product.id) {
@@ -51,9 +51,7 @@ const AdminScreen: React.FC = () => {
           </Button>
           {products.length ? (
             productsByCategory.map(([category, products]) => {
-              const productsBySubcategory = Object.entries(
-                groupBy(products, (product) => product.subcategory),
-              );
+              const productsBySubcategory = groupBy(products, (product) => product.subcategory);
 
               return (
                 <Box key={category} mt={4}>

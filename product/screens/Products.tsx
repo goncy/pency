@@ -32,7 +32,7 @@ const ProductsScreen: React.FC = () => {
   const {products, filters} = useFilteredProducts({available: true});
   const {banner, title, logo, phone, description} = useTenant();
 
-  const productsByCategory = Object.entries(groupBy(products, (product) => product.category));
+  const productsByCategory = groupBy(products, (product) => product.category);
   const featuredProducts = filterBy(products, {featured: true});
 
   return (
@@ -126,9 +126,7 @@ const ProductsScreen: React.FC = () => {
             )}
             {Boolean(products.length) ? (
               productsByCategory.map(([category, products]) => {
-                const productsBySubcategory = Object.entries(
-                  groupBy(products, (product) => product.subcategory),
-                );
+                const productsBySubcategory = groupBy(products, (product) => product.subcategory);
 
                 return (
                   <PseudoBox key={category} marginBottom={4}>
