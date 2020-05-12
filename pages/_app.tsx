@@ -24,6 +24,7 @@ export default class Pency extends App {
           scope.setExtra(key, errorInfo[key]);
         });
 
+        Sentry.setExtra("error", error);
         Sentry.captureException(error);
       });
     }

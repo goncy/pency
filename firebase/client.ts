@@ -4,7 +4,7 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/analytics";
 
-type FirebaseService = "database" | "auth" | "providers" | "analytics";
+import {FirebaseService} from "./types";
 
 export default new Proxy(
   {
