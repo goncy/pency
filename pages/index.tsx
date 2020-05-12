@@ -36,6 +36,11 @@ const LandingScreen: React.FC = () => (
       <meta content="1200" property="og:image:width" />
       <meta content="630" property="og:image:height" />
       <meta content="Pency - Tu tienda online" property="og:image:alt" />
+      <script
+        async
+        data-ad-client="ca-pub-5429810264386021"
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+      />
     </Head>
     <Flex backgroundColor="gray.50" height="100vh">
       <Flex
