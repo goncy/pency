@@ -30,6 +30,8 @@ const Head: React.FC<Props> = ({tenant, track = false}) => (
 
         * {
           touch-action: manipulation;
+          font-family: aktiv-grotesk, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+            Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
         }
 
         #drawer-cart,
@@ -45,6 +47,7 @@ const Head: React.FC<Props> = ({tenant, track = false}) => (
       `}
     />
     <NextHead>
+      <link href="https://use.typekit.net/kdb3mdf.css" rel="stylesheet" />
       <link href="/favicon.ico" rel="icon" />
       <meta
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"

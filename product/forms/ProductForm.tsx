@@ -29,13 +29,7 @@ interface Props {
   }) => JSX.Element;
 }
 
-const DEFAULT_VALUES: Partial<Product> = {
-  available: true,
-  image: "",
-  options: [],
-};
-
-const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children, onSubmit}) => {
+const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
   const {categories, subcategories} = useProductCategories();
   const form = useForm<Partial<Product>>({defaultValues});
   const {handleSubmit: submit, errors, register, formState, setValue, control} = form;

@@ -25,7 +25,11 @@ const AdminScreen: React.FC = () => {
   }
 
   function onCreate() {
-    setSelected({});
+    setSelected({
+      available: true,
+      image: "",
+      options: [],
+    });
   }
 
   function onEdit(product: Product) {
