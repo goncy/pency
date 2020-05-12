@@ -20,6 +20,8 @@ export default class Pency extends App {
   componentDidCatch(error, errorInfo) {
     if (process.env.NODE_ENV === "production") {
       Sentry.withScope((scope) => {
+        scope.setTag("origin", "componentDidCatch");
+
         Object.keys(errorInfo).forEach((key) => {
           scope.setExtra(key, errorInfo[key]);
         });

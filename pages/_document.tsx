@@ -4,13 +4,21 @@ import Document, {Html, Head, Main, NextScript} from "next/document";
 
 if (process.env.NODE_ENV === "production" && process.env.SENTRY_DSN) {
   process.on("unhandledRejection", (err) => {
-    Sentry.setExtra("error", err);
-    Sentry.captureException(err);
+    Sentry.withScope((scope) => {
+      scope.setTag("origin", "SSR - unhandledRejection");
+
+      Sentry.setExtra("error", err);
+      Sentry.captureException(err);
+    });
   });
 
   process.on("uncaughtException", (err) => {
-    Sentry.setExtra("error", err);
-    Sentry.captureException(err);
+    Sentry.withScope((scope) => {
+      scope.setTag("origin", "SSR - uncaughtException");
+
+      Sentry.setExtra("error", err);
+      Sentry.captureException(err);
+    });
   });
 }
 
