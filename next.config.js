@@ -27,8 +27,5 @@ module.exports = withSourceMaps({
       FIREBASE_PRIVATE_KEY: Buffer.from(process.env.FIREBASE_PRIVATE_KEY, 'base64').toString('binary'),
       SECRET: process.env.SECRET,
       SENTRY_DSN: process.env.SENTRY_DSN
-  },
-  webpack(config) {
-    return config
-  },
+  }
 })

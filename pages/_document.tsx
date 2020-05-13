@@ -6,8 +6,8 @@ if (process.env.NODE_ENV === "production" && process.env.SENTRY_DSN) {
   process.on("unhandledRejection", (err) => {
     Sentry.withScope((scope) => {
       scope.setTag("origin", "SSR - unhandledRejection");
+      scope.setExtra("error", err);
 
-      Sentry.setExtra("error", err);
       Sentry.captureException(err);
     });
   });
@@ -15,8 +15,8 @@ if (process.env.NODE_ENV === "production" && process.env.SENTRY_DSN) {
   process.on("uncaughtException", (err) => {
     Sentry.withScope((scope) => {
       scope.setTag("origin", "SSR - uncaughtException");
+      scope.setExtra("error", err);
 
-      Sentry.setExtra("error", err);
       Sentry.captureException(err);
     });
   });
