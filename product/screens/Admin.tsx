@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Box, Icon, Text, Flex, Heading, Button} from "@chakra-ui/core";
+import {Stack, Box, Icon, Text, Flex, Heading} from "@chakra-ui/core";
 
 import ProductDrawer from "../components/ProductDrawer";
 import {useFilteredProducts, useProductActions} from "../hooks";
@@ -7,6 +7,8 @@ import {Product} from "../types";
 import ProductRow from "../components/ProductRow";
 
 import {groupBy} from "~/selectors/group";
+import PlusIcon from "~/ui/icons/Plus";
+import IconButton from "~/ui/controls/IconButton";
 
 const AdminScreen: React.FC = () => {
   const [selected, setSelected] = React.useState<Partial<Product> | undefined>(undefined);
@@ -44,15 +46,18 @@ const AdminScreen: React.FC = () => {
     <>
       <Flex direction="column" height="100%">
         <Box flex={1}>
-          {filters}
-          <Button
-            mt={4}
-            variantColor="primary"
-            width={{base: "100%", sm: "auto"}}
-            onClick={onCreate}
-          >
-            Agregar producto
-          </Button>
+          <Flex alignItems="center" justifyContent="space-between">
+            {filters}
+            <IconButton
+              data-test-id="add-product"
+              leftIcon={PlusIcon}
+              marginLeft={4}
+              variantColor="primary"
+              onClick={onCreate}
+            >
+              Agregar
+            </IconButton>
+          </Flex>
           {products.length ? (
             productsByCategory.map(([category, products]) => {
               const productsBySubcategory = groupBy(products, (product) => product.subcategory);

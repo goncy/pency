@@ -28,8 +28,10 @@ yarn-error.log*
 .env.*
 !.env.template
 
+# config
 .now
-
 .firebaserc
-
 .idea
+
+# unused icons
+/icons
