@@ -33,7 +33,7 @@ const LoginScreen: React.FC<Props> = ({signIn, isRestoring, title, logo}) => {
   return (
     <Flex
       alignItems="center"
-      backgroundColor={{base: "white", sm: "gray.50"}}
+      backgroundColor={{base: "white", sm: "primary.50"}}
       flex={1}
       flexDirection="column"
       justifyContent="center"

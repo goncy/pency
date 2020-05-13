@@ -32,7 +32,7 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
   const {signOut} = useSession();
 
   return (
-    <Box as="main" overflowY="auto">
+    <Box as="main" backgroundColor="white" overflowY="auto">
       <Flex alignItems="center" boxShadow="sm" height={16} paddingY={2} position="relative">
         <Flex
           alignItems="center"
@@ -116,13 +116,8 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
             </TabList>
           </Box>
         </Stack>
-        <Box
-          margin="auto"
-          maxWidth={{base: "100%", xl: "80em"}}
-          paddingX={{base: 4, xl: 12}}
-          width="100%"
-        >
-          <TabPanels marginBottom={4} marginTop={8}>
+        <Box margin="auto" maxWidth={{base: "100%", xl: "80em"}} width="100%">
+          <TabPanels padding={{base: 4, xl: 12}}>
             <TabPanel>
               <ProductsAdminScreen />
             </TabPanel>
