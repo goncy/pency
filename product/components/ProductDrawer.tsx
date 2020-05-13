@@ -39,6 +39,7 @@ const ProductDrawer: React.FC<Props> = ({isOpen, defaultValues, onClose, onSubmi
                 <Button
                   backgroundColor="primary.500"
                   color="white"
+                  data-test-id={isNew ? `submit-new-product` : `submit-edit-product`}
                   isLoading={isLoading}
                   type="submit"
                   variantColor="primary"

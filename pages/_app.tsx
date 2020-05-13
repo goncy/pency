@@ -21,12 +21,11 @@ export default class Pency extends App {
     if (process.env.NODE_ENV === "production") {
       Sentry.withScope((scope) => {
         scope.setTag("origin", "componentDidCatch");
-
         Object.keys(errorInfo).forEach((key) => {
           scope.setExtra(key, errorInfo[key]);
         });
+        scope.setExtra("error", error);
 
-        Sentry.setExtra("error", error);
         Sentry.captureException(error);
       });
     }

@@ -56,7 +56,7 @@ const api = {
       .doc(tenant)
       .collection("products")
       .get()
-      .then((snapshot) => snapshot.docs.map((doc) => ({id: doc.id, ...(doc.data() as Product)})))
+      .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
       .then((products) => {
         cache.set(tenant, products);
 
@@ -71,13 +71,8 @@ const api = {
       .then((snapshot) => ({...product, id: snapshot.id})),
   remove: (tenant: Tenant["id"], product: Product["id"]) =>
     database.collection("tenants").doc(tenant).collection("products").doc(product).delete(),
-  update: (tenant: Tenant["id"], product: Product) =>
-    database
-      .collection("tenants")
-      .doc(tenant)
-      .collection("products")
-      .doc(product.id)
-      .update(product),
+  update: (tenant: Tenant["id"], {id, ...product}: Product) =>
+    database.collection("tenants").doc(tenant).collection("products").doc(id).update(product),
 };
 
 export default async (req: Request, res) => {

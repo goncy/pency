@@ -10,7 +10,8 @@ declare namespace NodeJS {
     FIREBASE_APP_ID: string;
     FIREBASE_MEASUREMENT_ID: string;
     CLOUDINARY_CLOUD: string;
-    CLOUDINARY_PRESET: string;
+    CLOUDINARY_PRESET_LOW: string;
+    CLOUDINARY_PRESET_HIGH: string;
     FIREBASE_PRIVATE_KEY_ID: string;
     FIREBASE_CLIENT_EMAIL: string;
     FIREBASE_CLIENT_ID: string;
@@ -21,5 +22,6 @@ declare namespace NodeJS {
     FIREBASE_PRIVATE_KEY: string;
     SECRET: string;
     SENTRY_DSN: string;
+    MANTAINER_EMAIL: string;
   }
 }

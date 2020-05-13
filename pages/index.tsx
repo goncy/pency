@@ -11,13 +11,13 @@ const LandingScreen: React.FC = () => (
   <>
     <Head>
       <link href="/favicon.ico" rel="icon" />
-      <meta content="#00B5D8" name="theme-color" />
+      <meta content="#FFFFFF" name="theme-color" />
       <title>Pency - Tu tienda online</title>
       <meta
         content="Crea tu propia tienda en segundos y vendé por WhatsApp de forma fácil"
         name="description"
       />
-      <link href="/logo192.png" rel="apple-touch-icon" />
+      <link href="/logo192.jpg" rel="apple-touch-icon" />
       <meta content="tienda, online, fácil, delivery, compra, venta" name="keywords" />
       <meta content="Gonzalo Pozzo" name="author" />
       <meta content="summary_large_image" name="twitter:card" />
@@ -36,11 +36,6 @@ const LandingScreen: React.FC = () => (
       <meta content="1200" property="og:image:width" />
       <meta content="630" property="og:image:height" />
       <meta content="Pency - Tu tienda online" property="og:image:alt" />
-      <script
-        async
-        data-ad-client="ca-pub-5429810264386021"
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-      />
     </Head>
     <Flex backgroundColor="gray.50" height="100vh">
       <Flex
