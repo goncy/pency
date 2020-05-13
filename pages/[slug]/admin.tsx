@@ -36,49 +36,55 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
       <Head tenant={tenant} />
       <SessionProvider>
         <Box as="main" overflowY="auto">
-          <Flex
-            alignItems="center"
-            boxShadow="sm"
-            height={16}
-            justifyContent="space-between"
-            paddingX={4}
-            paddingY={2}
-            position="relative"
-          >
-            <Stack isInline alignItems="center" spacing={2}>
-              <Image alt="Pency" src="/logo.svg" />
-              <Link
-                _hover={{
-                  textDecoration: "none",
-                }}
-                href={`/${tenant.slug}`}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <Button
+          <Flex alignItems="center" boxShadow="sm" height={16} paddingY={2} position="relative">
+            <Flex
+              alignItems="center"
+              justifyContent="space-between"
+              margin="auto"
+              maxWidth={{base: "100%", xl: "80em"}}
+              paddingX={{base: 4, xl: 12}}
+              width="100%"
+            >
+              <Stack isInline alignItems="center" spacing={2}>
+                <Image alt="Pency" src="/logo.svg" />
+                <Link
                   _hover={{
-                    backgroundColor: "primary.100",
+                    textDecoration: "none",
                   }}
-                  backgroundColor="primary.50"
-                  rightIcon="external-link"
-                  size="xs"
-                  variant="ghost"
-                  variantColor="primary"
+                  href={`/${tenant.slug}`}
+                  rel="noopener noreferrer"
+                  target="_blank"
                 >
-                  Ver tienda
-                </Button>
-              </Link>
-            </Stack>
-            <Stack isInline spacing={{base: 0, sm: 8}}>
-              <Link href={`mailto:${process.env.MANTAINER_EMAIL}`} lineHeight="normal">
-                <IconButton color="black" fontWeight="500" leftIcon={HelpCircleIcon} variant="link">
-                  Ayuda
+                  <Button
+                    _hover={{
+                      backgroundColor: "primary.100",
+                    }}
+                    backgroundColor="primary.50"
+                    rightIcon="external-link"
+                    size="xs"
+                    variant="ghost"
+                    variantColor="primary"
+                  >
+                    Ver tienda
+                  </Button>
+                </Link>
+              </Stack>
+              <Stack isInline spacing={{base: 0, sm: 8}}>
+                <Link href={`mailto:${process.env.MANTAINER_EMAIL}`} lineHeight="normal">
+                  <IconButton
+                    color="black"
+                    fontWeight="500"
+                    leftIcon={HelpCircleIcon}
+                    variant="link"
+                  >
+                    Ayuda
+                  </IconButton>
+                </Link>
+                <IconButton color="black" fontWeight="500" leftIcon={LogOutIcon} variant="link">
+                  Salir
                 </IconButton>
-              </Link>
-              <IconButton color="black" fontWeight="500" leftIcon={LogOutIcon} variant="link">
-                Salir
-              </IconButton>
-            </Stack>
+              </Stack>
+            </Flex>
           </Flex>
           <Tabs size="lg" variantColor="primary">
             <Stack
@@ -88,28 +94,41 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
               borderBottom="1px solid"
               borderColor="gray.200"
               height={16}
-              paddingX={4}
               spacing={4}
             >
-              <TabList height={16}>
-                <Tab fontSize="md" fontWeight={500}>
-                  <BoxIcon marginRight={2} />
-                  <Text>Productos</Text>
-                </Tab>
-                <Tab fontSize="md" fontWeight={500}>
-                  <SlidersIcon marginRight={2} />
-                  <Text>Tienda</Text>
-                </Tab>
-              </TabList>
+              <Box
+                margin="auto"
+                maxWidth={{base: "100%", xl: "80em"}}
+                paddingX={{base: 4, xl: 12}}
+                width="100%"
+              >
+                <TabList height={16}>
+                  <Tab fontSize="md" fontWeight={500}>
+                    <BoxIcon marginRight={2} />
+                    <Text>Productos</Text>
+                  </Tab>
+                  <Tab fontSize="md" fontWeight={500}>
+                    <SlidersIcon marginRight={2} />
+                    <Text>Tienda</Text>
+                  </Tab>
+                </TabList>
+              </Box>
             </Stack>
-            <TabPanels padding={4}>
-              <TabPanel>
-                <ProductsAdminScreen />
-              </TabPanel>
-              <TabPanel>
-                <TenantAdminScreen />
-              </TabPanel>
-            </TabPanels>
+            <Box
+              margin="auto"
+              maxWidth={{base: "100%", xl: "80em"}}
+              paddingX={{base: 4, xl: 12}}
+              width="100%"
+            >
+              <TabPanels paddingY={4}>
+                <TabPanel>
+                  <ProductsAdminScreen />
+                </TabPanel>
+                <TabPanel>
+                  <TenantAdminScreen />
+                </TabPanel>
+              </TabPanels>
+            </Box>
           </Tabs>
         </Box>
       </SessionProvider>
