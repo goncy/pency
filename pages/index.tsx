@@ -11,13 +11,13 @@ const LandingScreen: React.FC = () => (
   <>
     <Head>
       <link href="/favicon.ico" rel="icon" />
-      <meta content="#00B5D8" name="theme-color" />
+      <meta content="#FFFFFF" name="theme-color" />
       <title>Pency - Tu tienda online</title>
       <meta
         content="Crea tu propia tienda en segundos y vendé por WhatsApp de forma fácil"
         name="description"
       />
-      <link href="/logo192.png" rel="apple-touch-icon" />
+      <link href="/logo192.jpg" rel="apple-touch-icon" />
       <meta content="tienda, online, fácil, delivery, compra, venta" name="keywords" />
       <meta content="Gonzalo Pozzo" name="author" />
       <meta content="summary_large_image" name="twitter:card" />
