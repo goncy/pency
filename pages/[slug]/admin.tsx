@@ -120,7 +120,7 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
               paddingX={{base: 4, xl: 12}}
               width="100%"
             >
-              <TabPanels paddingY={4}>
+              <TabPanels marginBottom={4} marginTop={8}>
                 <TabPanel>
                   <ProductsAdminScreen />
                 </TabPanel>
