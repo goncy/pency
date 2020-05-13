@@ -92,11 +92,11 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
               spacing={4}
             >
               <TabList height={16}>
-                <Tab fontWeight={500}>
+                <Tab fontSize="md" fontWeight={500}>
                   <BoxIcon marginRight={2} />
                   <Text>Productos</Text>
                 </Tab>
-                <Tab fontWeight={500}>
+                <Tab fontSize="md" fontWeight={500}>
                   <SlidersIcon marginRight={2} />
                   <Text>Tienda</Text>
                 </Tab>
