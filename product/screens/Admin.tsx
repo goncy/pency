@@ -69,7 +69,7 @@ const AdminScreen: React.FC = () => {
                       {category}
                     </Heading>
                     {productsBySubcategory.map(([subcategory, products]) => (
-                      <Box key={subcategory} mt={4}>
+                      <Box key={`${category}-${subcategory}`} mt={4}>
                         <Flex direction="column">
                           {subcategory && (
                             <Heading as="h3" mb={4} size="lg">
@@ -78,7 +78,7 @@ const AdminScreen: React.FC = () => {
                           )}
                           <Stack spacing={4}>
                             {products.map((product) => (
-                              <Box key={product.id}>
+                              <Box key={`${category}-${subcategory}-${product.id}`}>
                                 <ProductRow onClick={onEdit} onRemove={remove} {...product} />
                               </Box>
                             ))}

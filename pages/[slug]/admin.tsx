@@ -100,12 +100,13 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
               spacing={4}
             >
               <Box
-                margin="auto"
+                height="100%"
+                margin="0 auto"
                 maxWidth={{base: "100%", xl: "80em"}}
                 paddingX={{base: 4, xl: 12}}
                 width="100%"
               >
-                <TabList height={16}>
+                <TabList border="none" height={16}>
                   <Tab fontSize="md" fontWeight={500}>
                     <BoxIcon marginRight={2} />
                     <Text>Productos</Text>
