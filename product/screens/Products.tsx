@@ -40,7 +40,7 @@ const ProductsScreen: React.FC = () => {
       <Flex direction="column" height="100%">
         <Flex
           as="main"
-          backgroundColor="primary.50"
+          backgroundColor="white"
           direction="column"
           flex={1}
           height="100%"
@@ -58,7 +58,6 @@ const ProductsScreen: React.FC = () => {
             width="100%"
           />
           <Box
-            backgroundColor="white"
             flex={1}
             margin="auto"
             maxWidth={{base: "100%", xl: "80em"}}
