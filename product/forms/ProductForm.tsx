@@ -80,7 +80,12 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
               <FormLabel htmlFor="category">Categoría</FormLabel>
               <Flex>
                 <Input ref={register({required: true})} name="category" placeholder="Categoría" />
-                <Select flexShrink={2} marginLeft={4} onChange={setCategory}>
+                <Select
+                  data-test-id="category-select"
+                  flexShrink={2}
+                  marginLeft={4}
+                  onChange={setCategory}
+                >
                   <option value="">Cargar</option>
                   {categories.map((category) => (
                     <option key={category} value={category}>
@@ -97,7 +102,12 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
               <FormLabel htmlFor="subcategory">Sub categoría</FormLabel>
               <Flex>
                 <Input ref={register} name="subcategory" placeholder="Sub categoría" />
-                <Select flexShrink={2} marginLeft={4} onChange={setSubCategory}>
+                <Select
+                  data-test-id="subcategory-select"
+                  flexShrink={2}
+                  marginLeft={4}
+                  onChange={setSubCategory}
+                >
                   <option value="">Cargar</option>
                   {subcategories.map((subcategory) => (
                     <option key={subcategory} value={subcategory}>

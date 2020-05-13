@@ -41,7 +41,7 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
   return {
     products: productsBySearch,
     filters: (
-      <Flex data-test-id="filters" width="100%">
+      <Flex data-test-id="filters">
         <InputGroup flex={{base: 1, sm: "inherit"}} mr={4}>
           <InputLeftElement
             children={<Icon color="gray.300" name="search" />}
@@ -51,6 +51,7 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
           <Input
             placeholder="Buscar..."
             value={query}
+            variant="filled"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
           />
         </InputGroup>

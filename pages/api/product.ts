@@ -56,7 +56,7 @@ const api = {
       .doc(tenant)
       .collection("products")
       .get()
-      .then((snapshot) => snapshot.docs.map((doc) => ({id: doc.id, ...(doc.data() as Product)})))
+      .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
       .then((products) => {
         cache.set(tenant, products);
 
