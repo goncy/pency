@@ -45,6 +45,9 @@ npm start
 ## Configurando Firebase
 Para esta aplicación vamos a necesitar dos cosas de Firebase, la primera va a ser configurar las reglas de firestore (las podés encontrar en el archivo `firestore.rules`) y habilitar en firebase el inicio de sesión con usuario y contraseña (lo haces en Firebase desde `Auth > Sign in methods`).
 
+## Configurando Cloudinary
+También vamos a necesitar una cuenta en Cloudinary para alojar las imágenes de la tienda. De allí vamos a necesitar el Cloudinary Cloud name para la variable `CLOUDINARY_CLOUD` del _environment_. Además vamos a tener que ir a _Settings -> Upload_ donde podemos configurar los presets. En principio podemos usar el default para las variables `CLOUDINARY_PRESET_LOW` y `CLOUDINARY_PRESET_HIGH`, pero tenemos que asegurarnos de setear el Signing Mode en *Unsigned*.
+
 ## Configurando el proyecto
 Una vez que tengamos nuestro `.env.[ambiente]` listo, vamos a la consola, nos paramos en la carpeta de nuestro proyecto y ejecutamos:
 
