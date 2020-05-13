@@ -10,8 +10,6 @@ import {
   Button,
   Badge,
   useDisclosure,
-  Link,
-  IconButton,
   Grid,
 } from "@chakra-ui/core";
 
@@ -25,12 +23,13 @@ import CartDrawer from "~/cart/components/CartDrawer";
 import {filterBy} from "~/selectors/filter";
 import {useTenant} from "~/tenant/hooks";
 import TenantAvatar from "~/tenant/components/TenantAvatar";
+import SocialLinks from "~/ui/list/SocialLinks";
 
 const ProductsScreen: React.FC = () => {
   const {add, remove, count, total} = useCart();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts({available: true});
-  const {banner, title, logo, phone, description} = useTenant();
+  const {facebook, instagram, twitter, banner, title, logo, phone, description} = useTenant();
 
   const productsByCategory = groupBy(products, (product) => product.category);
   const featuredProducts = filterBy(products, {featured: true});
@@ -93,22 +92,14 @@ const ProductsScreen: React.FC = () => {
                   </Heading>
                   <Text color="gray.500">{description}</Text>
                 </Stack>
-                <Stack
-                  isInline
+                <SocialLinks
+                  facebook={facebook}
                   gridArea="links"
-                  justifyContent="flex-end"
+                  instagram={instagram}
                   marginTop={4}
-                  spacing={4}
-                >
-                  <Link isExternal href={`whatsapp://send?phone=${phone}`}>
-                    <IconButton
-                      aria-label="Enviar mensaje por WhatsApp"
-                      icon="phone"
-                      rounded="50%"
-                      variantColor="primary"
-                    />
-                  </Link>
-                </Stack>
+                  twitter={twitter}
+                  whatsapp={phone}
+                />
               </Grid>
             </Box>
             <Box marginBottom={4}>{filters}</Box>

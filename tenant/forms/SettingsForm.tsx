@@ -95,6 +95,15 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
           <FormControl help="Separadas por comas" label="Palabras clave" name="keywords">
             <Input ref={register} name="keywords" placeholder="delivery, pasteleria, cupcakes" />
           </FormControl>
+          <FormControl help="Solo el usuario" label="Usuario de Instagram" name="instagram">
+            <Input ref={register} name="instagram" placeholder="pencyapp" />
+          </FormControl>
+          <FormControl help="Solo el usuario" label="Página de Facebook" name="facebook">
+            <Input ref={register} name="facebook" placeholder="pencyapp" />
+          </FormControl>
+          <FormControl help="Solo el usuario" label="Usuario de Twitter" name="twitter">
+            <Input ref={register} name="twitter" placeholder="pencyapp" />
+          </FormControl>
           <FormControl label="Logo" name="logo">
             <Controller
               as={ImageInput}
