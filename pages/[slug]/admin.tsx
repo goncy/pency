@@ -47,8 +47,18 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
           >
             <Stack isInline alignItems="center" spacing={2}>
               <Image alt="Pency" src="/logo.svg" />
-              <Link href={`/${tenant.slug}`} rel="noopener noreferrer" target="_blank">
+              <Link
+                _hover={{
+                  textDecoration: "none",
+                }}
+                href={`/${tenant.slug}`}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 <Button
+                  _hover={{
+                    backgroundColor: "primary.100",
+                  }}
                   backgroundColor="primary.50"
                   rightIcon="external-link"
                   size="xs"
