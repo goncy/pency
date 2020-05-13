@@ -94,7 +94,7 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
           backgroundColor="gray.100"
           borderBottom="1px solid"
           borderColor="gray.200"
-          height={16}
+          height="100%"
           spacing={4}
         >
           <Box
