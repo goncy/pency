@@ -70,7 +70,10 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
                 </Link>
               </Stack>
               <Stack isInline spacing={{base: 0, sm: 8}}>
-                <Link href={`mailto:${process.env.MANTAINER_EMAIL}`} lineHeight="normal">
+                <Link
+                  href={`mailto:${process.env.MANTAINER_EMAIL}?subject=Consulta por la tienda`}
+                  lineHeight="normal"
+                >
                   <IconButton
                     color="black"
                     fontWeight="500"
