@@ -96,6 +96,7 @@ const ProductsScreen: React.FC = () => {
                   facebook={facebook}
                   gridArea="links"
                   instagram={instagram}
+                  justifyContent="flex-end"
                   marginTop={4}
                   twitter={twitter}
                   whatsapp={phone}
