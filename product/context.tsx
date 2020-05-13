@@ -62,7 +62,7 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
         setProducts((products) => products.filter((product) => product.id !== id));
 
         toast({
-          title: "Producto actualizado",
+          title: "Producto eliminado",
           description: "Tu producto fue eliminado correctamente",
           status: "success",
         });
