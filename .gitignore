@@ -32,7 +32,6 @@ yarn-error.log*
 .now
 .firebaserc
 .idea
-.vercel
 
 # unused icons
 /icons
