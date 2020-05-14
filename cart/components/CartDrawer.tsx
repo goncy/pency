@@ -84,7 +84,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
               <Text fontSize="lg">${total}</Text>
             </Flex>
             <Button
-              backgroundColor="#25d366"
+              backgroundColor="green.400"
               color="white"
               variantColor="green"
               w="100%"
