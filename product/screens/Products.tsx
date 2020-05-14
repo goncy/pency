@@ -184,6 +184,7 @@ const ProductsScreen: React.FC = () => {
                   as="nav"
                   bottom={0}
                   justifyContent="center"
+                  margin={{base: 0, sm: "auto"}}
                   paddingBottom={4}
                   position="sticky"
                   zIndex={2}
