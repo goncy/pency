@@ -82,7 +82,7 @@ const LandingScreen: React.FC = () => (
             Cargá tus productos y recibí los pedidos de tus clientes por WhatsApp en minútos.
           </Text>
           <Stack isInline justifyContent={{base: "center", md: "flex-start"}} spacing={4}>
-            <UnstyledLink href="/blondies">
+            <UnstyledLink href="/demo">
               <Button size="lg">Mirá un demo</Button>
             </UnstyledLink>
             <UnstyledLink isExternal href="https://forms.gle/FWd3VNM5i9EvpfXZ7">
