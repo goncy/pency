@@ -24,7 +24,7 @@ const ProductDrawer: React.FC<Props> = ({isOpen, defaultValues, onClose, onSubmi
   const isNew = Boolean(!defaultValues?.id);
 
   return (
-    <Drawer id="product" isOpen={isOpen} placement="right" size="md" onClose={onClose}>
+    <Drawer id="product" isOpen={isOpen} placement="right" size="md" onClose={onClose} closeOnOverlayClick={false}>
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton right="8px" top="8px" />
