@@ -3,9 +3,10 @@ import {VariantColor} from "@chakra-ui/core";
 export interface Tenant {
   id: string;
   slug: string;
-  logo?: string;
+  category: string;
   color: Exclude<VariantColor, "black" | "white">;
   phone: number;
+  logo?: string;
   title?: string;
   instagram?: string;
   facebook?: string;
