@@ -84,14 +84,14 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
               <Text fontSize="lg">${total}</Text>
             </Flex>
             <Button
-              backgroundColor="primary.500"
+              backgroundColor="#25d366"
               color="white"
-              variantColor="primary"
+              variantColor="#25d366"
               w="100%"
               onClick={checkout}
             >
               <WhatsAppIcon marginRight={2} />
-              Completar pedido
+              Completar pedido en WhatsApp
             </Button>
           </Stack>
         </DrawerFooter>
