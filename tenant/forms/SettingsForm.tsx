@@ -65,14 +65,14 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             <Input ref={register} name="title" placeholder="Pastelerías Pency" />
           </FormControl>
           <FormControl
-            error={errors.description && "Máximo 288 caracteres"}
-            help="Máximo 288 caracteres"
+            error={errors.description && "Máximo 140 caracteres"}
+            help="Máximo 140 caracteres"
             label="Descripción"
             name="description"
           >
             <Textarea
-              ref={register({maxLength: 288})}
-              maxLength={288}
+              ref={register({maxLength: 140})}
+              maxLength={140}
               name="description"
               placeholder="Somos una tienda de venta de pastelería, pedidos de lunes a viernes de 9 a 18"
             />
