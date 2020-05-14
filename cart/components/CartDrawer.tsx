@@ -90,7 +90,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
               w="100%"
               onClick={checkout}
             >
-              <WhatsAppIcon marginRight={1} />
+              <WhatsAppIcon marginRight={2} />
               Completar pedido
             </Button>
           </Stack>
