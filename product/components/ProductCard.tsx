@@ -15,7 +15,7 @@ interface Props {
 }
 
 const ProductCard: React.FC<Props> = ({product, remove, add}) => {
-  const {id, category, image, description, title, price, options} = product;
+  const {id, image, description, title, price, options} = product;
   const {isOpen: isImageOpen, onToggle: toggleImage} = useDisclosure();
   const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
   const count = useProductCartCount(id);
@@ -62,7 +62,7 @@ const ProductCard: React.FC<Props> = ({product, remove, add}) => {
               borderBottom={1}
               borderBottomStyle="solid"
               borderColor="gray.100"
-              cursor={"pointer"}
+              cursor="pointer"
               flexShrink={0}
               height={64}
               roundedTop="lg"

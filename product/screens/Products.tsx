@@ -16,6 +16,7 @@ import {
 import ProductCard from "../components/ProductCard";
 import {useFilteredProducts} from "../hooks";
 import ProductsGrid from "../components/ProductsGrid";
+import {Product} from "../types";
 
 import {useCart} from "~/cart/hooks";
 import {groupBy} from "~/selectors/group";
@@ -31,8 +32,16 @@ const ProductsScreen: React.FC = () => {
   const {products, filters} = useFilteredProducts({available: true});
   const {facebook, instagram, twitter, banner, title, logo, phone, description} = useTenant();
 
-  const productsByCategory = groupBy(products, (product) => product.category);
   const featuredProducts = filterBy(products, {featured: true});
+  const productsByCategory = groupBy(products, (product) => product.category);
+
+  const productsList: [string, Product[]][] = React.useMemo(
+    () =>
+      featuredProducts.length
+        ? [["Destacados", featuredProducts], ...productsByCategory]
+        : productsByCategory,
+    [featuredProducts, productsByCategory],
+  );
 
   return (
     <>
@@ -104,123 +113,119 @@ const ProductsScreen: React.FC = () => {
               </Grid>
             </Box>
             <Box marginBottom={4}>{filters}</Box>
-            {Boolean(featuredProducts.length) && (
-              <Box marginBottom={12}>
-                <Heading as="h2" fontSize={{base: "2xl", sm: "3xl"}} marginBottom={4}>
-                  Destacados
-                </Heading>
-                <ProductsGrid>
-                  {featuredProducts.map((product) => (
-                    <ProductCard key={product.id} add={add} product={product} remove={remove} />
-                  ))}
-                </ProductsGrid>
-              </Box>
-            )}
-            {Boolean(products.length) ? (
-              productsByCategory.map(([category, products]) => {
-                const productsBySubcategory = groupBy(products, (product) => product.subcategory);
+            <Stack spacing={4}>
+              {Boolean(products.length) ? (
+                productsList.map(([category, products]) => {
+                  const productsBySubcategory = groupBy(products, (product) => product.subcategory);
 
-                return (
-                  <PseudoBox key={category} marginBottom={12}>
-                    <Flex direction="column">
-                      <Heading as="h2" fontSize={{base: "2xl", sm: "3xl"}}>
-                        {category}
-                      </Heading>
-                      {productsBySubcategory.map(([subcategory, products]) => (
-                        <PseudoBox key={subcategory} marginTop={4}>
-                          <Flex direction="column">
-                            {subcategory && (
-                              <Heading
-                                as="h3"
-                                fontSize={{base: "xl", sm: "2xl"}}
-                                fontWeight={500}
-                                marginBottom={4}
-                              >
-                                {subcategory}
-                              </Heading>
-                            )}
-                            <ProductsGrid>
-                              {products.map((product) => (
-                                <ProductCard
-                                  key={product.id}
-                                  add={add}
-                                  product={product}
-                                  remove={remove}
-                                />
-                              ))}
-                            </ProductsGrid>
-                          </Flex>
-                        </PseudoBox>
-                      ))}
-                    </Flex>
-                  </PseudoBox>
-                );
-              })
-            ) : (
-              <Flex
-                alignItems="center"
-                data-test-id="empty"
-                direction="column"
-                flex={1}
-                justifyContent="center"
-                marginTop={16}
-              >
-                <Icon
-                  color="gray.200"
-                  fontSize={{base: 64, sm: 96}}
-                  marginBottom={4}
-                  name="search"
-                />
-                <Text color="gray.300" fontSize={{base: "md", sm: "lg"}} textAlign="center">
-                  No se encontraron productos
-                </Text>
-              </Flex>
-            )}
-            {Boolean(count) && (
-              <Flex
-                bottom={0}
-                justifyContent="center"
-                paddingBottom={4}
-                position="sticky"
-                zIndex={2}
-              >
+                  return (
+                    <PseudoBox
+                      key={category}
+                      _last={{marginBottom: 4}}
+                      _notLast={{marginBottom: 12}}
+                      as="section"
+                    >
+                      <Flex direction="column">
+                        <Heading as="h2" fontSize={{base: "2xl", sm: "3xl"}}>
+                          {category}
+                        </Heading>
+                        {productsBySubcategory.map(([subcategory, products]) => (
+                          <PseudoBox key={subcategory} as="section" marginTop={4}>
+                            <Flex direction="column">
+                              {subcategory && (
+                                <Heading
+                                  as="h3"
+                                  fontSize={{base: "xl", sm: "2xl"}}
+                                  fontWeight={500}
+                                  marginBottom={4}
+                                >
+                                  {subcategory}
+                                </Heading>
+                              )}
+                              <ProductsGrid>
+                                {products.map((product) => (
+                                  <ProductCard
+                                    key={product.id}
+                                    add={add}
+                                    product={product}
+                                    remove={remove}
+                                  />
+                                ))}
+                              </ProductsGrid>
+                            </Flex>
+                          </PseudoBox>
+                        ))}
+                      </Flex>
+                    </PseudoBox>
+                  );
+                })
+              ) : (
                 <Flex
                   alignItems="center"
-                  boxShadow="0 0 6px currentColor"
-                  color="primary.500"
-                  display="block"
+                  data-test-id="empty"
+                  direction="column"
+                  flex={1}
                   justifyContent="center"
-                  margin={{base: 0, sm: "auto"}}
-                  rounded={4}
-                  width={{base: "100%", sm: "auto"}}
+                  marginTop={16}
                 >
-                  <Button
-                    backgroundColor="primary.500"
-                    color="white"
-                    display="flex"
-                    justifyContent="space-between"
-                    variantColor="primary"
-                    width="100%"
-                    onClick={openCart}
-                  >
-                    <Stack isInline alignItems="center" flex={1} spacing={4}>
-                      <Badge
-                        backgroundColor="primary.700"
-                        color="primary.50"
-                        fontSize="sm"
-                        paddingX={2}
-                        paddingY={1}
-                        variantColor="primary"
-                      >
-                        {count}
-                      </Badge>
-                      <Text flex={1}>Revisar pedido</Text>
-                      <Text>${total}</Text>
-                    </Stack>
-                  </Button>
+                  <Icon
+                    color="gray.200"
+                    fontSize={{base: 64, sm: 96}}
+                    marginBottom={4}
+                    name="search"
+                  />
+                  <Text color="gray.300" fontSize={{base: "md", sm: "lg"}} textAlign="center">
+                    No se encontraron productos
+                  </Text>
                 </Flex>
-              </Flex>
-            )}
+              )}
+              {Boolean(count) && (
+                <Flex
+                  as="nav"
+                  bottom={0}
+                  justifyContent="center"
+                  paddingBottom={4}
+                  position="sticky"
+                  zIndex={2}
+                >
+                  <Flex
+                    alignItems="center"
+                    boxShadow="0 0 6px currentColor"
+                    color="primary.500"
+                    display="block"
+                    justifyContent="center"
+                    margin={{base: 0, sm: "auto"}}
+                    rounded={4}
+                    width={{base: "100%", sm: "auto"}}
+                  >
+                    <Button
+                      backgroundColor="primary.500"
+                      color="white"
+                      display="flex"
+                      justifyContent="space-between"
+                      variantColor="primary"
+                      width="100%"
+                      onClick={openCart}
+                    >
+                      <Stack isInline alignItems="center" flex={1} spacing={4}>
+                        <Badge
+                          backgroundColor="primary.700"
+                          color="primary.50"
+                          fontSize="sm"
+                          paddingX={2}
+                          paddingY={1}
+                          variantColor="primary"
+                        >
+                          {count}
+                        </Badge>
+                        <Text flex={1}>Revisar pedido</Text>
+                        <Text>${total}</Text>
+                      </Stack>
+                    </Button>
+                  </Flex>
+                </Flex>
+              )}
+            </Stack>
           </Box>
         </Flex>
       </Flex>
