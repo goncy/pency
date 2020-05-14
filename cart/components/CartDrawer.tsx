@@ -86,7 +86,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
             <Button
               backgroundColor="#25d366"
               color="white"
-              variantColor="#25d366"
+              variantColor="green"
               w="100%"
               onClick={checkout}
             >
