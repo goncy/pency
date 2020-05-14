@@ -3,7 +3,6 @@ export const DEFAULT_TENANT = {
   color: "cyan",
   title: "Pency - Tu tienda online fácil",
   description: "Armá tu tienda y recibí los pedidos via WhatsApp",
-  category: "Otro",
   instagram: null,
   facebook: null,
   twitter: null,

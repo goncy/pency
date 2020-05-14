@@ -78,7 +78,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             />
           </FormControl>
           <FormControl label="Rubro al que pertenecés" name="category">
-            <Select ref={register} name="category" placeholder="Pastelería">
+            <Select ref={register} name="category" placeholder="Seleccioná un rubro">
               {CATEGORIES.map((category) => (
                 <option key={category} value={category}>
                   {category}
