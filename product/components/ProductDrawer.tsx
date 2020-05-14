@@ -22,7 +22,6 @@ interface Props {
 
 const ProductDrawer: React.FC<Props> = ({isOpen, defaultValues, onClose, onSubmit}) => {
   const isNew = Boolean(!defaultValues?.id);
-  const closeOnOverlayClick = false;
 
   return (
     <Drawer id="product" isOpen={isOpen} placement="right" size="md" onClose={onClose} closeOnOverlayClick={false}>
