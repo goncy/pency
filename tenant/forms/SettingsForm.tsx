@@ -1,8 +1,9 @@
 import React from "react";
 import {useForm, Controller} from "react-hook-form";
-import {Input, Stack} from "@chakra-ui/core";
+import {Input, Stack, Select, Textarea} from "@chakra-ui/core";
 
 import {Tenant} from "../types";
+import {CATEGORIES} from "../constants";
 
 import ImageInput from "~/ui/inputs/Image";
 import ColorRadio from "~/ui/inputs/ColorRadio";
@@ -38,27 +39,53 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
         <Stack spacing={4}>
           <FormControl
             isRequired
-            error={(errors.phone && errors.phone.message) || "Este campo es inválido"}
+            error={errors.phone && (errors.phone.message || "Este campo es inválido")}
             help="Código país + código de area + teléfono. Ej: 549114444444"
             isInvalid={Boolean(errors.phone)}
-            label="Teléfono"
+            label="WhatsApp"
             name="phone"
           >
             <Input
               ref={register({required: true, pattern: /^[0-9]+$/})}
               min={0}
               name="phone"
-              placeholder="Teléfono"
+              placeholder="5491144444444"
               type="number"
             />
           </FormControl>
           <FormControl
             isRequired
-            error={(errors.color && errors.color.message) || "Este campo es inválido"}
+            error={errors.color && "Este campo es inválido"}
             isInvalid={Boolean(errors.color)}
-            label="Color"
+            label="Color principal"
           >
             <Controller as={ColorRadio} control={control} name="color" rules={{required: true}} />
+          </FormControl>
+          <FormControl label="Nombre de tu negocio" name="title">
+            <Input ref={register} name="title" placeholder="Pastelerías Pency" />
+          </FormControl>
+          <FormControl
+            error={errors.description && "Máximo 288 caracteres"}
+            help="Máximo 288 caracteres"
+            label="Descripción"
+            name="description"
+          >
+            <Textarea
+              ref={register({maxLength: 288})}
+              maxLength={288}
+              name="description"
+              placeholder="Somos una tienda de venta de pastelería, pedidos de lunes a viernes de 9 a 18"
+            />
+          </FormControl>
+          <FormControl label="Rubro al que pertenecés" name="category">
+            <Select ref={register} name="category" placeholder="Pastelería">
+              {CATEGORIES.map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+              <option value="Otro">Otro</option>
+            </Select>
           </FormControl>
           <FormControl
             isRequired
@@ -82,27 +109,42 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               }}
             />
           </FormControl>
-          <FormControl label="Título de la página" name="title">
-            <Input ref={register} name="title" placeholder="Pastelerías Pency" />
-          </FormControl>
-          <FormControl label="Descripción" name="description">
-            <Input
-              ref={register}
-              name="description"
-              placeholder="Somos una tienda de venta de pastelería, pedidos de lunes a viernes de 9 a 18"
-            />
-          </FormControl>
           <FormControl help="Separadas por comas" label="Palabras clave" name="keywords">
             <Input ref={register} name="keywords" placeholder="delivery, pasteleria, cupcakes" />
           </FormControl>
-          <FormControl help="Solo el usuario" label="Usuario de Instagram" name="instagram">
-            <Input ref={register} name="instagram" placeholder="pencyapp" />
+          <FormControl
+            error={errors?.instagram?.message}
+            label="Usuario de Instagram"
+            name="instagram"
+          >
+            <Input
+              ref={register({
+                validate: (value) =>
+                  value.includes("instagram.com") ? "Solo el usuario, no el link completo" : true,
+              })}
+              name="instagram"
+              placeholder="pencyapp"
+            />
           </FormControl>
-          <FormControl help="Solo el usuario" label="Página de Facebook" name="facebook">
-            <Input ref={register} name="facebook" placeholder="pencyapp" />
+          <FormControl error={errors?.facebook?.message} label="Página de Facebook" name="facebook">
+            <Input
+              ref={register({
+                validate: (value) =>
+                  value.includes("facebook.com") ? "Solo el usuario, no el link completo" : true,
+              })}
+              name="facebook"
+              placeholder="pencyapp"
+            />
           </FormControl>
-          <FormControl help="Solo el usuario" label="Usuario de Twitter" name="twitter">
-            <Input ref={register} name="twitter" placeholder="pencyapp" />
+          <FormControl error={errors?.twitter?.message} label="Usuario de Twitter" name="twitter">
+            <Input
+              ref={register({
+                validate: (value) =>
+                  value.includes("twitter.com") ? "Solo el usuario, no el link completo" : true,
+              })}
+              name="twitter"
+              placeholder="pencyapp"
+            />
           </FormControl>
           <FormControl label="Logo" name="logo">
             <Controller
