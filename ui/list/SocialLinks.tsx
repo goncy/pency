@@ -14,7 +14,7 @@ interface Props extends StackProps {
 }
 
 const SocialLinks: React.FC<Props> = ({whatsapp, instagram, facebook, twitter, ...props}) => (
-  <Stack isInline spacing={3} {...props}>
+  <Stack isInline height={10} spacing={3} {...props}>
     {whatsapp && (
       <Link isExternal href={`https://wa.me/${whatsapp}`}>
         <IconButton
