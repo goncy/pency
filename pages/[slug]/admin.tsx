@@ -3,8 +3,8 @@ import React from "react";
 import {Provider as SessionProvider} from "~/session/context";
 import fetch from "~/utils/fetch";
 import {Tenant} from "~/tenant/types";
-import Head from "~/app/components/Head";
 import AdminScreen from "~/app/screens/Admin";
+import AdminLayout from "~/app/layouts/AdminLayout";
 
 interface Props {
   tenant: Tenant;
@@ -12,12 +12,11 @@ interface Props {
 
 const AdminRoute: React.FC<Props> = ({tenant}) => {
   return (
-    <>
-      <Head tenant={tenant} />
+    <AdminLayout>
       <SessionProvider>
         <AdminScreen tenant={tenant} />
       </SessionProvider>
-    </>
+    </AdminLayout>
   );
 };
 
