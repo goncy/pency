@@ -67,9 +67,9 @@ const ProductCard: React.FC<Props> = ({product, remove, add}) => {
             <Text display="block" fontSize="lg" fontWeight="semibold" lineHeight="normal" mb={2}>
               {title}
             </Text>
-            {/* <Badge mb={2} variantColor="primary" width="fit-content">
+            <Badge mb={2} variantColor="primary" width="fit-content">
               {category}
-            </Badge> */}
+            </Badge>
             {description && (
               <Text color="gray.500" mb={2}>
                 {description}
