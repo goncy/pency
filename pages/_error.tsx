@@ -1,32 +1,44 @@
 import React from "react";
-import {Flex, Text} from "@chakra-ui/core";
+import {Flex, Text, Heading, Stack} from "@chakra-ui/core";
+
+import ErrorLayout from "~/app/layouts/ErrorLayout";
+import CompassIcon from "~/ui/icons/Compass";
 
 interface Props {
   statusCode: number;
 }
 
 export const ERRORS = {
-  304: "Algo no salió bien, este link no parece valido",
+  304: "Este link no parece valido",
   404: "Esta tienda no existe",
-  500: "Estamos teniendo un problema y lo estamos solucionando, volvé mas tarde",
+  500: "Lo estamos solucionando, volvé mas tarde",
 };
 
 const Error: React.FC<Props> = ({statusCode}) => {
   return (
-    <Flex
-      alignItems="center"
-      backgroundColor="gray.100"
-      color="white"
-      height="100vh"
-      justifyContent="center"
-      overflow="hidden"
-      padding={4}
-      width="100vw"
-    >
-      <Text color="gray.500" fontSize="xl" textAlign="center">
-        {ERRORS[Number(statusCode)] || "Hubo un error inesperado intentá de nuevo mas tarde"}
-      </Text>
-    </Flex>
+    <ErrorLayout>
+      <Flex
+        alignItems="center"
+        backgroundColor="gray.100"
+        color="white"
+        height="100vh"
+        justifyContent="center"
+        overflow="hidden"
+        padding={4}
+        textAlign="center"
+        width="100vw"
+      >
+        <Stack alignItems="center">
+          <CompassIcon color="teal.500" fontSize="xl" marginBottom={2} size={36} />
+          <Heading as="h4" color="black" fontWeight="bold" size="lg">
+            Algo no salió bien
+          </Heading>
+          <Text color="gray.600" fontSize="lg">
+            {ERRORS[Number(statusCode)] || "Intentá de nuevo mas tarde"}
+          </Text>
+        </Stack>
+      </Flex>
+    </ErrorLayout>
   );
 };
 
