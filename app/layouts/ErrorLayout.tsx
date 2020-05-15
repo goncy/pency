@@ -4,24 +4,14 @@ import {Global, css} from "@emotion/core";
 
 import {META} from "../constants";
 
-const AdminLayout: React.FC = ({children}) => (
+const ErrorLayout: React.FC = ({children}) => (
   <>
     <Global
       styles={css`
-        html,
-        body,
-        #__next {
-          height: 100%;
-        }
-
         * {
           touch-action: manipulation;
           font-family: aktiv-grotesk, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
             Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
-        }
-
-        #drawer-product {
-          height: 100% !important;
         }
       `}
     />
@@ -29,7 +19,7 @@ const AdminLayout: React.FC = ({children}) => (
       <link href={META.favicon} rel="icon" />
       <link href={META.appleicon} rel="apple-touch-icon" />
       <link href="https://use.typekit.net/kdb3mdf.css" rel="stylesheet" />
-      <title>{`Panel de administración | ${META.title}`}</title>
+      <title>{`Oops! | ${META.title}`}</title>
       <meta content={META.theme} name="theme-color" />
       <meta content={META.description} name="description" />
       <meta content={META.keywords} name="keywords" />
@@ -52,4 +42,4 @@ const AdminLayout: React.FC = ({children}) => (
   </>
 );
 
-export default AdminLayout;
+export default ErrorLayout;
