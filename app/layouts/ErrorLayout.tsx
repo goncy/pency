@@ -1,13 +1,24 @@
 import React from "react";
 import Head from "next/head";
+import {Global, css} from "@emotion/core";
 
 import {META} from "../constants";
 
 const ErrorLayout: React.FC = ({children}) => (
   <>
+    <Global
+      styles={css`
+        * {
+          touch-action: manipulation;
+          font-family: aktiv-grotesk, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
+            Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+        }
+      `}
+    />
     <Head>
       <link href={META.favicon} rel="icon" />
       <link href={META.appleicon} rel="apple-touch-icon" />
+      <link href="https://use.typekit.net/kdb3mdf.css" rel="stylesheet" />
       <title>{`Oops! | ${META.title}`}</title>
       <meta content={META.theme} name="theme-color" />
       <meta content={META.description} name="description" />
