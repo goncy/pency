@@ -18,12 +18,14 @@ if (process.env.NODE_ENV === "production" && process.env.SENTRY_DSN) {
 
 export default class Pency extends App {
   componentDidCatch(error, errorInfo) {
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NODE_ENV === "production" && process.env.SENTRY_DSN) {
       Sentry.withScope((scope) => {
         scope.setTag("origin", "componentDidCatch");
+
         Object.keys(errorInfo).forEach((key) => {
           scope.setExtra(key, errorInfo[key]);
         });
+
         scope.setExtra("error", error);
 
         Sentry.captureException(error);
