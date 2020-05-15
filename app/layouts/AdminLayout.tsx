@@ -8,6 +8,12 @@ const AdminLayout: React.FC = ({children}) => (
   <>
     <Global
       styles={css`
+        html,
+        body,
+        #__next {
+          height: 100%;
+        }
+
         * {
           touch-action: manipulation;
           font-family: aktiv-grotesk, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
