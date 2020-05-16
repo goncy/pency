@@ -20,8 +20,8 @@ import ImageInput from "~/ui/inputs/Image";
 import SwitchInput from "~/ui/inputs/Switch";
 
 interface Props {
-  defaultValues?: Product;
-  onSubmit: (values: Product) => void;
+  defaultValues?: Partial<Product>;
+  onSubmit: (values: Partial<Product>) => void;
   children: (options: {
     form: JSX.Element;
     isLoading: boolean;
@@ -29,18 +29,12 @@ interface Props {
   }) => JSX.Element;
 }
 
-const DEFAULT_VALUES: Partial<Product> = {
-  available: true,
-  image: "",
-  options: [],
-};
-
-const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children, onSubmit}) => {
+const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
   const {categories, subcategories} = useProductCategories();
-  const form = useForm<Product>({defaultValues});
+  const form = useForm<Partial<Product>>({defaultValues});
   const {handleSubmit: submit, errors, register, formState, setValue, control} = form;
 
-  function handleSubmit(values: Product) {
+  function handleSubmit(values: Partial<Product>) {
     const product = {...defaultValues, ...values};
 
     product.category = product.category.trim();
@@ -70,7 +64,7 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
           <Stack spacing={4}>
             <FormControl isRequired isInvalid={Boolean(errors.title)}>
               <FormLabel htmlFor="title">Título</FormLabel>
-              <Input ref={register({required: true})} name="title" placeholder="Título" />
+              <Input ref={register({required: true})} autoFocus name="title" placeholder="Título" />
               <FormErrorMessage>
                 {(errors.title && errors.title.message) || "Este campo es requerido"}
               </FormErrorMessage>
@@ -86,7 +80,12 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
               <FormLabel htmlFor="category">Categoría</FormLabel>
               <Flex>
                 <Input ref={register({required: true})} name="category" placeholder="Categoría" />
-                <Select flexShrink={2} marginLeft={4} onChange={setCategory}>
+                <Select
+                  data-test-id="category-select"
+                  flexShrink={2}
+                  marginLeft={4}
+                  onChange={setCategory}
+                >
                   <option value="">Cargar</option>
                   {categories.map((category) => (
                     <option key={category} value={category}>
@@ -103,7 +102,12 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
               <FormLabel htmlFor="subcategory">Sub categoría</FormLabel>
               <Flex>
                 <Input ref={register} name="subcategory" placeholder="Sub categoría" />
-                <Select flexShrink={2} marginLeft={4} onChange={setSubCategory}>
+                <Select
+                  data-test-id="subcategory-select"
+                  flexShrink={2}
+                  marginLeft={4}
+                  onChange={setSubCategory}
+                >
                   <option value="">Cargar</option>
                   {subcategories.map((subcategory) => (
                     <option key={subcategory} value={subcategory}>
@@ -145,8 +149,8 @@ const ProductForm: React.FC<Props> = ({defaultValues = DEFAULT_VALUES, children,
                 as={ImageInput}
                 control={control}
                 defaultValue=""
-                format="jpg"
                 name="image"
+                quality="low"
               />
               <FormErrorMessage>{errors.image && errors.image.message}</FormErrorMessage>
             </FormControl>

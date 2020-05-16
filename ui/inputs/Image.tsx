@@ -2,16 +2,16 @@ import React from "react";
 import {Image, Input, Flex, Spinner, Button} from "@chakra-ui/core";
 
 import storage from "~/storage/api";
-import {Format} from "~/storage/types";
+import {Quality} from "~/storage/types";
 import {useToast} from "~/hooks/toast";
 
 interface Props {
   value?: string;
-  format?: Format;
+  quality?: Quality;
   onChange: (value: string) => void;
 }
 
-const ImageInput: React.FC<Props> = ({value, onChange, format = "jpg"}) => {
+const ImageInput: React.FC<Props> = ({value, onChange, quality = "low"}) => {
   const [isLoading, setLoading] = React.useState(false);
   const toast = useToast();
 
@@ -21,7 +21,7 @@ const ImageInput: React.FC<Props> = ({value, onChange, format = "jpg"}) => {
     try {
       setLoading(true);
 
-      const url = await storage.upload(file, format);
+      const url = await storage.upload(file, quality);
 
       onChange(url);
       setLoading(false);

@@ -12,7 +12,7 @@ const SessionContext = React.createContext({} as Context);
 
 const SessionProvider: React.FC = ({children}) => {
   const toast = useToast();
-  const {id: tenant} = useTenant();
+  const {id: tenant, logo, title} = useTenant();
   const [user, setUser] = React.useState<User | null>(null);
   const [status, setStatus] = React.useState<Status>("pending");
 
@@ -96,7 +96,10 @@ const SessionProvider: React.FC = ({children}) => {
     }
   }, [user]);
 
-  if (!user) return <LoginScreen isRestoring={status === "pending"} signIn={signIn} />;
+  if (!user)
+    return (
+      <LoginScreen isRestoring={status === "pending"} logo={logo} signIn={signIn} title={title} />
+    );
 
   return <SessionContext.Provider value={{state, actions}}>{children}</SessionContext.Provider>;
 };

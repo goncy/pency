@@ -1,43 +1,22 @@
 import React from "react";
-import {Box, Tabs, TabList, Tab, TabPanels, TabPanel, Heading} from "@chakra-ui/core";
 
 import {Provider as SessionProvider} from "~/session/context";
-import ProductsAdminScreen from "~/product/screens/Admin";
-import TenantAdminScreen from "~/tenant/screens/Admin";
 import fetch from "~/utils/fetch";
 import {Tenant} from "~/tenant/types";
-import Head from "~/app/components/Head";
+import AdminScreen from "~/app/screens/Admin";
+import AdminLayout from "~/app/layouts/AdminLayout";
 
 interface Props {
   tenant: Tenant;
 }
 
-const AdminScreen: React.FC<Props> = ({tenant}) => {
+const AdminRoute: React.FC<Props> = ({tenant}) => {
   return (
-    <>
-      <Head tenant={tenant} />
+    <AdminLayout>
       <SessionProvider>
-        <Box as="main" height="100%" overflowY="auto" padding={4}>
-          <Heading as="h1" mb={4} size="2xl">
-            Panel de administración
-          </Heading>
-          <Tabs variant="soft-rounded" variantColor="primary">
-            <TabList mb={4}>
-              <Tab>Productos</Tab>
-              <Tab>Tienda</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel>
-                <ProductsAdminScreen />
-              </TabPanel>
-              <TabPanel>
-                <TenantAdminScreen />
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </Box>
+        <AdminScreen tenant={tenant} />
       </SessionProvider>
-    </>
+    </AdminLayout>
   );
 };
 
@@ -60,4 +39,4 @@ export async function getServerSideProps({
   }
 }
 
-export default AdminScreen;
+export default AdminRoute;

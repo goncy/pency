@@ -1,5 +1,5 @@
 import React from "react";
-import {Flex, AspectRatioBox, IconButton, Image, Text} from "@chakra-ui/core";
+import {Flex, AspectRatioBox, IconButton, Image, Text, Tooltip} from "@chakra-ui/core";
 import LazyLoad from "react-lazy-load";
 
 import {Product} from "../types";
@@ -48,6 +48,21 @@ const ProductRow: React.FC<Props> = ({onClick, onRemove, ...product}) => {
       <Text flex={1} fontSize="lg" marginX={4}>
         {product.title}
       </Text>
+      <Tooltip aria-label="Duplicar producto" label="Duplicar producto" placement="left">
+        <IconButton
+          alignSelf="flex-end"
+          aria-label="Duplicar producto"
+          icon="copy"
+          margin="auto"
+          size="lg"
+          variant="ghost"
+          onClick={(event) => {
+            event.stopPropagation();
+
+            onClick({...product, id: null, title: `${product.title} (copia)`});
+          }}
+        />
+      </Tooltip>
       <IconButton
         alignSelf="flex-end"
         aria-label="Borrar producto"

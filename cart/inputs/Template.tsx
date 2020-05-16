@@ -1,24 +1,23 @@
 import React from "react";
 import {Textarea, Stack, Box, Text, Button, Flex} from "@chakra-ui/core";
-import template from "lodash.template";
+
+import {MOCK_CART} from "../constants";
+import {getMessage} from "../selectors";
 
 interface Props {
   value?: string;
   onChange: (template: string) => void;
-  data: Record<string, unknown>;
 }
 
-const TemplateInput: React.FC<Props> = ({value, onChange, data}) => {
+const TemplateInput: React.FC<Props> = ({value, onChange}) => {
   const [isEnabled, setEnabled] = React.useState(false);
   const preview = React.useMemo(() => {
     try {
-      const compile = template(value);
-
-      return value ? compile(data) : "";
+      return value ? getMessage(value, MOCK_CART) : "";
     } catch (e) {
-      return `Este mensaje no es valido: ${e}`;
+      return `ERROR: Este mensaje no es valido: ${e}`;
     }
-  }, [data, value]);
+  }, [value]);
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     return onChange(event.target.value);
@@ -43,21 +42,14 @@ const TemplateInput: React.FC<Props> = ({value, onChange, data}) => {
             rounded="sm"
             width="100%"
           />
-          <Stack
-            backgroundColor="primary.50"
-            margin={4}
-            padding={4}
-            rounded="sm"
-            spacing={4}
-            zIndex={1}
-          >
+          <Stack backgroundColor="white" margin={4} padding={4} rounded="sm" spacing={4} zIndex={1}>
             <Text>Este es un campo avanzado, solo cambialo si sabés como hacerlo.</Text>
             <Button onClick={() => setEnabled(true)}>Habilitar</Button>
           </Stack>
         </Flex>
       )}
       <Textarea isDisabled={!isEnabled} minHeight={48} value={value} onChange={handleChange} />
-      {isEnabled && (
+      {isEnabled && value && (
         <Box
           as="pre"
           backgroundColor="primary.50"

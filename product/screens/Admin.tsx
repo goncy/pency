@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Box, Icon, Text, Flex, Heading, Button, useDisclosure} from "@chakra-ui/core";
+import {Stack, Box, Icon, Text, Flex, Heading} from "@chakra-ui/core";
 
 import ProductDrawer from "../components/ProductDrawer";
 import {useFilteredProducts, useProductActions} from "../hooks";
@@ -7,64 +7,72 @@ import {Product} from "../types";
 import ProductRow from "../components/ProductRow";
 
 import {groupBy} from "~/selectors/group";
+import PlusIcon from "~/ui/icons/Plus";
+import IconButton from "~/ui/controls/IconButton";
+import {useToast} from "~/hooks/toast";
 
 const AdminScreen: React.FC = () => {
-  const [selected, setSelected] = React.useState<Product | undefined>(undefined);
-  const {isOpen: isDrawerOpen, onOpen, onClose} = useDisclosure();
+  const [selected, setSelected] = React.useState<Partial<Product> | undefined>(undefined);
   const {products, filters} = useFilteredProducts();
   const {update, remove, create} = useProductActions();
-  const productsByCategory = Object.entries(groupBy(products, (product) => product.category));
+  const toast = useToast();
+  const productsByCategory = groupBy(products, (product) => product.category);
 
-  async function handleCreate(product: Product) {
-    await create(product);
-
-    closeDrawer();
-  }
-
-  async function handleUpdate(product: Product) {
-    await update(product);
+  async function handleSubmit(product: Product) {
+    if (product.id) {
+      await update(product);
+    } else {
+      await create(product);
+    }
 
     closeDrawer();
   }
 
   function onCreate() {
-    openDrawer();
+    setSelected({
+      available: true,
+      image: "",
+      options: [],
+    });
   }
 
   function onEdit(product: Product) {
     setSelected(product);
-
-    openDrawer();
   }
 
   function closeDrawer() {
     setSelected(undefined);
-
-    onClose();
   }
 
-  function openDrawer() {
-    onOpen();
-  }
+  React.useEffect(() => {
+    toast({
+      title: "Atención",
+      description:
+        "Debido a un problema con el proveedor de imágenes, las imágenes cargadas antes del 5 de Mayo podrían desaparecer, por favor volverlas a cargar, gracias.",
+      status: "warning",
+      duration: null,
+    });
+  }, [toast]);
 
   return (
     <>
       <Flex direction="column" height="100%">
         <Box flex={1}>
-          {filters}
-          <Button
-            mt={4}
-            variantColor="primary"
-            width={{base: "100%", sm: "auto"}}
-            onClick={onCreate}
-          >
-            Agregar producto
-          </Button>
+          <Flex alignItems="center" justifyContent="space-between">
+            {filters}
+            <IconButton
+              data-test-id="add-product"
+              leftIcon={PlusIcon}
+              marginLeft={4}
+              variantColor="primary"
+              onClick={onCreate}
+            >
+              Agregar
+            </IconButton>
+          </Flex>
           {products.length ? (
             productsByCategory.map(([category, products]) => {
-              const productsBySubcategory = Object.entries(
-                groupBy(products, (product) => product.subcategory),
-              );
+              const productsBySubcategory = groupBy(products, (product) => product.subcategory);
 
               return (
                 <Box key={category} mt={4}>
@@ -73,7 +81,7 @@ const AdminScreen: React.FC = () => {
                       {category}
                     </Heading>
                     {productsBySubcategory.map(([subcategory, products]) => (
-                      <Box key={subcategory} mt={4}>
+                      <Box key={`${category}-${subcategory}`} mt={4}>
                         <Flex direction="column">
                           {subcategory && (
                             <Heading as="h3" mb={4} size="lg">
@@ -82,7 +90,7 @@ const AdminScreen: React.FC = () => {
                           )}
                           <Stack spacing={4}>
                             {products.map((product) => (
-                              <Box key={product.id}>
+                              <Box key={`${category}-${subcategory}-${product.id}`}>
                                 <ProductRow onClick={onEdit} onRemove={remove} {...product} />
                               </Box>
                             ))}
@@ -113,9 +121,9 @@ const AdminScreen: React.FC = () => {
       </Flex>
       <ProductDrawer
         defaultValues={selected}
-        isOpen={isDrawerOpen}
+        isOpen={Boolean(selected)}
         onClose={closeDrawer}
-        onSubmit={selected ? handleUpdate : handleCreate}
+        onSubmit={handleSubmit}
       />
     </>
   );

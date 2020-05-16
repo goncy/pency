@@ -26,9 +26,12 @@ yarn-error.log*
 # local env files
 .env
 .env.*
+!.env.template
 
+# config
 .now
-
 .firebaserc
-
 .idea
+
+# unused icons
+/icons

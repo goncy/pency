@@ -14,7 +14,7 @@ export function getOptionsString(options: Product["options"]): string {
         case "multiple": {
           const groups = groupBy(option.value, ({title}) => title);
 
-          return `${option.title}: ${Object.entries(groups)
+          return `${option.title}: ${groups
             .map(([title, items]) => `${title}${items.length > 1 ? ` X${items.length}` : ``}`)
             .join(", ")}`;
         }
@@ -24,10 +24,6 @@ export function getOptionsString(options: Product["options"]): string {
       }
     })
     .join(" - ");
-}
-
-export function sortByFeatured(products: Product[]) {
-  return [...products].sort((a, b) => (a.featured ? (b.featured ? 0 : 1) : b.featured ? -1 : 0));
 }
 
 export function getPrice(product: Product): number {

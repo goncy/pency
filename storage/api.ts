@@ -1,10 +1,10 @@
-import {CloudinaryResponse, Format} from "./types";
+import {CloudinaryResponse, Quality} from "./types";
 
 export default {
-  upload: (file: File, format: Format) => {
+  upload: (file: File, quality: Quality) => {
     return fetch(
       `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD}/image/upload?upload_preset=${
-        format === "jpg" ? process.env.CLOUDINARY_PRESET_JPG : process.env.CLOUDINARY_PRESET_PNG
+        quality === "high" ? process.env.CLOUDINARY_PRESET_HIGH : process.env.CLOUDINARY_PRESET_LOW
       }`,
       {
         method: "PUT",

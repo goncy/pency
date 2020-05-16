@@ -9,7 +9,6 @@ import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import {Provider as CartProvider} from "~/cart/context";
 import {Provider as AnalyticsProvider} from "~/analytics/context";
-import Header from "~/app/components/Header";
 
 if (process.env.NODE_ENV === "production" && process.env.SENTRY_DSN) {
   Sentry.init({
@@ -19,11 +18,15 @@ if (process.env.NODE_ENV === "production" && process.env.SENTRY_DSN) {
 
 export default class Pency extends App {
   componentDidCatch(error, errorInfo) {
-    if (process.env.NODE_ENV === "production") {
+    if (process.env.NODE_ENV === "production" && process.env.SENTRY_DSN) {
       Sentry.withScope((scope) => {
+        scope.setTag("origin", "componentDidCatch");
+
         Object.keys(errorInfo).forEach((key) => {
           scope.setExtra(key, errorInfo[key]);
         });
+
+        scope.setExtra("error", error);
 
         Sentry.captureException(error);
       });
@@ -53,7 +56,6 @@ export default class Pency extends App {
         ) : tenant && products ? (
           <TenantProvider initialValue={tenant}>
             <Flex direction="column" height="100%">
-              <Header />
               <ProductProvider initialValues={products}>
                 <AnalyticsProvider>
                   <CartProvider>

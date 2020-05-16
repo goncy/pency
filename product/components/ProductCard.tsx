@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Text, Flex, Badge, Button, useDisclosure, ButtonGroup} from "@chakra-ui/core";
+import {Box, Text, Flex, Button, useDisclosure, ButtonGroup} from "@chakra-ui/core";
 import LazyLoad from "react-lazy-load";
 
 import ProductOptionsDrawer from "./ProductOptionsDrawer";
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const ProductCard: React.FC<Props> = ({product, remove, add}) => {
-  const {id, category, image, description, title, price, options} = product;
+  const {id, image, description, title, price, options} = product;
   const {isOpen: isImageOpen, onToggle: toggleImage} = useDisclosure();
   const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
   const count = useProductCartCount(id);
@@ -47,29 +47,60 @@ const ProductCard: React.FC<Props> = ({product, remove, add}) => {
         borderColor={isInCart ? "primary.500" : "gray.200"}
         borderWidth="1px"
         data-test-id="product"
-        height="11rem"
+        direction="column"
         justifyContent="space-between"
         position="relative"
         rounded="lg"
         transition="transform 0.2s"
       >
+        {image ? (
+          <LazyLoad height={256} offsetVertical={512} width="100%">
+            <Box
+              backgroundImage={`url(${image})`}
+              backgroundPosition="center"
+              backgroundSize="cover"
+              borderBottom={1}
+              borderBottomStyle="solid"
+              borderColor="gray.100"
+              cursor="pointer"
+              flexShrink={0}
+              height={64}
+              roundedTop="lg"
+              width="100%"
+              onClick={toggleImage}
+            />
+          </LazyLoad>
+        ) : (
+          <Flex
+            alignItems="center"
+            backgroundColor="gray.100"
+            borderBottom={1}
+            borderBottomStyle="solid"
+            borderColor="gray.100"
+            flexShrink={0}
+            height={64}
+            justifyContent="center"
+            roundedTop="lg"
+            width="100%"
+          >
+            <Text color="gray.400" fontSize="2xl">
+              sin foto
+            </Text>
+          </Flex>
+        )}
         <Box
           display="flex"
           flex={1}
           flexDirection="column"
           height="100%"
           justifyContent="space-between"
-          px={6}
-          py={5}
+          p={4}
           width="100%"
         >
           <Flex direction="column">
             <Text display="block" fontSize="lg" fontWeight="semibold" lineHeight="normal" mb={2}>
               {title}
             </Text>
-            <Badge mb={2} variantColor="primary" width="fit-content">
-              {category}
-            </Badge>
             {description && (
               <Text color="gray.500" mb={2}>
                 {description}
@@ -111,24 +142,6 @@ const ProductCard: React.FC<Props> = ({product, remove, add}) => {
             </Box>
           </Flex>
         </Box>
-        {image && (
-          <LazyLoad height={256} offsetVertical={512} width="100%">
-            <Box
-              backgroundImage={`url(${image})`}
-              backgroundPosition="center"
-              backgroundSize="cover"
-              borderBottom={1}
-              borderBottomStyle="solid"
-              borderColor="gray.100"
-              cursor={"pointer"}
-              flexShrink={0}
-              height={64}
-              roundedTop="lg"
-              width="100%"
-              onClick={toggleImage}
-            />
-          </LazyLoad>
-        )}
       </Flex>
       <ProductImageModal image={image} isOpen={isImageOpen} onClose={toggleImage} />
       <ProductOptionsDrawer

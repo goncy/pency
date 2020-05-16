@@ -39,20 +39,30 @@ const cache = new Map();
 
 const api = {
   create: (email: string, password: string, slug: string) =>
-    auth
-      .createUser({
-        email,
-        password,
-      })
-      .then((user) =>
-        database
-          .collection("tenants")
-          .doc(user.uid)
-          .create({
-            id: user.uid,
-            slug,
-            ...DEFAULT_TENANT,
-          }),
+    database
+      .collection("tenants")
+      .where("slug", "==", slug)
+      .limit(1)
+      .get()
+      .then((snapshot) =>
+        snapshot.empty
+          ? auth
+              .createUser({
+                email,
+                password,
+              })
+              .then((user) =>
+                database
+                  .collection("tenants")
+                  .doc(user.uid)
+                  .create({
+                    id: user.uid,
+                    slug,
+                    ...DEFAULT_TENANT,
+                  }),
+              )
+              .catch(({errorInfo}) => Promise.reject({statusText: errorInfo.message, status: 400}))
+          : Promise.reject({statusText: "Esa tienda ya existe", status: 409}),
       ),
   fetch: async (slug: Tenant["slug"]): Promise<Tenant> =>
     database
@@ -65,8 +75,18 @@ const api = {
           ? Promise.reject({statusText: "La tienda no existe", status: 404})
           : snapshot.docs[0],
       )
-      .then((doc) => ({id: doc.id, ...(doc.data() as Tenant)})),
-  update: async (tenant: Tenant) => database.collection("tenants").doc(tenant.id).update(tenant),
+      .then((doc) => ({...(doc.data() as Tenant), id: doc.id})),
+  list: async (): Promise<Tenant[]> =>
+    database
+      .collection("tenants")
+      .get()
+      .then((snapshot) =>
+        snapshot.empty
+          ? Promise.reject({statusText: "No hay tiendas", status: 404})
+          : snapshot.docs,
+      )
+      .then((docs) => docs.map((doc) => ({...(doc.data() as Tenant), id: doc.id}))),
+  update: async ({id, ...tenant}: Tenant) => database.collection("tenants").doc(id).update(tenant),
 };
 
 export default async (req, res) => {
@@ -75,7 +95,18 @@ export default async (req, res) => {
       query: {slug},
     } = req as GetRequest;
 
-    if (!slug) return res.status(304).end();
+    if (!slug) {
+      return api
+        .list()
+        .then((tenants) => {
+          tenants.forEach((tenant) => {
+            cache.set(tenant.slug, tenant);
+          });
+
+          return res.status(200).json(tenants);
+        })
+        .catch(({status, statusText}) => res.status(status).end(statusText));
+    }
 
     const cached = cache.get(slug);
 
@@ -99,11 +130,13 @@ export default async (req, res) => {
       body: {email, password, secret},
     } = req as PostRequest;
 
-    if (process.env.NODE_ENV === "production") return res.status(404);
     if (!email || !password || !slug || !secret || secret !== process.env.SECRET)
       return res.status(304).end();
 
-    return api.create(email, password, slug).then(() => res.status(200).json({success: true}));
+    return api
+      .create(email, password, slug)
+      .then(() => res.status(200).json({success: true}))
+      .catch(({status, statusText}) => res.status(status).end(statusText));
   }
 
   if (req.method === "PATCH") {

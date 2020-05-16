@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 describe("User filters", () => {
   describe("criteria", () => {
     it("should filter by criteria", () => {
