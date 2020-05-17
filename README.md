@@ -50,11 +50,9 @@ Ejecutá en la consola los siguientes comandos para abrir Storybook:
 
 ```bash
 # Yarn
-
 yarn storybook
 
-# npm
-
+# O si usas npm
 npm run storybook
 ```
 

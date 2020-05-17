@@ -11,10 +11,10 @@ export const noData = () => (
     product={{
       id: faker.random.uuid(),
       category: faker.commerce.department(),
-      image: faker.image.food(),
+      image: `https://placehold.it/320x240`,
       description: faker.lorem.paragraph(),
       title: faker.commerce.productName(),
-      price: faker.commerce.price(),
+      price: Number(faker.commerce.price()),
       available: true,
     }}
     remove={() => {}}
