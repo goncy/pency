@@ -44,16 +44,6 @@ const AdminScreen: React.FC = () => {
     setSelected(undefined);
   }
 
-  React.useEffect(() => {
-    toast({
-      title: "Atención",
-      description:
-        "Debido a un problema con el proveedor de imágenes, las imágenes cargadas antes del 5 de Mayo podrían desaparecer, por favor volverlas a cargar, gracias.",
-      status: "warning",
-      duration: null,
-    });
-  }, [toast]);
-
   return (
     <>
       <Flex direction="column" height="100%">
