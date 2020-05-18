@@ -5,6 +5,7 @@ import ProductContext from "./context";
 import {Product} from "./types";
 
 import {extractUniqueBy, filterBy} from "~/selectors/filter";
+import {sort} from "~/selectors/sort";
 
 export function useProducts() {
   const {
@@ -26,16 +27,16 @@ export function useProductCategories() {
   const products = useProducts();
 
   return {
-    categories: extractUniqueBy(products, (product) => product.category),
-    subcategories: extractUniqueBy(products, (product) => product.subcategory),
+    categories: sort(extractUniqueBy(products, (product) => product.category)),
+    subcategories: sort(extractUniqueBy(products, (product) => product.subcategory)),
   };
 }
 
 export function useFilteredProducts(filters: Partial<Product> = {}) {
   const products = useProducts();
+  const {categories} = useProductCategories();
   const [query, setQuery] = React.useState("");
   const [category, setCategory] = React.useState("");
-  const categories = extractUniqueBy(products, (product) => product.category);
   const productsBySearch = filterBy(products, {category, title: query, ...filters});
 
   return {
