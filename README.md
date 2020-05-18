@@ -42,6 +42,20 @@ npm start
 ```
 > Necesitás tener un .env.[ambiente] para cada ambiente en el que vas a correr la app.
 
+## ¿Cómo correr Storybook?
+
+Storybook nos permite observar los distintos componentes visuales utilizados en el proyecto en un ambiente aislado.
+
+Ejecutá en la consola los siguientes comandos para abrir Storybook:
+
+```bash
+# Yarn
+yarn storybook
+
+# O si usas npm
+npm run storybook
+```
+
 ## Configurando Firebase
 Para esta aplicación vamos a necesitar dos cosas de Firebase, la primera va a ser configurar las reglas de firestore (las podés encontrar en el archivo `firestore.rules`) y habilitar en firebase el inicio de sesión con usuario y contraseña (lo haces en Firebase desde `Auth > Sign in methods`).
 
