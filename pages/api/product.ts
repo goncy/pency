@@ -56,12 +56,7 @@ const api = {
       .doc(tenant)
       .collection("products")
       .get()
-      .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
-      .then((products) => {
-        cache.set(tenant, products);
-
-        return products;
-      }),
+      .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id}))),
   create: (tenant: Tenant["id"], product: Product) =>
     database
       .collection("tenants")
