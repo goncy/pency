@@ -7,5 +7,5 @@ export function groupBy<T>(items: T[], selector: (item: T) => string | undefined
     return acc;
   }, {});
 
-  return Object.entries(groups).sort(([matcher]) => (!matcher ? -1 : 0));
+  return Object.entries(groups).sort(([a], [b]) => (!a ? -1 : a.localeCompare(b)));
 }
