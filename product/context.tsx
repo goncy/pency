@@ -6,6 +6,7 @@ import api from "./api";
 
 import {useToast} from "~/hooks/toast";
 import {useTenant} from "~/tenant/hooks";
+import {sortBy} from "~/selectors/sort";
 
 interface Props {
   initialValues: Product[];
@@ -17,7 +18,7 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
   const tenant = useTenant();
   const toast = useToast();
   const [products, setProducts] = React.useState<Product[]>(
-    [...initialValues].sort((a, b) => a.title.localeCompare(b.title)),
+    sortBy(initialValues, (item) => item.title),
   );
 
   function create(product: Product) {

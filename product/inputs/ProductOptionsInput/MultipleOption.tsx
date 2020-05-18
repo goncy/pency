@@ -78,7 +78,7 @@ const MultipleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
             "No puede haber menos opción que selecciones") ||
           (error === "count" && !value.count && "Este campo es requerido")
         }
-        help="Cantidad de opciónes que el usuario puede seleccionar"
+        help="Cantidad de opciónes que el usuario debe seleccionar"
         label="Cantidad"
       >
         <Input

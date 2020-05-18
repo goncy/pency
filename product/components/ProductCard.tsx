@@ -108,7 +108,14 @@ const ProductCard: React.FC<Props> = ({product, remove, add}) => {
             )}
           </Flex>
           <Flex alignItems="flex-end">
-            <Text color="primary.500" flex={1} fontSize="lg" fontWeight="bold" letterSpacing="wide">
+            <Text
+              color="primary.500"
+              flex={1}
+              fontSize="lg"
+              fontWeight="bold"
+              letterSpacing="wide"
+              lineHeight="normal"
+            >
               ${price}
             </Text>
             <Box position="relative">
