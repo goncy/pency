@@ -113,18 +113,13 @@ const ProductsScreen: React.FC = () => {
               </Grid>
             </Box>
             <Box marginBottom={4}>{filters}</Box>
-            <Stack spacing={4}>
+            <Stack spacing={12}>
               {Boolean(products.length) ? (
                 productsList.map(([category, products]) => {
                   const productsBySubcategory = groupBy(products, (product) => product.subcategory);
 
                   return (
-                    <PseudoBox
-                      key={category}
-                      _last={{marginBottom: 4}}
-                      _notLast={{marginBottom: 12}}
-                      as="section"
-                    >
+                    <PseudoBox key={category} _last={{marginBottom: 4}} as="section">
                       <Flex direction="column">
                         <Heading as="h2" fontSize={{base: "2xl", sm: "3xl"}}>
                           {category}
