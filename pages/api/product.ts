@@ -123,15 +123,18 @@ export default async (req: Request, res) => {
 
     if (!tenant) return res.status(304).end();
 
-    return auth.verifyIdToken(token).then(({uid}) => {
-      if (uid !== tenant) return res.status(403).end();
+    return auth
+      .verifyIdToken(token)
+      .then(({uid}) => {
+        if (uid !== tenant) return res.status(403).end();
 
-      return api.update(tenant, product).then(() => {
-        cache.delete(tenant);
+        return api.update(tenant, product).then(() => {
+          cache.delete(tenant);
 
-        return res.status(200).json(product);
-      });
-    });
+          return res.status(200).json(product);
+        });
+      })
+      .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
   }
 
   if (req.method === "DELETE") {

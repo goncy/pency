@@ -6,5 +6,5 @@ export default {
   signIn: (email: string, password: string) =>
     firebase.auth.signInWithEmailAndPassword(email, password),
   signOut: () => firebase.auth.signOut(),
-  onChange: (onChange: (user: User | null) => void) => firebase.auth.onAuthStateChanged(onChange),
+  onChange: (onChange: (user: User | null) => void) => firebase.auth.onIdTokenChanged(onChange),
 };

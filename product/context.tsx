@@ -50,7 +50,8 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
       .catch(() => {
         toast({
           title: "Error",
-          description: "Hubo un error actualizando tu producto, es esta tu tienda?",
+          description:
+            "Hubo un error actualizando el producto, refrescá la página e intentá nuevamente",
           status: "error",
         });
       });
