@@ -130,7 +130,8 @@ const ProductsScreen: React.FC = () => {
                   marginX={{base: -4, xl: 0}}
                   paddingX={4}
                   paddingY={3}
-                  textAlign="center"
+                  rounded={{sm: 0, xl: "lg"}}
+                  textAlign={{base: "left", xl: "center"}}
                 >
                   {highlight}
                 </Box>
