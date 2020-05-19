@@ -22,15 +22,24 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
   );
 
   function create(product: Product) {
-    return api.create(tenant.id, product).then((product) => {
-      setProducts(products.concat(product));
+    return api
+      .create(tenant.id, product)
+      .then((product) => {
+        setProducts(products.concat(product));
 
-      toast({
-        title: "Producto creado",
-        description: "Tu producto fue creado correctamente",
-        status: "success",
+        toast({
+          title: "Producto creado",
+          description: "Tu producto fue creado correctamente",
+          status: "success",
+        });
+      })
+      .catch(() => {
+        toast({
+          title: "Error",
+          description: "Hubo un error creando el producto, refrescá la página e intentá nuevamente",
+          status: "error",
+        });
       });
-    });
   }
 
   function update(product: Product) {
@@ -50,7 +59,8 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
       .catch(() => {
         toast({
           title: "Error",
-          description: "Hubo un error actualizando tu producto, es esta tu tienda?",
+          description:
+            "Hubo un error actualizando el producto, refrescá la página e intentá nuevamente",
           status: "error",
         });
       });
@@ -71,7 +81,8 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
       .catch(() => {
         toast({
           title: "Error",
-          description: "Hubo un error actualizando tu producto, es esta tu tienda?",
+          description:
+            "Hubo un error borrando el producto, refrescá la página e intentá nuevamente",
           status: "error",
         });
       });
