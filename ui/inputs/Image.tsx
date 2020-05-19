@@ -15,7 +15,7 @@ interface Props {
 const ImageInput: React.FC<Props> = ({value, onChange, quality = "low"}) => {
   const [isLoading, setLoading] = React.useState(false);
   const toast = useToast();
-  const { slug } = useTenant();
+  const {slug} = useTenant();
 
   async function upload(file?: File) {
     if (!file) return;
