@@ -121,18 +121,20 @@ const ProductsScreen: React.FC = () => {
                   whatsapp={phone}
                 />
               </Grid>
-              <Box
-                backgroundColor="primary.50"
-                color="primary.500"
-                fontWeight="500"
-                marginTop={4}
-                marginX={{base: -4, xl: 0}}
-                paddingX={4}
-                paddingY={3}
-                textAlign="center"
-              >
-                {highlight}
-              </Box>
+              {highlight && (
+                <Box
+                  backgroundColor="primary.50"
+                  color="primary.500"
+                  fontWeight="500"
+                  marginTop={4}
+                  marginX={{base: -4, xl: 0}}
+                  paddingX={4}
+                  paddingY={3}
+                  textAlign="center"
+                >
+                  {highlight}
+                </Box>
+              )}
             </Box>
             <Box marginBottom={4}>{filters}</Box>
             <Stack spacing={12}>
