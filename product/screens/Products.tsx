@@ -199,6 +199,8 @@ const ProductsScreen: React.FC = () => {
                       color="white"
                       display="flex"
                       justifyContent="space-between"
+                      paddingLeft={2}
+                      paddingRight={3}
                       variantColor="primary"
                       width="100%"
                       onClick={openCart}
