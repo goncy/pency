@@ -147,20 +147,21 @@ export default async (req, res) => {
 
     if (!tenant) return res.status(304).end();
 
-    return auth.verifyIdToken(token).then(({uid}) => {
-      if (uid !== tenant.id) return res.status(403).end();
+    return auth
+      .verifyIdToken(token)
+      .then(({uid}) => {
+        if (uid !== tenant.id) return res.status(403).end();
 
-      return api
-        .update(tenant)
-        .then(() => {
-          cache.delete(tenant.slug);
+        return api
+          .update(tenant)
+          .then(() => {
+            cache.delete(tenant.slug);
 
-          return res.status(200).json(tenant);
-        })
-        .catch(() =>
-          res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"),
-        );
-    });
+            return res.status(200).json(tenant);
+          })
+          .catch(() => res.status(400).end("Hubo un error actualizando la tienda"));
+      })
+      .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
   }
 
   return res.status(304).end();

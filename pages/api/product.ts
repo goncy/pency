@@ -103,20 +103,21 @@ export default async (req: Request, res) => {
 
     if (!tenant) return res.status(304).end();
 
-    return auth.verifyIdToken(token).then(({uid}) => {
-      if (uid !== tenant) return res.status(403).end();
+    return auth
+      .verifyIdToken(token)
+      .then(({uid}) => {
+        if (uid !== tenant) return res.status(403).end();
 
-      return api
-        .create(tenant, product)
-        .then((product) => {
-          cache.delete(tenant);
+        return api
+          .create(tenant, product)
+          .then((product) => {
+            cache.delete(tenant);
 
-          return res.status(200).json(product);
-        })
-        .catch(() =>
-          res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"),
-        );
-    });
+            return res.status(200).json(product);
+          })
+          .catch(() => res.status(400).end("Hubo un error creando el producto"));
+      })
+      .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
   }
 
   if (req.method === "PATCH") {
@@ -133,11 +134,14 @@ export default async (req: Request, res) => {
       .then(({uid}) => {
         if (uid !== tenant) return res.status(403).end();
 
-        return api.update(tenant, product).then(() => {
-          cache.delete(tenant);
+        return api
+          .update(tenant, product)
+          .then(() => {
+            cache.delete(tenant);
 
-          return res.status(200).json(product);
-        });
+            return res.status(200).json(product);
+          })
+          .catch(() => res.status(400).end("Hubo un error actualizando el producto"));
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
   }
@@ -155,11 +159,14 @@ export default async (req: Request, res) => {
       .then(({uid}) => {
         if (uid !== tenant) return res.status(403).end();
 
-        return api.remove(tenant, product).then(() => {
-          cache.delete(tenant);
+        return api
+          .remove(tenant, product)
+          .then(() => {
+            cache.delete(tenant);
 
-          return res.status(200).json({success: true});
-        });
+            return res.status(200).json({success: true});
+          })
+          .catch(() => res.status(400).end("Hubo un error borrando el producto"));
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
   }

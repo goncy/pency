@@ -30,7 +30,17 @@ const ProductsScreen: React.FC = () => {
   const {add, remove, count, total} = useCart();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts({available: true});
-  const {facebook, instagram, twitter, banner, title, logo, phone, description} = useTenant();
+  const {
+    highlight,
+    facebook,
+    instagram,
+    twitter,
+    banner,
+    title,
+    logo,
+    phone,
+    description,
+  } = useTenant();
 
   const featuredProducts = filterBy(products, {featured: true});
   const productsByCategory = groupBy(products, (product) => product.category);
@@ -111,6 +121,18 @@ const ProductsScreen: React.FC = () => {
                   whatsapp={phone}
                 />
               </Grid>
+              <Box
+                backgroundColor="primary.50"
+                color="primary.500"
+                fontWeight="500"
+                marginTop={4}
+                marginX={{base: -4, xl: 0}}
+                paddingX={4}
+                paddingY={3}
+                textAlign="center"
+              >
+                {highlight}
+              </Box>
             </Box>
             <Box marginBottom={4}>{filters}</Box>
             <Stack spacing={12}>

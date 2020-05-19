@@ -15,6 +15,7 @@ export interface Tenant {
   keywords?: string;
   banner?: string;
   description?: string;
+  highlight?: string;
 }
 
 export interface State {
