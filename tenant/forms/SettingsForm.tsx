@@ -66,7 +66,6 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
           </FormControl>
           <FormControl
             error={errors.description && "Máximo 140 caracteres"}
-            help="Máximo 140 caracteres"
             label="Descripción"
             name="description"
           >
@@ -75,6 +74,19 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               maxLength={140}
               name="description"
               placeholder="Somos una tienda de venta de pastelería, pedidos de lunes a viernes de 9 a 18"
+            />
+          </FormControl>
+          <FormControl
+            error={errors.highlight && "Máximo 140 caracteres"}
+            help="Mostrado debajo de la descripción"
+            label="Mensaje destacado"
+            name="highlight"
+          >
+            <Input
+              ref={register({maxLength: 140})}
+              maxLength={140}
+              name="highlight"
+              placeholder="Solo se despacharán pedidos hechos de lunes a viernes entre las 9 y las 18 horas"
             />
           </FormControl>
           <FormControl label="Rubro al que pertenecés" name="category">
