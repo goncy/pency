@@ -15,15 +15,16 @@ interface Props {
 const ImageInput: React.FC<Props> = ({value, onChange, quality = "low"}) => {
   const [isLoading, setLoading] = React.useState(false);
   const toast = useToast();
-  const { slug } = useTenant();
-
+  const { slug: tenant } = useTenant();
+  const folderPath: string = `${process.env.CLOUDINARY_FOLDER}/${tenant}`
+  
   async function upload(file?: File) {
     if (!file) return;
 
     try {
       setLoading(true);
 
-      const url = await storage.upload(slug, file, quality);
+      const url = await storage.upload(file, quality, folderPath);
 
       onChange(url);
       setLoading(false);
