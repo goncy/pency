@@ -150,11 +150,16 @@ export default async (req, res) => {
     return auth.verifyIdToken(token).then(({uid}) => {
       if (uid !== tenant.id) return res.status(403).end();
 
-      return api.update(tenant).then(() => {
-        cache.delete(tenant.slug);
+      return api
+        .update(tenant)
+        .then(() => {
+          cache.delete(tenant.slug);
 
-        return res.status(200).json(tenant);
-      });
+          return res.status(200).json(tenant);
+        })
+        .catch(() =>
+          res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"),
+        );
     });
   }
 
