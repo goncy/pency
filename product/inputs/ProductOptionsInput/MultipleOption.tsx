@@ -71,19 +71,6 @@ const MultipleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
   return (
     <Stack spacing={3}>
       <FormControl
-        isRequired
-        error={error === "title" && !value.title && "Este campo es requerido"}
-        help="Tip: Usá una sola palabra"
-        label="Título"
-      >
-        <Input
-          placeholder="Título (ej: Salsa)"
-          type="text"
-          value={value.title}
-          onChange={handleChangeTitle}
-        />
-      </FormControl>
-      <FormControl
         error={
           error === "optionsCount" &&
           value.count > value.options?.length &&
@@ -101,6 +88,19 @@ const MultipleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
             onChange={handleChangeCount}
           />
         )}
+      </FormControl>
+      <FormControl
+        isRequired
+        error={error === "title" && !value.title && "Este campo es requerido"}
+        help="Tip: Usá una sola palabra"
+        label="Título"
+      >
+        <Input
+          placeholder="Título (ej: Salsa)"
+          type="text"
+          value={value.title}
+          onChange={handleChangeTitle}
+        />
       </FormControl>
       <Stack spacing={0}>
         {value.options.length && <FormLabel marginBottom={0}>Sub opciones</FormLabel>}
