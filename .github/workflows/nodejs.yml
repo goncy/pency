@@ -35,14 +35,17 @@ jobs:
       FIREBASE_CLIENT_X509_CERT_URL: ${{ secrets.FIREBASE_CLIENT_X509_CERT_URL }}
 
       CLOUDINARY_CLOUD: ${{ secrets.CLOUDINARY_CLOUD }}
+      CLOUDINARY_FOLDER: ${{ secrets.CLOUDINARY_FOLDER }}
       CLOUDINARY_PRESET_LOW: ${{ secrets.CLOUDINARY_PRESET_LOW }}
       CLOUDINARY_PRESET_HIGH: ${{ secrets.CLOUDINARY_PRESET_HIGH }}
+
+      MANTAINER_EMAIL: ${{ secrets.MANTAINER_EMAIL }}
 
       SECRET: ${{ secrets.SECRET }}
 
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
 
     steps:
     - uses: actions/checkout@v2
