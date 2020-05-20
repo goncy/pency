@@ -4,18 +4,17 @@ import {Stack, Box, Icon, Text, Flex, Heading} from "@chakra-ui/core";
 import ProductDrawer from "../components/ProductDrawer";
 import {useFilteredProducts, useProductActions} from "../hooks";
 import {Product} from "../types";
-import ProductRow from "../components/ProductRow";
+import ProductRow from "../components/ProductsList/ProductRow";
+import ProductsList from "../components/ProductsList";
 
 import {groupBy} from "~/selectors/group";
 import PlusIcon from "~/ui/icons/Plus";
 import IconButton from "~/ui/controls/IconButton";
-import {useToast} from "~/hooks/toast";
 
 const AdminScreen: React.FC = () => {
   const [selected, setSelected] = React.useState<Partial<Product> | undefined>(undefined);
   const {products, filters} = useFilteredProducts();
   const {update, remove, create} = useProductActions();
-  const toast = useToast();
   const productsByCategory = groupBy(products, (product) => product.category);
 
   async function handleSubmit(product: Product) {
@@ -62,32 +61,13 @@ const AdminScreen: React.FC = () => {
           </Flex>
           {products.length ? (
             productsByCategory.map(([category, products]) => {
-              const productsBySubcategory = groupBy(products, (product) => product.subcategory);
-
               return (
                 <Box key={category} mt={4}>
                   <Flex direction="column">
                     <Heading as="h2" size="xl">
                       {category}
                     </Heading>
-                    {productsBySubcategory.map(([subcategory, products]) => (
-                      <Box key={`${category}-${subcategory}`} mt={4}>
-                        <Flex direction="column">
-                          {subcategory && (
-                            <Heading as="h3" mb={4} size="lg">
-                              {subcategory}
-                            </Heading>
-                          )}
-                          <Stack spacing={4}>
-                            {products.map((product) => (
-                              <Box key={`${category}-${subcategory}-${product.id}`}>
-                                <ProductRow onClick={onEdit} onRemove={remove} {...product} />
-                              </Box>
-                            ))}
-                          </Stack>
-                        </Flex>
-                      </Box>
-                    ))}
+                    <ProductsList products={products} onEdit={onEdit} onRemove={remove} />
                   </Flex>
                 </Box>
               );
