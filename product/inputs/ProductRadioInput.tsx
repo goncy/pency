@@ -1,38 +1,63 @@
+import {log} from "util";
+
 import React from "react";
-import {Stack, Icon, Text} from "@chakra-ui/core";
+import {Text, Radio, RadioGroup} from "@chakra-ui/core";
+import styled from "@emotion/styled";
 
 import {SingleOptionItem} from "../types/options";
 
-import Checkbox from "~/ui/inputs/Checkbox";
-
 interface Props {
   options: Props["value"][];
-  label?: (value: SingleOptionItem) => string;
   valueProp?: string;
   value?: SingleOptionItem;
   onChange: (value: Props["value"]) => void;
 }
 
-const ProductRadioInput: React.FC<Props> = ({
-  options,
-  value,
-  label,
-  onChange,
-  valueProp = "value",
-  ...props
-}) => (
-  <Stack shouldWrapChildren spacing={3} width="100%" {...props}>
-    {options.map((option) => {
-      const isChecked = Boolean(value && value[valueProp] === option[valueProp]);
+const Price = styled(Text)`
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+`;
 
-      return (
-        <Checkbox key={option[valueProp]} isChecked={isChecked} onChange={() => onChange(option)}>
-          <Text>{label(option)}</Text>
-          {isChecked && <Icon color="primary.500" marginLeft={2} name="check-circle" />}
-        </Checkbox>
-      );
-    })}
-  </Stack>
-);
+const ProductRadioInput: React.FC<Props> = ({options, value, valueProp, onChange, ...props}) => {
+  const selectedOptionIndex = value && options.findIndex((option) => option.id === value.id);
+
+  return (
+    <RadioGroup
+      spacing={0}
+      value={`${selectedOptionIndex}`}
+      onChange={(e) => {
+        const selectedOptionIndex = Number(e.target.value);
+        return onChange(options[selectedOptionIndex]);
+      }}
+      {...props}
+    >
+      {options.map((option, index) => {
+        return (
+          <Radio
+            key={option[valueProp]}
+            alignItems="center"
+            borderBottomWidth={1}
+            display="flex"
+            isChecked={selectedOptionIndex === index}
+            isFullWidth={true}
+            position="relative"
+            py={3}
+            value={`${index}`}
+            w="full"
+          >
+            <Text>{option.title}</Text>
+            {!!option.price && (
+              <Price color="gray.500" fontSize="sm" fontWeight="medium">
+                + ${option.price}
+              </Price>
+            )}
+          </Radio>
+        );
+      })}
+    </RadioGroup>
+  );
+};
 
 export default ProductRadioInput;

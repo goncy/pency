@@ -4,10 +4,11 @@ import {Grid} from "@chakra-ui/core";
 const ProductsGrid: React.FC = ({children}) => (
   <Grid
     autoRows="auto"
-    gridGap={{base: 4, xl: 8}}
+    gridColumnGap={{md: 8}}
+    gridRowGap={{base: 4, md: 6}}
     templateColumns={{
       base: "auto",
-      sm: "repeat(auto-fill, minmax(340px,1fr))",
+      sm: "repeat(auto-fill, minmax(440px,1fr))",
     }}
   >
     {children}

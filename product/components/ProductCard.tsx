@@ -1,12 +1,19 @@
 import React from "react";
 import {Box, Text, Flex, Button, useDisclosure, ButtonGroup} from "@chakra-ui/core";
 import LazyLoad from "react-lazy-load";
+import styled from "@emotion/styled";
 
-import ProductOptionsDrawer from "./ProductOptionsDrawer";
-import ProductImageModal from "./ProductImageModal";
+import ProductDetails from "./ProductDetails";
 
 import {Product} from "~/product/types";
-import {useProductCartCount} from "~/cart/hooks";
+// import {useProductCartCount} from "~/cart/hooks";
+
+const ProductDescription = styled(Text)`
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
 
 interface Props {
   product: Product;
@@ -16,147 +23,133 @@ interface Props {
 
 const ProductCard: React.FC<Props> = ({product, remove, add}) => {
   const {id, image, description, title, price, options} = product;
-  const {isOpen: isImageOpen, onToggle: toggleImage} = useDisclosure();
-  const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
-  const count = useProductCartCount(id);
-  const hasOptions = Boolean(product.options?.length);
-  const isInCart = Boolean(count);
 
-  function handleAdd() {
-    if (hasOptions) {
-      return toggleOptions();
-    }
+  const {isOpen: isDetailsOpen, onToggle: toggleDetailsOpen} = useDisclosure();
 
-    return add(product);
-  }
+  // const count = useProductCartCount(id);
+  // const hasOptions = Boolean(product.options?.length);
+  // const isInCart = Boolean(count);
 
-  function handleRemove() {
-    remove(product.id);
-  }
+  // function handleAdd() {
+  //   if (hasOptions) {
+  //     return toggleOptions();
+  //   }
 
-  function handleAddWithOptions(options) {
-    toggleOptions();
+  //   return add(product);
+  // }
 
-    return add({...product, options});
-  }
+  // function handleRemove() {
+  //   remove(product.id);
+  // }
+
+  // function handleAddWithOptions(options) {
+  //   toggleOptions();
+
+  //   return add({...product, options});
+  // }
 
   return (
     <>
       <Flex
-        alignItems="flex-end"
-        borderColor={isInCart ? "primary.500" : "gray.200"}
-        borderWidth="1px"
+        // borderColor={isInCart ? "primary.500" : "gray.200"}
+        borderBottomWidth={1}
+        borderColor={{
+          base: "gray.100",
+          md: "gray.200",
+        }}
+        borderRadius={{
+          md: "md",
+        }}
+        borderWidth={{
+          md: 1,
+        }}
+        cursor="pointer"
         data-test-id="product"
-        direction="column"
+        height={{md: 40}}
         justifyContent="space-between"
+        overflow="hidden"
+        pb={{
+          base: 5,
+          md: 0,
+        }}
         position="relative"
-        rounded="lg"
         transition="transform 0.2s"
+        onClick={toggleDetailsOpen}
       >
-        {image ? (
-          <LazyLoad height={256} offsetVertical={512} width="100%">
-            <Box
-              backgroundImage={`url(${image})`}
-              backgroundPosition="center"
-              backgroundSize="cover"
-              borderBottom={1}
-              borderBottomStyle="solid"
-              borderColor="gray.100"
-              cursor="pointer"
-              flexShrink={0}
-              height={64}
-              roundedTop="lg"
-              width="100%"
-              onClick={toggleImage}
-            />
-          </LazyLoad>
-        ) : (
-          <Flex
-            alignItems="center"
-            backgroundColor="gray.100"
-            borderBottom={1}
-            borderBottomStyle="solid"
-            borderColor="gray.100"
-            flexShrink={0}
-            height={64}
-            justifyContent="center"
-            roundedTop="lg"
-            width="100%"
+        <Flex direction="column" px={{md: 6}} py={{md: 5}}>
+          <Text
+            display="block"
+            fontSize={{
+              base: "sm",
+              md: "lg",
+            }}
+            fontWeight="semibold"
+            lineHeight="normal"
+            mb={1}
+            mt={0}
           >
-            <Text color="gray.400" fontSize="2xl">
-              sin foto
-            </Text>
-          </Flex>
-        )}
-        <Box
-          display="flex"
-          flex={1}
-          flexDirection="column"
-          height="100%"
-          justifyContent="space-between"
-          p={4}
-          width="100%"
-        >
-          <Flex direction="column">
-            <Text display="block" fontSize="lg" fontWeight="semibold" lineHeight="normal" mb={2}>
-              {title}
-            </Text>
-            {description && (
-              <Text color="gray.500" mb={2}>
-                {description}
-              </Text>
-            )}
-          </Flex>
-          <Flex alignItems="flex-end">
-            <Text
-              color="primary.500"
-              flex={1}
-              fontSize="lg"
-              fontWeight="bold"
-              letterSpacing="wide"
-              lineHeight="normal"
+            {title}
+          </Text>
+          {description && (
+            <ProductDescription
+              color="gray.500"
+              fontSize={{
+                base: "sm",
+                md: "md",
+              }}
+              mb={2}
+              mt={0}
             >
-              ${price}
-            </Text>
-            <Box position="relative">
-              {!hasOptions && isInCart ? (
-                <ButtonGroup>
-                  <Button onClick={handleRemove}>-</Button>
-                  <Button onClick={handleAdd}>+</Button>
-                </ButtonGroup>
-              ) : (
-                <Button onClick={handleAdd}>Agregar</Button>
-              )}
-              {isInCart && (
-                <Flex
-                  alignItems="center"
-                  backgroundColor="primary.500"
-                  border="2px solid white"
-                  borderRadius="50%"
-                  color="white"
-                  fontSize="16px"
-                  height="26px"
-                  justifyContent="center"
-                  position="absolute"
-                  right="-13px"
-                  top="-13px"
-                  width="26px"
-                  zIndex={1}
-                >
-                  {count}
-                </Flex>
-              )}
-            </Box>
-          </Flex>
+              {description}
+            </ProductDescription>
+          )}
+          <Text
+            color="green.400"
+            flex={1}
+            fontSize={{
+              base: "sm",
+              md: "md",
+            }}
+            fontWeight="semibold"
+            letterSpacing="wide"
+            m={0}
+          >
+            ${price}
+          </Text>
+        </Flex>
+        <Box
+          flexShrink={0}
+          ml={3}
+          size={{
+            base: 20,
+            md: 40,
+          }}
+        >
+          {image && (
+            <LazyLoad height="100%" offsetVertical={512} width="100%">
+              <Box
+                backgroundColor="gray.100"
+                backgroundImage={`url(${image})`}
+                backgroundPosition="center"
+                backgroundSize="cover"
+                borderColor="gray.200"
+                borderLeftWidth={{
+                  md: 1,
+                }}
+                borderRadius={{
+                  base: 4,
+                  md: 0,
+                }}
+                cursor="pointer"
+                flexShrink={0}
+                size="100%"
+                // onClick={toggleImage}
+              />
+            </LazyLoad>
+          )}
         </Box>
       </Flex>
-      <ProductImageModal image={image} isOpen={isImageOpen} onClose={toggleImage} />
-      <ProductOptionsDrawer
-        isOpen={hasOptions && isOptionsOpen}
-        options={options}
-        onClose={toggleOptions}
-        onSubmit={handleAddWithOptions}
-      />
+      {isDetailsOpen && <ProductDetails product={product} onClose={toggleDetailsOpen} />}
     </>
   );
 };

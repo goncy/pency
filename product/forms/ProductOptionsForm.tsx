@@ -1,6 +1,6 @@
 import React from "react";
 import produce from "immer";
-import {Stack, FormControl, FormLabel, FormErrorMessage} from "@chakra-ui/core";
+import {Stack, FormControl, FormLabel, FormErrorMessage, Flex, Badge} from "@chakra-ui/core";
 import {useForm, Controller} from "react-hook-form";
 
 import {Product} from "../types";
@@ -18,9 +18,17 @@ interface Props {
 }
 
 const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
-  const {handleSubmit: submit, formState, control, errors} = useForm<{
+  const {handleSubmit: submit, formState, control, errors, getValues} = useForm<{
     options: Product["options"];
-  }>();
+  }>({
+    defaultValues: options.reduce((acc, optionSet, index) => {
+      return optionSet.type === "single"
+        ? {...acc, [`options[${index}].value`]: optionSet.options[0]}
+        : acc;
+    }, {}),
+  });
+
+  console.log("form values", getValues());
 
   function handleSubmit(values) {
     onSubmit(
@@ -43,17 +51,21 @@ const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
               case "single": {
                 return (
                   <FormControl key={option.id} isInvalid={Boolean(errors.options?.[index])} mb={4}>
-                    <FormLabel htmlFor={`options[${index}]`}>{option.title} (elegí 1)</FormLabel>
+                    <Flex alignItems="center" justifyContent="space-between" mb={2}>
+                      <FormLabel htmlFor={`options[${index}]`} p={0}>
+                        {option.title}
+                      </FormLabel>
+                      <Badge variant="subtle" variantColor="green">
+                        Requerido
+                      </Badge>
+                    </Flex>
                     <Controller
                       as={ProductRadioInput}
                       control={control}
-                      label={(option) =>
-                        `${option.title}${option.price ? ` + $${option.price}` : ""}`
-                      }
                       name={`options[${index}].value`}
                       options={option.options}
                       rules={{required: true}}
-                      valueProp="title"
+                      valueProp="id"
                     />
                     <FormErrorMessage>
                       {errors.options?.[index] && "Seleccioná una opción"}
