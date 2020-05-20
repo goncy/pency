@@ -7,7 +7,6 @@ import {Product} from "../../types";
 import {useToast} from "~/hooks/toast";
 import TrashIcon from "~/ui/icons/Trash";
 import DuplicateIcon from "~/ui/icons/Duplicate";
-import EditIcon from "~/ui/icons/Edit";
 
 interface Props extends Product {
   onEdit: (product: Product) => void;
