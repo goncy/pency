@@ -48,7 +48,7 @@ const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
                       as={ProductRadioInput}
                       control={control}
                       label={(option) =>
-                        `${option.title}${option.price ? ` + $${option.price}` : ""}`
+                        `${option.title} ${option.price ? `+ $${option.price}` : ""}`
                       }
                       name={`options[${index}].value`}
                       options={option.options}
@@ -66,20 +66,21 @@ const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
                 return (
                   <FormControl key={option.id} isInvalid={Boolean(errors.options?.[index])} mb={4}>
                     <FormLabel htmlFor={`options[${index}]`}>
-                      {option.title} (elegí {option.count})
+                      {`${option.title} ${option.count ? `(elegí ${option.count})` : ""}`}
                     </FormLabel>
                     <Controller
                       as={ProductLimitedCheckboxInput}
                       control={control}
                       label={(option) =>
-                        `${option.title} ${option.price ? ` ($${option.price})` : ""}`
+                        `${option.title} ${option.price ? `+ $${option.price}` : ""}`
                       }
                       limit={option.count}
                       name={`options[${index}].value`}
                       options={option.options}
                       rules={{
-                        required: true,
-                        validate: (values) => values?.length === option.count,
+                        required: Boolean(option.count),
+                        validate: (values) =>
+                          option.count ? values?.length <= option.count : true,
                       }}
                       valueProp="title"
                     />

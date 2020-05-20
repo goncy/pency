@@ -134,7 +134,8 @@ const ProductCard: React.FC<Props> = ({product, remove, add}) => {
                   border="2px solid white"
                   borderRadius="50%"
                   color="white"
-                  fontSize="12px"
+                  fontSize="14px"
+                  fontWeight="500"
                   height="26px"
                   justifyContent="center"
                   lineHeight={1}
