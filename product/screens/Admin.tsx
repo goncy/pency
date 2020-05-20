@@ -63,12 +63,23 @@ const AdminScreen: React.FC = () => {
             productsByCategory.map(([category, products]) => {
               return (
                 <Box key={category} mt={4}>
-                  <Flex direction="column">
-                    <Heading as="h2" size="xl">
-                      {category}
-                    </Heading>
+                  <Stack spacing={0}>
+                    <Stack
+                      isInline
+                      alignItems="center"
+                      borderBottomWidth={1}
+                      fontSize="2xl"
+                      fontWeight={500}
+                      paddingBottom={2}
+                      spacing={2}
+                    >
+                      <Text>{category}</Text>
+                      <Text color="gray.400" fontSize="xl" fontWeight={300}>
+                        ({products.length})
+                      </Text>
+                    </Stack>
                     <ProductsList products={products} onEdit={onEdit} onRemove={remove} />
-                  </Flex>
+                  </Stack>
                 </Box>
               );
             })

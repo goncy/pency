@@ -16,6 +16,7 @@ const product = () => ({
 export const full = () => (
   <ProductsList
     products={[product(), product(), {...product(), image: null}]}
+    width="100%"
     onEdit={() => {}}
     onRemove={() => Promise.resolve()}
   />

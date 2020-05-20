@@ -29,76 +29,76 @@ const ProductRow: React.FC<Props> = ({onEdit, onRemove, ...product}) => {
   }
 
   return (
-    <>
-      <Flex alignItems="center">
-        <LazyLoad height={48} offsetVertical={128} width={48}>
-          <AspectRatioBox maxWidth={12} ratio={1} width="100%">
-            {product.image ? (
-              <Image
-                backgroundColor="gray.100"
-                borderWidth={1}
-                objectFit="cover"
-                rounded="lg"
-                src={product.image}
-              />
-            ) : (
-              <Box />
-            )}
-          </AspectRatioBox>
-        </LazyLoad>
-        <Text flex={1} fontWeight="500" marginLeft={2}>
-          {product.title}
+    <Box as="tr" borderBottomWidth={1} borderTopColor="gray.300">
+      <Box as="td" cursor="pointer" onClick={() => onEdit(product)}>
+        <Flex alignItems="center" marginRight={{base: 4, md: 12}} paddingY={2}>
+          <LazyLoad height={48} offsetVertical={128} width={48}>
+            <AspectRatioBox maxWidth={12} ratio={1} width="100%">
+              {product.image ? (
+                <Image
+                  backgroundColor="gray.100"
+                  borderWidth={1}
+                  objectFit="cover"
+                  rounded="lg"
+                  src={product.image}
+                />
+              ) : (
+                <Box />
+              )}
+            </AspectRatioBox>
+          </LazyLoad>
+          <Text flex={1} fontWeight="500" marginLeft={2}>
+            {product.title}
+          </Text>
+        </Flex>
+      </Box>
+      <Box as="td" display={{base: "none", md: "table-cell"}}>
+        <Text fontWeight="500" marginRight={{base: 4, md: 12}}>
+          ${product.price}
         </Text>
-      </Flex>
-      <Text fontWeight="500">${product.price}</Text>
-      <Text>{product.category || null}</Text>
-      <Text>{product.options?.length ? "Con opciones" : "Sin opciones"}</Text>
-      <Stack isInline spacing={1}>
-        <Tooltip aria-label="Editar producto" label="Editar producto" placement="left">
+      </Box>
+      <Box as="td" display={{base: "none", md: "table-cell"}}>
+        <Text marginRight={{base: 4, md: 12}}>{product.subcategory}</Text>
+      </Box>
+      <Box as="td" display={{base: "none", md: "table-cell"}}>
+        <Text marginRight={{base: 4, md: 12}}>{product.options?.length ? "Con opciones" : ""}</Text>
+      </Box>
+      <Box as="td">
+        <Stack isInline justifyContent="flex-end" spacing={1}>
+          <Tooltip aria-label="Duplicar producto" label="Duplicar producto" placement="left">
+            <IconButton
+              _hover={{color: "primary.500", opacity: 1}}
+              alignSelf="flex-end"
+              aria-label="Duplicar producto"
+              icon={DuplicateIcon}
+              opacity={0.5}
+              size="md"
+              variant="ghost"
+              onClick={(event) => {
+                event.stopPropagation();
+
+                onEdit({...product, id: null, title: `${product.title} (copia)`});
+              }}
+            />
+          </Tooltip>
           <IconButton
-            _hover={{color: "primary.500", opacity: 1}}
+            _hover={{color: "red.500", opacity: 1}}
             alignSelf="flex-end"
-            aria-label="Editar producto"
-            icon={EditIcon}
+            aria-label="Borrar producto"
+            icon={TrashIcon}
+            isLoading={status === "pending"}
             opacity={0.5}
-            size="lg"
-            variant="ghost"
-            onClick={() => onEdit(product)}
-          />
-        </Tooltip>
-        <Tooltip aria-label="Duplicar producto" label="Duplicar producto" placement="left">
-          <IconButton
-            _hover={{color: "primary.500", opacity: 1}}
-            alignSelf="flex-end"
-            aria-label="Duplicar producto"
-            icon={DuplicateIcon}
-            opacity={0.5}
-            size="lg"
+            size="md"
             variant="ghost"
             onClick={(event) => {
               event.stopPropagation();
 
-              onEdit({...product, id: null, title: `${product.title} (copia)`});
+              handleRemove(product.id);
             }}
           />
-        </Tooltip>
-        <IconButton
-          _hover={{color: "red.500", opacity: 1}}
-          alignSelf="flex-end"
-          aria-label="Borrar producto"
-          icon={TrashIcon}
-          isLoading={status === "pending"}
-          opacity={0.5}
-          size="lg"
-          variant="ghost"
-          onClick={(event) => {
-            event.stopPropagation();
-
-            handleRemove(product.id);
-          }}
-        />
-      </Stack>
-    </>
+        </Stack>
+      </Box>
+    </Box>
   );
 };
 

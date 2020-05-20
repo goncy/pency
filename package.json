@@ -20,7 +20,7 @@
     "firebase-admin": "^8.10.0",
     "immer": "^6.0.3",
     "isomorphic-unfetch": "^3.0.0",
-    "next": "canary",
+    "next": "^9.4.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-hook-form": "^5.5.3",
