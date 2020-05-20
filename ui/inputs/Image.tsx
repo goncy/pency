@@ -16,7 +16,6 @@ const ImageInput: React.FC<Props> = ({value, onChange, quality = "low"}) => {
   const [isLoading, setLoading] = React.useState(false);
   const toast = useToast();
   const { slug: tenant } = useTenant();
-  const folderPath: string = `${process.env.CLOUDINARY_FOLDER}/${tenant}`
   
   async function upload(file?: File) {
     if (!file) return;
@@ -24,7 +23,7 @@ const ImageInput: React.FC<Props> = ({value, onChange, quality = "low"}) => {
     try {
       setLoading(true);
 
-      const url = await storage.upload(file, quality, folderPath);
+      const url = await storage.upload(file, quality, tenant);
 
       onChange(url);
       setLoading(false);
