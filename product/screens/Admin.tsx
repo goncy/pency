@@ -59,45 +59,47 @@ const AdminScreen: React.FC = () => {
               Agregar
             </IconButton>
           </Flex>
-          {products.length ? (
-            productsByCategory.map(([category, products]) => {
-              return (
-                <Box key={category} mt={4}>
-                  <Stack spacing={0}>
-                    <Stack
-                      isInline
-                      alignItems="center"
-                      borderBottomWidth={1}
-                      fontSize="2xl"
-                      fontWeight={500}
-                      paddingBottom={2}
-                      spacing={2}
-                    >
-                      <Text>{category}</Text>
-                      <Text color="gray.400" fontSize="xl" fontWeight={300}>
-                        ({products.length})
-                      </Text>
-                    </Stack>
-                    <ProductsList products={products} onEdit={onEdit} onRemove={remove} />
-                  </Stack>
-                </Box>
-              );
-            })
-          ) : (
-            <Flex
-              alignItems="center"
-              direction="column"
-              flex={1}
-              justifyContent="center"
-              mt={{base: 12, sm: 24}}
-              px={4}
-            >
-              <Icon color="gray.200" mb={4} name="search" size="128px" />
-              <Text color="gray.500" fontSize="lg" textAlign="center">
-                No se encontraron productos
-              </Text>
-            </Flex>
-          )}
+          <Box marginTop={4}>
+            {products.length ? (
+              <Stack spacing={6}>
+                {productsByCategory.map(([category, products]) => {
+                  return (
+                    <Box key={category}>
+                      <Stack spacing={0}>
+                        <Stack
+                          isInline
+                          alignItems="center"
+                          borderBottomWidth={1}
+                          fontSize="xl"
+                          fontWeight={500}
+                          paddingBottom={2}
+                          spacing={2}
+                        >
+                          <Text>{category}</Text>
+                          <Text color="gray.400">({products.length})</Text>
+                        </Stack>
+                        <ProductsList products={products} onEdit={onEdit} onRemove={remove} />
+                      </Stack>
+                    </Box>
+                  );
+                })}
+              </Stack>
+            ) : (
+              <Flex
+                alignItems="center"
+                direction="column"
+                flex={1}
+                justifyContent="center"
+                marginTop={{base: 12, sm: 24}}
+                paddingX={4}
+              >
+                <Icon color="gray.200" mb={4} name="search" size="128px" />
+                <Text color="gray.500" fontSize="lg" textAlign="center">
+                  No se encontraron productos
+                </Text>
+              </Flex>
+            )}
+          </Box>
         </Box>
       </Flex>
       <ProductDrawer
