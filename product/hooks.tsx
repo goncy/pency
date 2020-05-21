@@ -60,7 +60,7 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
 
     if (category) {
       setTimeout(
-        () => document.querySelector(`#${category}`)?.scrollIntoView({behavior: "smooth"}),
+        () => document.querySelector(`[id="${category}"]`)?.scrollIntoView({behavior: "smooth"}),
         0,
       );
     }
