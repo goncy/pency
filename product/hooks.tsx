@@ -46,10 +46,7 @@ export function useProductCategories() {
   };
 }
 
-export function useFilteredProducts(
-  filters: Partial<Product> = {},
-  onCategoryChange: (category: Product["category"]) => void,
-) {
+export function useFilteredProducts(filters: Partial<Product> = {}) {
   const products = useProducts();
   const [query, setQuery] = React.useState("");
   const productsBySearch = filterBy(products, {title: query, ...filters});
@@ -60,7 +57,13 @@ export function useFilteredProducts(
 
   function onChange(category: Product["category"]) {
     setQuery("");
-    setTimeout(() => onCategoryChange(category), 0);
+
+    if (category) {
+      setTimeout(
+        () => document.querySelector(`#${category}`)?.scrollIntoView({behavior: "smooth"}),
+        0,
+      );
+    }
   }
 
   return {

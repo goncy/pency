@@ -29,7 +29,7 @@ import SocialLinks from "~/ui/list/SocialLinks";
 const ProductsScreen: React.FC = () => {
   const {add, remove, count, total} = useCart();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
-  const {products, filters} = useFilteredProducts({available: true}, onCategorySearch);
+  const {products, filters} = useFilteredProducts({available: true});
   const {
     highlight,
     facebook,
@@ -52,12 +52,6 @@ const ProductsScreen: React.FC = () => {
         : productsByCategory,
     [featuredProducts, productsByCategory],
   );
-
-  function onCategorySearch(category: Product["category"]) {
-    if (category) {
-      document.querySelector(`#${category}`)?.scrollIntoView({behavior: "smooth"});
-    }
-  }
 
   return (
     <>

@@ -1,10 +1,9 @@
 import React from "react";
-import {Stack, Box, Icon, Text, Flex, Heading} from "@chakra-ui/core";
+import {Stack, Box, Icon, Text, Flex} from "@chakra-ui/core";
 
 import ProductDrawer from "../components/ProductDrawer";
 import {useFilteredProducts, useProductActions} from "../hooks";
 import {Product} from "../types";
-import ProductRow from "../components/ProductsList/ProductRow";
 import ProductsList from "../components/ProductsList";
 
 import {groupBy} from "~/selectors/group";
@@ -64,7 +63,7 @@ const AdminScreen: React.FC = () => {
               <Stack spacing={6}>
                 {productsByCategory.map(([category, products]) => {
                   return (
-                    <Box key={category}>
+                    <Box key={category} id={category}>
                       <Stack spacing={0}>
                         <Stack
                           isInline
