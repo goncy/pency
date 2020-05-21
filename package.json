@@ -11,7 +11,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@chakra-ui/core": "^0.7.0",
+    "@chakra-ui/core": "^0.8.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@sentry/browser": "^5.15.5",
@@ -25,8 +25,7 @@
     "react-dom": "16.13.1",
     "react-hook-form": "^5.5.3",
     "react-lazy-load": "^3.0.13",
-    "shortid": "^2.2.15",
-    "viewport-units-buggyfill": "^0.6.2"
+    "shortid": "^2.2.15"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",

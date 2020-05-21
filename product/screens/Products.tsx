@@ -29,7 +29,7 @@ import SocialLinks from "~/ui/list/SocialLinks";
 const ProductsScreen: React.FC = () => {
   const {add, remove, count, total} = useCart();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
-  const {products, filters} = useFilteredProducts({available: true});
+  const {products, filters} = useFilteredProducts({available: true}, onCategorySearch);
   const {
     highlight,
     facebook,
@@ -52,6 +52,12 @@ const ProductsScreen: React.FC = () => {
         : productsByCategory,
     [featuredProducts, productsByCategory],
   );
+
+  function onCategorySearch(category: Product["category"]) {
+    if (category) {
+      document.querySelector(`#${category}`)?.scrollIntoView({behavior: "smooth"});
+    }
+  }
 
   return (
     <>
@@ -144,7 +150,7 @@ const ProductsScreen: React.FC = () => {
                   const productsBySubcategory = groupBy(products, (product) => product.subcategory);
 
                   return (
-                    <PseudoBox key={category} _last={{marginBottom: 4}} as="section">
+                    <PseudoBox key={category} _last={{marginBottom: 4}} as="section" id={category}>
                       <Flex direction="column">
                         <Heading as="h2" fontSize={{base: "2xl", sm: "3xl"}}>
                           {category}
@@ -186,7 +192,8 @@ const ProductsScreen: React.FC = () => {
                   direction="column"
                   flex={1}
                   justifyContent="center"
-                  marginTop={16}
+                  marginTop={12}
+                  style={{marginBottom: 12}}
                 >
                   <Icon
                     color="gray.200"
