@@ -78,7 +78,12 @@ const AdminScreen: React.FC = () => {
                           <Text>{category}</Text>
                           <Text color="gray.400">({products.length})</Text>
                         </Stack>
-                        <ProductsList products={products} onEdit={onEdit} onRemove={remove} />
+                        <ProductsList
+                          products={products}
+                          width="100%"
+                          onEdit={onEdit}
+                          onRemove={remove}
+                        />
                       </Stack>
                     </Box>
                   );
