@@ -35,15 +35,6 @@ export default class Pency extends App {
     super.componentDidCatch(error, errorInfo);
   }
 
-  componentDidMount() {
-    /**
-     * This help us fix a bug in embed browsers like
-     * the Instagram one where the bottom bar chops
-     * the complete order button
-     */
-    require("viewport-units-buggyfill").init();
-  }
-
   render() {
     const {Component, pageProps} = this.props;
     const {tenant, products, statusCode: error} = pageProps;

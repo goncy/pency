@@ -17,7 +17,6 @@ const StoreLayout: React.FC<Props> = ({tenant, children}) => (
         html,
         body {
           height: 100%;
-          max-height: 100vh;
           width: 100%;
           max-width: 100vw;
           overscroll-behavior: contain;

@@ -1,10 +1,9 @@
 import React from "react";
-import {Stack, Box, Icon, Text, Flex, Heading} from "@chakra-ui/core";
+import {Stack, Box, Icon, Text, Flex} from "@chakra-ui/core";
 
 import ProductDrawer from "../components/ProductDrawer";
 import {useFilteredProducts, useProductActions} from "../hooks";
 import {Product} from "../types";
-import ProductRow from "../components/ProductsList/ProductRow";
 import ProductsList from "../components/ProductsList";
 
 import {groupBy} from "~/selectors/group";
@@ -45,26 +44,42 @@ const AdminScreen: React.FC = () => {
 
   return (
     <>
-      <Flex direction="column" height="100%">
+      <Flex direction="column" height="100%" marginTop={4}>
         <Box flex={1}>
-          <Flex alignItems="center" justifyContent="space-between">
-            {filters}
-            <IconButton
-              data-test-id="add-product"
-              leftIcon={PlusIcon}
-              marginLeft={4}
-              variantColor="primary"
-              onClick={onCreate}
+          <Flex alignItems="center" data-test-id="filters">
+            <Flex
+              alignItems="center"
+              justifyContent="space-between"
+              marginX="auto"
+              maxWidth={{base: "100%", xl: "6xl"}}
+              paddingX={4}
+              width="100%"
             >
-              Agregar
-            </IconButton>
+              {filters}
+              <IconButton
+                data-test-id="add-product"
+                leftIcon={PlusIcon}
+                marginLeft={4}
+                size="md"
+                variantColor="primary"
+                onClick={onCreate}
+              >
+                Agregar
+              </IconButton>
+            </Flex>
           </Flex>
-          <Box marginTop={4}>
+          <Box
+            marginTop={4}
+            marginX="auto"
+            maxWidth={{base: "100%", xl: "6xl"}}
+            paddingX={4}
+            width="100%"
+          >
             {products.length ? (
               <Stack spacing={6}>
                 {productsByCategory.map(([category, products]) => {
                   return (
-                    <Box key={category}>
+                    <Box key={category} id={category}>
                       <Stack spacing={0}>
                         <Stack
                           isInline
