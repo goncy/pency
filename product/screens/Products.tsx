@@ -75,14 +75,15 @@ const ProductsScreen: React.FC = () => {
             minHeight={{base: 24, sm: 56}}
             width="100%"
           />
-          <Box
-            flex={1}
-            margin="auto"
-            maxWidth={{base: "100%", xl: "80em"}}
-            paddingX={{base: 4, xl: 12}}
-            width="100%"
-          >
-            <Box margin="auto" marginBottom={4}>
+          <Box flex={1}>
+            <Box
+              data-test-id="header"
+              margin="auto"
+              marginBottom={4}
+              maxWidth={{base: "100%", xl: "5xl"}}
+              paddingX={{base: 4, xl: 12}}
+              width="100%"
+            >
               <Grid
                 gridTemplateAreas={{
                   base: `"avatar links" "information information"`,
@@ -121,24 +122,46 @@ const ProductsScreen: React.FC = () => {
                   whatsapp={phone}
                 />
               </Grid>
-              {highlight && (
-                <Box
-                  backgroundColor="primary.50"
-                  color="primary.500"
-                  fontWeight="500"
-                  marginTop={4}
-                  marginX={{base: -4, xl: 0}}
-                  paddingX={4}
-                  paddingY={3}
-                  rounded={{sm: 0, xl: "lg"}}
-                  textAlign={{base: "left", xl: "center"}}
-                >
-                  {highlight}
-                </Box>
-              )}
             </Box>
-            <Box marginBottom={4}>{filters}</Box>
-            <Stack spacing={12}>
+            {highlight && (
+              <Box
+                backgroundColor="primary.50"
+                color="primary.500"
+                fontWeight="500"
+                marginTop={4}
+                paddingX={4}
+                paddingY={3}
+                rounded={{sm: 0, xl: "lg"}}
+                textAlign={{base: "left", xl: "center"}}
+              >
+                {highlight}
+              </Box>
+            )}
+            <Box marginBottom={4}>
+              <Flex
+                borderBottomWidth={1}
+                borderColor="gray.200"
+                borderTopWidth={1}
+                data-test-id="filters"
+              >
+                <Flex
+                  margin="auto"
+                  maxWidth={{base: "100%", xl: "5xl"}}
+                  paddingX={{base: 4, xl: 12}}
+                  paddingY={1}
+                  width="100%"
+                >
+                  {filters}
+                </Flex>
+              </Flex>
+            </Box>
+            <Stack
+              margin="auto"
+              maxWidth={{base: "100%", xl: "5xl"}}
+              paddingX={{base: 4, xl: 12}}
+              spacing={12}
+              width="100%"
+            >
               {Boolean(products.length) ? (
                 productsList.map(([category, products]) => {
                   const productsBySubcategory = groupBy(products, (product) => product.subcategory);

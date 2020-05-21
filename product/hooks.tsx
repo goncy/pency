@@ -69,25 +69,22 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
   return {
     products: productsBySearch,
     filters: (
-      <Flex
-        borderBottomWidth={1}
-        borderColor="gray.300"
-        borderTopWidth={1}
-        data-test-id="filters"
-        paddingY={2}
-      >
+      <Flex alignItems="center">
         <Menu>
           <MenuButton
-            // @ts-ignore
+            _hover={{
+              textDecoration: "none",
+            }}
             as={Button}
+            color="black"
+            fontWeight={500}
             // @ts-ignore
             rightIcon="chevron-down"
-            // @ts-ignore
-            variant="ghost"
+            variant="link"
           >
             Categorías
           </MenuButton>
-          <MenuList padding={0} placement="bottom-start">
+          <MenuList margin={0} padding={0} placement="bottom-start">
             {categories.map(([category, count]) => (
               <MenuItem
                 key={category}
@@ -95,6 +92,7 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
                   borderBottomWidth: 1,
                 }}
                 borderBottomColor="gray.200"
+                data-test-id={`category-${category}`}
                 justifyContent="space-between"
                 minHeight={12}
                 onClick={() => onChange(category)}
@@ -107,12 +105,13 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
             ))}
           </MenuList>
         </Menu>
-        <Divider marginY={2} orientation="vertical" />
-        <InputGroup flex={{base: 1, sm: "inherit"}}>
+        <Divider height={4} marginLeft={4} marginRight={1} orientation="vertical" />
+        <InputGroup alignItems="center" flex={{base: 1, sm: "inherit"}} height={10}>
           <InputLeftElement
             children={<Icon color="gray.300" name="search" />}
             color="gray.300"
             fontSize="1.2em"
+            top="inherit"
           />
           <Input
             placeholder="Buscar..."
