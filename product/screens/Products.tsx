@@ -80,8 +80,8 @@ const ProductsScreen: React.FC = () => {
               data-test-id="header"
               margin="auto"
               marginBottom={4}
-              maxWidth={{base: "100%", xl: "5xl"}}
-              paddingX={{base: 4, xl: 12}}
+              maxWidth={{base: "100%", xl: "6xl"}}
+              paddingX={4}
               width="100%"
             >
               <Grid
@@ -146,8 +146,8 @@ const ProductsScreen: React.FC = () => {
               >
                 <Flex
                   margin="auto"
-                  maxWidth={{base: "100%", xl: "5xl"}}
-                  paddingX={{base: 4, xl: 12}}
+                  maxWidth={{base: "100%", xl: "6xl"}}
+                  paddingX={4}
                   paddingY={1}
                   width="100%"
                 >
@@ -157,8 +157,8 @@ const ProductsScreen: React.FC = () => {
             </Box>
             <Stack
               margin="auto"
-              maxWidth={{base: "100%", xl: "5xl"}}
-              paddingX={{base: 4, xl: 12}}
+              maxWidth={{base: "100%", xl: "6xl"}}
+              paddingX={4}
               spacing={12}
               width="100%"
             >

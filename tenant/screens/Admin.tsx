@@ -17,8 +17,8 @@ const AdminScreen: React.FC = () => {
     <Box
       marginTop={4}
       marginX="auto"
-      maxWidth={{base: "100%", xl: "5xl"}}
-      paddingX={{base: 4, xl: 12}}
+      maxWidth={{base: "100%", xl: "6xl"}}
+      paddingX={4}
       width="100%"
     >
       <SettingsForm defaultValues={tenant} onSubmit={handleUpdate}>
