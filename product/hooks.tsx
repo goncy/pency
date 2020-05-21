@@ -84,7 +84,7 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
           >
             Categorías
           </MenuButton>
-          <MenuList margin={0} padding={0} placement="bottom-start">
+          <MenuList margin={0} padding={0} placement="bottom-start" zIndex={3}>
             {categories.map(([category, count]) => (
               <MenuItem
                 key={category}
