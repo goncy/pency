@@ -52,17 +52,17 @@ const ProductRow: React.FC<Props> = ({onEdit, onRemove, ...product}) => {
         </Flex>
       </Box>
       <Box as="td" display={{base: "none", md: "table-cell"}} width="100px">
-        <Text fontWeight="500" marginRight={{base: 4, md: 12}} textAlign="right">
+        <Text fontWeight="500" marginRight={{base: 4, md: 12}} textAlign="left">
           ${product.price}
         </Text>
       </Box>
       <Box as="td" display={{base: "none", md: "table-cell"}} width="200px">
-        <Text marginRight={{base: 4, md: 12}} textAlign="right">
+        <Text marginRight={{base: 4, md: 12}} textAlign="left">
           {product.subcategory}
         </Text>
       </Box>
       <Box as="td" display={{base: "none", md: "table-cell"}} width="200px">
-        <Text marginRight={{base: 4, md: 12}} textAlign="right">
+        <Text marginRight={{base: 4, md: 12}} textAlign="left">
           {product.options?.length ? "Con opciones" : ""}
         </Text>
       </Box>
