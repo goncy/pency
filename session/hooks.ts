@@ -4,8 +4,8 @@ import SessionContext from "./context";
 
 export function useSession() {
   const {
-    actions: {signIn, signOut},
+    actions: {signOut},
   } = React.useContext(SessionContext);
 
-  return {signIn, signOut};
+  return {signOut};
 }
