@@ -24,16 +24,12 @@ describe("User filters", () => {
     });
   });
 
-  describe.only("category", () => {
+  describe("category", () => {
     it("should filter by category", () => {
       cy.visit("/full");
 
-      cy.get(`[data-test-id="product"]`).should("have.length", 3);
-      cy.get(`[data-test-id="filters"] button`)
-        .click()
-        .get(`[data-test-id="category-Solitario"]`)
-        .click();
-      cy.get(`#Solitario`).should("be.visible");
+      cy.get(`[data-test-id="filters"] select`).select("Solitario");
+      cy.get(`[id="Solitario"] h2`).should("be.visible");
     });
   });
 });
