@@ -26,10 +26,11 @@ const AuthScreen: React.FC<Props> = ({tenant}) => {
         alignItems="center"
         backgroundColor="white"
         direction="column"
-        minWidth={{base: "100%", sm: 400}}
+        maxWidth={{base: "100%", sm: 400}}
         padding={8}
         rounded="lg"
         shadow={{base: "none", sm: "md"}}
+        width="100%"
       >
         {screen === "login" && (
           <LoginScreen logo={tenant.logo} navigate={setScreen} title={tenant.title} />

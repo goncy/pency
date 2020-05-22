@@ -83,7 +83,7 @@ const ProductCard: React.FC<Props> = ({product, remove, add}) => {
             roundedTop="lg"
             width="100%"
           >
-            <Text color="gray.400" fontSize="2xl">
+            <Text color="gray.500" fontSize="2xl">
               sin foto
             </Text>
           </Flex>

@@ -42,12 +42,12 @@ const ResetPasswordForm: React.FC<Props> = ({onBack, onSuccess}) => {
   }
 
   return (
-    <Box as="form" maxWidth={420} width="100%" onSubmit={handleSubmit(onSubmit)}>
-      <Stack marginBottom={3} spacing={2}>
+    <Box as="form" width="100%" onSubmit={handleSubmit(onSubmit)}>
+      <Stack marginBottom={4} spacing={2}>
         <Text fontSize="xl" fontWeight={500}>
           Restablecé tu contraseña
         </Text>
-        <Text color="gray.400">
+        <Text color="gray.500">
           Ingresá tu mail y te enviaremos intrucciones sobre como restrablecerla.
         </Text>
       </Stack>
@@ -63,6 +63,7 @@ const ResetPasswordForm: React.FC<Props> = ({onBack, onSuccess}) => {
             })}
             autoFocus
             focusBorderColor="primary.300"
+            fontSize="md"
             name="email"
             placeholder="tumail@gmail.com"
             size="lg"
@@ -71,11 +72,18 @@ const ResetPasswordForm: React.FC<Props> = ({onBack, onSuccess}) => {
             {(errors.email && errors.email.message) || "Este campo es requerido"}
           </FormErrorMessage>
         </FormControl>
-        <Button isLoading={status === "pending"} size="lg" type="submit" variantColor="primary">
+        <Button
+          fontSize="md"
+          isLoading={status === "pending"}
+          size="lg"
+          type="submit"
+          variantColor="primary"
+        >
           Enviar instrucciones
         </Button>
         <Button
           _hover={{textDecoration: "none"}}
+          fontSize="md"
           fontWeight={500}
           variant="link"
           variantColor="primary"

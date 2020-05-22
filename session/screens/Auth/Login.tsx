@@ -59,11 +59,14 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
       <Box as="form" width="100%" onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={6}>
           <FormControl isInvalid={Boolean(errors.email)}>
-            <FormLabel htmlFor="email">E-mail</FormLabel>
+            <FormLabel fontSize="sm" htmlFor="email">
+              E-mail
+            </FormLabel>
             <Input
               ref={register({required: true})}
               autoFocus
               focusBorderColor="primary.300"
+              fontSize="md"
               name="email"
               placeholder="tumail@gmail.com"
               size="lg"
@@ -80,9 +83,10 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
               justifyContent="space-between"
               paddingX={0}
             >
-              <Text>Contraseña</Text>
+              <Text fontSize="sm">Contraseña</Text>
               <Button
                 _hover={{textDecoration: "none"}}
+                fontSize="sm"
                 fontWeight={500}
                 variant="link"
                 variantColor="primary"
@@ -94,6 +98,7 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
             <Input
               ref={register({required: true})}
               focusBorderColor="primary.300"
+              fontSize="md"
               name="password"
               placeholder="********"
               size="lg"
@@ -103,7 +108,13 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
               {(errors.password && errors.password.message) || "Este campo es requerido"}
             </FormErrorMessage>
           </FormControl>
-          <Button isLoading={isLoading} size="lg" type="submit" variantColor="primary">
+          <Button
+            fontSize="md"
+            isLoading={isLoading}
+            size="lg"
+            type="submit"
+            variantColor="primary"
+          >
             Ingresar
           </Button>
         </Stack>

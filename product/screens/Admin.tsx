@@ -85,7 +85,7 @@ const AdminScreen: React.FC = () => {
                           spacing={2}
                         >
                           <Text>{category}</Text>
-                          <Text color="gray.400">({products.length})</Text>
+                          <Text color="gray.500">({products.length})</Text>
                         </Stack>
                         <ProductsList
                           products={products}
