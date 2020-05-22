@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Stack, Text, FormErrorMessage, FormControl, Input, Box} from "@chakra-ui/core";
 import {useForm} from "react-hook-form";
 
-import api from "../../api";
+import api from "../../../api";
 
 import {useToast} from "~/hooks/toast";
 
@@ -11,11 +11,12 @@ interface FormData {
 }
 
 interface Props {
-  navigate: (route: string) => void;
+  onSuccess: () => void;
+  onBack: () => void;
 }
 
-const ResetPasswordScreen: React.FC<Props> = ({navigate}) => {
-  const [isLoading, setLoading] = React.useState(false);
+const ResetPasswordForm: React.FC<Props> = ({onBack, onSuccess}) => {
+  const [status, setStatus] = React.useState("resolved");
   const toast = useToast();
   const {handleSubmit, errors, register} = useForm<FormData>({
     defaultValues: {
@@ -24,27 +25,20 @@ const ResetPasswordScreen: React.FC<Props> = ({navigate}) => {
   });
 
   function onSubmit({email}: FormData) {
-    setLoading(true);
+    setStatus("pending");
 
     api
       .resetPassword(email)
-      .then(() => {
-        toast({
-          title: "Listo!",
-          duration: 10000,
-          description:
-            "Te llegará un mail que tiene un link para restablecer tu contraseña. Si no aparece en algunos minutos, revisa la carpeta spam. En caso que tengas algún problema en el proceso escribimos a ayuda@pency.app",
-          status: "success",
-        });
-      })
+      .then(onSuccess)
       .catch(() => {
         toast({
           title: "Error",
           description: "Hubo un error al reiniciar la contraseña, intentá de nuevo mas tarde",
           status: "error",
         });
-      })
-      .finally(() => setLoading(false));
+
+        setStatus("rejected");
+      });
   }
 
   return (
@@ -77,7 +71,7 @@ const ResetPasswordScreen: React.FC<Props> = ({navigate}) => {
             {(errors.email && errors.email.message) || "Este campo es requerido"}
           </FormErrorMessage>
         </FormControl>
-        <Button isLoading={isLoading} size="lg" type="submit" variantColor="primary">
+        <Button isLoading={status === "pending"} size="lg" type="submit" variantColor="primary">
           Enviar instrucciones
         </Button>
         <Button
@@ -85,7 +79,7 @@ const ResetPasswordScreen: React.FC<Props> = ({navigate}) => {
           fontWeight={500}
           variant="link"
           variantColor="primary"
-          onClick={() => navigate("login")}
+          onClick={onBack}
         >
           Volver
         </Button>
@@ -94,4 +88,4 @@ const ResetPasswordScreen: React.FC<Props> = ({navigate}) => {
   );
 };
 
-export default ResetPasswordScreen;
+export default ResetPasswordForm;
