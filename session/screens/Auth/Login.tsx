@@ -54,7 +54,7 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
   }
 
   return (
-    <Flex alignItems="center" direction="column">
+    <Flex alignItems="center" direction="column" width="100%">
       <TenantAvatar logo={logo} marginBottom={6} marginTop={{base: -12, sm: -16}} title={title} />
       <Box as="form" width="100%" onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={6}>
