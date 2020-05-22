@@ -2,36 +2,23 @@ import React from "react";
 
 import {useToast} from "../hooks/toast";
 
-import {User, Context, State, Actions, Status, Credentials} from "./types";
+import {User, Context, State, Actions} from "./types";
 import api from "./api";
-import LoginScreen from "./screens/Login";
+import AuthScreen from "./screens/Auth";
 
 import {useTenant} from "~/tenant/hooks";
+import LoadingScreen from "~/app/screens/Loading";
 
 const SessionContext = React.createContext({} as Context);
 
 const SessionProvider: React.FC = ({children}) => {
   const toast = useToast();
-  const {id: tenant, logo, title} = useTenant();
+  const {id, ...tenant} = useTenant();
   const [user, setUser] = React.useState<User | null>(null);
-  const [status, setStatus] = React.useState<Status>("pending");
-
-  function signIn(email: Credentials["email"], password: Credentials["password"]) {
-    setStatus("pending");
-
-    api.signIn(email, password).catch(() => {
-      setStatus("init");
-
-      toast({
-        title: "Error",
-        description: "Hubo un error al iniciar sesión, verificá las credenciales",
-        status: "error",
-      });
-    });
-  }
+  const [isRestoring, toggleRestoring] = React.useState<boolean>(true);
 
   function signOut() {
-    setStatus("pending");
+    toggleRestoring(true);
 
     api
       .signOut()
@@ -49,18 +36,18 @@ const SessionProvider: React.FC = ({children}) => {
           status: "error",
         });
 
-        setStatus("init");
+        toggleRestoring(false);
       });
   }
 
-  const actions: Actions = {signOut, signIn};
+  const actions: Actions = {signOut};
   const state: State = {user};
 
   React.useEffect(
     () =>
       api.onChange((user) => {
         if (user) {
-          if (user.uid === tenant) {
+          if (user.uid === id) {
             setUser(user);
 
             toast({
@@ -69,7 +56,7 @@ const SessionProvider: React.FC = ({children}) => {
               status: "success",
             });
 
-            return setStatus("init");
+            return toggleRestoring(false);
           } else {
             api.signOut();
 
@@ -79,15 +66,15 @@ const SessionProvider: React.FC = ({children}) => {
               status: "error",
             });
 
-            return setStatus("init");
+            return toggleRestoring(false);
           }
         } else {
           setUser(user);
 
-          return setStatus("init");
+          return toggleRestoring(false);
         }
       }),
-    [toast, tenant],
+    [toast, id],
   );
 
   React.useEffect(() => {
@@ -96,10 +83,8 @@ const SessionProvider: React.FC = ({children}) => {
     }
   }, [user]);
 
-  if (!user)
-    return (
-      <LoginScreen isRestoring={status === "pending"} logo={logo} signIn={signIn} title={title} />
-    );
+  if (isRestoring) return <LoadingScreen />;
+  if (!user) return <AuthScreen tenant={tenant} />;
 
   return <SessionContext.Provider value={{state, actions}}>{children}</SessionContext.Provider>;
 };

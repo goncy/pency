@@ -56,7 +56,6 @@ const api = {
                   .collection("tenants")
                   .doc(user.uid)
                   .create({
-                    id: user.uid,
                     slug,
                     ...DEFAULT_TENANT,
                   }),
