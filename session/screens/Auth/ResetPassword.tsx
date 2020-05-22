@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Button,
-  Stack,
-  Text,
-  FormErrorMessage,
-  FormControl,
-  FormLabel,
-  Input,
-  Box,
-} from "@chakra-ui/core";
+import {Button, Stack, Text, FormErrorMessage, FormControl, Input, Box} from "@chakra-ui/core";
 import {useForm} from "react-hook-form";
 
 import api from "../../api";
@@ -37,6 +28,15 @@ const ResetPasswordScreen: React.FC<Props> = ({navigate}) => {
 
     api
       .resetPassword(email)
+      .then(() => {
+        toast({
+          title: "Listo!",
+          duration: 10000,
+          description:
+            "Te llegará un mail que tiene un link para restablecer tu contraseña. Si no aparece en algunos minutos, revisa la carpeta spam. En caso que tengas algún problema en el proceso escribimos a ayuda@pency.app",
+          status: "success",
+        });
+      })
       .catch(() => {
         toast({
           title: "Error",
