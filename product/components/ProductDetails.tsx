@@ -1,18 +1,22 @@
 import React from "react";
 import {
+  Stack,
+  Flex,
   Box,
   Modal,
   ModalOverlay,
   ModalCloseButton,
   ModalContent,
-  Image,
   Text,
-  IconButton,
   Button,
+  FormControl,
+  FormLabel,
+  IconButton,
 } from "@chakra-ui/core";
 import styled from "@emotion/styled";
 
 import ProductOptionsForm from "../forms/ProductOptionsForm";
+import ProductQuantityInput from "../inputs/ProductQuantityInput";
 import {Product} from "../types";
 
 const GoBackButton = styled(IconButton)`
@@ -30,7 +34,7 @@ export default function ProductDetails({product, onClose}: Props) {
   return (
     <Modal isOpen={true} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent mt={0}>
+      <ModalContent height="100vh" m={0} overflowY="scroll" pb="16" position="relative">
         {image && (
           <Box borderBottomWidth={1} position="relative">
             <GoBackButton
@@ -51,8 +55,8 @@ export default function ProductDetails({product, onClose}: Props) {
             />
           </Box>
         )}
-        <Box p={4}>
-          <Box mb={6}>
+        <Stack flexGrow={1} p={4} spacing="6">
+          <Box>
             <Text fontSize="xl" fontWeight="bold">
               {title}
             </Text>
@@ -62,34 +66,62 @@ export default function ProductDetails({product, onClose}: Props) {
               </Text>
             )}
           </Box>
-          <ProductOptionsForm
-            options={options}
-            onSubmit={(...props) => {
-              console.log("on submit result", props);
-            }}
-          >
-            {({form, submit, isLoading}) => (
-              <>
-                {form}
-                <Button
-                  backgroundColor="primary.500"
-                  color="white"
-                  isLoading={isLoading}
-                  type="submit"
-                  variantColor="primary"
-                  w="100%"
-                  onClick={(event) => {
-                    event.stopPropagation();
+          <Box>
+            <ProductOptionsForm
+              options={options}
+              onSubmit={(...props) => {
+                console.log("on submit result", props);
+              }}
+            >
+              {({form, submit, isLoading}) => <>{form}</>}
+            </ProductOptionsForm>
+          </Box>
+          <FormControl>
+            <FormLabel mb="1">Cantidad</FormLabel>
+            <ProductQuantityInput />
+          </FormControl>
+        </Stack>
+        <Button
+          backgroundColor="primary.500"
+          bottom="4"
+          color="white"
+          display="flex"
+          h="12"
+          justifyContent="space-between"
+          left="4"
+          marginTop="auto"
+          position="fixed"
+          px="4"
+          right="4"
+          type="submit"
+          // isLoading={isLoading}
+          variantColor="primary"
+          width="calc(100% - 2rem)"
+          zIndex={1}
+          onClick={(event) => {
+            event.stopPropagation();
 
-                    submit();
-                  }}
-                >
-                  Agregar
-                </Button>
-              </>
-            )}
-          </ProductOptionsForm>
-        </Box>
+            console.log("submit form");
+            // submit();
+          }}
+        >
+          <Flex alignItems="center">
+            Agregar
+            <Box
+              backgroundColor="blackAlpha.300"
+              borderRadius="md"
+              fontSize="sm"
+              fontWeight="normal"
+              ml="2"
+              px="2"
+              py="2px"
+            >
+              1 item
+            </Box>{" "}
+            {/* @TODO: Add dynamic quantity */}
+          </Flex>
+          <Box>$239.99</Box> {/* @TODO: Add dynamic price */}
+        </Button>
       </ModalContent>
     </Modal>
   );
