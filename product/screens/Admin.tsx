@@ -68,13 +68,7 @@ const AdminScreen: React.FC = () => {
               </IconButton>
             </Flex>
           </Flex>
-          <Box
-            marginTop={4}
-            marginX="auto"
-            maxWidth={{base: "100%", xl: "6xl"}}
-            paddingX={4}
-            width="100%"
-          >
+          <Box marginX="auto" maxWidth={{base: "100%", xl: "6xl"}} padding={4} width="100%">
             {products.length ? (
               <Stack spacing={6}>
                 {productsByCategory.map(([category, products]) => {
