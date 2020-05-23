@@ -184,7 +184,11 @@ const ProductsScreen: React.FC = () => {
                         id={category}
                       >
                         <Stack spacing={{base: 4, sm: 5}}>
-                          <Text fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
+                          <Text
+                            data-test-id="category-title"
+                            fontSize={{base: "lg", sm: "2xl"}}
+                            fontWeight={500}
+                          >
                             {category}
                           </Text>
                           <ProductsGrid>
