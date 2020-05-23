@@ -66,7 +66,7 @@ const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
                 return (
                   <FormControl key={option.id} isInvalid={Boolean(errors.options?.[index])} mb={4}>
                     <FormLabel htmlFor={`options[${index}]`}>
-                      {`${option.title} ${option.count ? `(elegí hasta ${option.count})` : ""}`}
+                      {`${option.title} ${option.count ? `(Máximo ${option.count})` : ""}`}
                     </FormLabel>
                     <Controller
                       as={ProductLimitedCheckboxInput}

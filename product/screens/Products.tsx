@@ -159,8 +159,8 @@ const ProductsScreen: React.FC = () => {
               {Boolean(products.length) ? (
                 <Stack spacing={12}>
                   {Boolean(featuredProducts.length) && (
-                    <Stack spacing={4}>
-                      <Heading as="h2" fontSize="md" fontWeight={500}>
+                    <Stack spacing={2}>
+                      <Heading as="h2" fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
                         Destacados
                       </Heading>
                       <ProductsCarousel zIndex={0}>
@@ -179,11 +179,6 @@ const ProductsScreen: React.FC = () => {
                     </Stack>
                   )}
                   {productsByCategory.map(([category, products]) => {
-                    const productsBySubcategory = groupBy(
-                      products,
-                      (product) => product.subcategory,
-                    );
-
                     return (
                       <PseudoBox
                         key={category}
@@ -191,37 +186,26 @@ const ProductsScreen: React.FC = () => {
                         as="section"
                         id={category}
                       >
-                        <Flex direction="column">
-                          <Heading as="h2" fontSize="md" fontWeight={500}>
+                        <Stack spacing={2}>
+                          <Heading
+                            as="h2"
+                            fontSize={{base: "lg", sm: "2xl"}}
+                            fontWeight={500}
+                            marginBottom={2}
+                          >
                             {category}
                           </Heading>
-                          {productsBySubcategory.map(([subcategory, products]) => (
-                            <PseudoBox key={subcategory} as="section" marginTop={4}>
-                              <Flex direction="column">
-                                {subcategory && (
-                                  <Heading
-                                    as="h3"
-                                    fontSize={{base: "xl", sm: "2xl"}}
-                                    fontWeight={500}
-                                    marginBottom={4}
-                                  >
-                                    {subcategory}
-                                  </Heading>
-                                )}
-                                <ProductsGrid>
-                                  {products.map((product) => (
-                                    <ProductCard
-                                      key={product.id}
-                                      add={add}
-                                      product={product}
-                                      remove={remove}
-                                    />
-                                  ))}
-                                </ProductsGrid>
-                              </Flex>
-                            </PseudoBox>
-                          ))}
-                        </Flex>
+                          <ProductsGrid>
+                            {products.map((product) => (
+                              <ProductCard
+                                key={product.id}
+                                add={add}
+                                product={product}
+                                remove={remove}
+                              />
+                            ))}
+                          </ProductsGrid>
+                        </Stack>
                       </PseudoBox>
                     );
                   })}

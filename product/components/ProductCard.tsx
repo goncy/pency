@@ -109,7 +109,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
           paddingTop={2}
           width="100%"
         >
-          <Stack spacing={{base: 1, sm: 2}}>
+          <Stack marginBottom={2} spacing={{base: 1, sm: 2}}>
             <Text
               display="block"
               fontSize={{base: "sm", sm: "lg"}}
@@ -128,49 +128,49 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
                 {description}
               </TruncatedText>
             )}
-            <Flex alignItems="flex-end">
-              <Text color="green.500" flex={1} fontSize={{base: "sm", sm: "md"}} lineHeight={1}>
-                ${price}
-              </Text>
-              <Box position="relative">
-                {!hasOptions && isInCart ? (
-                  <ButtonGroup>
-                    <Button fontWeight={500} size="xs" onClick={handleRemove}>
-                      -
-                    </Button>
-                    <Button fontWeight={500} size="xs" onClick={handleAdd}>
-                      +
-                    </Button>
-                  </ButtonGroup>
-                ) : (
-                  <Button fontWeight={500} size="xs" onClick={handleAdd}>
-                    Agregar
-                  </Button>
-                )}
-                {isInCart && (
-                  <Flex
-                    alignItems="center"
-                    backgroundColor="primary.500"
-                    border="2px solid white"
-                    borderRadius="50%"
-                    color="white"
-                    fontSize="10px"
-                    fontWeight="500"
-                    height="20px"
-                    justifyContent="center"
-                    lineHeight={1}
-                    position="absolute"
-                    right="-10px"
-                    top="-10px"
-                    width="20px"
-                    zIndex={1}
-                  >
-                    {count}
-                  </Flex>
-                )}
-              </Box>
-            </Flex>
           </Stack>
+          <Flex alignItems="flex-end">
+            <Text color="green.500" flex={1} fontSize={{base: "sm", sm: "md"}} lineHeight={1}>
+              ${price}
+            </Text>
+            <Box position="relative">
+              {!hasOptions && isInCart ? (
+                <ButtonGroup>
+                  <Button fontWeight={500} size="xs" onClick={handleRemove}>
+                    -
+                  </Button>
+                  <Button fontWeight={500} size="xs" onClick={handleAdd}>
+                    +
+                  </Button>
+                </ButtonGroup>
+              ) : (
+                <Button fontWeight={500} size="xs" onClick={handleAdd}>
+                  Agregar
+                </Button>
+              )}
+              {isInCart && (
+                <Flex
+                  alignItems="center"
+                  backgroundColor="primary.500"
+                  border="2px solid white"
+                  borderRadius="50%"
+                  color="white"
+                  fontSize="10px"
+                  fontWeight="500"
+                  height="20px"
+                  justifyContent="center"
+                  lineHeight={1}
+                  position="absolute"
+                  right="-10px"
+                  top="-10px"
+                  width="20px"
+                  zIndex={1}
+                >
+                  {count}
+                </Flex>
+              )}
+            </Box>
+          </Flex>
         </Box>
       </Flex>
       <ProductImageModal image={image} isOpen={isImageOpen} onClose={toggleImage} />
