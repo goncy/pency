@@ -149,18 +149,17 @@ const ProductsScreen: React.FC = () => {
                 </Flex>
               </Flex>
             </Box>
-            <Stack
-              margin="auto"
-              maxWidth={{base: "100%", xl: "6xl"}}
-              paddingX={4}
-              spacing={4}
-              width="100%"
-            >
+            <Stack margin="auto" spacing={4} width="100%">
               {Boolean(products.length) ? (
-                <Stack spacing={12}>
+                <Stack maxWidth={{base: "100%", xl: "6xl"}} spacing={12}>
                   {Boolean(featuredProducts.length) && (
                     <Stack spacing={2}>
-                      <Heading as="h2" fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
+                      <Heading
+                        as="h2"
+                        fontSize={{base: "lg", sm: "2xl"}}
+                        fontWeight={500}
+                        paddingX={4}
+                      >
                         Destacados
                       </Heading>
                       <ProductsCarousel zIndex={0}>
@@ -185,6 +184,8 @@ const ProductsScreen: React.FC = () => {
                         _last={{marginBottom: 4}}
                         as="section"
                         id={category}
+                        maxWidth={{base: "100%", xl: "6xl"}}
+                        paddingX={4}
                       >
                         <Stack spacing={2}>
                           <Heading
@@ -218,6 +219,8 @@ const ProductsScreen: React.FC = () => {
                   flex={1}
                   justifyContent="center"
                   marginTop={12}
+                  maxWidth={{base: "100%", xl: "6xl"}}
+                  paddingX={4}
                   style={{marginBottom: 12}}
                 >
                   <Icon
