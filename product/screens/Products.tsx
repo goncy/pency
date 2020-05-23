@@ -6,7 +6,6 @@ import {
   PseudoBox,
   Flex,
   Text,
-  Heading,
   Button,
   Badge,
   useDisclosure,
@@ -231,6 +230,7 @@ const ProductsScreen: React.FC = () => {
                   justifyContent="center"
                   margin={{base: 0, sm: "auto"}}
                   paddingBottom={4}
+                  paddingX={4}
                   position="sticky"
                   zIndex={2}
                 >
