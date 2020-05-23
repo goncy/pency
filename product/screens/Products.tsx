@@ -188,12 +188,7 @@ const ProductsScreen: React.FC = () => {
                         paddingX={4}
                       >
                         <Stack spacing={2}>
-                          <Heading
-                            as="h2"
-                            fontSize={{base: "lg", sm: "2xl"}}
-                            fontWeight={500}
-                            marginBottom={2}
-                          >
+                          <Heading as="h2" fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
                             {category}
                           </Heading>
                           <ProductsGrid>
