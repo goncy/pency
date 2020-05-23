@@ -1,18 +1,17 @@
 import React from "react";
-import {Flex, FlexProps, PseudoBox} from "@chakra-ui/core";
+import {Grid, GridProps} from "@chakra-ui/core";
 
-const ProductsCarousel: React.FC<FlexProps> = ({children, ...props}) => (
-  <Flex overflowX="auto" paddingBottom={4} {...props}>
-    {React.Children.map(children, (element) => (
-      <PseudoBox
-        _first={{paddingLeft: 4}}
-        _last={{paddingRight: 4}}
-        paddingRight={{base: 4, sm: 8}}
-      >
-        {element}
-      </PseudoBox>
-    ))}
-  </Flex>
+const ProductsCarousel: React.FC<GridProps> = ({children, ...props}) => (
+  <Grid
+    gridAutoFlow="column"
+    gridGap={{base: 4, sm: 8}}
+    overflowX="auto"
+    paddingBottom={4}
+    templateColumns="repeat(auto-fill, minmax(280px,1fr))"
+    {...props}
+  >
+    {children}
+  </Grid>
 );
 
 export default ProductsCarousel;

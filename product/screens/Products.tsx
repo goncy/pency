@@ -151,15 +151,16 @@ const ProductsScreen: React.FC = () => {
             </Box>
             <Stack margin="auto" spacing={4} width="100%">
               {Boolean(products.length) ? (
-                <Stack maxWidth={{base: "100%", xl: "6xl"}} spacing={12}>
+                <Stack
+                  margin="auto"
+                  maxWidth={{base: "100%", xl: "6xl"}}
+                  paddingX={4}
+                  spacing={12}
+                  width="100%"
+                >
                   {Boolean(featuredProducts.length) && (
                     <Stack spacing={2}>
-                      <Heading
-                        as="h2"
-                        fontSize={{base: "lg", sm: "2xl"}}
-                        fontWeight={500}
-                        paddingX={4}
-                      >
+                      <Heading as="h2" fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
                         Destacados
                       </Heading>
                       <ProductsCarousel zIndex={0}>
@@ -168,7 +169,6 @@ const ProductsScreen: React.FC = () => {
                             key={product.id}
                             isRaised
                             add={add}
-                            maxWidth={{base: "60vw", sm: 280}}
                             minWidth={{base: "60vw", sm: 280}}
                             product={product}
                             remove={remove}
@@ -184,8 +184,6 @@ const ProductsScreen: React.FC = () => {
                         _last={{marginBottom: 4}}
                         as="section"
                         id={category}
-                        maxWidth={{base: "100%", xl: "6xl"}}
-                        paddingX={4}
                       >
                         <Stack spacing={2}>
                           <Heading as="h2" fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
@@ -214,8 +212,6 @@ const ProductsScreen: React.FC = () => {
                   flex={1}
                   justifyContent="center"
                   marginTop={12}
-                  maxWidth={{base: "100%", xl: "6xl"}}
-                  paddingX={4}
                   style={{marginBottom: 12}}
                 >
                   <Icon
