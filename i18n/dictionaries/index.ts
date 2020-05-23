@@ -1,2 +1,13 @@
-export {default as en} from "./en.json";
-export {default as es} from "./es.json";
+import en from "./en.json";
+import es from "./es.json";
+
+export default {
+  en: {
+    name: "English",
+    translation: en,
+  },
+  es: {
+    name: "Español de argentina",
+    translation: es,
+  },
+};

@@ -1,8 +1,10 @@
 {
-  "name": "Español de Argentina",
-  "translation": {
-    "filters": {
-      "categories": "Categorías"
-    }
+  "filters": {
+    "categories": "Categorías"
+  },
+  "products": {
+    "featured": "Destacados",
+    "empty": "No se encontraron productos",
+    "check": "Revisar pedido"
   }
 }

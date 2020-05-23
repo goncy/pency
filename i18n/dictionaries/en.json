@@ -1,8 +1,5 @@
 {
-  "name": "English",
-  "translation": {
-    "filters": {
-      "categories": "Categories"
-    }
+  "filters": {
+    "categories": "Categories"
   }
 }
