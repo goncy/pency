@@ -1,0 +1,10 @@
+{
+  "filters": {
+    "categories": "Categorías"
+  },
+  "products": {
+    "featured": "Destacados",
+    "empty": "No se encontraron productos",
+    "check": "Revisar pedido"
+  }
+}

@@ -5,13 +5,9 @@ import api from "./api";
 
 import {useTenant} from "~/tenant/hooks";
 
-interface Props {
-  children: JSX.Element | JSX.Element[];
-}
-
 const AnalyticsContext = React.createContext({} as Context);
 
-const AnalyticsProvider = ({children}: Props) => {
+const AnalyticsProvider: React.FC = ({children}) => {
   const tenant = useTenant();
 
   function log(eventName: EventName, eventParams: Partial<EventParams> = {}) {
