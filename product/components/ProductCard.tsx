@@ -54,7 +54,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
   return (
     <>
       <Flex
-        alignItems="flex-end"
+        alignItems="center"
         boxShadow={isRaised ? "lg" : "none"}
         data-test-id="product"
         direction="column"
@@ -130,7 +130,13 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
             )}
           </Stack>
           <Flex alignItems="flex-end">
-            <Text color="green.500" flex={1} fontSize={{base: "sm", sm: "md"}} lineHeight={1}>
+            <Text
+              color="green.500"
+              flex={1}
+              fontSize={{base: "sm", sm: "md"}}
+              fontWeight={500}
+              lineHeight={1}
+            >
               ${price}
             </Text>
             <Box position="relative">
