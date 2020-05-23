@@ -93,15 +93,14 @@ const ProductsScreen: React.FC = () => {
                   marginTop={{base: -6, sm: -8}}
                   title={title}
                 />
-                <Stack gridArea="information" marginTop={{base: 1, sm: 4}}>
-                  <Heading
-                    as="h1"
-                    fontSize={{base: "xl", sm: "3xl"}}
-                    fontWeight="bold"
-                    style={{margin: 0}}
-                  >
+                <Stack
+                  gridArea="information"
+                  marginTop={{base: 1, sm: 4}}
+                  spacing={{base: 0, sm: 1}}
+                >
+                  <Text fontSize={{base: "xl", sm: "3xl"}} fontWeight="bold" lineHeight="normal">
                     {title}
-                  </Heading>
+                  </Text>
                   <Text color="gray.500" fontSize={{base: "sm", sm: "md"}} lineHeight="normal">
                     {description}
                   </Text>
