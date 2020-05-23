@@ -131,7 +131,7 @@ const ProductsScreen: React.FC = () => {
                 {highlight}
               </Box>
             )}
-            <Box marginBottom={4}>
+            <Box marginBottom={12}>
               <Flex
                 borderBottomWidth={1}
                 borderColor="gray.200"
