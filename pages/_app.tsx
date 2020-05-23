@@ -7,6 +7,7 @@ import ErrorScreen from "./_error";
 
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
+import {Provider as I18nProvider} from "~/i18n/context";
 import {Provider as CartProvider} from "~/cart/context";
 import {Provider as AnalyticsProvider} from "~/analytics/context";
 
@@ -46,15 +47,17 @@ export default class Pency extends App {
           <ErrorScreen statusCode={error} />
         ) : tenant && products ? (
           <TenantProvider initialValue={tenant}>
-            <Flex direction="column" height="100%">
-              <ProductProvider initialValues={products}>
-                <AnalyticsProvider>
-                  <CartProvider>
-                    <Component {...pageProps} />
-                  </CartProvider>
-                </AnalyticsProvider>
-              </ProductProvider>
-            </Flex>
+            <I18nProvider>
+              <Flex direction="column" height="100%">
+                <ProductProvider initialValues={products}>
+                  <AnalyticsProvider>
+                    <CartProvider>
+                      <Component {...pageProps} />
+                    </CartProvider>
+                  </AnalyticsProvider>
+                </ProductProvider>
+              </Flex>
+            </I18nProvider>
           </TenantProvider>
         ) : (
           <Component {...pageProps} />
