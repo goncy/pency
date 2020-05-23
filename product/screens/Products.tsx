@@ -16,7 +16,7 @@ import {
 import ProductCard from "../components/ProductCard";
 import {useFilteredProducts} from "../hooks";
 import ProductsGrid from "../components/ProductsGrid";
-import {Product} from "../types";
+import ProductsCarousel from "../components/ProductsCarousel";
 
 import {useCart} from "~/cart/hooks";
 import {groupBy} from "~/selectors/group";
@@ -44,14 +44,6 @@ const ProductsScreen: React.FC = () => {
 
   const featuredProducts = filterBy(products, {featured: true});
   const productsByCategory = groupBy(products, (product) => product.category);
-
-  const productsList: [string, Product[]][] = React.useMemo(
-    () =>
-      featuredProducts.length
-        ? [["Destacados", featuredProducts], ...productsByCategory]
-        : productsByCategory,
-    [featuredProducts, productsByCategory],
-  );
 
   return (
     <>
@@ -104,13 +96,15 @@ const ProductsScreen: React.FC = () => {
                 <Stack gridArea="information" marginTop={{base: 1, sm: 4}}>
                   <Heading
                     as="h1"
-                    fontSize={{base: "2xl", sm: "3xl"}}
+                    fontSize={{base: "xl", sm: "3xl"}}
                     fontWeight="bold"
                     style={{margin: 0}}
                   >
                     {title}
                   </Heading>
-                  <Text color="gray.500">{description}</Text>
+                  <Text color="gray.500" fontSize={{base: "sm", sm: "md"}} lineHeight="normal">
+                    {description}
+                  </Text>
                 </Stack>
                 <SocialLinks
                   facebook={facebook}
@@ -137,7 +131,7 @@ const ProductsScreen: React.FC = () => {
                 {highlight}
               </Box>
             )}
-            <Box marginBottom={4}>
+            <Box marginBottom={{base: 5, sm: 10}}>
               <Flex
                 borderBottomWidth={1}
                 borderColor="gray.200"
@@ -155,53 +149,61 @@ const ProductsScreen: React.FC = () => {
                 </Flex>
               </Flex>
             </Box>
-            <Stack
-              margin="auto"
-              maxWidth={{base: "100%", xl: "6xl"}}
-              paddingX={4}
-              spacing={12}
-              width="100%"
-            >
+            <Stack margin="auto" spacing={5} width="100%">
               {Boolean(products.length) ? (
-                productsList.map(([category, products]) => {
-                  const productsBySubcategory = groupBy(products, (product) => product.subcategory);
-
-                  return (
-                    <PseudoBox key={category} _last={{marginBottom: 4}} as="section" id={category}>
-                      <Flex direction="column">
-                        <Heading as="h2" fontSize={{base: "2xl", sm: "3xl"}}>
-                          {category}
-                        </Heading>
-                        {productsBySubcategory.map(([subcategory, products]) => (
-                          <PseudoBox key={subcategory} as="section" marginTop={4}>
-                            <Flex direction="column">
-                              {subcategory && (
-                                <Heading
-                                  as="h3"
-                                  fontSize={{base: "xl", sm: "2xl"}}
-                                  fontWeight={500}
-                                  marginBottom={4}
-                                >
-                                  {subcategory}
-                                </Heading>
-                              )}
-                              <ProductsGrid>
-                                {products.map((product) => (
-                                  <ProductCard
-                                    key={product.id}
-                                    add={add}
-                                    product={product}
-                                    remove={remove}
-                                  />
-                                ))}
-                              </ProductsGrid>
-                            </Flex>
-                          </PseudoBox>
+                <Stack
+                  margin="auto"
+                  maxWidth={{base: "100%", xl: "6xl"}}
+                  paddingX={4}
+                  spacing={{base: 5, sm: 10}}
+                  width="100%"
+                >
+                  {Boolean(featuredProducts.length) && (
+                    <Stack spacing={{base: 4, sm: 5}}>
+                      <Text fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
+                        Destacados
+                      </Text>
+                      <ProductsCarousel zIndex={0}>
+                        {featuredProducts.map((product) => (
+                          <ProductCard
+                            key={product.id}
+                            isRaised
+                            add={add}
+                            minWidth={{base: "60vw", sm: 280}}
+                            product={product}
+                            remove={remove}
+                          />
                         ))}
-                      </Flex>
-                    </PseudoBox>
-                  );
-                })
+                      </ProductsCarousel>
+                    </Stack>
+                  )}
+                  {productsByCategory.map(([category, products]) => {
+                    return (
+                      <PseudoBox
+                        key={category}
+                        _last={{marginBottom: 4}}
+                        as="section"
+                        id={category}
+                      >
+                        <Stack spacing={{base: 4, sm: 5}}>
+                          <Text fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
+                            {category}
+                          </Text>
+                          <ProductsGrid>
+                            {products.map((product) => (
+                              <ProductCard
+                                key={product.id}
+                                add={add}
+                                product={product}
+                                remove={remove}
+                              />
+                            ))}
+                          </ProductsGrid>
+                        </Stack>
+                      </PseudoBox>
+                    );
+                  })}
+                </Stack>
               ) : (
                 <Flex
                   alignItems="center"
