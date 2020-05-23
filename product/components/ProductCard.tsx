@@ -54,7 +54,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
   return (
     <>
       <Flex
-        alignItems="center"
+        alignItems="flex-end"
         boxShadow={isRaised ? "lg" : "none"}
         data-test-id="product"
         direction="column"
@@ -129,7 +129,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
               </TruncatedText>
             )}
           </Stack>
-          <Flex alignItems="flex-end">
+          <Flex alignItems="center">
             <Text
               color="green.500"
               flex={1}

@@ -131,7 +131,7 @@ const ProductsScreen: React.FC = () => {
                 {highlight}
               </Box>
             )}
-            <Box marginBottom={12}>
+            <Box marginBottom={{base: 5, sm: 10}}>
               <Flex
                 borderBottomWidth={1}
                 borderColor="gray.200"
@@ -149,20 +149,20 @@ const ProductsScreen: React.FC = () => {
                 </Flex>
               </Flex>
             </Box>
-            <Stack margin="auto" spacing={4} width="100%">
+            <Stack margin="auto" spacing={5} width="100%">
               {Boolean(products.length) ? (
                 <Stack
                   margin="auto"
                   maxWidth={{base: "100%", xl: "6xl"}}
                   paddingX={4}
-                  spacing={12}
+                  spacing={{base: 5, sm: 10}}
                   width="100%"
                 >
                   {Boolean(featuredProducts.length) && (
-                    <Stack spacing={2}>
-                      <Heading as="h2" fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
+                    <Stack spacing={{base: 4, sm: 5}}>
+                      <Text fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
                         Destacados
-                      </Heading>
+                      </Text>
                       <ProductsCarousel zIndex={0}>
                         {featuredProducts.map((product) => (
                           <ProductCard
@@ -185,10 +185,10 @@ const ProductsScreen: React.FC = () => {
                         as="section"
                         id={category}
                       >
-                        <Stack spacing={2}>
-                          <Heading as="h2" fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
+                        <Stack spacing={{base: 4, sm: 5}}>
+                          <Text fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
                             {category}
-                          </Heading>
+                          </Text>
                           <ProductsGrid>
                             {products.map((product) => (
                               <ProductCard
