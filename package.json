@@ -28,7 +28,8 @@
     "react-hook-form": "^5.5.3",
     "react-i18next": "^11.5.0",
     "react-lazy-load": "^3.0.13",
-    "shortid": "^2.2.15"
+    "shortid": "^2.2.15",
+    "viewport-units-buggyfill": "^0.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
