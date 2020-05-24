@@ -30,7 +30,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
   const {id, image, description, title, price, options} = product;
   const {isOpen: isImageOpen, onToggle: toggleImage} = useDisclosure();
   const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
-  const {t} = useTranslation();
+  const t = useTranslation();
   const count = useProductCartCount(id);
   const hasOptions = Boolean(product.options?.length);
   const isInCart = Boolean(count);
@@ -97,7 +97,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
             width="100%"
           >
             <Text color="gray.500" fontSize="2xl">
-              {t("productCard.noImage")}
+              {t("common.noImage")}
             </Text>
           </Flex>
         )}
@@ -153,7 +153,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
                 </ButtonGroup>
               ) : (
                 <Button fontWeight={500} size="xs" onClick={handleAdd}>
-                  {t("productCard.add")}
+                  {t("common.add")}
                 </Button>
               )}
               {isInCart && (

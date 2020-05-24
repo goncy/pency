@@ -1,20 +1,39 @@
 {
-  "filters": {
+  "common": {
+    "error": "Error",
+    "email": "E-mail",
+    "password": "Contraseña",
+    "total": "Total",
+    "featured": "Destacado",
     "categories": "Categorías",
+    "noImage": "Sin foto",
+    "add": "Agregar"
+  },
+  "form": {
+    "required": "Este campo es requerido"
+  },
+  "filters": {
     "search": "Buscar..."
   },
   "cart": {
     "yourCart": "Tu carrito",
-    "total": "Total",
     "complete": "Completar pedido en WhatsApp"
   },
   "products": {
-    "featured": "Destacados",
     "empty": "No se encontraron productos",
     "check": "Revisar pedido"
   },
-  "productCard": {
-    "noImage": "Sin foto",
-    "add": "Agregar"
+  "auth": {
+    "resetPasswordSuccess": {
+      "title": "Listo! Te enviamos las instrucciones",
+      "description": "Te llegará un mail que tiene un link para restablecer tu contraseña. Si no aparece en algunos minutos, revisa la carpeta spam.",
+      "contactUsAt": "En caso que tengas algún problema en el proceso escribimos a",
+      "emailTitle": "Consulta por Pency"
+    },
+    "login": {
+      "signInError": "Hubo un error al iniciar sesión, verificá las credenciales",
+      "recoverPassword": "Recuperar contraseña",
+      "signIn": "Ingresar"
+    }
   }
 }

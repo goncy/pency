@@ -36,7 +36,7 @@ export function useProductCategories() {
 
 export function useFilteredProducts(filters: Partial<Product> = {}) {
   const products = useProducts();
-  const {t} = useTranslation();
+  const t = useTranslation();
   const [query, setQuery] = React.useState("");
   const productsBySearch = filterBy(products, {title: query, ...filters});
   const categories = groupBy(products, (product) => product.category).map(([category, products]): [
@@ -63,7 +63,7 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
           fontWeight="500"
           height="100%"
           maxWidth={{base: "100%", sm: "220px"}}
-          placeholder={t("filters.categories")}
+          placeholder={t("common.categories")}
           value=""
           variant="unstyled"
           width="auto"

@@ -28,7 +28,7 @@ interface Props {
 
 const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
   const {items, count, total, remove, checkout} = useCart();
-  const {t} = useTranslation();
+  const t = useTranslation();
 
   React.useEffect(() => {
     if (!count) onClose();
@@ -83,7 +83,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
             <Divider />
             <Flex alignItems="center" justifyContent="flex-end">
               <Text fontSize="lg" fontWeight="600" mr={2}>
-                {t("cart.total")}:
+                {t("common.total")}:
               </Text>
               <Text fontSize="lg">${total}</Text>
             </Flex>

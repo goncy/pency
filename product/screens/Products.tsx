@@ -17,7 +17,7 @@ import TenantHeader from "~/tenant/components/TenantHeader";
 
 const ProductsScreen: React.FC = () => {
   const {add, remove, count, total} = useCart();
-  const {t} = useTranslation();
+  const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts({available: true});
   const {highlight, ...tenant} = useTenant();
@@ -92,7 +92,7 @@ const ProductsScreen: React.FC = () => {
                   {Boolean(featuredProducts.length) && (
                     <Stack spacing={{base: 4, sm: 5}}>
                       <Text fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
-                        {t("products.featured")}
+                        {t("common.featured")}
                       </Text>
                       <ProductsCarousel zIndex={0}>
                         {featuredProducts.map((product) => (

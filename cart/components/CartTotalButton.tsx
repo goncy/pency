@@ -10,7 +10,7 @@ interface Props {
 }
 
 const CartTotalButton: React.FC<Props> = ({onClick, count, total}) => {
-  const {t} = useTranslation();
+  const t = useTranslation();
 
   return (
     <Flex

@@ -1,20 +1,39 @@
 {
-  "filters": {
+  "common": {
+    "error": "Error",
+    "email": "E-mail",
+    "password": "Password",
+    "total": "Total",
+    "featured": "Featured",
     "categories": "Categories",
+    "noImage": "No image",
+    "add": "Add"
+  },
+  "form": {
+    "required": "This field is required"
+  },
+  "filters": {
     "search": "Search..."
   },
   "cart": {
     "yourCart": "Your cart",
-    "total": "Total",
     "complete": "Complete order on WhatsApp"
   },
   "products": {
-    "featured": "Featured",
     "empty": "No products found",
     "check": "Review cart"
   },
-  "productCard": {
-    "noImage": "No image",
-    "add": "Add"
+  "auth": {
+    "resetPasswordSuccess": {
+      "title": "Ready! We just sent you the instructions",
+      "description": "You will receive an email with a link to reset your password. If you can't find it in a couple of minutes, check your spam folder.",
+      "contactUsAt": "If you have any question, contact us on",
+      "emailTitle": "Question about Pency"
+    },
+    "login": {
+      "signInError": "We couldn't sign in verify your credentials",
+      "recoverPassword": "Recover contraseña",
+      "signIn": "Sign in"
+    }
   }
 }

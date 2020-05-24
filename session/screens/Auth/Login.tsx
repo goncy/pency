@@ -17,6 +17,7 @@ import api from "../../api";
 import {useToast} from "~/hooks/toast";
 import TenantAvatar from "~/tenant/components/TenantAvatar";
 import {Tenant} from "~/tenant/types";
+import {useTranslation} from "~/hooks/translation";
 
 interface FormData {
   email: string;
@@ -31,6 +32,7 @@ interface Props {
 
 const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
   const [isLoading, setLoading] = React.useState(false);
+  const t = useTranslation();
   const toast = useToast();
   const {handleSubmit, errors, register} = useForm<FormData>({
     defaultValues: {
@@ -44,8 +46,8 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
 
     api.signIn(email, password).catch(() => {
       toast({
-        title: "Error",
-        description: "Hubo un error al iniciar sesión, verificá las credenciales",
+        title: t("common.error"),
+        description: t("auth.login.signInError"),
         status: "error",
       });
 
@@ -60,7 +62,7 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
         <Stack spacing={6}>
           <FormControl isInvalid={Boolean(errors.email)}>
             <FormLabel fontSize="sm" htmlFor="email">
-              E-mail
+              {t("common.email")}
             </FormLabel>
             <Input
               ref={register({required: true})}
@@ -68,11 +70,11 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
               focusBorderColor="primary.300"
               fontSize="md"
               name="email"
-              placeholder="tumail@gmail.com"
+              placeholder="pency@gmail.com"
               size="lg"
             />
             <FormErrorMessage>
-              {(errors.email && errors.email.message) || "Este campo es requerido"}
+              {(errors.email && errors.email.message) || t("form.required")}
             </FormErrorMessage>
           </FormControl>
           <FormControl isInvalid={Boolean(errors.password)}>
@@ -83,7 +85,7 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
               justifyContent="space-between"
               paddingX={0}
             >
-              <Text fontSize="sm">Contraseña</Text>
+              <Text fontSize="sm">{t("common.password")}</Text>
               <Button
                 _hover={{textDecoration: "none"}}
                 fontSize="sm"
@@ -92,7 +94,7 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
                 variantColor="primary"
                 onClick={() => navigate("reset")}
               >
-                Recuperar contraseña
+                {t("auth.login.recoverPassword")}
               </Button>
             </FormLabel>
             <Input
@@ -105,7 +107,7 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
               type="password"
             />
             <FormErrorMessage>
-              {(errors.password && errors.password.message) || "Este campo es requerido"}
+              {(errors.password && errors.password.message) || t("form.required")}
             </FormErrorMessage>
           </FormControl>
           <Button
@@ -115,7 +117,7 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
             type="submit"
             variantColor="primary"
           >
-            Ingresar
+            {t("auth.login.signIn")}
           </Button>
         </Stack>
       </Box>
