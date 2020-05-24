@@ -22,6 +22,11 @@ const GoBackButton = styled(IconButton)`
   transform: rotate(180deg);
 `;
 
+// Fix margin prop getting overwrited when using chakra style props
+const StyledModalContent = styled(ModalContent)`
+  margin: 0;
+`;
+
 interface Props {
   product: Product;
   onClose: () => void;
@@ -31,9 +36,62 @@ export default function ProductDetails({product, onClose}: Props) {
   const {image, description, title, price, options} = product;
 
   return (
-    <Modal isOpen={true} onClose={onClose}>
+    <Modal isCentered isOpen={true} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent height="100vh" m={0} overflowY="scroll" pb="16" position="relative">
+      <StyledModalContent
+        display="flex"
+        flexDirection={{
+          base: "column",
+          md: "row",
+        }}
+        height={{
+          base: "100vh",
+          md: "26rem",
+        }}
+        maxWidth={{
+          md: "50rem",
+        }}
+        overflowY={{
+          base: "scroll",
+          md: "visible",
+        }}
+        position="relative"
+      >
+        {image && (
+          <Box
+            borderBottomWidth={{
+              base: 1,
+              md: 0,
+            }}
+            borderRightWidth={{
+              md: 1,
+            }}
+            position="relative"
+          >
+            <GoBackButton
+              aria-label="Close product details"
+              icon="arrow-forward"
+              ml={2}
+              mt={2}
+              position="absolute"
+              variant="ghost"
+              onClick={onClose}
+            />
+            <Box
+              backgroundImage={`url(${image})`}
+              backgroundPosition="center"
+              backgroundSize="cover"
+              height={{
+                base: 48,
+                md: "26rem",
+              }}
+              width={{
+                base: "100%",
+                md: "26rem",
+              }}
+            />
+          </Box>
+        )}
         <ProductOptionsForm
           options={options}
           onSubmit={(...props) => {
@@ -44,28 +102,21 @@ export default function ProductDetails({product, onClose}: Props) {
             const quantity = watch("quantity");
 
             return (
-              <>
-                {image && (
-                  <Box borderBottomWidth={1} position="relative">
-                    <GoBackButton
-                      aria-label="Close product details"
-                      icon="arrow-forward"
-                      ml={2}
-                      mt={2}
-                      position="absolute"
-                      variant="ghost"
-                      onClick={onClose}
-                    />
-                    <Box
-                      backgroundImage={`url(${image})`}
-                      backgroundPosition="center"
-                      backgroundSize="cover"
-                      height={48}
-                      width="100%"
-                    />
-                  </Box>
-                )}
-                <Stack flexGrow={1} p={4} spacing="6">
+              <Box position="relative">
+                <Stack
+                  alignItems="stretch"
+                  flexGrow={1}
+                  height={{md: "100%"}}
+                  overflowY={{
+                    md: "scroll",
+                  }}
+                  pb="20"
+                  position="relative"
+                  pt={{base: 4, md: 6}}
+                  px={{base: 4, md: 8}}
+                  spacing="6"
+                  w={{md: "sm"}}
+                >
                   <Box>
                     <Text fontSize="xl" fontWeight="bold">
                       {title}
@@ -80,20 +131,27 @@ export default function ProductDetails({product, onClose}: Props) {
                 </Stack>
                 <Button
                   backgroundColor="primary.500"
-                  bottom="4"
+                  bottom={4}
                   color="white"
                   display="flex"
+                  flexShrink={0}
                   h="12"
                   isLoading={isLoading}
                   justifyContent="space-between"
-                  left="4"
+                  left={{base: 4, md: 8}}
                   marginTop="auto"
-                  position="fixed"
+                  position={{
+                    base: "fixed",
+                    md: "absolute",
+                  }}
                   px="4"
-                  right="4"
+                  right={{base: 4, md: 8}}
                   type="submit"
                   variantColor="primary"
-                  width="calc(100% - 2rem)"
+                  width={{
+                    base: "calc(100% - 2rem)",
+                    md: "calc(100% - 4rem)",
+                  }}
                   zIndex={1}
                   onClick={(event) => {
                     event.stopPropagation();
@@ -116,13 +174,13 @@ export default function ProductDetails({product, onClose}: Props) {
                       {quantity} item{quantity > 1 ? "s" : ""}
                     </Box>
                   </Flex>
-                  <Box>$239.99</Box>
+                  <Box>${price * quantity}</Box>
                 </Button>
-              </>
+              </Box>
             );
           }}
         </ProductOptionsForm>
-      </ModalContent>
+      </StyledModalContent>
     </Modal>
   );
 }
