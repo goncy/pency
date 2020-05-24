@@ -13,9 +13,9 @@ interface Props {
   onChange: () => void;
 }
 
-const ProductQuantitityInput: React.FC<Props> = ({value, onChange}) => {
+const ProductQuantityInput: React.FC<Props> = ({value, onChange}) => {
   return (
-    <NumberInput max={99} min={1} value={value} width="32" onChange={onChange}>
+    <NumberInput max={99} min={1} mx="auto" value={value} width="32" onChange={onChange}>
       <NumberInputField px="10" textAlign="center" />
       <NumberInputStepper w="100%">
         <NumberIncrementStepper
@@ -56,4 +56,4 @@ const ProductQuantitityInput: React.FC<Props> = ({value, onChange}) => {
   );
 };
 
-export default ProductQuantitityInput;
+export default ProductQuantityInput;
