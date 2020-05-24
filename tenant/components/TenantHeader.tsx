@@ -1,5 +1,5 @@
 import React from "react";
-import {Grid, Stack, Text, Box, GridProps, BoxProps, StackProps} from "@chakra-ui/core";
+import {Grid, Stack, Text, Box, GridProps, BoxProps} from "@chakra-ui/core";
 
 import {Tenant} from "../types";
 
@@ -7,7 +7,7 @@ import TenantAvatar from "./TenantAvatar";
 
 import SocialLinks from "~/ui/list/SocialLinks";
 
-interface Props extends StackProps {
+interface Props extends BoxProps {
   tenant: Pick<
     Tenant,
     "banner" | "facebook" | "instagram" | "twitter" | "logo" | "title" | "description" | "phone"
@@ -22,7 +22,7 @@ const TenantHeader: React.FC<Props> = ({
   tenant: {banner, facebook, instagram, twitter, logo, title, description, phone},
   ...props
 }) => (
-  <Stack spacing={0} {...props}>
+  <Box {...props}>
     <Box
       backgroundColor="primary.500"
       backgroundImage={`url(${banner})`}
@@ -71,7 +71,7 @@ const TenantHeader: React.FC<Props> = ({
         whatsapp={phone}
       />
     </Grid>
-  </Stack>
+  </Box>
 );
 
 export default TenantHeader;

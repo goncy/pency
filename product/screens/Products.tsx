@@ -44,7 +44,6 @@ const ProductsScreen: React.FC = () => {
               paddingX: 4,
             }}
             data-test-id="header"
-            marginBottom={4}
             tenant={tenant}
           />
           <Box flex={1}>
