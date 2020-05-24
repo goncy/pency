@@ -24,9 +24,11 @@ import {filterBy} from "~/selectors/filter";
 import {useTenant} from "~/tenant/hooks";
 import TenantAvatar from "~/tenant/components/TenantAvatar";
 import SocialLinks from "~/ui/list/SocialLinks";
+import {useTranslation} from "~/hooks/translation";
 
 const ProductsScreen: React.FC = () => {
   const {add, remove, count, total} = useCart();
+  const {t} = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts({available: true});
   const {
@@ -159,7 +161,7 @@ const ProductsScreen: React.FC = () => {
                   {Boolean(featuredProducts.length) && (
                     <Stack spacing={{base: 4, sm: 5}}>
                       <Text fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
-                        Destacados
+                        {t("products.featured")}
                       </Text>
                       <ProductsCarousel zIndex={0}>
                         {featuredProducts.map((product) => (
@@ -223,7 +225,7 @@ const ProductsScreen: React.FC = () => {
                     name="search"
                   />
                   <Text color="gray.300" fontSize={{base: "md", sm: "lg"}} textAlign="center">
-                    No se encontraron productos
+                    {t("products.empty")}
                   </Text>
                 </Flex>
               )}
@@ -270,7 +272,7 @@ const ProductsScreen: React.FC = () => {
                         >
                           {count}
                         </Badge>
-                        <Text flex={1}>Revisar pedido</Text>
+                        <Text flex={1}>{t("products.check")}</Text>
                         <Text>${total}</Text>
                       </Stack>
                     </Button>

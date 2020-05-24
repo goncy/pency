@@ -86,7 +86,7 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
             top="inherit"
           />
           <Input
-            placeholder="Buscar..."
+            placeholder={t("filters.search")}
             value={query}
             variant="unstyled"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}

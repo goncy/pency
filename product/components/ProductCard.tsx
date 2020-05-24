@@ -17,6 +17,7 @@ import ProductImageModal from "./ProductImageModal";
 import {Product} from "~/product/types";
 import {useProductCartCount} from "~/cart/hooks";
 import TruncatedText from "~/ui/feedback/TruncatedText";
+import {useTranslation} from "~/hooks/translation";
 
 interface Props extends FlexProps {
   product: Product;
@@ -29,6 +30,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
   const {id, image, description, title, price, options} = product;
   const {isOpen: isImageOpen, onToggle: toggleImage} = useDisclosure();
   const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
+  const {t} = useTranslation();
   const count = useProductCartCount(id);
   const hasOptions = Boolean(product.options?.length);
   const isInCart = Boolean(count);
@@ -95,7 +97,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
             width="100%"
           >
             <Text color="gray.500" fontSize="2xl">
-              sin foto
+              {t("productCard.noImage")}
             </Text>
           </Flex>
         )}
@@ -151,7 +153,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
                 </ButtonGroup>
               ) : (
                 <Button fontWeight={500} size="xs" onClick={handleAdd}>
-                  Agregar
+                  {t("productCard.add")}
                 </Button>
               )}
               {isInCart && (

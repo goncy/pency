@@ -19,6 +19,7 @@ import {useCart} from "../hooks";
 
 import WhatsAppIcon from "~/ui/icons/WhatsApp";
 import Badge from "~/ui/feedback/Badge";
+import {useTranslation} from "~/hooks/translation";
 
 interface Props {
   isOpen: boolean;
@@ -27,6 +28,7 @@ interface Props {
 
 const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
   const {items, count, total, remove, checkout} = useCart();
+  const {t} = useTranslation();
 
   React.useEffect(() => {
     if (!count) onClose();
@@ -37,7 +39,9 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton right="8px" top="8px" />
-        <DrawerHeader p={4}>Tu carrito ({count})</DrawerHeader>
+        <DrawerHeader p={4}>
+          {t("cart.yourCart")} ({count})
+        </DrawerHeader>
         <DrawerBody overflowY="auto" p={4}>
           <Stack spacing={6}>
             {items.map(({id, title, options, price, count}) => (
@@ -79,7 +83,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
             <Divider />
             <Flex alignItems="center" justifyContent="flex-end">
               <Text fontSize="lg" fontWeight="600" mr={2}>
-                Total:
+                {t("cart.total")}:
               </Text>
               <Text fontSize="lg">${total}</Text>
             </Flex>
@@ -91,7 +95,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
               onClick={checkout}
             >
               <WhatsAppIcon marginRight={2} />
-              Completar pedido en WhatsApp
+              {t("cart.complete")}
             </Button>
           </Stack>
         </DrawerFooter>
