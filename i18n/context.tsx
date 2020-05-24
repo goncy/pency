@@ -20,7 +20,7 @@ const I18nProvider: React.FC = ({children}) => {
       .use(initReactI18next)
       .init({
         resources: dictionaries,
-        lng: "es",
+        fallbackLng: "es",
         interpolation: {
           escapeValue: false,
         },
