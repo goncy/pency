@@ -8,9 +8,14 @@ import {
   NumberDecrementStepper,
 } from "@chakra-ui/core";
 
-export default function ProductQuantitity() {
+interface Props {
+  value?: any;
+  onChange: () => void;
+}
+
+const ProductQuantitityInput: React.FC<Props> = ({value, onChange}) => {
   return (
-    <NumberInput defaultValue={1} max={99} min={1} width="32">
+    <NumberInput max={99} min={1} value={value} width="32" onChange={onChange}>
       <NumberInputField px="10" textAlign="center" />
       <NumberInputStepper w="100%">
         <NumberIncrementStepper
@@ -49,4 +54,6 @@ export default function ProductQuantitity() {
       </NumberInputStepper>
     </NumberInput>
   );
-}
+};
+
+export default ProductQuantitityInput;

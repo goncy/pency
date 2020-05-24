@@ -6,6 +6,7 @@ import {useForm, Controller} from "react-hook-form";
 import {Product} from "../types";
 import ProductLimitedCheckboxInput from "../inputs/ProductCheckboxInput";
 import ProductRadioInput from "../inputs/ProductRadioInput";
+import ProductQuantityInput from "../inputs/ProductQuantityInput";
 
 interface Props {
   options: Product["options"];
@@ -13,22 +14,25 @@ interface Props {
   children: (options: {
     form: JSX.Element;
     isLoading: boolean;
+    watch: (string) => any;
     submit: (e?: React.BaseSyntheticEvent<object, any, any> | undefined) => Promise<void>;
   }) => JSX.Element;
 }
 
 const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
-  const {handleSubmit: submit, formState, control, errors, getValues} = useForm<{
+  const {handleSubmit: submit, formState, control, errors, watch} = useForm<{
     options: Product["options"];
+    quantity: number;
   }>({
-    defaultValues: options.reduce((acc, optionSet, index) => {
-      return optionSet.type === "single"
-        ? {...acc, [`options[${index}].value`]: optionSet.options[0]}
-        : acc;
-    }, {}),
+    defaultValues: options.reduce(
+      (acc, optionSet, index) => {
+        return optionSet.type === "single"
+          ? {...acc, [`options[${index}].value`]: optionSet.options[0]}
+          : acc;
+      },
+      {quantity: 1},
+    ),
   });
-
-  console.log("form values", getValues());
 
   function handleSubmit(values) {
     onSubmit(
@@ -43,9 +47,10 @@ const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
   return children({
     isLoading: formState.isSubmitting,
     submit: submit(handleSubmit),
+    watch,
     form: (
       <form onSubmit={submit(handleSubmit)}>
-        <Stack overflowY="auto" spacing={4}>
+        <Stack overflowY="auto" spacing={6}>
           {options.map((option, index) => {
             switch (option.type) {
               case "single": {
@@ -106,6 +111,15 @@ const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
                 return null;
             }
           })}
+          <FormControl>
+            <FormLabel mb="2">Cantidad</FormLabel>
+            <Controller
+              as={ProductQuantityInput}
+              control={control}
+              defaultValue={1}
+              name="quantity"
+            />
+          </FormControl>
         </Stack>
       </form>
     ),
