@@ -29,7 +29,7 @@ describe("User filters", () => {
       cy.visit("/full");
 
       cy.get(`[data-test-id="filters"] select`).select("Solitario");
-      cy.get(`[id="Solitario"] [data-test-id="category-title"]`).should("be.visible");
+      cy.get(`[id="Solitario"] [data-test-id="title"]`).should("be.visible");
     });
   });
 });
