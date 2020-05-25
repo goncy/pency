@@ -1,12 +1,17 @@
 import React from "react";
-import {Box, Text, Flex, Button, useDisclosure, ButtonGroup, PseudoBox} from "@chakra-ui/core";
+import {Box, Text, Flex, useDisclosure, PseudoBox, FlexProps} from "@chakra-ui/core";
 import LazyLoad from "react-lazy-load";
 import styled from "@emotion/styled";
 
 import ProductDetails from "./ProductDetails";
 
 import {Product} from "~/product/types";
-// import {useProductCartCount} from "~/cart/hooks";
+
+interface Props extends FlexProps {
+  product: Product;
+  add: (product: Product) => void;
+  isRaised?: boolean;
+}
 
 const ProductDescription = styled(Text)`
   display: -webkit-box;
@@ -15,38 +20,11 @@ const ProductDescription = styled(Text)`
   overflow: hidden;
 `;
 
-interface Props {
-  product: Product;
-  add: (product: Product) => void;
-  remove: (id: Product["id"]) => void;
-}
-
-const ProductCard: React.FC<Props> = ({product, remove, add}) => {
-  const {id, image, description, title, price, options} = product;
-
+const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}) => {
+  const {image, description, title, price} = product;
   const {isOpen: isDetailsOpen, onToggle: toggleDetailsOpen} = useDisclosure();
 
-  // const count = useProductCartCount(id);
-  // const hasOptions = Boolean(product.options?.length);
-  // const isInCart = Boolean(count);
-
-  // function handleAdd() {
-  //   if (hasOptions) {
-  //     return toggleOptions();
-  //   }
-
-  //   return add(product);
-  // }
-
-  // function handleRemove() {
-  //   remove(product.id);
-  // }
-
-  // function handleAddWithOptions(options) {
-  //   toggleOptions();
-
-  //   return add({...product, options});
-  // }
+  // @TODO: Add isRaised (featured products)
 
   return (
     <>
@@ -73,11 +51,10 @@ const ProductCard: React.FC<Props> = ({product, remove, add}) => {
           base: 5,
           md: 0,
         }}
-        position="relative"
         transition="box-shadow 0.2s, border-color 0.2s"
         onClick={toggleDetailsOpen}
       >
-        <Flex direction="column" px={{md: 6}} py={{md: 5}}>
+        <Flex direction="column" px={{md: 6}} py={{md: 5}} {...props}>
           <Text
             display="block"
             fontSize={{
@@ -144,13 +121,12 @@ const ProductCard: React.FC<Props> = ({product, remove, add}) => {
                 cursor="pointer"
                 flexShrink={0}
                 size="100%"
-                // onClick={toggleImage}
               />
             </LazyLoad>
           )}
         </Box>
       </PseudoBox>
-      {isDetailsOpen && <ProductDetails product={product} onClose={toggleDetailsOpen} />}
+      {isDetailsOpen && <ProductDetails add={add} product={product} onClose={toggleDetailsOpen} />}
     </>
   );
 };

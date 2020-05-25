@@ -4,6 +4,7 @@ import {Image, Input, Flex, Spinner, Button} from "@chakra-ui/core";
 import storage from "~/storage/api";
 import {Quality} from "~/storage/types";
 import {useToast} from "~/hooks/toast";
+import {useTenant} from "~/tenant/hooks";
 
 interface Props {
   value?: string;
@@ -14,14 +15,15 @@ interface Props {
 const ImageInput: React.FC<Props> = ({value, onChange, quality = "low"}) => {
   const [isLoading, setLoading] = React.useState(false);
   const toast = useToast();
-
+  const { slug: tenant } = useTenant();
+  
   async function upload(file?: File) {
     if (!file) return;
 
     try {
       setLoading(true);
 
-      const url = await storage.upload(file, quality);
+      const url = await storage.upload(file, quality, tenant);
 
       onChange(url);
       setLoading(false);

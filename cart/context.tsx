@@ -89,7 +89,10 @@ const CartProvider = ({children}: Props) => {
       items,
     });
 
-    window.open(`https://wa.me/${phone}?text=${encodeURI(getMessage(message, items))}`, "_blank");
+    window.open(
+      `https://wa.me/${phone}?text=${encodeURIComponent(getMessage(message, items))}`,
+      "_blank",
+    );
   }
 
   const state: State = {items, cart};

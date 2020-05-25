@@ -39,7 +39,7 @@ export default class Pency extends App {
     /**
      * This help us fix a bug in embed browsers like
      * the Instagram one where the bottom bar chops
-     * the complete order button
+     * the review order button
      */
     require("viewport-units-buggyfill").init();
   }

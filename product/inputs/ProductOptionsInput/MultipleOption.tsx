@@ -7,6 +7,7 @@ import {MultipleOption} from "../../types/options";
 import {DEFAULT_OPTION} from "./constants";
 
 import FormControl from "~/ui/controls/FormControl";
+import SwitchInput from "~/ui/inputs/Switch";
 interface Props {
   index: number;
   error?: string;
@@ -15,6 +16,8 @@ interface Props {
 }
 
 const MultipleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
+  const [hasLimit, toggleLimit] = React.useState(Boolean(value.count));
+
   function handleChange(subindex, prop, newValue) {
     onChange(
       produce(value, (value) => {
@@ -55,8 +58,37 @@ const MultipleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
     );
   }
 
+  function handleToggleLimit(enabled: boolean) {
+    toggleLimit(enabled);
+
+    onChange(
+      produce(value, (value) => {
+        value.count = enabled ? 2 : 0;
+      }),
+    );
+  }
+
   return (
     <Stack spacing={3}>
+      <FormControl
+        error={
+          error === "optionsCount" &&
+          value.count > value.options?.length &&
+          "No puede haber menos opción que selecciones"
+        }
+        help="Cantidad de opciónes que el usuario puede seleccionar"
+        label="Límite"
+      >
+        <SwitchInput checked={hasLimit} onChange={handleToggleLimit} />
+        {hasLimit && (
+          <Input
+            placeholder="2"
+            type="number"
+            value={value.count || ""}
+            onChange={handleChangeCount}
+          />
+        )}
+      </FormControl>
       <FormControl
         isRequired
         error={error === "title" && !value.title && "Este campo es requerido"}
@@ -68,24 +100,6 @@ const MultipleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
           type="text"
           value={value.title}
           onChange={handleChangeTitle}
-        />
-      </FormControl>
-      <FormControl
-        isRequired
-        error={
-          (error === "optionsCount" &&
-            value.count > value.options?.length &&
-            "No puede haber menos opción que selecciones") ||
-          (error === "count" && !value.count && "Este campo es requerido")
-        }
-        help="Cantidad de opciónes que el usuario debe seleccionar"
-        label="Cantidad"
-      >
-        <Input
-          placeholder="2"
-          type="number"
-          value={value.count || ""}
-          onChange={handleChangeCount}
         />
       </FormControl>
       <Stack spacing={0}>

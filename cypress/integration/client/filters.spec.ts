@@ -28,9 +28,8 @@ describe("User filters", () => {
     it("should filter by category", () => {
       cy.visit("/full");
 
-      cy.get(`[data-test-id="product"]`).should("have.length", 3);
       cy.get(`[data-test-id="filters"] select`).select("Solitario");
-      cy.get(`[data-test-id="product"]`).should("have.length", 1);
+      cy.get(`[id="Solitario"] [data-test-id="category-title"]`).should("be.visible");
     });
   });
 });

@@ -11,7 +11,7 @@ interface Props {
   label?: (value: MultipleOptionItem) => string;
   valueProp?: string;
   value?: MultipleOptionItem[];
-  limit?: number;
+  limit: number;
   onChange: (value: Props["value"]) => void;
 }
 
@@ -24,7 +24,7 @@ const ProductLimitedCheckboxInput: React.FC<Props> = ({
   value = [],
   ...props
 }) => {
-  const isFull = value?.length >= limit;
+  const isFull = limit ? value?.length >= limit : false;
 
   function handleDecrease(option) {
     const index = value.findIndex((selected) => selected[valueProp] === option[valueProp]);

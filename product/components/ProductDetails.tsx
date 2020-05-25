@@ -29,11 +29,16 @@ const StyledModalContent = styled(ModalContent)`
 
 interface Props {
   product: Product;
+  add: (Product) => void;
   onClose: () => void;
 }
 
-export default function ProductDetails({product, onClose}: Props) {
+export default function ProductDetails({product, add, onClose}: Props) {
   const {image, description, title, price, options} = product;
+
+  // @TODO: Add "add and remove product" logic
+  // add(product)
+  // add({...product, options})
 
   return (
     <Modal isCentered isOpen={true} onClose={onClose}>

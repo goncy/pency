@@ -1,0 +1,20 @@
+{
+  "filters": {
+    "categories": "Categorías",
+    "search": "Buscar..."
+  },
+  "cart": {
+    "yourCart": "Tu carrito",
+    "total": "Total",
+    "complete": "Completar pedido en WhatsApp"
+  },
+  "products": {
+    "featured": "Destacados",
+    "empty": "No se encontraron productos",
+    "check": "Revisar pedido"
+  },
+  "productCard": {
+    "noImage": "Sin foto",
+    "add": "Agregar"
+  }
+}

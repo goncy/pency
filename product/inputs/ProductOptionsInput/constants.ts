@@ -21,7 +21,7 @@ export const DEFAULT_OPTIONS = {
       id: shortid.generate(),
       title: "",
       type: "multiple",
-      count: 2,
+      count: 0,
       options: [DEFAULT_OPTION.multiple, DEFAULT_OPTION.multiple],
     };
   },

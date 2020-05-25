@@ -37,7 +37,8 @@ const TenantProvider: React.FC<Props> = ({children, initialValue}) => {
       .catch(() => {
         toast({
           title: "Error",
-          description: "Hubo un error actualizando tu tienda, es esta tu tienda?",
+          description:
+            "Hubo un error actualizando tu tienda, refrescá la página e intentá nuevamente",
           status: "error",
         });
       });

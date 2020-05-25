@@ -38,8 +38,8 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
           alignItems="center"
           justifyContent="space-between"
           margin="auto"
-          maxWidth={{base: "100%", xl: "80em"}}
-          paddingX={{base: 4, xl: 12}}
+          maxWidth={{base: "100%", xl: "6xl"}}
+          paddingX={4}
           width="100%"
         >
           <Stack isInline alignItems="center" spacing={2}>
@@ -99,9 +99,10 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
         >
           <Box
             height="100%"
-            margin="0 auto"
-            maxWidth={{base: "100%", xl: "80em"}}
-            paddingX={{base: 4, xl: 12}}
+            marginX="auto"
+            marginY={0}
+            maxWidth={{base: "100%", xl: "6xl"}}
+            paddingX={4}
             width="100%"
           >
             <TabList border="none" height={16}>
@@ -116,8 +117,8 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
             </TabList>
           </Box>
         </Stack>
-        <Box margin="auto" maxWidth={{base: "100%", xl: "80em"}} width="100%">
-          <TabPanels padding={{base: 4, xl: 12}}>
+        <Box>
+          <TabPanels>
             <TabPanel>
               <ProductsAdminScreen />
             </TabPanel>
