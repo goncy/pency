@@ -24,6 +24,7 @@ const ErrorLayout: React.FC = ({children}) => (
       <meta content={META.description} name="description" />
       <meta content={META.keywords} name="keywords" />
       <meta content={META.author} name="author" />
+      <meta content={META.fbapp} property="fb:app_id" />
       <meta content="summary_large_image" name="twitter:card" />
       <meta content={META.twitter} name="twitter:site" />
       <meta content={META.twitter} name="twitter:creator" />

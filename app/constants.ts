@@ -1,6 +1,7 @@
 export const META = {
   favicon: "/favicon.ico",
   theme: "#FFFFFF",
+  fbapp: "236717644287641",
   title: "Pency - Tu tienda online",
   description: "Ahorrá tiempo y dinero aceptando pedidos online con Pency",
   appleicon: "/logo192.jpg",
