@@ -32,7 +32,7 @@
     },
     "login": {
       "signInError": "We couldn't sign in verify your credentials",
-      "recoverPassword": "Recover contraseña",
+      "recoverPassword": "Reset password",
       "signIn": "Sign in"
     }
   }

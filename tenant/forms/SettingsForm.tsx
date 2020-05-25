@@ -8,7 +8,7 @@ import {CATEGORIES} from "../constants";
 import ImageInput from "~/ui/inputs/Image";
 import ColorRadio from "~/ui/inputs/ColorRadio";
 import FormControl from "~/ui/controls/FormControl";
-import TemplateInput from "~/cart/inputs/Template";
+import TemplateInput from "~/cart/inputs/TemplateInput";
 
 interface Props {
   defaultValues?: Tenant;
