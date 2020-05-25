@@ -7,10 +7,12 @@
     "featured": "Destacado",
     "categories": "Categorías",
     "noImage": "Sin foto",
-    "add": "Agregar"
+    "add": "Agregar",
+    "goBack": "Volver"
   },
   "form": {
-    "required": "Este campo es requerido"
+    "required": "Este campo es requerido",
+    "invalidEmail": "No es un email válido"
   },
   "filters": {
     "search": "Buscar..."
@@ -24,6 +26,12 @@
     "check": "Revisar pedido"
   },
   "auth": {
+    "resetPasswordForm": {
+      "resetError": "Hubo un error al reiniciar la contraseña, intentá de nuevo mas tarde",
+      "title": "Restablecé tu contraseña",
+      "description": "Ingresá tu mail y te enviaremos intrucciones sobre como restrablecerla.",
+      "sendInstructions": "Enviar instrucciones"
+    },
     "resetPasswordSuccess": {
       "title": "Listo! Te enviamos las instrucciones",
       "description": "Te llegará un mail que tiene un link para restablecer tu contraseña. Si no aparece en algunos minutos, revisa la carpeta spam.",

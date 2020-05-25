@@ -5,6 +5,7 @@ import {useForm} from "react-hook-form";
 import api from "../../../api";
 
 import {useToast} from "~/hooks/toast";
+import {useTranslation} from "~/hooks/translation";
 
 interface FormData {
   email: string;
@@ -16,6 +17,7 @@ interface Props {
 }
 
 const ResetPasswordForm: React.FC<Props> = ({onBack, onSuccess}) => {
+  const t = useTranslation();
   const [status, setStatus] = React.useState("resolved");
   const toast = useToast();
   const {handleSubmit, errors, register} = useForm<FormData>({
@@ -32,8 +34,8 @@ const ResetPasswordForm: React.FC<Props> = ({onBack, onSuccess}) => {
       .then(onSuccess)
       .catch(() => {
         toast({
-          title: "Error",
-          description: "Hubo un error al reiniciar la contraseña, intentá de nuevo mas tarde",
+          title: t("common.error"),
+          description: t("auth.resetPasswordForm.resetError"),
           status: "error",
         });
 
@@ -45,11 +47,9 @@ const ResetPasswordForm: React.FC<Props> = ({onBack, onSuccess}) => {
     <Box as="form" width="100%" onSubmit={handleSubmit(onSubmit)}>
       <Stack marginBottom={4} spacing={2}>
         <Text fontSize="xl" fontWeight={500}>
-          Restablecé tu contraseña
+          {t("auth.resetPasswordForm.title")}
         </Text>
-        <Text color="gray.500">
-          Ingresá tu mail y te enviaremos intrucciones sobre como restrablecerla.
-        </Text>
+        <Text color="gray.500">{t("auth.resetPasswordForm.description")}</Text>
       </Stack>
       <Stack spacing={6}>
         <FormControl isInvalid={Boolean(errors.email)}>
@@ -58,18 +58,18 @@ const ResetPasswordForm: React.FC<Props> = ({onBack, onSuccess}) => {
               required: true,
               pattern: {
                 value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                message: "No es un email válido",
+                message: t("form.invalidEmail"),
               },
             })}
             autoFocus
             focusBorderColor="primary.300"
             fontSize="md"
             name="email"
-            placeholder="tumail@gmail.com"
+            placeholder="pency@gmail.com"
             size="lg"
           />
           <FormErrorMessage>
-            {(errors.email && errors.email.message) || "Este campo es requerido"}
+            {(errors.email && errors.email.message) || t("form.required")}
           </FormErrorMessage>
         </FormControl>
         <Button
@@ -79,7 +79,7 @@ const ResetPasswordForm: React.FC<Props> = ({onBack, onSuccess}) => {
           type="submit"
           variantColor="primary"
         >
-          Enviar instrucciones
+          {t("auth.resetPasswordForm.sendInstructions")}
         </Button>
         <Button
           _hover={{textDecoration: "none"}}
@@ -89,7 +89,7 @@ const ResetPasswordForm: React.FC<Props> = ({onBack, onSuccess}) => {
           variantColor="primary"
           onClick={onBack}
         >
-          Volver
+          {t("common.goBack")}
         </Button>
       </Stack>
     </Box>
