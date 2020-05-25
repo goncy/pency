@@ -19,15 +19,15 @@ const SlugIndexRoute: React.FC<Props> = ({tenant, products}) => {
   return (
     <TenantProvider initialValue={tenant}>
       <ProductProvider initialValues={products}>
-        <I18nProvider>
-          <AnalyticsProvider>
-            <CartProvider>
-              <StoreLayout tenant={tenant}>
+        <AnalyticsProvider>
+          <CartProvider>
+            <StoreLayout tenant={tenant}>
+              <I18nProvider>
                 <ProductsScreen />
-              </StoreLayout>
-            </CartProvider>
-          </AnalyticsProvider>
-        </I18nProvider>
+              </I18nProvider>
+            </StoreLayout>
+          </CartProvider>
+        </AnalyticsProvider>
       </ProductProvider>
     </TenantProvider>
   );

@@ -18,13 +18,13 @@ const AdminRoute: React.FC<Props> = ({tenant, products}) => {
   return (
     <TenantProvider initialValue={tenant}>
       <ProductProvider initialValues={products}>
-        <I18nProvider>
-          <AdminLayout>
+        <AdminLayout>
+          <I18nProvider>
             <SessionProvider>
               <AdminScreen tenant={tenant} />
             </SessionProvider>
-          </AdminLayout>
-        </I18nProvider>
+          </I18nProvider>
+        </AdminLayout>
       </ProductProvider>
     </TenantProvider>
   );
