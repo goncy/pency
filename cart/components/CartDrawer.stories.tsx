@@ -18,9 +18,7 @@ const item = () => ({
 export const open = () => (
   <CartDrawer
     isOpen
-    count={4}
     items={[item(), item()]}
-    total={faker.random.number(20000)}
     onCheckout={() => {}}
     onClose={() => {}}
     onRemove={() => {}}
