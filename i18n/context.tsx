@@ -9,19 +9,17 @@ const I18nProvider: React.FC = ({children}) => {
   const [isLoading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
-    if (process.browser && !i18n.isInitialized) {
-      i18n
-        .use(LanguageDetector)
-        .use(initReactI18next)
-        .init({
-          resources: dictionaries,
-          fallbackLng: "es",
-          interpolation: {
-            escapeValue: false,
-          },
-        })
-        .then(() => setLoading(false));
-    }
+    i18n
+      .use(LanguageDetector)
+      .use(initReactI18next)
+      .init({
+        resources: dictionaries,
+        fallbackLng: "es",
+        interpolation: {
+          escapeValue: false,
+        },
+      })
+      .then(() => setLoading(false));
   }, []);
 
   if (isLoading) return null;

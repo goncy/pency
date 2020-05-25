@@ -16,7 +16,7 @@ import CartTotalButton from "~/cart/components/CartTotalButton";
 import TenantHeader from "~/tenant/components/TenantHeader";
 
 const ProductsScreen: React.FC = () => {
-  const {add, remove, count, total} = useCart();
+  const {add, remove, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts({available: true});
@@ -160,7 +160,7 @@ const ProductsScreen: React.FC = () => {
                   </Text>
                 </Flex>
               )}
-              {Boolean(count) && (
+              {Boolean(items.length) && (
                 <Flex
                   as="nav"
                   bottom={0}
@@ -171,14 +171,20 @@ const ProductsScreen: React.FC = () => {
                   position="sticky"
                   zIndex={2}
                 >
-                  <CartTotalButton count={count} total={total} onClick={openCart} />
+                  <CartTotalButton items={items} onClick={openCart} />
                 </Flex>
               )}
             </Stack>
           </Box>
         </Flex>
       </Flex>
-      <CartDrawer isOpen={isCartOpen} onClose={closeCart} />
+      <CartDrawer
+        isOpen={isCartOpen}
+        items={items}
+        onCheckout={checkout}
+        onClose={closeCart}
+        onRemove={remove}
+      />
     </>
   );
 };

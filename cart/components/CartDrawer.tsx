@@ -15,7 +15,8 @@ import {
   IconButton,
 } from "@chakra-ui/core";
 
-import {useCart} from "../hooks";
+import {CartItem} from "../types";
+import {getTotal, getCount} from "../selectors";
 
 import WhatsAppIcon from "~/ui/icons/WhatsApp";
 import Badge from "~/ui/feedback/Badge";
@@ -23,12 +24,16 @@ import {useTranslation} from "~/hooks/translation";
 
 interface Props {
   isOpen: boolean;
-  onClose: () => void;
+  onClose: VoidFunction;
+  items: CartItem[];
+  onCheckout: VoidFunction;
+  onRemove: (id: string) => void;
 }
 
-const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
-  const {items, count, total, remove, checkout} = useCart();
+const CartDrawer: React.FC<Props> = ({items, onRemove, onCheckout, isOpen, onClose}) => {
   const t = useTranslation();
+  const total = getTotal(items);
+  const count = getCount(items);
 
   React.useEffect(() => {
     if (!count) onClose();
@@ -57,7 +62,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
                     mr={4}
                     variantColor="red"
                     width={6}
-                    onClick={() => remove(id)}
+                    onClick={() => onRemove(id)}
                   />
                   <Flex direction="column">
                     <Flex alignItems="center">
@@ -92,7 +97,7 @@ const CartDrawer: React.FC<Props> = ({isOpen, onClose}) => {
               color="white"
               variantColor="green"
               w="100%"
-              onClick={checkout}
+              onClick={onCheckout}
             >
               <WhatsAppIcon marginRight={2} />
               {t("cart.complete")}

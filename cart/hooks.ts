@@ -1,7 +1,6 @@
 import React from "react";
 
 import CartContext from "./context";
-import {getTotal, getCount} from "./selectors";
 import {CartItem} from "./types";
 
 export function useCart() {
@@ -16,8 +15,6 @@ export function useCart() {
     checkout,
     cart,
     items,
-    count: getCount(items),
-    total: getTotal(items),
   };
 }
 

@@ -1,16 +1,20 @@
 import React from "react";
 import {Flex, Button, Stack, Badge, Text} from "@chakra-ui/core";
 
+import {CartItem} from "../types";
+import {getTotal, getCount} from "../selectors";
+
 import {useTranslation} from "~/hooks/translation";
 
 interface Props {
   onClick: VoidFunction;
-  count: number;
-  total: number;
+  items: CartItem[];
 }
 
-const CartTotalButton: React.FC<Props> = ({onClick, count, total}) => {
+const CartTotalButton: React.FC<Props> = ({onClick, items}) => {
   const t = useTranslation();
+  const total = getTotal(items);
+  const count = getCount(items);
 
   return (
     <Flex
