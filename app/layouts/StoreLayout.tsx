@@ -62,6 +62,7 @@ const StoreLayout: React.FC<Props> = ({tenant, children}) => (
       <meta content={tenant.title || META.title} property="og:title" />
       <meta content={tenant.description || META.description} property="og:description" />
       <meta content={tenant.banner || META.banner?.url} property="og:image" />
+      <meta content={tenant.banner || META.banner?.url} property="og:image:secure" />
       <meta content={tenant.banner || META.banner?.url} property="og:image:url" />
       <meta content={META.banner?.format} property="og:image:type" />
       <meta content={META.banner?.width} property="og:image:width" />

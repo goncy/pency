@@ -42,6 +42,7 @@ const AdminLayout: React.FC = ({children}) => (
       <meta content={META.title} property="og:title" />
       <meta content={META.description} property="og:description" />
       <meta content={META.banner?.url} property="og:image" />
+      <meta content={META.banner?.url} property="og:image:secure" />
       <meta content={META.banner?.url} property="og:image:url" />
       <meta content={META.banner?.format} property="og:image:type" />
       <meta content={META.banner?.width} property="og:image:width" />
