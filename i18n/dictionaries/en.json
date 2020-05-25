@@ -8,10 +8,10 @@
     "categories": "Categories",
     "noImage": "No image",
     "add": "Add",
+    "goBack": "Go back",
     "help": "Help",
     "exit": "Exit",
     "products": "Products",
-    "seeShop": "See shop",
     "shop": "Shop",
     "options": "Options"
   },
@@ -20,6 +20,9 @@
   },
   "filters": {
     "search": "Search..."
+  },
+  "admin": {
+    "preview": "Preview"
   },
   "cart": {
     "yourCart": "Your cart",

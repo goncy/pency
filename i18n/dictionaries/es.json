@@ -12,7 +12,6 @@
     "help": "Ayuda",
     "exit": "Salir",
     "products": "Productos",
-    "seeShop": "Ver tienda",
     "shop": "Tienda",
     "options": "Opciones"
   },
@@ -22,6 +21,9 @@
   },
   "filters": {
     "search": "Buscar..."
+  },
+  "admin": {
+    "preview": "Ver tienda"
   },
   "cart": {
     "yourCart": "Tu carrito",

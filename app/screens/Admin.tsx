@@ -60,7 +60,7 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
                   variant="ghost"
                   variantColor="primary"
                 >
-                  {t("common.seeShop")}
+                  {t("admin.preview")}
                 </Button>
               </Link>
             </Stack>
