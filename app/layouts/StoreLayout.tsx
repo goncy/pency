@@ -57,7 +57,6 @@ const StoreLayout: React.FC<Props> = ({tenant, children}) => (
       <meta content="summary_large_image" name="twitter:card" />
       <meta content={META.twitter} name="twitter:site" />
       <meta content={META.twitter} name="twitter:creator" />
-      <meta content={META.url} property="og:url" />
       <meta content="website" property="og:type" />
       <meta content={tenant.title || META.title} property="og:title" />
       <meta content={tenant.description || META.description} property="og:description" />
