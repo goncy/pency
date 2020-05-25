@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Box, Icon, PseudoBox, Flex, Text, useDisclosure} from "@chakra-ui/core";
+import {Stack, Box, PseudoBox, Flex, useDisclosure} from "@chakra-ui/core";
 
 import ProductCard from "../components/ProductCard";
 import {useFilteredProducts} from "../hooks";
@@ -14,6 +14,8 @@ import {useTenant} from "~/tenant/hooks";
 import {useTranslation} from "~/hooks/translation";
 import CartTotalButton from "~/cart/components/CartTotalButton";
 import TenantHeader from "~/tenant/components/TenantHeader";
+import NoResults from "~/ui/feedback/NoResults";
+import Content from "~/ui/structure/Content";
 
 const ProductsScreen: React.FC = () => {
   const {add, remove, items, checkout} = useCart();
@@ -37,16 +39,7 @@ const ProductsScreen: React.FC = () => {
           overflowX="hidden"
           overflowY="auto"
         >
-          <TenantHeader
-            contentProps={{
-              margin: "auto",
-              maxWidth: {base: "100%", xl: "6xl"},
-              paddingX: 4,
-            }}
-            data-test-id="header"
-            marginBottom={4}
-            tenant={tenant}
-          />
+          <TenantHeader data-test-id="header" marginBottom={4} tenant={tenant} />
           <Box flex={1}>
             {highlight && (
               <Box
@@ -69,62 +62,38 @@ const ProductsScreen: React.FC = () => {
                 borderTopWidth={1}
                 data-test-id="filters"
               >
-                <Flex
-                  margin="auto"
-                  maxWidth={{base: "100%", xl: "6xl"}}
-                  paddingX={4}
-                  paddingY={1}
-                  width="100%"
-                >
+                <Content paddingX={4} paddingY={1}>
                   {filters}
-                </Flex>
+                </Content>
               </Flex>
             </Box>
-            <Stack margin="auto" spacing={5} width="100%">
-              {Boolean(products.length) ? (
-                <Stack
-                  margin="auto"
-                  maxWidth={{base: "100%", xl: "6xl"}}
-                  paddingX={4}
-                  spacing={{base: 5, sm: 10}}
-                  width="100%"
-                >
-                  {Boolean(featuredProducts.length) && (
-                    <Stack spacing={{base: 4, sm: 5}}>
-                      <Text fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
-                        {t("common.featured")}
-                      </Text>
-                      <ProductsCarousel zIndex={0}>
+            <Content paddingX={4}>
+              <Stack margin="auto" spacing={5} width="100%">
+                {Boolean(products.length) ? (
+                  <Stack spacing={{base: 5, sm: 10}} width="100%">
+                    {Boolean(featuredProducts.length) && (
+                      <ProductsCarousel title={t("common.featured")} zIndex={0}>
                         {featuredProducts.map((product) => (
                           <ProductCard
                             key={product.id}
                             isRaised
                             add={add}
-                            minWidth={{base: "60vw", sm: 280}}
+                            minWidth={280}
                             product={product}
                             remove={remove}
                           />
                         ))}
                       </ProductsCarousel>
-                    </Stack>
-                  )}
-                  {productsByCategory.map(([category, products]) => {
-                    return (
-                      <PseudoBox
-                        key={category}
-                        _last={{marginBottom: 4}}
-                        as="section"
-                        id={category}
-                      >
-                        <Stack spacing={{base: 4, sm: 5}}>
-                          <Text
-                            data-test-id="category-title"
-                            fontSize={{base: "lg", sm: "2xl"}}
-                            fontWeight={500}
-                          >
-                            {category}
-                          </Text>
-                          <ProductsGrid>
+                    )}
+                    {productsByCategory.map(([category, products]) => {
+                      return (
+                        <PseudoBox
+                          key={category}
+                          _last={{marginBottom: 4}}
+                          as="section"
+                          id={category}
+                        >
+                          <ProductsGrid data-test-id="category" title={category}>
                             {products.map((product) => (
                               <ProductCard
                                 key={product.id}
@@ -134,47 +103,30 @@ const ProductsScreen: React.FC = () => {
                               />
                             ))}
                           </ProductsGrid>
-                        </Stack>
-                      </PseudoBox>
-                    );
-                  })}
-                </Stack>
-              ) : (
-                <Flex
-                  alignItems="center"
-                  data-test-id="empty"
-                  direction="column"
-                  flex={1}
-                  justifyContent="center"
-                  marginTop={12}
-                  style={{marginBottom: 12}}
-                >
-                  <Icon
-                    color="gray.200"
-                    fontSize={{base: 64, sm: 96}}
-                    marginBottom={4}
-                    name="search"
-                  />
-                  <Text color="gray.300" fontSize={{base: "md", sm: "lg"}} textAlign="center">
+                        </PseudoBox>
+                      );
+                    })}
+                  </Stack>
+                ) : (
+                  <NoResults data-test-id="empty" marginTop={12} style={{marginBottom: 12}}>
                     {t("products.empty")}
-                  </Text>
-                </Flex>
-              )}
-              {Boolean(items.length) && (
-                <Flex
-                  as="nav"
-                  bottom={0}
-                  justifyContent="center"
-                  margin={{base: 0, sm: "auto"}}
-                  paddingBottom={4}
-                  paddingX={4}
-                  position="sticky"
-                  zIndex={2}
-                >
-                  <CartTotalButton items={items} onClick={openCart} />
-                </Flex>
-              )}
-            </Stack>
+                  </NoResults>
+                )}
+                {Boolean(items.length) && (
+                  <Flex
+                    as="nav"
+                    bottom={0}
+                    justifyContent="center"
+                    margin={{base: 0, sm: "auto"}}
+                    paddingBottom={4}
+                    position="sticky"
+                    zIndex={2}
+                  >
+                    <CartTotalButton items={items} onClick={openCart} />
+                  </Flex>
+                )}
+              </Stack>
+            </Content>
           </Box>
         </Flex>
       </Flex>
