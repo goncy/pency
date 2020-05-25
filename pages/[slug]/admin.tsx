@@ -3,20 +3,30 @@ import React from "react";
 import {Provider as SessionProvider} from "~/session/context";
 import fetch from "~/utils/fetch";
 import {Tenant} from "~/tenant/types";
+import {Product} from "~/product/types";
 import AdminScreen from "~/app/screens/Admin";
 import AdminLayout from "~/app/layouts/AdminLayout";
-
+import {Provider as I18nProvider} from "~/i18n/context";
+import {Provider as ProductProvider} from "~/product/context";
+import {Provider as TenantProvider} from "~/tenant/context";
 interface Props {
   tenant: Tenant;
+  products: Product[];
 }
 
-const AdminRoute: React.FC<Props> = ({tenant}) => {
+const AdminRoute: React.FC<Props> = ({tenant, products}) => {
   return (
-    <AdminLayout>
-      <SessionProvider>
-        <AdminScreen tenant={tenant} />
-      </SessionProvider>
-    </AdminLayout>
+    <TenantProvider initialValue={tenant}>
+      <ProductProvider initialValues={products}>
+        <I18nProvider>
+          <AdminLayout>
+            <SessionProvider>
+              <AdminScreen tenant={tenant} />
+            </SessionProvider>
+          </AdminLayout>
+        </I18nProvider>
+      </ProductProvider>
+    </TenantProvider>
   );
 };
 

@@ -3,17 +3,33 @@ import React from "react";
 import fetch from "~/utils/fetch";
 import ProductsScreen from "~/product/screens/Products";
 import {Tenant} from "~/tenant/types";
+import {Product} from "~/product/types";
 import StoreLayout from "~/app/layouts/StoreLayout";
-
+import {Provider as I18nProvider} from "~/i18n/context";
+import {Provider as CartProvider} from "~/cart/context";
+import {Provider as AnalyticsProvider} from "~/analytics/context";
+import {Provider as ProductProvider} from "~/product/context";
+import {Provider as TenantProvider} from "~/tenant/context";
 interface Props {
   tenant: Tenant;
+  products: Product[];
 }
 
-const SlugIndexRoute: React.FC<Props> = ({tenant}) => {
+const SlugIndexRoute: React.FC<Props> = ({tenant, products}) => {
   return (
-    <StoreLayout tenant={tenant}>
-      <ProductsScreen />
-    </StoreLayout>
+    <TenantProvider initialValue={tenant}>
+      <ProductProvider initialValues={products}>
+        <I18nProvider>
+          <AnalyticsProvider>
+            <CartProvider>
+              <StoreLayout tenant={tenant}>
+                <ProductsScreen />
+              </StoreLayout>
+            </CartProvider>
+          </AnalyticsProvider>
+        </I18nProvider>
+      </ProductProvider>
+    </TenantProvider>
   );
 };
 
