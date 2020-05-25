@@ -8,7 +8,13 @@
     "categories": "Categorías",
     "noImage": "Sin foto",
     "add": "Agregar",
-    "goBack": "Volver"
+    "goBack": "Volver",
+    "help": "Ayuda",
+    "exit": "Salir",
+    "products": "Productos",
+    "seeShop": "Ver tienda",
+    "shop": "Tienda",
+    "options": "Opciones"
   },
   "form": {
     "required": "Este campo es requerido",

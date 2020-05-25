@@ -7,7 +7,13 @@
     "featured": "Featured",
     "categories": "Categories",
     "noImage": "No image",
-    "add": "Add"
+    "add": "Add",
+    "help": "Help",
+    "exit": "Exit",
+    "products": "Products",
+    "seeShop": "See shop",
+    "shop": "Shop",
+    "options": "Options"
   },
   "form": {
     "required": "This field is required"
