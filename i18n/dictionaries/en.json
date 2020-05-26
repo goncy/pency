@@ -7,13 +7,22 @@
     "featured": "Featured",
     "categories": "Categories",
     "noImage": "No image",
-    "add": "Add"
+    "add": "Add",
+    "goBack": "Go back",
+    "help": "Help",
+    "exit": "Exit",
+    "products": "Products",
+    "shop": "Shop",
+    "options": "Options"
   },
   "form": {
     "required": "This field is required"
   },
   "filters": {
     "search": "Search..."
+  },
+  "admin": {
+    "preview": "Preview"
   },
   "cart": {
     "yourCart": "Your cart",

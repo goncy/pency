@@ -10,12 +10,14 @@ import {groupBy} from "~/selectors/group";
 import PlusIcon from "~/ui/icons/Plus";
 import IconButton from "~/ui/controls/IconButton";
 import Content from "~/ui/structure/Content";
+import {useTranslation} from "~/hooks/translation";
 
 const AdminScreen: React.FC = () => {
   const [selected, setSelected] = React.useState<Partial<Product> | undefined>(undefined);
   const {products, filters} = useFilteredProducts();
   const {update, remove, create} = useProductActions();
   const productsByCategory = groupBy(products, (product) => product.category);
+  const t = useTranslation();
 
   async function handleSubmit(product: Product) {
     if (product.id) {
@@ -59,7 +61,7 @@ const AdminScreen: React.FC = () => {
                   variantColor="primary"
                   onClick={onCreate}
                 >
-                  Agregar
+                  {t("common.add")}
                 </IconButton>
               </Flex>
             </Content>

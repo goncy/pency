@@ -24,6 +24,8 @@ import LogOutIcon from "~/ui/icons/LogOut";
 import IconButton from "~/ui/controls/IconButton";
 import {useSession} from "~/session/hooks";
 import Content from "~/ui/structure/Content";
+import {useTranslation} from "~/hooks/translation";
+
 
 interface Props {
   tenant: Tenant;
@@ -31,6 +33,7 @@ interface Props {
 
 const AdminScreen: React.FC<Props> = ({tenant}) => {
   const {signOut} = useSession();
+  const t = useTranslation();
 
   return (
     <Box as="main" backgroundColor="white" overflowY="auto">
@@ -57,7 +60,7 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
                   variant="ghost"
                   variantColor="primary"
                 >
-                  Ver tienda
+                  {t("admin.preview")}
                 </Button>
               </Link>
             </Stack>
@@ -67,7 +70,7 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
                 lineHeight="normal"
               >
                 <IconButton color="black" fontWeight="500" leftIcon={HelpCircleIcon} variant="link">
-                  Ayuda
+                {t("common.help")}
                 </IconButton>
               </Link>
               <IconButton
@@ -77,7 +80,7 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
                 variant="link"
                 onClick={signOut}
               >
-                Salir
+                {t("common.exit")}
               </IconButton>
             </Stack>
           </Flex>
@@ -98,11 +101,11 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
               <TabList border="none" height={16}>
                 <Tab fontSize="md" fontWeight={500}>
                   <BoxIcon marginRight={2} />
-                  <Text>Productos</Text>
+                  <Text>{t("common.products")}</Text>
                 </Tab>
                 <Tab fontSize="md" fontWeight={500}>
                   <SlidersIcon marginRight={2} />
-                  <Text>Tienda</Text>
+                  <Text>{t("common.shop")}</Text>
                 </Tab>
               </TabList>
             </Box>
