@@ -5,7 +5,6 @@ export interface CartItem {
   product: Product["id"];
   count: number;
   category: Product["category"];
-  subcategory: Product["subcategory"];
   price: Product["price"];
   title: Product["title"];
   description: Product["description"];

@@ -20,11 +20,11 @@ export interface MultipleOption {
 export interface SingleOptionItem {
   id: string;
   title: string;
-  price?: number;
+  price: number;
 }
 
 export interface MultipleOptionItem {
   id: string;
   title: string;
-  price?: number;
+  price: number;
 }

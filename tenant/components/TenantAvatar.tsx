@@ -16,7 +16,7 @@ const TenantAvatar: React.FC<Props> = ({logo, title, ...props}) => {
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
       backgroundSize="contain"
-      boxShadow="inset 0 0 1px rgba(0,0,0,0.4)"
+      boxShadow="inset 0 0 1px rgba(0,0,0,0.3)"
       height={{base: 24, sm: 32}}
       minHeight={{base: 24, sm: 32}}
       minWidth={{base: 24, sm: 32}}

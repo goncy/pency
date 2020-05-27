@@ -5,6 +5,7 @@ import {
   FormHelperText,
   FormErrorMessage,
   FormControlProps,
+  Text,
 } from "@chakra-ui/core";
 
 interface Props extends FormControlProps {
@@ -14,9 +15,35 @@ interface Props extends FormControlProps {
   label?: string;
 }
 
-const FormControl: React.FC<Props> = ({error, name, label, help, children, ...props}) => (
+const FormControl: React.FC<Props> = ({
+  error,
+  name,
+  label,
+  help,
+  children,
+  isRequired,
+  ...props
+}) => (
   <ChakraFormControl isInvalid={Boolean(error)} {...props}>
-    {label && <FormLabel htmlFor={name}>{label}</FormLabel>}
+    {label && (
+      <FormLabel display="flex" htmlFor={name}>
+        <Text fontSize="sm">{label}</Text>
+        {isRequired ? (
+          <Text
+            backgroundColor="primary.50"
+            color="primary.500"
+            height={3}
+            lineHeight="0.5rem"
+            marginLeft={1}
+            marginTop={1}
+            padding={1}
+            rounded="sm"
+          >
+            *
+          </Text>
+        ) : null}
+      </FormLabel>
+    )}
     {children}
     {help && !error && <FormHelperText>{help}</FormHelperText>}
     <FormErrorMessage>{error}</FormErrorMessage>

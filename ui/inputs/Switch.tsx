@@ -11,7 +11,15 @@ const SwitchInput: React.FC<Props> = ({checked, onChange, ...props}) => {
     onChange(event.target.checked);
   }
 
-  return <Switch isChecked={checked} value={checked} onChange={handleChange} {...props} />;
+  return (
+    <Switch
+      isChecked={checked}
+      lineHeight="normal"
+      value={checked}
+      onChange={handleChange}
+      {...props}
+    />
+  );
 };
 
 export default SwitchInput;

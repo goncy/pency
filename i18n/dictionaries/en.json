@@ -22,7 +22,8 @@
     "search": "Search..."
   },
   "admin": {
-    "preview": "Preview"
+    "preview": "Preview",
+    "empty": "No products found"
   },
   "cart": {
     "yourCart": "Your cart",

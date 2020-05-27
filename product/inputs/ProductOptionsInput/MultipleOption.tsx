@@ -96,7 +96,7 @@ const MultipleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
         label="Título"
       >
         <Input
-          placeholder="Título (ej: Salsa)"
+          placeholder="Adicionales"
           type="text"
           value={value.title}
           onChange={handleChangeTitle}
@@ -113,7 +113,7 @@ const MultipleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
               >
                 <Input
                   autoFocus
-                  placeholder="Título"
+                  placeholder="Queso cheddar"
                   value={option.title}
                   onChange={(event) => handleChange(subindex, "title", event.target.value)}
                 />
@@ -149,8 +149,7 @@ const MultipleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
           ))}
         </Stack>
         <FormHelperText>
-          El precio indicado se sumará al valor base del producto, si la opción no modifica el
-          precio, dejá 0.
+          El precio que ingreses a la opción se sumará al valor base del producto.
         </FormHelperText>
       </Stack>
       <Button size="sm" variant="ghost" variantColor="primary" onClick={handleAdd}>

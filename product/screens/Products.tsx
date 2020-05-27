@@ -108,9 +108,7 @@ const ProductsScreen: React.FC = () => {
                     })}
                   </Stack>
                 ) : (
-                  <NoResults data-test-id="empty" marginTop={12} style={{marginBottom: 12}}>
-                    {t("products.empty")}
-                  </NoResults>
+                  <NoResults data-test-id="empty">{t("products.empty")}</NoResults>
                 )}
                 {Boolean(items.length) && (
                   <Flex

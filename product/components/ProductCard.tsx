@@ -72,9 +72,6 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
               backgroundImage={`url(${image})`}
               backgroundPosition="center"
               backgroundSize="cover"
-              borderBottom={1}
-              borderBottomStyle="solid"
-              borderColor="gray.100"
               cursor="pointer"
               flexShrink={0}
               height={48}
