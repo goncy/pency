@@ -11,6 +11,6 @@ export default (overrides: Partial<Tenant> = {}) => ({
   banner: "//placehold.it/256x128",
   title: faker.company.companyName(),
   description: faker.lorem.lines(2),
-  phone: faker.phone.phoneNumber("##########"),
+  phone: Number(faker.phone.phoneNumber("##########")),
   ...overrides,
 });

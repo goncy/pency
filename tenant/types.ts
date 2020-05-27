@@ -5,7 +5,7 @@ export interface Tenant {
   slug: string;
   category: string;
   color: Exclude<VariantColor, "black" | "white">;
-  phone: string;
+  phone: number;
   logo?: string;
   title?: string;
   instagram?: string;
