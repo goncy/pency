@@ -56,12 +56,7 @@ const SingleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
         help="Tip: Usá una sola palabra"
         label="Título"
       >
-        <Input
-          placeholder="Título (ej: Salsa)"
-          type="text"
-          value={value.title}
-          onChange={handleChangeTitle}
-        />
+        <Input placeholder="Colores" type="text" value={value.title} onChange={handleChangeTitle} />
       </FormControl>
       <Stack spacing={0}>
         {value.options.length && <FormLabel marginBottom={0}>Sub opciones</FormLabel>}
@@ -110,8 +105,7 @@ const SingleOptionInput: React.FC<Props> = ({error, value, onChange}) => {
           ))}
         </Stack>
         <FormHelperText>
-          El precio indicado se sumará al valor base del producto, si la opción no modifica el
-          precio, dejá 0.
+          El precio que ingreses a la opción se sumará al valor base del producto.
         </FormHelperText>
       </Stack>
       <Button size="sm" variant="ghost" variantColor="primary" onClick={handleAdd}>

@@ -1,21 +1,27 @@
 import React from "react";
 import faker from "faker";
 
+import productMock from "../../mock";
+import {SingleOption} from "../../types";
+
 import ProductsList from "./ProductsList";
 
-const product = () => ({
+const option = (): SingleOption => ({
+  type: "single",
   id: faker.random.uuid(),
-  category: faker.commerce.department(),
-  image: `https://placehold.it/320x240`,
-  description: faker.lorem.paragraph(),
   title: faker.commerce.productName(),
-  price: Number(faker.commerce.price()),
-  available: true,
+  options: [
+    {
+      id: faker.random.uuid(),
+      title: faker.commerce.productName(),
+      price: Number(faker.commerce.price()),
+    },
+  ],
 });
 
 export const full = () => (
   <ProductsList
-    products={[product(), product(), {...product(), image: null}]}
+    products={[productMock(), productMock({options: [option()]}), productMock({image: null})]}
     width="100%"
     onEdit={() => {}}
     onRemove={() => Promise.resolve()}

@@ -2,12 +2,12 @@ import React from "react";
 import {
   DrawerCloseButton,
   DrawerBody,
-  DrawerHeader,
   DrawerContent,
   DrawerOverlay,
-  DrawerFooter,
+  Text,
   Drawer,
   Button,
+  Stack,
 } from "@chakra-ui/core";
 
 import {Product} from "../types";
@@ -16,26 +16,34 @@ import ProductForm from "../forms/ProductForm";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  categories: Product["category"][];
   onSubmit: (values: Omit<Product, "id">) => void;
   defaultValues?: Partial<Product>;
 }
 
-const ProductDrawer: React.FC<Props> = ({isOpen, defaultValues, onClose, onSubmit}) => {
+const ProductDrawer: React.FC<Props> = ({categories, isOpen, defaultValues, onClose, onSubmit}) => {
   const isNew = Boolean(!defaultValues?.id);
 
   return (
-    <Drawer id="product" isOpen={isOpen} placement="right" size="md" onClose={onClose} closeOnOverlayClick={false}>
+    <Drawer
+      closeOnOverlayClick={false}
+      id="product"
+      isOpen={isOpen}
+      placement="right"
+      size="md"
+      onClose={onClose}
+    >
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerCloseButton right="8px" top="8px" />
-        <DrawerHeader padding={4}>{isNew ? "Agregar" : "Editar"} producto</DrawerHeader>
-        <ProductForm defaultValues={defaultValues} onSubmit={onSubmit}>
+        <DrawerCloseButton right="12px" top="12px" />
+        <ProductForm categories={categories} defaultValues={defaultValues} onSubmit={onSubmit}>
           {({form, submit, isLoading}) => (
-            <>
-              <DrawerBody overflowY="auto" padding={4}>
+            <DrawerBody overflowY="auto" padding={0}>
+              <Stack shouldWrapChildren marginX={{base: 4, sm: 12}} marginY={8} spacing={4}>
+                <Text fontSize="2xl" fontWeight={500}>
+                  {isNew ? "Agregar" : "Editar"} producto
+                </Text>
                 {form}
-              </DrawerBody>
-              <DrawerFooter padding={4}>
                 <Button
                   backgroundColor="primary.500"
                   color="white"
@@ -50,10 +58,10 @@ const ProductDrawer: React.FC<Props> = ({isOpen, defaultValues, onClose, onSubmi
                     submit();
                   }}
                 >
-                  {isNew ? "Agregar" : "Guardar"}
+                  {isNew ? "Agregar producto" : "Editar producto"}
                 </Button>
-              </DrawerFooter>
-            </>
+              </Stack>
+            </DrawerBody>
           )}
         </ProductForm>
       </DrawerContent>

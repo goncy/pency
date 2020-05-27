@@ -1,4 +1,5 @@
 import React from "react";
+import faker from "faker";
 import { configure } from '@storybook/react';
 import { addDecorator } from '@storybook/react';
 
@@ -8,12 +9,17 @@ import { Provider as TenantProvider } from "~/tenant/context";
 import { Provider as CartProvider } from "~/cart/context";
 import { Provider as AnalyticsProvider } from "~/analytics/context";
 import { Provider as I18nProvider } from "~/i18n/context";
+import productMock from "~/product/mock"
+import tenantMock from "~/tenant/mock"
+
+const PRODUCTS = new Array(20).fill(true).map(productMock);
+const TENANT = tenantMock()
 
 addDecorator(storyFn => (
     <ThemeProvider>
       <CSSReset />
-      <TenantProvider initialValue={{color: "cyan"}}>
-        <ProductProvider initialValues={[]}>
+      <TenantProvider initialValue={TENANT}>
+        <ProductProvider initialValues={PRODUCTS}>
           <AnalyticsProvider>
             <CartProvider>
               <I18nProvider>

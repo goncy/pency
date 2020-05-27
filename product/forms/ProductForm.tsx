@@ -1,26 +1,20 @@
 import React from "react";
 import {useForm, Controller, FormContext} from "react-hook-form";
-import {
-  FormControl,
-  FormLabel,
-  Input,
-  Flex,
-  FormErrorMessage,
-  Stack,
-  Select,
-} from "@chakra-ui/core";
+import {Input, Flex, Stack, Select, Textarea, Text, Divider} from "@chakra-ui/core";
 
 import {Product} from "../types";
-import {useProductCategories} from "../hooks";
 import ProductOptionsInput, {
   validator as ProductOptionsInputValidator,
 } from "../inputs/ProductOptionsInput";
 
 import ImageInput from "~/ui/inputs/Image";
 import SwitchInput from "~/ui/inputs/Switch";
+import Price from "~/ui/inputs/Price";
+import FormControl from "~/ui/controls/FormControl";
 
 interface Props {
   defaultValues?: Partial<Product>;
+  categories: Product["category"][];
   onSubmit: (values: Partial<Product>) => void;
   children: (options: {
     form: JSX.Element;
@@ -29,8 +23,7 @@ interface Props {
   }) => JSX.Element;
 }
 
-const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
-  const {categories, subcategories} = useProductCategories();
+const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, categories}) => {
   const form = useForm<Partial<Product>>({defaultValues});
   const {handleSubmit: submit, errors, register, formState, setValue, control} = form;
 
@@ -38,7 +31,6 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
     const product = {...defaultValues, ...values};
 
     product.category = product.category.trim();
-    product.subcategory = product.subcategory?.trim();
     product.price = Number(product.price);
     product.options = product.options || [];
 
@@ -50,11 +42,6 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
     event.target.value = "";
   }
 
-  function setSubCategory(event: React.ChangeEvent<HTMLSelectElement>) {
-    setValue("subcategory", event.target.value);
-    event.target.value = "";
-  }
-
   return children({
     isLoading: formState.isSubmitting,
     submit: submit(handleSubmit),
@@ -62,78 +49,120 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
       <FormContext {...form}>
         <form onSubmit={submit(handleSubmit)}>
           <Stack spacing={4}>
-            <FormControl isRequired isInvalid={Boolean(errors.title)}>
-              <FormLabel htmlFor="title">Título</FormLabel>
-              <Input ref={register({required: true})} autoFocus name="title" placeholder="Título" />
-              <FormErrorMessage>
-                {(errors.title && errors.title.message) || "Este campo es requerido"}
-              </FormErrorMessage>
+            <FormControl
+              error={errors.image?.message}
+              isInvalid={Boolean(errors.image)}
+              name="image"
+            >
+              <Controller
+                as={ImageInput}
+                control={control}
+                defaultValue=""
+                name="image"
+                quality="low"
+              />
             </FormControl>
-            <FormControl>
-              <FormLabel htmlFor="description">Descripción</FormLabel>
-              <Input ref={register} name="description" placeholder="Descripción" />
-              <FormErrorMessage>
-                {errors.description && errors.description.message}
-              </FormErrorMessage>
-            </FormControl>
-            <FormControl isRequired isInvalid={Boolean(errors.category)}>
-              <FormLabel htmlFor="category">Categoría</FormLabel>
-              <Flex>
-                <Input ref={register({required: true})} name="category" placeholder="Categoría" />
-                <Select
-                  data-test-id="category-select"
-                  flexShrink={2}
-                  marginLeft={4}
-                  onChange={setCategory}
-                >
-                  <option value="">Cargar</option>
-                  {categories.map((category) => (
-                    <option key={category} value={category}>
-                      {category}
-                    </option>
-                  ))}
-                </Select>
-              </Flex>
-              <FormErrorMessage>
-                {(errors.category && errors.category.message) || "Este campo es requerido"}
-              </FormErrorMessage>
-            </FormControl>
-            <FormControl isInvalid={Boolean(errors.subcategory)} mb={4}>
-              <FormLabel htmlFor="subcategory">Sub categoría</FormLabel>
-              <Flex>
-                <Input ref={register} name="subcategory" placeholder="Sub categoría" />
-                <Select
-                  data-test-id="subcategory-select"
-                  flexShrink={2}
-                  marginLeft={4}
-                  onChange={setSubCategory}
-                >
-                  <option value="">Cargar</option>
-                  {subcategories.map((subcategory) => (
-                    <option key={subcategory} value={subcategory}>
-                      {subcategory}
-                    </option>
-                  ))}
-                </Select>
-              </Flex>
-              <FormErrorMessage>
-                {(errors.subcategory && errors.subcategory.message) || "Este campo es requerido"}
-              </FormErrorMessage>
-            </FormControl>
-            <FormControl isRequired isInvalid={Boolean(errors.price)} mb={4}>
-              <FormLabel htmlFor="price">Precio</FormLabel>
+            <FormControl
+              isRequired
+              error={errors.title?.message}
+              help="Ej: Campera de cuero con apliques de piedras"
+              label="Nombre"
+              name="title"
+            >
               <Input
+                ref={register({required: true})}
+                autoFocus
+                name="title"
+                placeholder="iPhone XS Max"
+                variant="filled"
+              />
+            </FormControl>
+            <FormControl
+              error={errors.description?.message}
+              help="Máximo 256 caracteres"
+              label="Descripción"
+              name="description"
+            >
+              <Textarea
+                ref={register({maxLength: 256})}
+                maxLength={256}
+                name="description"
+                placeholder="64GB mem. Silver."
+                variant="filled"
+              />
+            </FormControl>
+            <FormControl isRequired error={errors.price?.message} label="Precio" name="price">
+              <Price
                 ref={register({required: true})}
                 name="price"
                 placeholder="Precio"
-                type="number"
+                variant="filled"
               />
-              <FormErrorMessage>
-                {(errors.price && errors.price.message) || "Este campo es requerido"}
-              </FormErrorMessage>
             </FormControl>
-            <FormControl mb={4}>
-              <FormLabel htmlFor="options">Opciones</FormLabel>
+            <FormControl
+              isRequired
+              error={errors.category?.message}
+              help="Ayudá a tus clientes a encontrar más rápido tus productos."
+              label="Categoría"
+              name="category"
+            >
+              <Flex>
+                <Input
+                  ref={register({required: true})}
+                  name="category"
+                  placeholder="Categoría"
+                  variant="filled"
+                />
+                {Boolean(categories.length) && (
+                  <Select
+                    data-test-id="category-select"
+                    flexShrink={2}
+                    marginLeft={4}
+                    variant="filled"
+                    onChange={setCategory}
+                  >
+                    <option value="">Cargar</option>
+                    {categories.map((category) => (
+                      <option key={category} value={category}>
+                        {category}
+                      </option>
+                    ))}
+                  </Select>
+                )}
+              </Flex>
+            </FormControl>
+            <Stack isInline spacing={8}>
+              <FormControl error={errors.featured?.message} name="featured">
+                <Stack isInline alignItems="center">
+                  <Controller
+                    as={SwitchInput}
+                    color="primary"
+                    control={control}
+                    defaultValue={false}
+                    display="block"
+                    name="featured"
+                  />
+                  <Text>Destacar</Text>
+                </Stack>
+              </FormControl>
+              <FormControl error={errors.available?.message} name="available">
+                <Stack isInline alignItems="center">
+                  <Controller
+                    as={SwitchInput}
+                    color="primary"
+                    control={control}
+                    display="block"
+                    name="available"
+                  />
+                  <Text>En stock</Text>
+                </Stack>
+              </FormControl>
+            </Stack>
+            <Divider />
+            <Text fontSize="xl" fontWeight={500}>
+              Variantes
+            </Text>
+            <FormControl name="options">
               <Controller
                 as={ProductOptionsInput}
                 control={control}
@@ -142,44 +171,6 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
                   validate: ProductOptionsInputValidator,
                 }}
               />
-            </FormControl>
-            <FormControl isInvalid={Boolean(errors.image)}>
-              <FormLabel htmlFor="image">Imágen</FormLabel>
-              <Controller
-                as={ImageInput}
-                control={control}
-                defaultValue=""
-                name="image"
-                quality="low"
-              />
-              <FormErrorMessage>{errors.image && errors.image.message}</FormErrorMessage>
-            </FormControl>
-            <FormControl isInvalid={Boolean(errors.available)} mb={4}>
-              <FormLabel htmlFor="available">En stock</FormLabel>
-              <Controller
-                as={SwitchInput}
-                control={control}
-                display="block"
-                name="available"
-                size="lg"
-              />
-              <FormErrorMessage>
-                {(errors.available && errors.available.message) || "Este campo es requerido"}
-              </FormErrorMessage>
-            </FormControl>
-            <FormControl isInvalid={Boolean(errors.featured)} mb={4}>
-              <FormLabel htmlFor="featured">Destacado</FormLabel>
-              <Controller
-                as={SwitchInput}
-                control={control}
-                defaultValue={false}
-                display="block"
-                name="featured"
-                size="lg"
-              />
-              <FormErrorMessage>
-                {(errors.featured && errors.featured.message) || "Este campo es requerido"}
-              </FormErrorMessage>
             </FormControl>
           </Stack>
         </form>

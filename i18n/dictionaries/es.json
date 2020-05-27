@@ -23,7 +23,8 @@
     "search": "Buscar..."
   },
   "admin": {
-    "preview": "Ver tienda"
+    "preview": "Ver tienda",
+    "empty": "No se encontraron productos"
   },
   "cart": {
     "yourCart": "Tu carrito",

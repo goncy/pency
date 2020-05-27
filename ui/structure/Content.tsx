@@ -1,10 +1,10 @@
 import React from "react";
-import {Flex, FlexProps} from "@chakra-ui/core";
+import {Box, BoxProps} from "@chakra-ui/core";
 
-const Content: React.FC<FlexProps> = ({children, ...props}) => (
-  <Flex margin="auto" maxWidth={{base: "100%", xl: "6xl"}} width="100%" {...props}>
+const Content: React.FC<BoxProps> = ({children, ...props}) => (
+  <Box margin="auto" maxWidth={{base: "100%", xl: "6xl"}} width="100%" {...props}>
     {children}
-  </Flex>
+  </Box>
 );
 
 export default Content;
