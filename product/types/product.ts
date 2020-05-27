@@ -5,7 +5,6 @@ export interface Product {
   title: string;
   description?: string;
   category: string;
-  subcategory?: string;
   image?: string | undefined;
   price: number;
   available: boolean;

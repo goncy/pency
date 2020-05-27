@@ -28,10 +28,7 @@ export function useProductActions() {
 export function useProductCategories() {
   const products = useProducts();
 
-  return {
-    categories: sort(extractUniqueBy(products, (product) => product.category)),
-    subcategories: sort(extractUniqueBy(products, (product) => product.subcategory)),
-  };
+  return sort(extractUniqueBy(products, (product) => product.category));
 }
 
 export function useFilteredProducts(filters: Partial<Product> = {}) {

@@ -28,8 +28,14 @@ const ProductRow: React.FC<Props> = ({onEdit, onRemove, ...product}) => {
   }
 
   return (
-    <Box as="tr" borderBottomWidth={1} borderTopColor="gray.300">
-      <Box as="td" cursor="pointer" maxWidth="200px" onClick={() => onEdit(product)}>
+    <Box
+      as="tr"
+      borderBottomWidth={1}
+      borderTopColor="gray.300"
+      cursor="pointer"
+      onClick={() => onEdit(product)}
+    >
+      <Box as="td" maxWidth="200px">
         <Flex alignItems="center" marginRight={{base: 4, md: 12}} paddingY={2}>
           <LazyLoad height={48} offsetVertical={128} width={48}>
             <AspectRatioBox maxWidth={12} ratio={1} width="100%">
@@ -54,11 +60,6 @@ const ProductRow: React.FC<Props> = ({onEdit, onRemove, ...product}) => {
       <Box as="td" display={{base: "none", md: "table-cell"}} width="100px">
         <Text fontWeight="500" marginRight={{base: 4, md: 12}} textAlign="left">
           ${product.price}
-        </Text>
-      </Box>
-      <Box as="td" display={{base: "none", md: "table-cell"}} width="200px">
-        <Text marginRight={{base: 4, md: 12}} textAlign="left">
-          {product.subcategory}
         </Text>
       </Box>
       <Box as="td" display={{base: "none", md: "table-cell"}} width="200px">

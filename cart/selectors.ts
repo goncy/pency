@@ -15,15 +15,8 @@ export function getSummary(items: CartItem[]): string {
 export function getItems(items: CartItem[]): string {
   return items
     .map(
-      ({category, subcategory, title, options, price, count}) =>
-        `* ${[
-          `[${category}]`,
-          subcategory ? `[${subcategory}]` : "",
-          title,
-          options,
-          count > 1 ? `(X${count})` : "",
-          `$${price * count}`,
-        ]
+      ({category, title, options, price, count}) =>
+        `* ${[`[${category}]`, title, options, count > 1 ? `(X${count})` : "", `$${price * count}`]
           .filter(Boolean)
           .join(" - ")}`,
     )
