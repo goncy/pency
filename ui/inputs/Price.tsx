@@ -1,24 +1,36 @@
 import React from "react";
 import {InputGroup, InputLeftElement, Input, InputGroupProps, InputProps} from "@chakra-ui/core";
 
-interface Props extends Omit<InputGroupProps, "children"> {
+interface Props extends Omit<InputGroupProps, "children" | "onChange"> {
   name?: InputProps["name"];
   placeholder?: InputProps["placeholder"];
   variant?: InputProps["variant"];
+  value?: InputProps["value"];
+  onChange?: InputProps["onChange"];
 }
 
-const Price: React.FC<Props> = React.forwardRef(({name, placeholder, ...props}, ref) => (
-  <InputGroup {...props}>
-    <InputLeftElement children="$" backgroundColor="transparent" paddingX={0} />
-    <Input
-      ref={ref}
-      name={name}
-      placeholder={placeholder}
-      style={{paddingLeft: "2rem"}}
-      type="number"
-      variant="filled"
-    />
-  </InputGroup>
-));
+const Price: React.FC<Props> = React.forwardRef(
+  ({name, value, placeholder, onChange, rounded, ...props}, ref) => (
+    <InputGroup {...props}>
+      <InputLeftElement
+        children="$"
+        backgroundColor="transparent"
+        paddingX={0}
+        pointerEvents="none"
+      />
+      <Input
+        ref={ref}
+        name={name}
+        placeholder={placeholder}
+        rounded={rounded}
+        style={{paddingLeft: "2rem"}}
+        type="number"
+        value={value}
+        variant="filled"
+        onChange={(event) => onChange && onChange(event)}
+      />
+    </InputGroup>
+  ),
+);
 
 export default Price;

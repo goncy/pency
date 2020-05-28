@@ -1,29 +1,12 @@
-export type Option = SingleOption | MultipleOption;
-
-export interface SingleOption {
-  type: "single";
-  id: string;
-  title: string;
-  options: SingleOptionItem[];
-  value?: SingleOptionItem;
-}
-
-export interface MultipleOption {
-  type: "multiple";
+export interface Variant {
   id: string;
   title: string;
   count: number;
-  options: MultipleOptionItem[];
-  value?: MultipleOptionItem[];
+  options: Option[];
+  value?: Option[];
 }
 
-export interface SingleOptionItem {
-  id: string;
-  title: string;
-  price: number;
-}
-
-export interface MultipleOptionItem {
+export interface Option {
   id: string;
   title: string;
   price: number;

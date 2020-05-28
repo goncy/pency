@@ -9,6 +9,6 @@ export default {title: "ProductCard"};
 
 export const noData = () => (
   <Box maxWidth="340px">
-    <ProductCard add={() => {}} product={productMock()} remove={() => {}} />
+    <ProductCard add={() => {}} product={productMock.withoutVariants} remove={() => {}} />
   </Box>
 );

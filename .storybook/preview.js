@@ -12,8 +12,8 @@ import { Provider as I18nProvider } from "~/i18n/context";
 import productMock from "~/product/mock"
 import tenantMock from "~/tenant/mock"
 
-const PRODUCTS = new Array(20).fill(true).map(productMock);
-const TENANT = tenantMock()
+const PRODUCTS = new Array(20).fill(true).map(() => productMock.withoutVariants);
+const TENANT = tenantMock.full;
 
 addDecorator(storyFn => (
     <ThemeProvider>

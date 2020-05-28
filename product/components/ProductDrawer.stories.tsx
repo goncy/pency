@@ -10,7 +10,7 @@ export const edit = () => (
   <ProductDrawer
     isOpen
     categories={CATEGORIES}
-    defaultValues={productMock()}
+    defaultValues={productMock.full}
     onClose={() => {}}
     onSubmit={() => {}}
   />
