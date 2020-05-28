@@ -70,7 +70,6 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error, onChange}) =>
             help="Utilizá solo 1 palabra. Se mostrará: Eligir color"
           >
             <ClearableTextField
-              autoFocus
               placeholder="Adicionales"
               value={option.title}
               onChange={(event) => handleTitleChange(index, event.target.value)}
