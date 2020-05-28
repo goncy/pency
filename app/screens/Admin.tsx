@@ -26,7 +26,6 @@ import {useSession} from "~/session/hooks";
 import Content from "~/ui/structure/Content";
 import {useTranslation} from "~/hooks/translation";
 
-
 interface Props {
   tenant: Tenant;
 }
@@ -69,11 +68,18 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
                 href={`mailto:${process.env.MANTAINER_EMAIL}?subject=Consulta por la tienda`}
                 lineHeight="normal"
               >
-                <IconButton color="black" fontWeight="500" leftIcon={HelpCircleIcon} variant="link">
-                {t("common.help")}
+                <IconButton
+                  toggleOnBase
+                  color="black"
+                  fontWeight="500"
+                  leftIcon={HelpCircleIcon}
+                  variant="link"
+                >
+                  {t("common.help")}
                 </IconButton>
               </Link>
               <IconButton
+                toggleOnBase
                 color="black"
                 fontWeight="500"
                 leftIcon={LogOutIcon}

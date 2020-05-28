@@ -1,5 +1,5 @@
 import React from "react";
-import {PseudoBox, Input, Flex, Spinner, Text, Box, Stack} from "@chakra-ui/core";
+import {PseudoBox, Input, Flex, Spinner, Text, Box, Stack, BoxProps} from "@chakra-ui/core";
 
 import TrashIcon from "../icons/Trash";
 import PlusIcon from "../icons/Plus";
@@ -13,9 +13,17 @@ interface Props {
   value?: string;
   quality?: Quality;
   onChange: (value: string) => void;
+  width?: BoxProps["width"];
+  height?: BoxProps["height"];
 }
 
-const ImageInput: React.FC<Props> = ({value, onChange, quality = "low"}) => {
+const ImageInput: React.FC<Props> = ({
+  width = 16,
+  height = 16,
+  value,
+  onChange,
+  quality = "low",
+}) => {
   const [isLoading, setLoading] = React.useState(false);
   const toast = useToast();
   const {slug: tenant} = useTenant();
@@ -40,7 +48,7 @@ const ImageInput: React.FC<Props> = ({value, onChange, quality = "low"}) => {
   }
 
   return (
-    <Box height={16} position="relative" width={16}>
+    <Box height={height} position="relative" width={width}>
       {isLoading && (
         <Flex
           alignItems="center"
@@ -77,7 +85,7 @@ const ImageInput: React.FC<Props> = ({value, onChange, quality = "low"}) => {
             transition="opacity 0.25s"
             width="100%"
             zIndex={1}
-            onClick={() => onChange(undefined)}
+            onClick={() => onChange("")}
           >
             <TrashIcon />
           </PseudoBox>
@@ -98,11 +106,11 @@ const ImageInput: React.FC<Props> = ({value, onChange, quality = "low"}) => {
           backgroundColor="gray.100"
           color="gray.400"
           display="flex"
-          height={16}
+          height={height}
           justifyContent="center"
           position="relative"
           rounded="lg"
-          width={16}
+          width={width}
         >
           <Input
             accept="image/*"

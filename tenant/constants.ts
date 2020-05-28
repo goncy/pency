@@ -1,11 +1,17 @@
-export const DEFAULT_TENANT = {
-  phone: 5491144444444,
+import {Tenant} from "./types";
+
+export const DEFAULT_TENANT: Partial<Tenant> = {
+  phone: "5491144444444",
   color: "cyan",
   title: "Pency - Tu tienda online fácil",
   description: "Armá tu tienda y recibí los pedidos via WhatsApp",
-  instagram: null,
-  facebook: null,
-  twitter: null,
+  instagram: "",
+  facebook: "",
+  twitter: "",
+  logo: "",
+  banner: "",
+  category: "",
+  highlight: "",
   keywords: "pency, tienda, online, whatsapp, delivery, pedidos",
   message: `Hola, quería pedir:
 

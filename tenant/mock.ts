@@ -16,7 +16,7 @@ export default {
       banner: "//placehold.it/256x128",
       title: faker.company.companyName(),
       description: faker.lorem.lines(2),
-      phone: Number(faker.phone.phoneNumber("##########")),
+      phone: faker.phone.phoneNumber("##########"),
     };
   },
 };

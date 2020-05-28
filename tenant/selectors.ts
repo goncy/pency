@@ -1,7 +1,7 @@
 import {Tenant} from "./types";
 import {DEFAULT_TENANT} from "./constants";
 
-export function formatTenant(tenant: any): Tenant {
+export function parseTenant(tenant: any): Tenant {
   if (!tenant?.id || !tenant?.slug) {
     throw new Error("Esta tienda es inválida");
   }
@@ -22,5 +22,12 @@ export function formatTenant(tenant: any): Tenant {
     banner: tenant.banner,
     description: tenant.description,
     highlight: tenant.highlight,
+  };
+}
+
+export function formatTenant(tenant: Partial<Tenant>): Partial<Tenant> {
+  return {
+    ...DEFAULT_TENANT,
+    ...tenant,
   };
 }

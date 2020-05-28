@@ -29,7 +29,7 @@ export function getPrice(product: Product): number {
     : base;
 }
 
-export function formatProduct(product: any): Product {
+export function parseProduct(product: any): Product {
   if (!product?.id) {
     throw new Error("Este producto es inválido");
   }
@@ -57,5 +57,24 @@ export function formatProduct(product: any): Product {
         }))
       : [],
     featured: product.featured || DEFAULT_PRODUCT.featured,
+  };
+}
+
+export function formatProduct(product: Partial<Product>): Partial<Product> {
+  return {
+    ...DEFAULT_PRODUCT,
+    ...product,
+    options: product.options?.length
+      ? product.options.map((variant) => ({
+          ...DEFAULT_PRODUCT_VARIANT,
+          ...variant,
+          options: variant.options?.length
+            ? variant.options.map((option) => ({
+                ...DEFAULT_PRODUCT_OPTION,
+                ...option,
+              }))
+            : [],
+        }))
+      : [],
   };
 }

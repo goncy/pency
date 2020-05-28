@@ -172,8 +172,10 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               as={ImageInput}
               control={control}
               defaultValue=""
+              height={32}
               name="banner"
               quality="high"
+              width={64}
             />
           </FormControl>
         </Stack>

@@ -56,6 +56,7 @@ const AdminScreen: React.FC = () => {
               <Flex alignItems="center" justifyContent="space-between" paddingX={4} width="100%">
                 {filters}
                 <IconButton
+                  toggleOnBase
                   data-test-id="add-product"
                   leftIcon={PlusIcon}
                   marginLeft={4}

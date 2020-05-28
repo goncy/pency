@@ -7,7 +7,7 @@ import WhatsAppIcon from "../icons/WhatsApp";
 import TwitterIcon from "../icons/Twitter";
 
 interface Props extends StackProps {
-  whatsapp?: number;
+  whatsapp?: string;
   instagram?: string;
   facebook?: string;
   twitter?: string;

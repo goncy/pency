@@ -1,7 +1,7 @@
 import {Product} from "~/product/types";
 import {Tenant} from "~/tenant/types";
 import {database, auth} from "~/firebase/admin";
-import {formatProduct} from "~/product/selectors";
+import {parseProduct, formatProduct} from "~/product/selectors";
 
 interface Request {
   method: "GET" | "PATCH" | "DELETE" | "POST";
@@ -58,18 +58,23 @@ const api = {
       .collection("products")
       .get()
       .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
-      .then((products) => products.map(formatProduct)),
+      .then((products) => products.map(parseProduct)),
   create: (tenant: Tenant["id"], product: Product) =>
     database
       .collection("tenants")
       .doc(tenant)
       .collection("products")
-      .add(product)
-      .then((snapshot) => ({...product, id: snapshot.id})),
+      .add(formatProduct(product))
+      .then((snapshot) => ({...formatProduct(product), id: snapshot.id})),
   remove: (tenant: Tenant["id"], product: Product["id"]) =>
     database.collection("tenants").doc(tenant).collection("products").doc(product).delete(),
   update: (tenant: Tenant["id"], {id, ...product}: Product) =>
-    database.collection("tenants").doc(tenant).collection("products").doc(id).update(product),
+    database
+      .collection("tenants")
+      .doc(tenant)
+      .collection("products")
+      .doc(id)
+      .update(formatProduct(product)),
 };
 
 export default async (req: Request, res) => {

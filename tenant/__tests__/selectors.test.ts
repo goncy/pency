@@ -1,16 +1,16 @@
 import produce from "immer";
 
-import {formatTenant} from "../selectors";
+import {parseTenant} from "../selectors";
 import {DEFAULT_TENANT} from "../constants";
 import mock from "../mock";
 
 describe("selectors", () => {
-  describe("formatTenant", () => {
+  describe("parseTenant", () => {
     describe("id", () => {
       it("should throw when no id is present", () => {
         const actual = {...mock.full, id: null};
 
-        expect(() => formatTenant(actual)).toThrowError("Esta tienda es inválida");
+        expect(() => parseTenant(actual)).toThrowError("Esta tienda es inválida");
       });
     });
 
@@ -18,7 +18,7 @@ describe("selectors", () => {
       it("should throw when no slug is present", () => {
         const actual = {...mock.full, slug: null};
 
-        expect(() => formatTenant(actual)).toThrowError("Esta tienda es inválida");
+        expect(() => parseTenant(actual)).toThrowError("Esta tienda es inválida");
       });
     });
 
@@ -30,7 +30,7 @@ describe("selectors", () => {
         });
         const expected = {...base, color: DEFAULT_TENANT.color};
 
-        expect(formatTenant(actual)).toMatchObject(expected);
+        expect(parseTenant(actual)).toMatchObject(expected);
       });
     });
 
@@ -42,7 +42,7 @@ describe("selectors", () => {
         });
         const expected = {...base, phone: DEFAULT_TENANT.phone};
 
-        expect(formatTenant(actual)).toMatchObject(expected);
+        expect(parseTenant(actual)).toMatchObject(expected);
       });
     });
   });

@@ -1,16 +1,16 @@
 import produce from "immer";
 
-import {formatProduct} from "../selectors";
+import {parseProduct} from "../selectors";
 import {DEFAULT_PRODUCT, DEFAULT_PRODUCT_VARIANT} from "../constants";
 import mock from "../mock";
 
 describe("selectors", () => {
-  describe("formatProduct", () => {
+  describe("parseProduct", () => {
     describe("id", () => {
       it("should throw when no id is present", () => {
         const actual = {...mock.full, id: null};
 
-        expect(() => formatProduct(actual)).toThrowError("Este producto es inválido");
+        expect(() => parseProduct(actual)).toThrowError("Este producto es inválido");
       });
     });
 
@@ -21,7 +21,7 @@ describe("selectors", () => {
           actual.options[0].type = "single";
         });
 
-        expect(formatProduct(actual)).toMatchObject(expected);
+        expect(parseProduct(actual)).toMatchObject(expected);
       });
 
       it("should add count for options", () => {
@@ -33,13 +33,13 @@ describe("selectors", () => {
           actual.options[0].count = DEFAULT_PRODUCT_VARIANT.count;
         });
 
-        expect(formatProduct(actual)).toMatchObject(expected);
+        expect(parseProduct(actual)).toMatchObject(expected);
       });
 
       it("should return correct options untouched", () => {
         const actual = mock.withoutVariants;
 
-        expect(formatProduct(actual)).toEqual(actual);
+        expect(parseProduct(actual)).toEqual(actual);
       });
 
       it("should add options when missing", () => {
@@ -49,7 +49,7 @@ describe("selectors", () => {
         });
         const expected = {...base, options: DEFAULT_PRODUCT.options};
 
-        expect(formatProduct(actual)).toEqual(expected);
+        expect(parseProduct(actual)).toEqual(expected);
       });
     });
   });
