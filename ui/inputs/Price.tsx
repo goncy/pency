@@ -17,6 +17,7 @@ const Price: React.FC<Props> = React.forwardRef(
         backgroundColor="transparent"
         paddingX={0}
         pointerEvents="none"
+        rounded={rounded}
       />
       <Input
         ref={ref}
