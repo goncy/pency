@@ -59,7 +59,6 @@ const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
                 width="100%"
               >
                 <Input
-                  autoFocus
                   placeholder="Queso cheddar"
                   roundedRight={0}
                   value={option.title}
