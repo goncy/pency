@@ -1,5 +1,8 @@
 export const DEFAULT_PRODUCT = {
   title: "-",
+  description: "",
+  category: null,
+  image: "",
   price: 0,
   available: false,
   featured: false,
