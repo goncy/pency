@@ -78,7 +78,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
               />
             </FormControl>
             <FormControl
-              error={errors.description?.message}
+              error={errors.description && "La descripción no puede ser mayor a 256 caracteres"}
               help="Máximo 256 caracteres"
               label="Descripción"
               name="description"
@@ -91,7 +91,12 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                 variant="filled"
               />
             </FormControl>
-            <FormControl isRequired error={errors.price?.message} label="Precio" name="price">
+            <FormControl
+              isRequired
+              error={errors.price && "Este campo es requerido"}
+              label="Precio"
+              name="price"
+            >
               <Price
                 ref={register({required: true})}
                 name="price"
