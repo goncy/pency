@@ -72,6 +72,7 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
               name="email"
               placeholder="pency@gmail.com"
               size="lg"
+              tabIndex={1}
             />
             <FormErrorMessage>
               {(errors.email && errors.email.message) || t("form.required")}
@@ -90,6 +91,7 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
                 _hover={{textDecoration: "none"}}
                 fontSize="sm"
                 fontWeight={500}
+                tabIndex={4}
                 variant="link"
                 variantColor="primary"
                 onClick={() => navigate("reset")}
@@ -104,6 +106,7 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
               name="password"
               placeholder="********"
               size="lg"
+              tabIndex={2}
               type="password"
             />
             <FormErrorMessage>
@@ -114,6 +117,7 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
             fontSize="md"
             isLoading={isLoading}
             size="lg"
+            tabIndex={3}
             type="submit"
             variantColor="primary"
           >

@@ -3,9 +3,9 @@ import {useForm, Controller, FormContext} from "react-hook-form";
 import {Input, Flex, Stack, Select, Textarea, Text, Divider} from "@chakra-ui/core";
 
 import {Product} from "../types";
-import ProductOptionsInput, {
-  validator as ProductOptionsInputValidator,
-} from "../inputs/ProductOptionsInput";
+import ProductVariantsInput, {
+  validator as ProductVariantsInputValidator,
+} from "../inputs/ProductVariantsInput";
 
 import ImageInput from "~/ui/inputs/Image";
 import SwitchInput from "~/ui/inputs/Switch";
@@ -96,6 +96,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                 ref={register({required: true})}
                 name="price"
                 placeholder="Precio"
+                rounded="md"
                 variant="filled"
               />
             </FormControl>
@@ -164,11 +165,12 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
             </Text>
             <FormControl name="options">
               <Controller
-                as={ProductOptionsInput}
+                as={ProductVariantsInput}
                 control={control}
+                error={(errors.options as any)?.type}
                 name="options"
                 rules={{
-                  validate: ProductOptionsInputValidator,
+                  validate: ProductVariantsInputValidator,
                 }}
               />
             </FormControl>

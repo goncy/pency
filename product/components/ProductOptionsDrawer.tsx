@@ -11,13 +11,13 @@ import {
 } from "@chakra-ui/core";
 
 import ProductOptionsForm from "../forms/ProductOptionsForm";
-import {Option} from "../types";
+import {Variant} from "../types";
 
 interface Props {
   isOpen: boolean;
-  options: Option[];
+  options: Variant[];
   onClose: () => void;
-  onSubmit: (values: Option[]) => void;
+  onSubmit: (values: Variant[]) => void;
 }
 
 const ProductOptionsDrawer: React.FC<Props> = ({isOpen, onClose, onSubmit, options}) => {

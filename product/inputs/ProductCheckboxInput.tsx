@@ -2,15 +2,15 @@ import React from "react";
 import {Text, Stack, Button} from "@chakra-ui/core";
 import produce from "immer";
 
-import {MultipleOptionItem} from "../types/options";
+import {Option} from "../types/options";
 
 import Checkbox from "~/ui/inputs/Checkbox";
 
 interface Props {
   options: Props["value"];
-  label?: (value: MultipleOptionItem) => string;
+  label?: (value: Option) => string;
   valueProp?: string;
-  value?: MultipleOptionItem[];
+  value?: Option[];
   limit: number;
   onChange: (value: Props["value"]) => void;
 }

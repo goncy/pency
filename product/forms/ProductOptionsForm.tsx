@@ -5,7 +5,6 @@ import {useForm, Controller} from "react-hook-form";
 
 import {Product} from "../types";
 import ProductLimitedCheckboxInput from "../inputs/ProductCheckboxInput";
-import ProductRadioInput from "../inputs/ProductRadioInput";
 
 interface Props {
   options: Product["options"];
@@ -39,61 +38,29 @@ const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
       <form onSubmit={submit(handleSubmit)}>
         <Stack overflowY="auto" spacing={4}>
           {options.map((option, index) => {
-            switch (option.type) {
-              case "single": {
-                return (
-                  <FormControl key={option.id} isInvalid={Boolean(errors.options?.[index])} mb={4}>
-                    <FormLabel htmlFor={`options[${index}]`}>{option.title} (elegí 1)</FormLabel>
-                    <Controller
-                      as={ProductRadioInput}
-                      control={control}
-                      label={(option) =>
-                        `${option.title} ${option.price ? `+ $${option.price}` : ""}`
-                      }
-                      name={`options[${index}].value`}
-                      options={option.options}
-                      rules={{required: true}}
-                      valueProp="title"
-                    />
-                    <FormErrorMessage>
-                      {errors.options?.[index] && "Seleccioná una opción"}
-                    </FormErrorMessage>
-                  </FormControl>
-                );
-              }
-
-              case "multiple": {
-                return (
-                  <FormControl key={option.id} isInvalid={Boolean(errors.options?.[index])} mb={4}>
-                    <FormLabel htmlFor={`options[${index}]`}>
-                      {`${option.title} ${option.count ? `(Máximo ${option.count})` : ""}`}
-                    </FormLabel>
-                    <Controller
-                      as={ProductLimitedCheckboxInput}
-                      control={control}
-                      label={(option) =>
-                        `${option.title} ${option.price ? `+ $${option.price}` : ""}`
-                      }
-                      limit={option.count}
-                      name={`options[${index}].value`}
-                      options={option.options}
-                      rules={{
-                        required: Boolean(option.count),
-                        validate: (values) =>
-                          option.count ? values?.length <= option.count : true,
-                      }}
-                      valueProp="title"
-                    />
-                    <FormErrorMessage>
-                      {errors.options?.[index] && `Seleccioná ${option.count} opciones`}
-                    </FormErrorMessage>
-                  </FormControl>
-                );
-              }
-
-              default:
-                return null;
-            }
+            return (
+              <FormControl key={option.id} isInvalid={Boolean(errors.options?.[index])} mb={4}>
+                <FormLabel htmlFor={`options[${index}]`}>
+                  {`${option.title} ${option.count ? `(Máximo ${option.count})` : ""}`}
+                </FormLabel>
+                <Controller
+                  as={ProductLimitedCheckboxInput}
+                  control={control}
+                  label={(option) => `${option.title} ${option.price ? `+ $${option.price}` : ""}`}
+                  limit={option.count}
+                  name={`options[${index}].value`}
+                  options={option.options}
+                  rules={{
+                    required: Boolean(option.count),
+                    validate: (values) => (option.count ? values?.length <= option.count : true),
+                  }}
+                  valueProp="title"
+                />
+                <FormErrorMessage>
+                  {errors.options?.[index] && `Seleccioná ${option.count} opciones`}
+                </FormErrorMessage>
+              </FormControl>
+            );
           })}
         </Stack>
       </form>

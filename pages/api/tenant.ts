@@ -1,6 +1,7 @@
 import {Tenant} from "~/tenant/types";
 import {database, auth} from "~/firebase/admin";
 import {DEFAULT_TENANT} from "~/tenant/constants";
+import {formatTenant} from "~/tenant/selectors";
 
 interface Request {
   method: "GET" | "POST" | "PATCH";
@@ -74,7 +75,8 @@ const api = {
           ? Promise.reject({statusText: "La tienda no existe", status: 404})
           : snapshot.docs[0],
       )
-      .then((doc) => ({...(doc.data() as Tenant), id: doc.id})),
+      .then((doc) => ({...(doc.data() as Tenant), id: doc.id}))
+      .then(formatTenant),
   list: async (): Promise<Tenant[]> =>
     database
       .collection("tenants")
@@ -84,7 +86,8 @@ const api = {
           ? Promise.reject({statusText: "No hay tiendas", status: 404})
           : snapshot.docs,
       )
-      .then((docs) => docs.map((doc) => ({...(doc.data() as Tenant), id: doc.id}))),
+      .then((docs) => docs.map((doc) => ({...(doc.data() as Tenant), id: doc.id})))
+      .then((tenants) => tenants.map(formatTenant)),
   update: async ({id, ...tenant}: Tenant) => database.collection("tenants").doc(id).update(tenant),
 };
 

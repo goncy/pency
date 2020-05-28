@@ -13,13 +13,17 @@ export const create = () => (
 );
 
 export const edit = () => (
-  <ProductForm categories={CATEGORIES} defaultValues={productMock()} onSubmit={() => {}}>
+  <ProductForm
+    categories={CATEGORIES}
+    defaultValues={productMock.withoutVariants}
+    onSubmit={() => {}}
+  >
     {({form}) => form}
   </ProductForm>
 );
 
 export const noCategories = () => (
-  <ProductForm categories={[]} defaultValues={productMock()} onSubmit={() => {}}>
+  <ProductForm categories={[]} defaultValues={productMock.withoutVariants} onSubmit={() => {}}>
     {({form}) => form}
   </ProductForm>
 );
