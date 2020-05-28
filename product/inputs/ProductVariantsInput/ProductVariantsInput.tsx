@@ -1,7 +1,6 @@
 import React from "react";
 import {Stack} from "@chakra-ui/core";
 import produce from "immer";
-// import {useFormContext} from "react-hook-form";
 
 import {Variant} from "../../types/options";
 
