@@ -1,8 +1,10 @@
 import React from "react";
-import {Textarea, Stack, Box} from "@chakra-ui/core";
+import {Stack, Box} from "@chakra-ui/core";
 
 import {MOCK_CART} from "../constants";
 import {getMessage} from "../selectors";
+
+import Textarea from "~/ui/inputs/Textarea";
 
 interface Props {
   value?: string;

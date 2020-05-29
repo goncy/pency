@@ -1,10 +1,11 @@
 import React from "react";
 import {useForm, Controller} from "react-hook-form";
-import {Stack, Select, Textarea} from "@chakra-ui/core";
+import {Stack, Textarea} from "@chakra-ui/core";
 
 import {Tenant} from "../types";
 import {CATEGORIES} from "../constants";
 
+import Select from "~/ui/inputs/Select";
 import Input from "~/ui/inputs/Input";
 import ImageInput from "~/ui/inputs/Image";
 import ColorRadio from "~/ui/inputs/ColorRadio";

@@ -1,10 +1,11 @@
 import React from "react";
-import {Icon, Flex, InputGroup, InputLeftElement, Divider, Select} from "@chakra-ui/core";
+import {Icon, Flex, InputGroup, InputLeftElement, Divider} from "@chakra-ui/core";
 
 import ProductContext from "./context";
 import {Product} from "./types";
 
 import Input from "~/ui/inputs/Input";
+import Select from "~/ui/inputs/Select";
 import {extractUniqueBy, filterBy} from "~/selectors/filter";
 import {sort} from "~/selectors/sort";
 import {groupBy} from "~/selectors/group";

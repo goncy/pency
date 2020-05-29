@@ -1,6 +1,6 @@
 import React from "react";
 import {useForm, Controller, FormContext} from "react-hook-form";
-import {Flex, Stack, Select, Text, Divider, FormLabel} from "@chakra-ui/core";
+import {Flex, Stack, Text, Divider, FormLabel} from "@chakra-ui/core";
 
 import {Product} from "../types";
 import ProductVariantsInput, {
@@ -8,6 +8,7 @@ import ProductVariantsInput, {
 } from "../inputs/ProductVariantsInput";
 
 import Input from "~/ui/inputs/Input";
+import Select from "~/ui/inputs/Select";
 import Textarea from "~/ui/inputs/Textarea";
 import ImageInput from "~/ui/inputs/Image";
 import SwitchInput from "~/ui/inputs/Switch";
