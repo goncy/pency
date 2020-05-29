@@ -67,8 +67,6 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
         {...props}
       >
         <Image
-          borderColor="gray.100"
-          borderWidth={1}
           cursor={image ? "pointer" : "inherit"}
           height={{base: 48, sm: 56}}
           rounded="md"

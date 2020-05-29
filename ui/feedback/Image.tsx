@@ -14,7 +14,6 @@ const Image: React.FC<Props> = ({src, ...props}) => {
       backgroundRepeat="no-repeat"
       backgroundSize="cover"
       border="none"
-      boxShadow="inset 0 0 2px rgba(0,0,0,0.2)"
       flexShrink={0}
       height="100%"
       width="100%"

@@ -93,7 +93,7 @@ const ImageInput: React.FC<Props> = ({
           >
             <TrashIcon />
           </PseudoBox>
-          <Image borderColor="gray.100" borderWidth={1} rounded="lg" src={value} />
+          <Image boxShadow="inset 0 0 2px rgba(0,0,0,0.2)" rounded="lg" src={value} />
         </Box>
       ) : (
         <PseudoBox
