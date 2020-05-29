@@ -1,13 +1,22 @@
 import React from "react";
-import {Image as ChakraImage, ImageProps as ChakraImageProps} from "@chakra-ui/core";
+import {Box, BoxProps, ImageProps} from "@chakra-ui/core";
 
-const Image: React.FC<ChakraImageProps> = (props) => {
+interface Props extends BoxProps {
+  src: ImageProps["src"];
+}
+
+const Image: React.FC<Props> = ({src, ...props}) => {
   return (
-    <ChakraImage
+    <Box
       backgroundColor="gray.100"
+      backgroundImage={`url(${src})`}
+      backgroundPosition="center"
+      backgroundRepeat="no-repeat"
+      backgroundSize="cover"
+      border="none"
+      boxShadow="inset 0 0 2px rgba(0,0,0,0.2)"
+      flexShrink={0}
       height="100%"
-      loading="lazy"
-      objectFit="cover"
       width="100%"
       {...props}
     />
