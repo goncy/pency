@@ -1,5 +1,5 @@
 import React from "react";
-import {PseudoBox, Flex, Spinner, Text, Box, Stack, BoxProps} from "@chakra-ui/core";
+import {PseudoBox, Flex, Spinner, Text, Box, Stack, BoxProps, ImageProps} from "@chakra-ui/core";
 
 import TrashIcon from "../icons/Trash";
 import PlusIcon from "../icons/Plus";

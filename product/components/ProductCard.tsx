@@ -70,7 +70,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
           cursor={image ? "pointer" : "inherit"}
           height={{base: 48, sm: 56}}
           rounded="md"
-          src={image}
+          src={image || "/assets/fallback.jpg"}
           width="100%"
           onClick={() => (image ? toggleImage() : null)}
         />

@@ -1,6 +1,6 @@
 import React from "react";
 import {useForm, Controller, FormContext} from "react-hook-form";
-import {Flex, Stack, Select, Text, Divider} from "@chakra-ui/core";
+import {Flex, Stack, Select, Text, Divider, FormLabel} from "@chakra-ui/core";
 
 import {Product} from "../types";
 import ProductVariantsInput, {
@@ -79,14 +79,14 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
               />
             </FormControl>
             <FormControl
-              error={errors.description && "La descripción no puede ser mayor a 256 caracteres"}
-              help="Máximo 256 caracteres"
+              error={errors.description && "La descripción no puede ser mayor a 280 caracteres"}
+              help="Máximo 280 caracteres"
               label="Descripción"
               name="description"
             >
               <Textarea
-                ref={register({maxLength: 256})}
-                maxLength={256}
+                ref={register({maxLength: 280})}
+                maxLength={280}
                 name="description"
                 placeholder="64GB mem. Silver."
                 variant="filled"
@@ -141,9 +141,12 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                     control={control}
                     defaultValue={false}
                     display="block"
+                    id="featured"
                     name="featured"
                   />
-                  <Text>Destacar</Text>
+                  <FormLabel cursor="pointer" fontWeight="normal" htmlFor="featured" padding={0}>
+                    Destacar
+                  </FormLabel>
                 </Stack>
               </FormControl>
               <FormControl error={errors.available?.message} name="available">
@@ -153,9 +156,12 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                     color="primary"
                     control={control}
                     display="block"
+                    id="available"
                     name="available"
                   />
-                  <Text>En stock</Text>
+                  <FormLabel cursor="pointer" fontWeight="normal" htmlFor="available" padding={0}>
+                    Disponible
+                  </FormLabel>
                 </Stack>
               </FormControl>
             </Stack>

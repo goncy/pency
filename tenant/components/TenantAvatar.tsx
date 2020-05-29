@@ -15,7 +15,8 @@ const TenantAvatar: React.FC<Props> = ({logo, title, ...props}) => {
     <Image
       alt={title}
       borderColor="gray.100"
-      borderWidth={1}
+      borderWidth={2}
+      boxShadow="sm"
       height={{base: 24, sm: 32}}
       minHeight={{base: 24, sm: 32}}
       minWidth={{base: 24, sm: 32}}
@@ -27,8 +28,8 @@ const TenantAvatar: React.FC<Props> = ({logo, title, ...props}) => {
   ) : (
     <Avatar
       borderColor="gray.100"
-      borderWidth={1}
-      boxShadow="inset 0 0 1px rgba(0,0,0,0.3)"
+      borderWidth={2}
+      boxShadow="sm"
       height={{base: 24, sm: 32}}
       minHeight={{base: 24, sm: 32}}
       minWidth={{base: 24, sm: 32}}

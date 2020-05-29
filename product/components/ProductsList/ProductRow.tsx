@@ -42,7 +42,7 @@ const ProductRow: React.FC<Props> = ({onEdit, onRemove, ...product}) => {
             borderWidth={1}
             height={12}
             rounded="lg"
-            src={product.image}
+            src={product.image || "/assets/fallback-sm.jpg"}
             width={12}
           />
           <Text flex={1} fontWeight="500" marginLeft={2}>
