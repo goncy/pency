@@ -9,11 +9,11 @@ import {
   FlexProps,
   Stack,
 } from "@chakra-ui/core";
-import LazyLoad from "react-lazy-load";
 
 import ProductOptionsDrawer from "./ProductOptionsDrawer";
 import ProductImageModal from "./ProductImageModal";
 
+import Image from "~/ui/feedback/Image";
 import {Product} from "~/product/types";
 import {useProductCartCount} from "~/cart/hooks";
 import TruncatedText from "~/ui/feedback/TruncatedText";
@@ -66,38 +66,14 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, .
         transition="transform 0.2s"
         {...props}
       >
-        {image ? (
-          <LazyLoad height={192} offsetVertical={512} width="100%">
-            <Box
-              backgroundImage={`url(${image})`}
-              backgroundPosition="center"
-              backgroundSize="cover"
-              cursor="pointer"
-              flexShrink={0}
-              height={48}
-              rounded="md"
-              width="100%"
-              onClick={toggleImage}
-            />
-          </LazyLoad>
-        ) : (
-          <Flex
-            alignItems="center"
-            backgroundColor="gray.100"
-            borderBottom={1}
-            borderBottomStyle="solid"
-            borderColor="gray.100"
-            flexShrink={0}
-            height={48}
-            justifyContent="center"
-            rounded="md"
-            width="100%"
-          >
-            <Text color="gray.500" fontSize="2xl">
-              {t("common.noImage")}
-            </Text>
-          </Flex>
-        )}
+        <Image
+          cursor={image ? "pointer" : "inherit"}
+          height={{base: 48, sm: 56}}
+          rounded="md"
+          src={image}
+          width="100%"
+          onClick={() => (image ? toggleImage() : null)}
+        />
         <Box
           display="flex"
           flex={1}
