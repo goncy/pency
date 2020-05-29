@@ -1,7 +1,8 @@
 import React from "react";
-import {RadioGroup as ChakraRadioGroup, Radio as ChakraRadio, Input} from "@chakra-ui/core";
+import {RadioGroup as ChakraRadioGroup, Radio as ChakraRadio} from "@chakra-ui/core";
 import styled from "@emotion/styled";
 
+import Input from "~/ui/inputs/Input";
 import {Variant} from "~/product/types";
 
 const Radio = styled(ChakraRadio)`

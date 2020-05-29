@@ -1,8 +1,8 @@
 import React from "react";
 
-import productMock from "../mock";
+import productMock from "../../mock";
 
-import ProductVariantsInput from "./ProductVariantsInput";
+import ProductVariantsInput from ".";
 
 export const empty = () => <ProductVariantsInput value={[]} onChange={() => {}} />;
 
@@ -14,4 +14,4 @@ export const unlimitedVariants = () => (
   <ProductVariantsInput value={[{...productMock.variant, count: 0}]} onChange={() => {}} />
 );
 
-export default {title: "ProductVariantsInput"};
+export default {title: "Products/Inputs/ProductVariantsInput"};

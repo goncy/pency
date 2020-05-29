@@ -1,8 +1,11 @@
 import React from "react";
-import {PseudoBox, Input, Flex, Spinner, Text, Box, Stack, BoxProps} from "@chakra-ui/core";
+import {PseudoBox, Flex, Spinner, Text, Box, Stack, BoxProps} from "@chakra-ui/core";
 
 import TrashIcon from "../icons/Trash";
 import PlusIcon from "../icons/Plus";
+import Image from "../feedback/Image";
+
+import Input from "./Input";
 
 import storage from "~/storage/api";
 import {Quality} from "~/storage/types";
@@ -57,6 +60,7 @@ const ImageInput: React.FC<Props> = ({
           justifyContent="center"
           left={0}
           position="absolute"
+          rounded="lg"
           top={0}
           width="100%"
           zIndex={2}
@@ -65,7 +69,7 @@ const ImageInput: React.FC<Props> = ({
         </Flex>
       )}
       {value ? (
-        <Box height="100%" width="100%">
+        <Box height="100%" rounded="lg" width="100%">
           <PseudoBox
             _hover={{
               opacity: 1,
@@ -89,19 +93,13 @@ const ImageInput: React.FC<Props> = ({
           >
             <TrashIcon />
           </PseudoBox>
-          <Box
-            backgroundColor="gray.100"
-            backgroundImage={`url(${value})`}
-            backgroundPosition="center"
-            backgroundSize="cover"
-            boxShadow="inset 0 0 1px rgba(0,0,0,0.3)"
-            height="100%"
-            rounded="lg"
-            width="100%"
-          />
+          <Image borderColor="gray.100" borderWidth={1} rounded="lg" src={value} />
         </Box>
       ) : (
-        <Box
+        <PseudoBox
+          _hover={{
+            backgroundColor: "gray.200",
+          }}
           alignItems="center"
           backgroundColor="gray.100"
           color="gray.400"
@@ -110,6 +108,7 @@ const ImageInput: React.FC<Props> = ({
           justifyContent="center"
           position="relative"
           rounded="lg"
+          transition="background-color .25s"
           width={width}
         >
           <Input
@@ -133,7 +132,7 @@ const ImageInput: React.FC<Props> = ({
             <PlusIcon />
             <Text fontSize="xs">Imágen</Text>
           </Stack>
-        </Box>
+        </PseudoBox>
       )}
     </Box>
   );

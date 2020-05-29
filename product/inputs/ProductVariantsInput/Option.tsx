@@ -1,11 +1,12 @@
 import React from "react";
-import {Stack, Input, FormLabel, FormHelperText, Divider, CloseButton, Flex} from "@chakra-ui/core";
+import {Stack, FormLabel, FormHelperText, Divider, CloseButton, Flex} from "@chakra-ui/core";
 import produce from "immer";
 
 import {Variant} from "../../types/options";
 
 import {getOption} from "./constants";
 
+import Input from "~/ui/inputs/Input";
 import FormControl from "~/ui/controls/FormControl";
 import PlusIcon from "~/ui/icons/Plus";
 import IconButton from "~/ui/controls/IconButton";
@@ -62,7 +63,6 @@ const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
                   placeholder="Queso cheddar"
                   roundedRight={0}
                   value={option.title}
-                  variant="filled"
                   onChange={(event) => handleChange(subindex, "title", event.target.value)}
                 />
               </FormControl>
@@ -121,13 +121,16 @@ const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
         </FormHelperText>
       </Stack>
       <IconButton
+        _hover={{
+          color: "primary.600",
+        }}
+        color="primary.500"
         fontWeight="normal"
         justifyContent="flex-start"
         leftIcon={PlusIcon}
         marginBottom={3}
         paddingY={2}
-        variant="link"
-        variantColor="primary"
+        variant="unstyled"
         onClick={handleAdd}
       >
         Agregar opción

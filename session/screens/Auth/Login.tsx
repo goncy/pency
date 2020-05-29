@@ -5,7 +5,6 @@ import {
   FormErrorMessage,
   FormControl,
   FormLabel,
-  Input,
   Box,
   Text,
   Flex,
@@ -14,6 +13,7 @@ import {useForm} from "react-hook-form";
 
 import api from "../../api";
 
+import Input from "~/ui/inputs/Input";
 import {useToast} from "~/hooks/toast";
 import TenantAvatar from "~/tenant/components/TenantAvatar";
 import {Tenant} from "~/tenant/types";
@@ -67,7 +67,6 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
             <Input
               ref={register({required: true})}
               autoFocus
-              focusBorderColor="primary.300"
               fontSize="md"
               name="email"
               placeholder="pency@gmail.com"
@@ -101,7 +100,6 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
             </FormLabel>
             <Input
               ref={register({required: true})}
-              focusBorderColor="primary.300"
               fontSize="md"
               name="password"
               placeholder="********"

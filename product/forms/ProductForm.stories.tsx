@@ -28,4 +28,4 @@ export const noCategories = () => (
   </ProductForm>
 );
 
-export default {title: "ProductForm"};
+export default {title: "Product/Forms/ProductForm"};

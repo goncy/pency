@@ -9,4 +9,4 @@ export const wide = () => (
 );
 export const broken = () => <Image value="https://placeold.it/256x256" onChange={() => {}} />;
 
-export default {title: "Image"};
+export default {title: "UI/Inputs/Image"};
