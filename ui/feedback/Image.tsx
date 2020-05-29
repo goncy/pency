@@ -21,14 +21,14 @@ const fadeIn = keyframes`
   }
 `;
 
-const Image = styled(ChakraImage)`
+const AnimatedImage = styled(ChakraImage)`
   animation: ${({isAnimated}: ImageProps) => (isAnimated ? fadeIn : null)} 0.5s;
   animation-fill-mode: forwards;
 `;
 
-const FixedImage: React.FC<Props> = ({isAnimated = false, ...props}) => {
+const Image: React.FC<Props> = ({isAnimated = false, ...props}) => {
   return (
-    <Image
+    <AnimatedImage
       backgroundColor="gray.100"
       fallbackSrc="/assets/fallback.jpg"
       height="100%"
@@ -42,4 +42,4 @@ const FixedImage: React.FC<Props> = ({isAnimated = false, ...props}) => {
   );
 };
 
-export default FixedImage;
+export default Image;

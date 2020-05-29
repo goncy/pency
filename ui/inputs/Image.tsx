@@ -3,6 +3,7 @@ import {PseudoBox, Flex, Spinner, Text, Box, Stack, BoxProps} from "@chakra-ui/c
 
 import TrashIcon from "../icons/Trash";
 import PlusIcon from "../icons/Plus";
+import Image from "../feedback/Image";
 
 import Input from "./Input";
 
@@ -59,6 +60,7 @@ const ImageInput: React.FC<Props> = ({
           justifyContent="center"
           left={0}
           position="absolute"
+          rounded="lg"
           top={0}
           width="100%"
           zIndex={2}
@@ -67,7 +69,7 @@ const ImageInput: React.FC<Props> = ({
         </Flex>
       )}
       {value ? (
-        <Box height="100%" width="100%">
+        <Box height="100%" rounded="lg" width="100%">
           <PseudoBox
             _hover={{
               opacity: 1,
@@ -91,16 +93,7 @@ const ImageInput: React.FC<Props> = ({
           >
             <TrashIcon />
           </PseudoBox>
-          <Box
-            backgroundColor="gray.100"
-            backgroundImage={`url(${value})`}
-            backgroundPosition="center"
-            backgroundSize="cover"
-            boxShadow="inset 0 0 1px rgba(0,0,0,0.3)"
-            height="100%"
-            rounded="lg"
-            width="100%"
-          />
+          <Image borderColor="gray.100" borderWidth={1} rounded="lg" src={value} />
         </Box>
       ) : (
         <PseudoBox

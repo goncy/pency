@@ -37,7 +37,14 @@ const ProductRow: React.FC<Props> = ({onEdit, onRemove, ...product}) => {
     >
       <Box as="td" maxWidth="200px">
         <Flex alignItems="center" marginRight={{base: 4, md: 12}} paddingY={2}>
-          <Image height={12} rounded="lg" src={product.image} width={12} />
+          <Image
+            borderColor="gray.100"
+            borderWidth={1}
+            height={12}
+            rounded="lg"
+            src={product.image}
+            width={12}
+          />
           <Text flex={1} fontWeight="500" marginLeft={2}>
             {product.title}
           </Text>
