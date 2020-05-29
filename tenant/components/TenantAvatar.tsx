@@ -1,31 +1,33 @@
 import React from "react";
-import {Box, Avatar, AvatarProps} from "@chakra-ui/core";
+import {Avatar, AvatarProps} from "@chakra-ui/core";
 
 import {Tenant} from "../types";
 
-interface Props extends AvatarProps {
+import Image from "~/ui/feedback/Image";
+
+interface Props extends Omit<AvatarProps, "onLoad" | "onError"> {
   logo: Tenant["logo"];
   title: Tenant["title"];
 }
 
 const TenantAvatar: React.FC<Props> = ({logo, title, ...props}) => {
   return logo ? (
-    <Box
-      backgroundColor="primary.500"
-      backgroundImage={`url(${logo})`}
-      backgroundPosition="center"
-      backgroundRepeat="no-repeat"
-      backgroundSize="contain"
-      boxShadow="inset 0 0 1px rgba(0,0,0,0.3)"
+    <Image
+      alt={title}
+      borderColor="gray.100"
+      borderWidth={1}
       height={{base: 24, sm: 32}}
       minHeight={{base: 24, sm: 32}}
       minWidth={{base: 24, sm: 32}}
       rounded="50%"
+      src={logo}
       width={{base: 24, sm: 32}}
       {...props}
     />
   ) : (
     <Avatar
+      borderColor="gray.100"
+      borderWidth={1}
       boxShadow="inset 0 0 1px rgba(0,0,0,0.3)"
       height={{base: 24, sm: 32}}
       minHeight={{base: 24, sm: 32}}
