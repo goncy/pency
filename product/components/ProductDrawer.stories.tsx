@@ -26,4 +26,4 @@ export const create = () => (
   />
 );
 
-export default {title: "ProductDrawer"};
+export default {title: "Product/Components/ProductDrawer"};

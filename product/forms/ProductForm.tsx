@@ -1,12 +1,14 @@
 import React from "react";
 import {useForm, Controller, FormContext} from "react-hook-form";
-import {Input, Flex, Stack, Select, Textarea, Text, Divider} from "@chakra-ui/core";
+import {Flex, Stack, Select, Text, Divider} from "@chakra-ui/core";
 
 import {Product} from "../types";
 import ProductVariantsInput, {
   validator as ProductVariantsInputValidator,
 } from "../inputs/ProductVariantsInput";
 
+import Input from "~/ui/inputs/Input";
+import Textarea from "~/ui/inputs/Textarea";
 import ImageInput from "~/ui/inputs/Image";
 import SwitchInput from "~/ui/inputs/Switch";
 import Price from "~/ui/inputs/Price";
@@ -74,7 +76,6 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                 autoFocus
                 name="title"
                 placeholder="iPhone XS Max"
-                variant="filled"
               />
             </FormControl>
             <FormControl
@@ -102,7 +103,6 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                 name="price"
                 placeholder="Precio"
                 rounded="md"
-                variant="filled"
               />
             </FormControl>
             <FormControl
@@ -113,12 +113,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
               name="category"
             >
               <Flex>
-                <Input
-                  ref={register({required: true})}
-                  name="category"
-                  placeholder="Categoría"
-                  variant="filled"
-                />
+                <Input ref={register({required: true})} name="category" placeholder="Categoría" />
                 {Boolean(categories.length) && (
                   <Select
                     data-test-id="category-select"

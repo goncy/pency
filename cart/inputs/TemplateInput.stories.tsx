@@ -13,4 +13,4 @@ Gracias.
 
 export const open = () => <TemplateInput value={MESSAGE} onChange={() => {}} />;
 
-export default {title: "TemplateInput"};
+export default {title: "Cart/Inputs/TemplateInput"};

@@ -24,4 +24,4 @@ export const open = () => (
   />
 );
 
-export default {title: "CartDrawer"};
+export default {title: "Cart/Components/CartDrawer"};

@@ -5,14 +5,14 @@ interface Props extends Omit<ButtonProps, "leftIcon" | "rightIcon" | "children">
   leftIcon?: React.ElementType;
   rightIcon?: React.ElementType;
   children?: React.ReactNode;
-  toggleOnBase?: boolean;
+  isCollapsable?: boolean;
 }
 
 const IconButton: React.FC<Props> = ({
   leftIcon = null,
   rightIcon = null,
   children = null,
-  toggleOnBase = false,
+  isCollapsable = false,
   ...props
 }) => {
   return (
@@ -20,7 +20,7 @@ const IconButton: React.FC<Props> = ({
       {leftIcon && React.createElement(leftIcon)}
       {children && (
         <Box
-          display={{base: toggleOnBase ? "none" : "block", sm: "block"}}
+          display={{base: isCollapsable ? "none" : "block", sm: "block"}}
           marginLeft={leftIcon ? 2 : 0}
           marginRight={rightIcon ? 2 : 0}
         >

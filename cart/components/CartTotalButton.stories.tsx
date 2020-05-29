@@ -21,4 +21,4 @@ export const full = () => (
   </Box>
 );
 
-export default {title: "CartTotalButton"};
+export default {title: "Cart/Components/CartTotalButton"};

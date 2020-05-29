@@ -1,8 +1,10 @@
 import React from "react";
-import {PseudoBox, Input, Flex, Spinner, Text, Box, Stack, BoxProps} from "@chakra-ui/core";
+import {PseudoBox, Flex, Spinner, Text, Box, Stack, BoxProps} from "@chakra-ui/core";
 
 import TrashIcon from "../icons/Trash";
 import PlusIcon from "../icons/Plus";
+
+import Input from "./Input";
 
 import storage from "~/storage/api";
 import {Quality} from "~/storage/types";
@@ -101,7 +103,10 @@ const ImageInput: React.FC<Props> = ({
           />
         </Box>
       ) : (
-        <Box
+        <PseudoBox
+          _hover={{
+            backgroundColor: "gray.200",
+          }}
           alignItems="center"
           backgroundColor="gray.100"
           color="gray.400"
@@ -110,6 +115,7 @@ const ImageInput: React.FC<Props> = ({
           justifyContent="center"
           position="relative"
           rounded="lg"
+          transition="background-color .25s"
           width={width}
         >
           <Input
@@ -133,7 +139,7 @@ const ImageInput: React.FC<Props> = ({
             <PlusIcon />
             <Text fontSize="xs">Imágen</Text>
           </Stack>
-        </Box>
+        </PseudoBox>
       )}
     </Box>
   );

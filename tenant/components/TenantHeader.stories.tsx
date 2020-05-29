@@ -6,4 +6,4 @@ import TenantHeader from "./TenantHeader";
 
 export const full = () => <TenantHeader tenant={tenantMock.full} />;
 
-export default {title: "TenantHeader"};
+export default {title: "Tenant/Components/TenantHeader"};

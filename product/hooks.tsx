@@ -1,9 +1,10 @@
 import React from "react";
-import {Icon, Input, Flex, InputGroup, InputLeftElement, Divider, Select} from "@chakra-ui/core";
+import {Icon, Flex, InputGroup, InputLeftElement, Divider, Select} from "@chakra-ui/core";
 
 import ProductContext from "./context";
 import {Product} from "./types";
 
+import Input from "~/ui/inputs/Input";
 import {extractUniqueBy, filterBy} from "~/selectors/filter";
 import {sort} from "~/selectors/sort";
 import {groupBy} from "~/selectors/group";
@@ -83,6 +84,7 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
             top="inherit"
           />
           <Input
+            paddingLeft={10}
             placeholder={t("filters.search")}
             value={query}
             variant="unstyled"

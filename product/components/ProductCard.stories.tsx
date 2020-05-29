@@ -5,7 +5,7 @@ import productMock from "../mock";
 
 import ProductCard from "./ProductCard";
 
-export default {title: "ProductCard"};
+export default {title: "Product/Components/ProductCard"};
 
 export const noData = () => (
   <Box maxWidth="340px">

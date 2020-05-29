@@ -1,5 +1,7 @@
 import React from "react";
-import {InputGroup, InputLeftElement, Input, InputGroupProps, InputProps} from "@chakra-ui/core";
+import {InputGroup, InputLeftElement, InputGroupProps, InputProps} from "@chakra-ui/core";
+
+import Input from "./Input";
 
 interface Props extends Omit<InputGroupProps, "children" | "onChange"> {
   name?: InputProps["name"];

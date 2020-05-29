@@ -3,10 +3,11 @@ import {
   InputGroup,
   InputRightElement,
   CloseButton,
-  Input,
   InputGroupProps,
   InputProps,
 } from "@chakra-ui/core";
+
+import Input from "./Input";
 
 interface Props extends Omit<InputGroupProps, "children"> {
   name?: InputProps["name"];
@@ -26,7 +27,6 @@ const ClearableTextField: React.FC<Props> = React.forwardRef(
         paddingRight={10}
         placeholder={placeholder}
         value={value}
-        variant="filled"
         onChange={onChange}
       />
       <InputRightElement backgroundColor="transparent">

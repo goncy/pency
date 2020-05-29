@@ -69,7 +69,7 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
                 lineHeight="normal"
               >
                 <IconButton
-                  toggleOnBase
+                  isCollapsable
                   color="black"
                   fontWeight="500"
                   leftIcon={HelpCircleIcon}
@@ -79,7 +79,7 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
                 </IconButton>
               </Link>
               <IconButton
-                toggleOnBase
+                isCollapsable
                 color="black"
                 fontWeight="500"
                 leftIcon={LogOutIcon}
