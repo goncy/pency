@@ -6,10 +6,41 @@ interface Props extends BoxProps {
 }
 
 const Image: React.FC<Props> = ({src, ...props}) => {
+  const [image, setImage] = React.useState(null);
+  const container = React.useRef();
+
+  React.useLayoutEffect(() => {
+    let observer: IntersectionObserver;
+
+    if (
+      "IntersectionObserver" in window &&
+      "IntersectionObserverEntry" in window &&
+      "intersectionRatio" in window.IntersectionObserverEntry.prototype
+    ) {
+      observer = new IntersectionObserver(
+        (intersections) => {
+          const isShowing = intersections[0].isIntersecting;
+
+          if (isShowing) {
+            setImage(src);
+          }
+        },
+        {rootMargin: `45px`},
+      );
+
+      observer.observe(container.current);
+    } else {
+      setImage(src);
+    }
+
+    return () => observer?.disconnect();
+  }, [src]);
+
   return (
     <Box
+      ref={container}
       backgroundColor="gray.100"
-      backgroundImage={`url(${src})`}
+      backgroundImage={image ? `url(${src})` : ""}
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
       backgroundSize="cover"
