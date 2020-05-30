@@ -9,14 +9,7 @@ const StyledRadio = styled(ChakraRadio)`
 `;
 
 const Radio: React.FC<ChakraRadioProps> = (props) => (
-  <StyledRadio
-    backgroundColor="gray.100"
-    padding={2}
-    rounded="md"
-    variantColor="primary"
-    width="100%"
-    {...props}
-  />
+  <StyledRadio backgroundColor="gray.100" padding={2} rounded="md" width="100%" {...props} />
 );
 
 export default Radio;
