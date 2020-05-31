@@ -1,4 +1,4 @@
-import {CartItem} from "./types";
+import {CartItem, Field} from "./types";
 
 export function getTotal(items: CartItem[]): number {
   return items.reduce((total, item) => total + item.price * item.count, 0);
@@ -23,8 +23,16 @@ export function getItems(items: CartItem[]): string {
     .join("\n");
 }
 
-export function getMessage(message: string, items: CartItem[]): string {
-  return message
+export function getMessage(message: string, items: CartItem[], fields?: Field): string {
+  let final = message
     .replace(`{{productos}}`, getItems(items))
     .replace(`{{total}}`, `$${getTotal(items)}`);
+
+  if (fields) {
+    Object.entries(fields).forEach(([title, value]) => {
+      final = final.replace(`{{${title}}}`, value);
+    });
+  }
+
+  return final;
 }

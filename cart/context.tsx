@@ -4,7 +4,7 @@ import produce from "immer";
 
 import {Product} from "../product/types";
 
-import {CartItem, Context, State, Actions, Cart} from "./types";
+import {CartItem, Context, State, Actions, Cart, Field} from "./types";
 import {getSummary, getMessage} from "./selectors";
 
 import {useAnalytics} from "~/analytics/hooks";
@@ -80,7 +80,7 @@ const CartProvider = ({children}: Props) => {
     );
   }
 
-  function checkout() {
+  function checkout(fields?: Field) {
     log("cart_checkout", {
       content_type: "cart",
       description: getSummary(items),
@@ -88,7 +88,7 @@ const CartProvider = ({children}: Props) => {
     });
 
     window.open(
-      `https://wa.me/${phone}?text=${encodeURIComponent(getMessage(message, items))}`,
+      `https://wa.me/${phone}?text=${encodeURIComponent(getMessage(message, items, fields))}`,
       "_blank",
     );
   }

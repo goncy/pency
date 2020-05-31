@@ -1,7 +1,9 @@
 import React from "react";
 import faker from "faker";
 
-import CartDrawer from "./CartDrawer";
+import CartDrawer from ".";
+
+import tenantMock from "~/tenant/mock";
 
 const item = () => ({
   id: faker.random.uuid(),
@@ -17,6 +19,7 @@ const item = () => ({
 export const open = () => (
   <CartDrawer
     isOpen
+    fields={tenantMock.full.fields}
     items={[item(), item()]}
     onCheckout={() => {}}
     onClose={() => {}}

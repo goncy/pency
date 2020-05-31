@@ -22,7 +22,7 @@ const ProductsScreen: React.FC = () => {
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts({available: true});
-  const {highlight, ...tenant} = useTenant();
+  const {highlight, fields, ...tenant} = useTenant();
 
   const featuredProducts = filterBy(products, {featured: true});
   const productsByCategory = groupBy(products, (product) => product.category);
@@ -129,6 +129,7 @@ const ProductsScreen: React.FC = () => {
         </Flex>
       </Flex>
       <CartDrawer
+        fields={fields}
         isOpen={isCartOpen}
         items={items}
         onCheckout={checkout}
