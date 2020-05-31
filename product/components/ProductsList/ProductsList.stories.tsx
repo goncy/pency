@@ -13,4 +13,4 @@ export const full = () => (
   />
 );
 
-export default {title: "Products/Components/ProductsList"};
+export default {title: "Product/Components/ProductsList"};

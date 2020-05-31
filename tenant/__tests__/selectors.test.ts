@@ -50,7 +50,7 @@ describe("selectors", () => {
     });
 
     describe("color", () => {
-      it("should throw when no color is present", () => {
+      it("should default a color", () => {
         const base = mock.full;
         const actual = produce(base, (actual) => {
           delete actual.color;
@@ -62,12 +62,36 @@ describe("selectors", () => {
     });
 
     describe("phone", () => {
-      it("should throw when no phone is present", () => {
+      it("should default a phone", () => {
         const base = mock.full;
         const actual = produce(base, (actual) => {
           delete actual.phone;
         });
         const expected = {...base, phone: DEFAULT_TENANT.phone};
+
+        expect(parseTenant(actual)).toMatchObject(expected);
+      });
+    });
+
+    describe("keywords", () => {
+      it("should default keywords", () => {
+        const base = mock.full;
+        const actual = produce(base, (actual) => {
+          delete actual.keywords;
+        });
+        const expected = {...base, keywords: DEFAULT_TENANT.keywords};
+
+        expect(parseTenant(actual)).toMatchObject(expected);
+      });
+    });
+
+    describe("fields", () => {
+      it("should default fields", () => {
+        const base = mock.full;
+        const actual = produce(base, (actual) => {
+          delete actual.fields;
+        });
+        const expected = {...base, fields: DEFAULT_TENANT.fields};
 
         expect(parseTenant(actual)).toMatchObject(expected);
       });

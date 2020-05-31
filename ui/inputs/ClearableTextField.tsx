@@ -16,13 +16,15 @@ interface Props extends Omit<InputGroupProps, "children"> {
   value?: InputProps["value"];
   onChange?: InputProps["onChange"];
   onClear?: VoidFunction;
+  isReadOnly?: InputProps["isReadOnly"];
 }
 
 const ClearableTextField: React.FC<Props> = React.forwardRef(
-  ({name, placeholder, onChange, value, onClear, ...props}, ref) => (
+  ({name, placeholder, onChange, value, onClear, isReadOnly, ...props}, ref) => (
     <InputGroup {...props}>
       <Input
         ref={ref}
+        isReadOnly={isReadOnly}
         name={name}
         paddingRight={10}
         placeholder={placeholder}

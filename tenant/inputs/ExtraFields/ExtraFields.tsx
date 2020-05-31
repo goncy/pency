@@ -2,11 +2,11 @@ import React from "react";
 import {Stack} from "@chakra-ui/core";
 import produce from "immer";
 
-import {Variant} from "../../types/options";
+import {Field} from "../../types";
 
-import {getVariant} from "./constants";
-import OptionInput from "./Option";
-import CountInput from "./Count";
+import {getTextField, getRadioField} from "./constants";
+import FieldInput from "./Field";
+import TypeInput from "./Type";
 
 import FormControl from "~/ui/controls/FormControl";
 import IconButton from "~/ui/controls/IconButton";
@@ -14,24 +14,28 @@ import ClearableTextField from "~/ui/inputs/ClearableTextField";
 import PlusIcon from "~/ui/icons/Plus";
 
 interface Props {
-  value?: Partial<Variant[]>;
+  value?: Partial<Field[]>;
   error?: string;
-  onChange: (options: Variant[]) => void;
+  onChange: (options: Field[]) => void;
 }
 
-const ProductVariantsInput: React.FC<Props> = ({value = [], error, onChange}) => {
-  function handleCountChange(count, index) {
+const ExtraFieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
+  function handleTypeChange(type, index) {
     onChange(
       produce(value, (value) => {
-        value[index].count = count;
+        if (type === "text") {
+          value[index] = getTextField();
+        } else if (type === "radio") {
+          value[index] = getRadioField();
+        }
       }),
     );
   }
 
-  function handleAddVariant() {
+  function handleAddField() {
     onChange(
       produce(value, (value) => {
-        value.push(getVariant());
+        value.push(getTextField());
       }),
     );
   }
@@ -74,30 +78,18 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error, onChange}) =>
           <FormControl
             isRequired
             error={error === "title" && !value[index].title && "Este campo es requerido"}
-            help="Utilizá solo 1 palabra. Se mostrará: Eligir color"
           >
             <ClearableTextField
-              placeholder="Adicionales"
+              placeholder="Forma de pago"
               value={option.title}
               onChange={(event) => handleTitleChange(index, event.target.value)}
               onClear={() => handleRemove(index)}
             />
           </FormControl>
-          <FormControl
-            isRequired
-            error={
-              error === "optionsCount" &&
-              value[index].count > value.length &&
-              "No pueden seleccionar mas opciones de las que existen"
-            }
-            label="Cuantas opciones podrá elegir?"
-          >
-            <CountInput
-              value={option.count}
-              onChange={(count) => handleCountChange(count, index)}
-            />
+          <FormControl isRequired>
+            <TypeInput value={option.type} onChange={(type) => handleTypeChange(type, index)} />
           </FormControl>
-          <OptionInput
+          <FieldInput
             error={error}
             index={index}
             value={option}
@@ -109,12 +101,12 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error, onChange}) =>
         fontWeight="normal"
         justifyContent="flex-start"
         leftIcon={PlusIcon}
-        onClick={handleAddVariant}
+        onClick={handleAddField}
       >
-        Agregar variante
+        Agregar campo
       </IconButton>
     </Stack>
   );
 };
 
-export default ProductVariantsInput;
+export default ExtraFieldsInput;

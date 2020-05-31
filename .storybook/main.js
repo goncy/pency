@@ -3,7 +3,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   webpackFinal: async config => {
-    // Add additional paths plugin to fix custom paths error 
+    // Add additional paths plugin to fix custom paths error
     // https://www.npmjs.com/package/tsconfig-paths-webpack-plugin
     config.resolve.plugins = [
       new TsconfigPathsPlugin({
@@ -19,5 +19,9 @@ module.exports = {
         tsconfig: path.resolve(__dirname, '../tsconfig.json')
       },
     }
-  }, '@storybook/addon-actions', '@storybook/addon-links'],
+  },
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-knobs/register'
+  ],
 };

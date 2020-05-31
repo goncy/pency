@@ -37,7 +37,7 @@ const CountInput: React.FC<Props> = ({value, onChange}) => {
     <RadioGroup value={value} onChange={handleChange}>
       <Radio value={1}>Una</Radio>
       <Radio value={0}>Ilimitadas</Radio>
-      <Radio value={count}>
+      <Radio paddingRight={0} paddingY={0} value={count}>
         <Input
           _placeholder={{
             color: "black",

@@ -1,6 +1,6 @@
 import {Tenant} from "./types";
 
-export const DEFAULT_TENANT: Partial<Tenant> = {
+export const DEFAULT_TENANT: Omit<Tenant, "id" | "slug"> = {
   phone: "5491144444444",
   color: "cyan",
   title: "Pency - Tu tienda online fácil",
@@ -12,6 +12,7 @@ export const DEFAULT_TENANT: Partial<Tenant> = {
   banner: "",
   category: "",
   highlight: "",
+  fields: [],
   keywords: "pency, tienda, online, whatsapp, delivery, pedidos",
   message: `Hola, quería pedir:
 

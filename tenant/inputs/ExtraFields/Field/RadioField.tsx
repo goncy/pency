@@ -1,25 +1,22 @@
 import React from "react";
-import {Stack, FormLabel, FormHelperText, Divider, CloseButton, Flex} from "@chakra-ui/core";
 import produce from "immer";
+import {Stack, FormHelperText, FormLabel, Divider, Flex, CloseButton} from "@chakra-ui/core";
 
-import {Variant} from "../../types/options";
+import {RadioField} from "../../../types";
+import {getRadioOption} from "../constants";
 
-import {getOption} from "./constants";
-
-import Input from "~/ui/inputs/Input";
-import FormControl from "~/ui/controls/FormControl";
 import PlusIcon from "~/ui/icons/Plus";
+import FormControl from "~/ui/controls/FormControl";
 import IconButton from "~/ui/controls/IconButton";
-import Price from "~/ui/inputs/Price";
+import Input from "~/ui/inputs/Input";
 
 interface Props {
-  index: number;
+  value: Partial<RadioField>;
+  onChange: (value: Partial<RadioField>) => void;
   error?: string;
-  value: Partial<Variant>;
-  onChange: (option: Partial<Variant>) => void;
 }
 
-const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
+const RadioFieldInput: React.FC<Props> = ({value, onChange, error}) => {
   function handleChange(subindex, prop, newValue) {
     onChange(
       produce(value, (value) => {
@@ -28,18 +25,18 @@ const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
     );
   }
 
-  function handleAdd() {
-    onChange(
-      produce(value, (value) => {
-        value.options.push(getOption());
-      }),
-    );
-  }
-
   function handleRemove(subindex) {
     onChange(
       produce(value, (value) => {
         value.options.splice(subindex, 1);
+      }),
+    );
+  }
+
+  function handleAdd() {
+    onChange(
+      produce(value, (value) => {
+        value.options.push(getRadioOption());
       }),
     );
   }
@@ -56,11 +53,11 @@ const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
           {value.options.map((option, subindex) => (
             <Stack key={option.id} isInline alignItems="flex-start" spacing={0}>
               <FormControl
-                error={error === "optionsTitle" && !option.title && "Este campo es requerido"}
+                error={error === "radioOptionsTitle" && !option.title && "Este campo es requerido"}
                 width="100%"
               >
                 <Input
-                  placeholder="Queso cheddar"
+                  placeholder="Efectivo"
                   roundedRight={0}
                   value={option.title}
                   onChange={(event) => handleChange(subindex, "title", event.target.value)}
@@ -74,29 +71,16 @@ const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
                 orientation="vertical"
                 style={{marginLeft: "-1px"}}
               />
-              <FormControl
-                error={
-                  error === "optionsPrice" &&
-                  isNaN(Number(option.price)) &&
-                  "Este campo es requerido"
-                }
-                flexShrink={2}
-                width="100%"
-              >
-                <Price
-                  placeholder="Precio"
+              <FormControl flexShrink={2} width="100%">
+                <Input
+                  maxLength={35}
+                  placeholder="Nota"
                   rounded={0}
-                  value={option.price}
-                  onChange={(event) =>
-                    handleChange(
-                      subindex,
-                      "price",
-                      event.target.value ? Number(event.target.value) : "",
-                    )
-                  }
+                  value={option.note}
+                  onChange={(event) => handleChange(subindex, "note", event.target.value || "")}
                 />
               </FormControl>
-              {value.options.length > 2 && value.options.length > value.count && (
+              {value.options.length > 2 && (
                 <Flex backgroundColor="gray.100" roundedRight="md">
                   <Divider
                     borderColor="gray.400"
@@ -104,7 +88,6 @@ const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
                     marginX={0}
                     marginY={2}
                     orientation="vertical"
-                    style={{marginLeft: "-1px"}}
                   />
                   <CloseButton
                     aria-label="Borrar sub opción"
@@ -118,9 +101,7 @@ const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
             </Stack>
           ))}
         </Stack>
-        <FormHelperText>
-          El precio que ingreses a la opción se sumará al valor base del producto.
-        </FormHelperText>
+        <FormHelperText>La nota tiene un máximo de 35 caracteres</FormHelperText>
       </Stack>
       <IconButton
         _hover={{
@@ -139,4 +120,4 @@ const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
   );
 };
 
-export default OptionInput;
+export default RadioFieldInput;
