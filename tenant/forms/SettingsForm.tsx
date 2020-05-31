@@ -11,7 +11,6 @@ import Input from "~/ui/inputs/Input";
 import ColorRadio from "~/ui/inputs/ColorRadio";
 import ImageInput from "~/ui/inputs/Image";
 import FormControl from "~/ui/controls/FormControl";
-import TemplateInput from "~/cart/inputs/TemplateInput";
 
 interface Props {
   defaultValues: Partial<Tenant>;
@@ -27,7 +26,6 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
   const {handleSubmit: submit, errors, register, control, formState} = useForm<Tenant>({
     defaultValues,
   });
-  const tokens = defaultValues.fields?.map((field) => field.title).concat("productos", "total");
 
   function handleSubmit(values: Tenant) {
     const tenant = {...defaultValues, ...values};
@@ -174,29 +172,6 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 error={(errors.fields as any)?.type}
                 name="fields"
                 rules={{validate: ExtraFieldsInputValidator}}
-              />
-            </FormControl>
-            <FormControl
-              isRequired
-              error={errors?.message?.message}
-              help="Los elementos entre llaves se reemplazaran con el dato cargado por el usuario antes de enviar el mensaje"
-              label="Mensaje"
-              name="message"
-            >
-              <Controller
-                as={TemplateInput}
-                control={control}
-                defaultValue=""
-                name="message"
-                rules={{
-                  validate: (value) =>
-                    !value
-                      ? "Este campo es requerido"
-                      : value.includes("ERROR")
-                      ? "Este campo es inválido"
-                      : true,
-                }}
-                tokens={tokens}
               />
             </FormControl>
           </Stack>

@@ -14,13 +14,6 @@ export const DEFAULT_TENANT: Omit<Tenant, "id" | "slug"> = {
   highlight: "",
   fields: [],
   keywords: "pency, tienda, online, whatsapp, delivery, pedidos",
-  message: `Hola, quería pedir:
-
-{{productos}}
-
-Total: {{total}}
-
-Gracias.`,
 };
 
 export const CATEGORIES = [

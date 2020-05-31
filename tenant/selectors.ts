@@ -17,7 +17,6 @@ export function parseTenant(tenant: any): Tenant {
     instagram: tenant.instagram || DEFAULT_TENANT.instagram,
     facebook: tenant.facebook || DEFAULT_TENANT.facebook,
     twitter: tenant.twitter || DEFAULT_TENANT.twitter,
-    message: tenant.message || "",
     keywords: tenant.keywords || DEFAULT_TENANT.keywords,
     banner: tenant.banner || DEFAULT_TENANT.banner,
     description: tenant.description || "",

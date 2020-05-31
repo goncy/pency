@@ -15,7 +15,6 @@ describe("selectors", () => {
         delete actual.title;
         delete actual.description;
         delete actual.category;
-        delete actual.message;
       });
       const expected = {
         ...base,
@@ -25,7 +24,6 @@ describe("selectors", () => {
         title: DEFAULT_TENANT.title,
         description: DEFAULT_TENANT.description,
         category: DEFAULT_TENANT.category,
-        message: DEFAULT_TENANT.message,
       };
 
       expect(formatTenant(actual)).toMatchObject(expected);

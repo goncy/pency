@@ -1,6 +1,5 @@
 import faker from "faker";
 
-import {DEFAULT_TENANT} from "./constants";
 import {Tenant} from "./types";
 
 export default {
@@ -17,7 +16,6 @@ export default {
       title: faker.company.companyName(),
       description: faker.lorem.lines(2),
       phone: faker.phone.phoneNumber("##########"),
-      message: DEFAULT_TENANT.message,
       category: faker.commerce.department(),
       highlight: faker.lorem.words(10),
       keywords: `${faker.commerce.department()}, ${faker.commerce.department()}`,

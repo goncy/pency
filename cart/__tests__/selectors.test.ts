@@ -3,51 +3,30 @@ import cartMock from "../mock";
 
 describe("selectors", () => {
   describe("getMessage", () => {
-    it("should replace {{productos}} with real products", () => {
-      const MESSAGE = `Aca van:
-{{productos}}
-`;
-      const actual = getMessage(MESSAGE, cartMock.items);
+    it("should show products without fields", () => {
+      const items = cartMock.items;
 
-      expect(actual).not.toContain(`{{productos}}`);
+      const actual = getMessage(items);
+
+      items.forEach((item) => {
+        expect(actual).toContain(item.title);
+        expect(actual).toContain(item.category);
+        expect(actual).toContain(item.price * item.count);
+      });
     });
 
-    it("should replace {{total}} with real total", () => {
-      const MESSAGE = `Aca van:
-      {{total}}
-      `;
-      const actual = getMessage(MESSAGE, cartMock.items);
+    it("should show products with fields", () => {
+      const items = cartMock.items;
+      const fields = {
+        Some: "Field",
+        Should: "Show",
+      };
 
-      expect(actual).not.toContain(`{{total}}`);
-    });
+      const actual = getMessage(items, fields);
 
-    it("should handle undefined fields", () => {
-      const MESSAGE = `Aca van:
-      {{productos}}
-      `;
-
-      getMessage(MESSAGE, cartMock.items);
-    });
-
-    it("should not replace invalid fields", () => {
-      const MESSAGE = `Aca van:
-      {{sarasas}}
-      `;
-      const FIELDS = {some: "field"};
-      const actual = getMessage(MESSAGE, cartMock.items, FIELDS);
-
-      expect(actual).toContain("{{sarasas}}");
-    });
-
-    it("should replace fields correctly", () => {
-      const MESSAGE = `Aca van:
-      {{some}}
-      `;
-      const FIELDS = {some: "field"};
-      const actual = getMessage(MESSAGE, cartMock.items, FIELDS);
-
-      expect(actual).not.toContain(`{{some}}`);
-      expect(actual).toContain(`field`);
+      Object.entries(fields).forEach(([title, value]) => {
+        expect(actual).toContain(`${title}: ${value}`);
+      });
     });
   });
 });

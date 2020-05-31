@@ -23,16 +23,18 @@ export function getItems(items: CartItem[]): string {
     .join("\n");
 }
 
-export function getMessage(message: string, items: CartItem[], fields?: Field): string {
-  let final = message
-    .replace(`{{productos}}`, getItems(items))
-    .replace(`{{total}}`, `$${getTotal(items)}`);
+export function getFields(fields: Field) {
+  if (!fields) return "";
 
-  if (fields) {
-    Object.entries(fields).forEach(([title, value]) => {
-      final = final.replace(`{{${title}}}`, value);
-    });
-  }
+  return Object.entries(fields)
+    .map(([title, value]) => `${title}: ${value}`)
+    .join("\n");
+}
 
-  return final;
+export function getMessage(items: CartItem[], fields?: Field): string {
+  return (
+    getItems(items) +
+    (fields ? "\n\n" + getFields(fields) + "\n\n" : "\n\n") +
+    `Total: $${getTotal(items)}`
+  );
 }

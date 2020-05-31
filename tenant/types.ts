@@ -11,7 +11,6 @@ export interface Tenant {
   instagram: string;
   facebook: string;
   twitter: string;
-  message: string;
   keywords: string;
   banner: string;
   description: string;
