@@ -25,7 +25,6 @@ const CartDrawer: React.FC<Props> = ({items, fields, onRemove, onCheckout, isOpe
 
   function handleClose() {
     onClose();
-    setStep("overview");
   }
 
   function handleNext() {
@@ -34,6 +33,14 @@ const CartDrawer: React.FC<Props> = ({items, fields, onRemove, onCheckout, isOpe
 
   function handlePrevious() {
     setStep("overview");
+  }
+
+  function handleCheckoutWithoutFields() {
+    onCheckout();
+  }
+
+  function handleCheckoutWithFields(fields: Field) {
+    onCheckout(fields);
   }
 
   React.useEffect(() => {
@@ -49,11 +56,11 @@ const CartDrawer: React.FC<Props> = ({items, fields, onRemove, onCheckout, isOpe
           items={items}
           onBack={handleClose}
           onRemove={onRemove}
-          onSubmit={hasNextStep ? handleNext : onCheckout}
+          onSubmit={hasNextStep ? handleNext : handleCheckoutWithoutFields}
         />
       )}
       {step === "fields" && (
-        <Fields fields={fields} onBack={handlePrevious} onSubmit={onCheckout} />
+        <Fields fields={fields} onBack={handlePrevious} onSubmit={handleCheckoutWithFields} />
       )}
     </Drawer>
   );

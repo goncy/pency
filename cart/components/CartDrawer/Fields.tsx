@@ -33,7 +33,13 @@ const Fields: React.FC<Props> = ({fields, onSubmit, onBack}) => {
             <DrawerFooter padding={4}>
               <Stack spacing={4} width="100%">
                 <Divider />
-                <CheckoutButton onClick={submit} />
+                <CheckoutButton
+                  onClick={(event) => {
+                    event.stopPropagation();
+
+                    submit();
+                  }}
+                />
               </Stack>
             </DrawerFooter>
           </>
