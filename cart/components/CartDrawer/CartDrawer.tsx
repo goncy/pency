@@ -23,8 +23,17 @@ const CartDrawer: React.FC<Props> = ({items, fields, onRemove, onCheckout, isOpe
   const count = getCount(items);
   const hasNextStep = Boolean(fields?.length);
 
+  function handleClose() {
+    onClose();
+    setStep("overview");
+  }
+
   function handleNext() {
     setStep("fields");
+  }
+
+  function handlePrevious() {
+    setStep("overview");
   }
 
   React.useEffect(() => {
@@ -32,17 +41,20 @@ const CartDrawer: React.FC<Props> = ({items, fields, onRemove, onCheckout, isOpe
   }, [count, onClose]);
 
   return (
-    <Drawer id="cart" isOpen={isOpen} placement="right" size="md" onClose={onClose}>
+    <Drawer id="cart" isOpen={isOpen} placement="right" size="md" onClose={handleClose}>
       <DrawerOverlay />
       {step === "overview" && (
         <Overview
           hasNextStep={hasNextStep}
           items={items}
+          onBack={handleClose}
           onRemove={onRemove}
           onSubmit={hasNextStep ? handleNext : onCheckout}
         />
       )}
-      {step === "fields" && <Fields fields={fields} onSubmit={onCheckout} />}
+      {step === "fields" && (
+        <Fields fields={fields} onBack={handlePrevious} onSubmit={onCheckout} />
+      )}
     </Drawer>
   );
 };

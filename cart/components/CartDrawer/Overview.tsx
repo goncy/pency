@@ -5,8 +5,6 @@ import {
   Text,
   IconButton,
   DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
   DrawerBody,
   DrawerFooter,
   Divider,
@@ -16,6 +14,7 @@ import {
 import {CartItem} from "../../types";
 
 import CheckoutButton from "./CheckoutButton";
+import Header from "./Header";
 
 import Badge from "~/ui/feedback/Badge";
 import {useTranslation} from "~/hooks/translation";
@@ -24,21 +23,21 @@ import {getCount, getTotal} from "~/cart/selectors";
 interface Props {
   items: CartItem[];
   onRemove: (id: string) => void;
+  onBack: VoidFunction;
   onSubmit: VoidFunction;
   hasNextStep: boolean;
 }
 
-const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => {
+const Overview: React.FC<Props> = ({items, onRemove, onSubmit, onBack, hasNextStep}) => {
   const t = useTranslation();
   const count = getCount(items);
   const total = getTotal(items);
 
   return (
     <DrawerContent>
-      <DrawerCloseButton right="8px" top="8px" />
-      <DrawerHeader p={4}>
+      <Header onBack={onBack}>
         {t("cart.yourCart")} ({count})
-      </DrawerHeader>
+      </Header>
       <DrawerBody overflowY="auto" padding={4}>
         <Stack spacing={6}>
           {items.map(({id, title, options, price, count}) => (

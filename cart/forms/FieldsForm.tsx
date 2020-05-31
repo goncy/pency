@@ -33,7 +33,7 @@ const FieldsForm: React.FC<Props> = ({defaultValues, children, onSubmit, fields}
     form: (
       <FormContext {...form}>
         <form onSubmit={submit(handleSubmit)}>
-          <Stack spacing={4}>
+          <Stack spacing={8}>
             {fields.map((field) => {
               return (
                 <FormControl key={field.id} name={field.title}>

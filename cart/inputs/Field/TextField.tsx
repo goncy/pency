@@ -16,9 +16,12 @@ const TextFieldInput: React.FC<Props> = ({value, field, onChange, error}) => {
   return (
     <FormControl error={error} help={field.note} label={field.title} width="100%">
       <Input
+        fontSize="sm"
         maxLength={70}
+        paddingX={0}
         roundedRight={0}
         value={value}
+        variant="flushed"
         onChange={(event) => onChange(event.target.value || "")}
       />
     </FormControl>

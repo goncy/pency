@@ -103,29 +103,6 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               <option value="Otro">Otro</option>
             </Select>
           </FormControl>
-          <FormControl
-            isRequired
-            error={errors?.message?.message}
-            help="Los elementos entre llaves se reemplazaran con el dato cargado por el usuario antes de enviar el mensaje"
-            label="Mensaje"
-            name="message"
-          >
-            <Controller
-              as={TemplateInput}
-              control={control}
-              defaultValue=""
-              name="message"
-              rules={{
-                validate: (value) =>
-                  !value
-                    ? "Este campo es requerido"
-                    : value.includes("ERROR")
-                    ? "Este campo es inválido"
-                    : true,
-              }}
-              tokens={tokens}
-            />
-          </FormControl>
           <FormControl help="Separadas por comas" label="Palabras clave" name="keywords">
             <Input ref={register} name="keywords" placeholder="delivery, pasteleria, cupcakes" />
           </FormControl>
@@ -183,17 +160,45 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               width={64}
             />
           </FormControl>
-          <Stack>
+          <Stack shouldWrapChildren spacing={4}>
             <Text fontSize="2xl" fontWeight={500}>
               Checkout
             </Text>
-            <Controller
-              as={ExtraFieldsInput}
-              control={control}
-              error={(errors.fields as any)?.type}
+            <FormControl
+              help="Una vez agregados los campos adicionales, usalos en el campo de mensaje mas abajo"
               name="fields"
-              rules={{validate: ExtraFieldsInputValidator}}
-            />
+            >
+              <Controller
+                as={ExtraFieldsInput}
+                control={control}
+                error={(errors.fields as any)?.type}
+                name="fields"
+                rules={{validate: ExtraFieldsInputValidator}}
+              />
+            </FormControl>
+            <FormControl
+              isRequired
+              error={errors?.message?.message}
+              help="Los elementos entre llaves se reemplazaran con el dato cargado por el usuario antes de enviar el mensaje"
+              label="Mensaje"
+              name="message"
+            >
+              <Controller
+                as={TemplateInput}
+                control={control}
+                defaultValue=""
+                name="message"
+                rules={{
+                  validate: (value) =>
+                    !value
+                      ? "Este campo es requerido"
+                      : value.includes("ERROR")
+                      ? "Este campo es inválido"
+                      : true,
+                }}
+                tokens={tokens}
+              />
+            </FormControl>
           </Stack>
         </Stack>
       </form>
