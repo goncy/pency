@@ -2,7 +2,7 @@ import React from "react";
 import {Stack} from "@chakra-ui/core";
 import produce from "immer";
 
-import {Variant} from "../../types/options";
+import {Variant} from "../../types";
 
 import {getVariant} from "./constants";
 import OptionInput from "./Option";

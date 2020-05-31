@@ -4,7 +4,7 @@ import produce from "immer";
 
 import {Product} from "../product/types";
 
-import {CartItem, Context, State, Actions, Cart, Field} from "./types";
+import {CartItem, Context, State, Actions, Cart, CheckoutFields} from "./types";
 import {getSummary, getMessage} from "./selectors";
 
 import {useAnalytics} from "~/analytics/hooks";
@@ -80,7 +80,7 @@ const CartProvider = ({children}: Props) => {
     );
   }
 
-  function checkout(fields?: Field) {
+  function checkout(fields?: CheckoutFields) {
     log("cart_checkout", {
       content_type: "cart",
       description: getSummary(items),

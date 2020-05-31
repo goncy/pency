@@ -16,11 +16,7 @@ interface Props {
 const RadioFieldInput: React.FC<Props> = ({value, field, onChange, error}) => {
   return (
     <FormControl error={error} label={field.title} width="100%">
-      <RadioGroup
-        flexDirection="column"
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-      >
+      <RadioGroup value={value} onChange={(event) => onChange(event.target.value)}>
         {field.options.map((option) => (
           <Radio
             isFullWidth

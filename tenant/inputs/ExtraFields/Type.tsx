@@ -12,7 +12,11 @@ interface Props {
 
 const TypeInput: React.FC<Props> = ({value, onChange}) => {
   return (
-    <RadioGroup value={value} onChange={(event) => onChange(event.target.value as Field["type"])}>
+    <RadioGroup
+      isInline
+      value={value}
+      onChange={(event) => onChange(event.target.value as Field["type"])}
+    >
       <Radio value="radio">Opciones</Radio>
       <Radio value="text">A completar</Radio>
     </RadioGroup>

@@ -162,10 +162,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             <Text fontSize="2xl" fontWeight={500}>
               Checkout
             </Text>
-            <FormControl
-              help="Una vez agregados los campos adicionales, usalos en el campo de mensaje mas abajo"
-              name="fields"
-            >
+            <FormControl name="fields">
               <Controller
                 as={ExtraFieldsInput}
                 control={control}

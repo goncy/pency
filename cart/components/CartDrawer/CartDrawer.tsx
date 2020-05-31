@@ -1,7 +1,7 @@
 import React from "react";
 import {DrawerOverlay, Drawer} from "@chakra-ui/core";
 
-import {CartItem, Field} from "../../types";
+import {CartItem, CheckoutFields} from "../../types";
 import {getCount} from "../../selectors";
 
 import Overview from "./Overview";
@@ -14,7 +14,7 @@ interface Props {
   onClose: VoidFunction;
   items: CartItem[];
   fields?: Tenant["fields"];
-  onCheckout: (fields?: Field) => void;
+  onCheckout: (fields?: CheckoutFields) => void;
   onRemove: (id: string) => void;
 }
 
@@ -39,7 +39,7 @@ const CartDrawer: React.FC<Props> = ({items, fields, onRemove, onCheckout, isOpe
     onCheckout();
   }
 
-  function handleCheckoutWithFields(fields: Field) {
+  function handleCheckoutWithFields(fields: CheckoutFields) {
     onCheckout(fields);
   }
 

@@ -6,12 +6,12 @@ import FieldInput, {validator as FieldInputValidator} from "../inputs/Field";
 
 import FormControl from "~/ui/controls/FormControl";
 import {Field as TenantField} from "~/tenant/types";
-import {Field} from "~/cart/types";
+import {CheckoutFields} from "~/cart/types";
 
 interface Props {
-  defaultValues?: Field;
+  defaultValues?: CheckoutFields;
   fields: TenantField[];
-  onSubmit: (values: Field) => void;
+  onSubmit: (values: CheckoutFields) => void;
   children: (options: {
     form: JSX.Element;
     isLoading: boolean;
@@ -23,7 +23,7 @@ const FieldsForm: React.FC<Props> = ({defaultValues, children, onSubmit, fields}
   const form = useForm<Partial<any>>({defaultValues});
   const {handleSubmit: submit, errors, formState, control} = form;
 
-  function handleSubmit(fields: Field) {
+  function handleSubmit(fields: CheckoutFields) {
     return onSubmit(fields);
   }
 

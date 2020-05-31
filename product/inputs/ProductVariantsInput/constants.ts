@@ -1,6 +1,6 @@
 import shortid from "shortid";
 
-import {Option, Variant} from "../../types/options";
+import {Option, Variant} from "../../types";
 
 export const getVariant = (): Variant => {
   return {

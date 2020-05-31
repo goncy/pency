@@ -2,7 +2,7 @@ import React from "react";
 import {Stack, FormLabel, FormHelperText, Divider, CloseButton, Flex} from "@chakra-ui/core";
 import produce from "immer";
 
-import {Variant} from "../../types/options";
+import {Variant} from "../../types";
 
 import {getOption} from "./constants";
 

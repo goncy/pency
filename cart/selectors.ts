@@ -1,4 +1,4 @@
-import {CartItem, Field} from "./types";
+import {CartItem, CheckoutFields} from "./types";
 
 export function getTotal(items: CartItem[]): number {
   return items.reduce((total, item) => total + item.price * item.count, 0);
@@ -23,7 +23,7 @@ export function getItems(items: CartItem[]): string {
     .join("\n");
 }
 
-export function getFields(fields: Field) {
+export function getFields(fields: CheckoutFields) {
   if (!fields) return "";
 
   return Object.entries(fields)
@@ -31,7 +31,7 @@ export function getFields(fields: Field) {
     .join("\n");
 }
 
-export function getMessage(items: CartItem[], fields?: Field): string {
+export function getMessage(items: CartItem[], fields?: CheckoutFields): string {
   return (
     getItems(items) +
     (fields ? "\n\n" + getFields(fields) + "\n\n" : "\n\n") +

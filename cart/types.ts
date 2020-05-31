@@ -1,5 +1,4 @@
 import {Product} from "~/product/types";
-import {Field as TenantField} from "~/tenant/types";
 
 export interface CartItem {
   id: string | Product["id"];
@@ -13,8 +12,7 @@ export interface CartItem {
 }
 
 export type Cart = Record<string, CartItem>;
-
-export type Field = Record<TenantField["title"], string>;
+export type CheckoutFields = Record<string, string>;
 
 export interface State {
   items: CartItem[];
@@ -24,7 +22,7 @@ export interface State {
 export interface Actions {
   add: (product: Product) => void;
   remove: (id: CartItem["id"]) => void;
-  checkout: (fields?: Field) => void;
+  checkout: (fields?: CheckoutFields) => void;
 }
 
 export interface Context {

@@ -2,7 +2,7 @@ import React from "react";
 import {DrawerContent, DrawerBody, DrawerFooter, Stack, Divider} from "@chakra-ui/core";
 
 import FieldsForm from "../../forms/FieldsForm";
-import {Field} from "../../types";
+import {CheckoutFields} from "../../types";
 
 import CheckoutButton from "./CheckoutButton";
 import Header from "./Header";
@@ -11,12 +11,12 @@ import {Tenant} from "~/tenant/types";
 
 interface Props {
   fields: Tenant["fields"];
-  onSubmit: (fields: Field) => void;
+  onSubmit: (fields: CheckoutFields) => void;
   onBack: VoidFunction;
 }
 
 const Fields: React.FC<Props> = ({fields, onSubmit, onBack}) => {
-  const defaultValues: Field = fields.reduce(
+  const defaultValues: CheckoutFields = fields.reduce(
     (values, field) => ({...values, [field.title]: ""}),
     {},
   );

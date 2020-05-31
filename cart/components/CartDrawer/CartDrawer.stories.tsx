@@ -1,7 +1,7 @@
 import React from "react";
 import faker from "faker";
 
-import CartDrawer from ".";
+import CartDrawer from "./CartDrawer";
 
 import tenantMock from "~/tenant/mock";
 

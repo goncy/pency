@@ -15,8 +15,15 @@ const StyledRadioGroup = styled(ChakraRadioGroup)`
   }
 `;
 
-const RadioGroup: React.FC<ChakraRadioGroupProps> = (props) => (
-  <StyledRadioGroup display="flex" variantColor="primary" {...props} />
+const RadioGroup: React.FC<ChakraRadioGroupProps> = ({isInline, ...props}) => (
+  <StyledRadioGroup
+    display="flex"
+    flexDirection={isInline ? "row" : "column"}
+    isInline={isInline}
+    spacing={3}
+    variantColor="primary"
+    {...props}
+  />
 );
 
 export default RadioGroup;
