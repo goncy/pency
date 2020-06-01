@@ -16,7 +16,7 @@ const CheckoutButton = ({onClick}) => {
       onClick={onClick}
     >
       <WhatsAppIcon marginRight={2} />
-      {t("cart.complete")}
+      {t("cart.completeOnWhatsApp")}
     </Button>
   );
 };

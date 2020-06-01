@@ -13,10 +13,12 @@
     "exit": "Exit",
     "products": "Products",
     "shop": "Shop",
-    "options": "Options"
+    "options": "Options",
+    "next": "Next"
   },
   "form": {
-    "required": "This field is required"
+    "required": "This field is required",
+    "invalidEmail": "Invalid email"
   },
   "filters": {
     "search": "Search..."
@@ -27,13 +29,20 @@
   },
   "cart": {
     "yourCart": "Your cart",
-    "complete": "Complete order on WhatsApp"
+    "completeOrder": "Complete your order",
+    "completeOnWhatsApp": "Complete order on WhatsApp"
   },
   "products": {
     "empty": "No products found",
     "check": "Review cart"
   },
   "auth": {
+    "resetPasswordForm": {
+      "resetError": "An error occurred reseting your password, try again later",
+      "title": "Reset your password",
+      "description": "Fill your email and we will send you instructions on how to reset your password.",
+      "sendInstructions": "Send instructions"
+    },
     "resetPasswordSuccess": {
       "title": "Ready! We just sent you the instructions",
       "description": "You will receive an email with a link to reset your password. If you can't find it in a couple of minutes, check your spam folder.",

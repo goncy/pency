@@ -8,6 +8,7 @@ import CheckoutButton from "./CheckoutButton";
 import Header from "./Header";
 
 import {Tenant} from "~/tenant/types";
+import {useTranslation} from "~/hooks/translation";
 
 interface Props {
   fields: Tenant["fields"];
@@ -16,6 +17,8 @@ interface Props {
 }
 
 const Fields: React.FC<Props> = ({fields, onSubmit, onBack}) => {
+  const t = useTranslation();
+
   const defaultValues: CheckoutFields = fields.reduce(
     (values, field) => ({...values, [field.title]: ""}),
     {},
@@ -23,7 +26,7 @@ const Fields: React.FC<Props> = ({fields, onSubmit, onBack}) => {
 
   return (
     <DrawerContent>
-      <Header onBack={onBack}>Completá tu pedido</Header>
+      <Header onBack={onBack}>{t("cart.completeOrder")}</Header>
       <FieldsForm defaultValues={defaultValues} fields={fields} onSubmit={onSubmit}>
         {({form, submit}) => (
           <>

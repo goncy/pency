@@ -85,7 +85,7 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, onBack, hasNextSt
           </Flex>
           {hasNextStep ? (
             <Button variantColor="primary" onClick={onSubmit}>
-              Siguiente
+              {t("common.next")}
             </Button>
           ) : (
             <CheckoutButton onClick={onSubmit} />

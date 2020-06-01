@@ -13,7 +13,8 @@
     "exit": "Salir",
     "products": "Productos",
     "shop": "Tienda",
-    "options": "Opciones"
+    "options": "Opciones",
+    "next": "Siguiente"
   },
   "form": {
     "required": "Este campo es requerido",
@@ -28,7 +29,8 @@
   },
   "cart": {
     "yourCart": "Tu carrito",
-    "complete": "Completar pedido en WhatsApp"
+    "completeOrder": "Completá tu pedido",
+    "completeOnWhatsApp": "Completar pedido en WhatsApp"
   },
   "products": {
     "empty": "No se encontraron productos",
