@@ -25,7 +25,7 @@ describe("selectors", () => {
       const actual = getMessage(items, fields);
 
       Object.entries(fields).forEach(([title, value]) => {
-        expect(actual).toContain(`${title}: ${value}`);
+        expect(actual).toContain(`${title}: *${value}*`);
       });
     });
   });
