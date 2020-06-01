@@ -46,6 +46,7 @@ const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
                 <Controller
                   as={ProductLimitedCheckboxInput}
                   control={control}
+                  defaultValue={[]}
                   label={(option) => `${option.title} ${option.price ? `+ $${option.price}` : ""}`}
                   limit={option.count}
                   name={`options[${index}].value`}
