@@ -9,7 +9,7 @@ interface Props {
 
 const Header: React.FC<Props> = ({onBack, children}) => (
   <DrawerHeader padding={4}>
-    <Stack>
+    <Stack spacing={6}>
       <ArrowLeftIcon cursor="pointer" onClick={onBack} />
       <Text fontWeight={500}>{children}</Text>
     </Stack>
