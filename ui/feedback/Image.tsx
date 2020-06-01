@@ -19,7 +19,7 @@ const Image: React.FC<Props> = ({src, ...props}) => {
     ) {
       observer = new IntersectionObserver(
         (intersections) => {
-          const isShowing = intersections[0].isIntersecting;
+          const isShowing = intersections[0]?.isIntersecting;
 
           if (isShowing) {
             setImage(src);

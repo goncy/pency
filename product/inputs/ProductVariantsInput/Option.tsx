@@ -2,7 +2,7 @@ import React from "react";
 import {Stack, FormLabel, FormHelperText, Divider, CloseButton, Flex} from "@chakra-ui/core";
 import produce from "immer";
 
-import {Variant} from "../../types/options";
+import {Variant} from "../../types";
 
 import {getOption} from "./constants";
 
@@ -72,6 +72,7 @@ const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
                 marginX={0}
                 marginY={2}
                 orientation="vertical"
+                style={{marginLeft: "-1px"}}
               />
               <FormControl
                 error={
@@ -103,6 +104,7 @@ const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
                     marginX={0}
                     marginY={2}
                     orientation="vertical"
+                    style={{marginLeft: "-1px"}}
                   />
                   <CloseButton
                     aria-label="Borrar sub opción"
@@ -128,8 +130,6 @@ const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
         fontWeight="normal"
         justifyContent="flex-start"
         leftIcon={PlusIcon}
-        marginBottom={3}
-        paddingY={2}
         variant="unstyled"
         onClick={handleAdd}
       >

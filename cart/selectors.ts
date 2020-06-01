@@ -1,4 +1,4 @@
-import {CartItem} from "./types";
+import {CartItem, CheckoutFields} from "./types";
 
 export function getTotal(items: CartItem[]): number {
   return items.reduce((total, item) => total + item.price * item.count, 0);
@@ -23,8 +23,16 @@ export function getItems(items: CartItem[]): string {
     .join("\n");
 }
 
-export function getMessage(message: string, items: CartItem[]): string {
-  return message
-    .replace(`{{productos}}`, getItems(items))
-    .replace(`{{total}}`, `$${getTotal(items)}`);
+export function getFields(fields: CheckoutFields) {
+  if (!fields) return "";
+
+  return Object.entries(fields)
+    .map(([title, value]) => `${title}: *${value}*`)
+    .join("\n");
+}
+
+export function getMessage(items: CartItem[], fields?: CheckoutFields): string {
+  return (
+    getItems(items) + `\n\nTotal: $${getTotal(items)}` + (fields ? "\n\n" + getFields(fields) : "")
+  );
 }

@@ -1,19 +1,19 @@
 import React from "react";
 import {useForm, Controller} from "react-hook-form";
-import {Stack, Textarea} from "@chakra-ui/core";
+import {Stack, Textarea, Text} from "@chakra-ui/core";
 
 import {Tenant} from "../types";
 import {CATEGORIES} from "../constants";
+import ExtraFieldsInput, {validator as ExtraFieldsInputValidator} from "../inputs/ExtraFields";
 
 import Select from "~/ui/inputs/Select";
 import Input from "~/ui/inputs/Input";
-import ImageInput from "~/ui/inputs/Image";
 import ColorRadio from "~/ui/inputs/ColorRadio";
+import ImageInput from "~/ui/inputs/Image";
 import FormControl from "~/ui/controls/FormControl";
-import TemplateInput from "~/cart/inputs/TemplateInput";
 
 interface Props {
-  defaultValues?: Tenant;
+  defaultValues: Partial<Tenant>;
   onSubmit: (values: Tenant) => void;
   children: (options: {
     form: JSX.Element;
@@ -101,28 +101,6 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               <option value="Otro">Otro</option>
             </Select>
           </FormControl>
-          <FormControl
-            isRequired
-            error={errors?.message?.message}
-            help="Insertá {{productos}} y {{total}} donde quieras ponerlos"
-            label="Mensaje"
-            name="message"
-          >
-            <Controller
-              as={TemplateInput}
-              control={control}
-              defaultValue=""
-              name="message"
-              rules={{
-                validate: (value) =>
-                  !value
-                    ? "Este campo es requerido"
-                    : value.includes("ERROR")
-                    ? "Este campo es inválido"
-                    : true,
-              }}
-            />
-          </FormControl>
           <FormControl help="Separadas por comas" label="Palabras clave" name="keywords">
             <Input ref={register} name="keywords" placeholder="delivery, pasteleria, cupcakes" />
           </FormControl>
@@ -180,6 +158,20 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               width={64}
             />
           </FormControl>
+          <Stack shouldWrapChildren spacing={4}>
+            <Text fontSize="2xl" fontWeight={500}>
+              Checkout
+            </Text>
+            <FormControl name="fields">
+              <Controller
+                as={ExtraFieldsInput}
+                control={control}
+                error={(errors.fields as any)?.type}
+                name="fields"
+                rules={{validate: ExtraFieldsInputValidator}}
+              />
+            </FormControl>
+          </Stack>
         </Stack>
       </form>
     ),

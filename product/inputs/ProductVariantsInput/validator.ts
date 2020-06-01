@@ -1,4 +1,4 @@
-import {Variant} from "../../types/options";
+import {Variant} from "../../types";
 
 export default {
   title: (options: Variant[]) => !options?.some((option) => !option.title),

@@ -1,7 +1,6 @@
 import React from "react";
 
-import {Context, State, Actions} from "./types/context";
-import {Product} from "./types/product";
+import {Context, State, Actions, Product} from "./types";
 import api from "./api";
 
 import {useToast} from "~/hooks/toast";

@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, Grid} from "@chakra-ui/core";
 
-import {COLORS} from "~/constants";
+import {COLORS} from "~/app/constants";
 
 interface Props {
   value?: string;

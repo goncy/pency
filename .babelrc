@@ -1,0 +1,15 @@
+{
+  "presets": [
+    [
+      "next/babel",
+      {
+        "preset-env": {
+          "targets": {
+            "browsers": [ "Android >= 4" ]
+          }
+        }
+      }
+    ]
+  ],
+  "plugins": []
+}

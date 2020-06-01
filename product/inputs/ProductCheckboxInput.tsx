@@ -2,7 +2,7 @@ import React from "react";
 import {Text, Stack, Button} from "@chakra-ui/core";
 import produce from "immer";
 
-import {Option} from "../types/options";
+import {Option} from "../types";
 
 import Checkbox from "~/ui/inputs/Checkbox";
 

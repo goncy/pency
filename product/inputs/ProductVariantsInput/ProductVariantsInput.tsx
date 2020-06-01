@@ -2,7 +2,7 @@ import React from "react";
 import {Stack} from "@chakra-ui/core";
 import produce from "immer";
 
-import {Variant} from "../../types/options";
+import {Variant} from "../../types";
 
 import {getVariant} from "./constants";
 import OptionInput from "./Option";
@@ -63,7 +63,14 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error, onChange}) =>
   return (
     <Stack spacing={3}>
       {value?.map((option, index) => (
-        <Stack key={option.id} shouldWrapChildren borderBottomWidth={1} spacing={3}>
+        <Stack
+          key={option.id}
+          shouldWrapChildren
+          borderBottomWidth={1}
+          borderColor="gray.200"
+          paddingBottom={3}
+          spacing={3}
+        >
           <FormControl
             isRequired
             error={error === "title" && !value[index].title && "Este campo es requerido"}

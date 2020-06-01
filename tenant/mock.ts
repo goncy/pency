@@ -1,12 +1,11 @@
 import faker from "faker";
-import shortid from "shortid";
 
 import {Tenant} from "./types";
 
 export default {
   get full(): Tenant {
     return {
-      id: shortid.generate(),
+      id: faker.random.uuid(),
       color: "cyan",
       slug: faker.internet.userName(),
       twitter: faker.internet.userName(),
@@ -17,6 +16,27 @@ export default {
       title: faker.company.companyName(),
       description: faker.lorem.lines(2),
       phone: faker.phone.phoneNumber("##########"),
+      category: faker.commerce.department(),
+      highlight: faker.lorem.words(10),
+      keywords: `${faker.commerce.department()}, ${faker.commerce.department()}`,
+      fields: [
+        {
+          id: faker.random.uuid(),
+          title: "Métodos de pago",
+          type: "radio",
+          options: [
+            {id: faker.random.uuid(), title: "Efectivo", note: "20% Off"},
+            {id: faker.random.uuid(), title: "Tarjeta de débito", note: "10% Off"},
+            {id: faker.random.uuid(), title: "Tarjeta de crédito", note: ""},
+          ],
+        },
+        {
+          id: faker.random.uuid(),
+          title: "Dirección de entrega",
+          type: "text",
+          note: "Solo se entrega en zona sur",
+        },
+      ],
     };
   },
 };

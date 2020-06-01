@@ -34,6 +34,7 @@
     "@babel/core": "^7.9.6",
     "@babel/plugin-syntax-typescript": "^7.8.3",
     "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-knobs": "^5.3.19",
     "@storybook/addon-links": "^5.3.18",
     "@storybook/addons": "^5.3.18",
     "@storybook/preset-typescript": "^3.0.0",
