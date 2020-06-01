@@ -2,8 +2,7 @@ import React from "react";
 
 import {Field} from "../../types";
 
-import RadioGroup from "~/ui/inputs/RadioGroup";
-import Radio from "~/ui/inputs/Radio";
+import RadioGroup, {RadioColumn} from "~/ui/inputs/Radio";
 
 interface Props {
   onChange: (type: Field["type"]) => void;
@@ -17,8 +16,8 @@ const TypeInput: React.FC<Props> = ({value, onChange}) => {
       value={value}
       onChange={(event) => onChange(event.target.value as Field["type"])}
     >
-      <Radio value="radio">Opciones</Radio>
-      <Radio value="text">A completar</Radio>
+      <RadioColumn value="radio">Opciones</RadioColumn>
+      <RadioColumn value="text">A completar</RadioColumn>
     </RadioGroup>
   );
 };

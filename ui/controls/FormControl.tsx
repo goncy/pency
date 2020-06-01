@@ -27,7 +27,9 @@ const FormControl: React.FC<Props> = ({
   <ChakraFormControl isInvalid={Boolean(error)} {...props}>
     {label && (
       <FormLabel display="flex" htmlFor={name}>
-        <Text fontSize="sm">{label}</Text>
+        <Text fontSize={{base: "sm", sm: "md"}} fontWeight={500}>
+          {label}
+        </Text>
         {isRequired ? (
           <Text
             backgroundColor="primary.50"

@@ -1,5 +1,4 @@
 import React from "react";
-import {DrawerOverlay, Drawer} from "@chakra-ui/core";
 
 import {CartItem, CheckoutFields} from "../../types";
 import {getCount} from "../../selectors";
@@ -7,6 +6,7 @@ import {getCount} from "../../selectors";
 import Overview from "./Overview";
 import Fields from "./Fields";
 
+import Drawer, {DrawerHeader} from "~/ui/controls/Drawer";
 import {Tenant} from "~/tenant/types";
 
 interface Props {
@@ -23,8 +23,13 @@ const CartDrawer: React.FC<Props> = ({items, fields, onRemove, onCheckout, isOpe
   const count = getCount(items);
   const hasNextStep = Boolean(fields?.length);
 
-  function handleClose() {
+  const handleClose = React.useCallback(() => {
     onClose();
+    handleReset();
+  }, [onClose]);
+
+  function handleReset() {
+    setStep("overview");
   }
 
   function handleNext() {
@@ -44,24 +49,28 @@ const CartDrawer: React.FC<Props> = ({items, fields, onRemove, onCheckout, isOpe
   }
 
   React.useEffect(() => {
-    if (!count) onClose();
-  }, [count, onClose]);
+    if (!count) handleClose();
+  }, [count, handleClose]);
 
   return (
-    <Drawer id="cart" isOpen={isOpen} placement="right" size="md" onClose={handleClose}>
-      <DrawerOverlay />
+    <Drawer
+      id="cart"
+      isOpen={isOpen}
+      placement="right"
+      size="md"
+      onAnimationEnd={handleReset}
+      onClose={handleClose}
+    >
+      <DrawerHeader onBack={step === "fields" && handlePrevious} onClose={handleClose} />
       {step === "overview" && (
         <Overview
           hasNextStep={hasNextStep}
           items={items}
-          onBack={handleClose}
           onRemove={onRemove}
           onSubmit={hasNextStep ? handleNext : handleCheckoutWithoutFields}
         />
       )}
-      {step === "fields" && (
-        <Fields fields={fields} onBack={handlePrevious} onSubmit={handleCheckoutWithFields} />
-      )}
+      {step === "fields" && <Fields fields={fields} onSubmit={handleCheckoutWithFields} />}
     </Drawer>
   );
 };
