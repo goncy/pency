@@ -1,7 +1,7 @@
 import {Tenant} from "./types";
 
 export const DEFAULT_TENANT: Omit<Tenant, "id" | "slug"> = {
-  phone: "5491144444444",
+  phone: "5491173694572",
   color: "cyan",
   title: "Pency - Tu tienda online fácil",
   description: "Armá tu tienda y recibí los pedidos via WhatsApp",

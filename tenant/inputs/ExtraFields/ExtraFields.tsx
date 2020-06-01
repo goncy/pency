@@ -23,10 +23,12 @@ const ExtraFieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
   function handleTypeChange(type, index) {
     onChange(
       produce(value, (value) => {
+        const {title} = value[index];
+
         if (type === "text") {
-          value[index] = getTextField();
+          value[index] = getTextField({title});
         } else if (type === "radio") {
-          value[index] = getRadioField();
+          value[index] = getRadioField({title});
         }
       }),
     );
