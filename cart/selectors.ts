@@ -27,14 +27,12 @@ export function getFields(fields: CheckoutFields) {
   if (!fields) return "";
 
   return Object.entries(fields)
-    .map(([title, value]) => `${title}: ${value}`)
+    .map(([title, value]) => `${title}: *${value}*`)
     .join("\n");
 }
 
 export function getMessage(items: CartItem[], fields?: CheckoutFields): string {
   return (
-    getItems(items) +
-    (fields ? "\n\n" + getFields(fields) + "\n\n" : "\n\n") +
-    `Total: $${getTotal(items)}`
+    getItems(items) + `\n\nTotal: $${getTotal(items)}` + (fields ? "\n\n" + getFields(fields) : "")
   );
 }
