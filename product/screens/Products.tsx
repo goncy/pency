@@ -12,10 +12,10 @@ import CartDrawer from "~/cart/components/CartDrawer";
 import {filterBy} from "~/selectors/filter";
 import {useTenant} from "~/tenant/hooks";
 import {useTranslation} from "~/hooks/translation";
-import CartTotalButton from "~/cart/components/CartTotalButton";
 import TenantHeader from "~/tenant/components/TenantHeader";
 import NoResults from "~/ui/feedback/NoResults";
 import Content from "~/ui/structure/Content";
+import SummaryButton from "~/cart/components/SummaryButton";
 
 const ProductsScreen: React.FC = () => {
   const {add, remove, items, checkout} = useCart();
@@ -120,7 +120,16 @@ const ProductsScreen: React.FC = () => {
                     position="sticky"
                     zIndex={2}
                   >
-                    <CartTotalButton items={items} onClick={openCart} />
+                    <Box
+                      display="block"
+                      margin={{base: 0, sm: "auto"}}
+                      rounded={4}
+                      width={{base: "100%", sm: "auto"}}
+                    >
+                      <SummaryButton items={items} onClick={openCart}>
+                        {t("products.review")}
+                      </SummaryButton>
+                    </Box>
                   </Flex>
                 )}
               </Stack>

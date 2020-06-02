@@ -1,4 +1,5 @@
 import React from "react";
+import {action} from "@storybook/addon-actions";
 
 import productMock from "../../mock";
 
@@ -8,8 +9,8 @@ export const full = () => (
   <ProductsList
     products={[productMock.withoutVariants, productMock.full, productMock.withoutImage]}
     width="100%"
-    onEdit={() => {}}
-    onRemove={() => Promise.resolve()}
+    onEdit={action("edit")}
+    onRemove={() => Promise.resolve(action("remove")())}
   />
 );
 

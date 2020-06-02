@@ -1,9 +1,10 @@
 import React from "react";
 import {action} from "@storybook/addon-actions";
-import {Button, Stack} from "@chakra-ui/core";
+import {Stack} from "@chakra-ui/core";
 
 import FieldsForm from "./FieldsForm";
 
+import Button from "~/ui/controls/Button";
 import tenantMock from "~/tenant/mock";
 
 export const full = () => (
@@ -11,7 +12,9 @@ export const full = () => (
     {({form, submit}) => (
       <Stack>
         {form}
-        <Button onClick={submit}>Submit</Button>
+        <Button marginTop={6} variantColor="primary" onClick={submit}>
+          Submit
+        </Button>
       </Stack>
     )}
   </FieldsForm>

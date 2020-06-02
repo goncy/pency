@@ -1,4 +1,5 @@
 import React from "react";
+import {action} from "@storybook/addon-actions";
 
 import productMock from "../mock";
 
@@ -11,8 +12,8 @@ export const edit = () => (
     isOpen
     categories={CATEGORIES}
     defaultValues={productMock.full}
-    onClose={() => {}}
-    onSubmit={() => {}}
+    onClose={action("close")}
+    onSubmit={action("submit")}
   />
 );
 
@@ -21,8 +22,8 @@ export const create = () => (
     isOpen
     categories={CATEGORIES}
     defaultValues={undefined}
-    onClose={() => {}}
-    onSubmit={() => {}}
+    onClose={action("close")}
+    onSubmit={action("submit")}
   />
 );
 

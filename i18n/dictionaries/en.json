@@ -14,7 +14,8 @@
     "products": "Products",
     "shop": "Shop",
     "options": "Options",
-    "next": "Next"
+    "next": "Next",
+    "items": "Items"
   },
   "form": {
     "required": "This field is required",
@@ -34,7 +35,7 @@
   },
   "products": {
     "empty": "No products found",
-    "check": "Review cart"
+    "review": "Your order"
   },
   "auth": {
     "resetPasswordForm": {

@@ -1,5 +1,6 @@
 import React from "react";
 import faker from "faker";
+import {action} from "@storybook/addon-actions";
 
 import CartDrawer from "./CartDrawer";
 
@@ -21,9 +22,9 @@ export const open = () => (
     isOpen
     fields={tenantMock.full.fields}
     items={[item(), item()]}
-    onCheckout={() => {}}
-    onClose={() => {}}
-    onRemove={() => {}}
+    onCheckout={action("checkout")}
+    onClose={action("close")}
+    onRemove={action("remove")}
   />
 );
 

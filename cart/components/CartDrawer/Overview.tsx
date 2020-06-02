@@ -1,11 +1,12 @@
 import React from "react";
-import {Stack, Flex, Text, IconButton, Divider, Button} from "@chakra-ui/core";
+import {Stack, Flex, Text, IconButton, Divider} from "@chakra-ui/core";
 
 import {CartItem} from "../../types";
 
 import CheckoutButton from "./CheckoutButton";
 
 import {DrawerTitle, DrawerBody, DrawerFooter} from "~/ui/controls/Drawer";
+import Button from "~/ui/controls/Button";
 import Badge from "~/ui/feedback/Badge";
 import {useTranslation} from "~/hooks/translation";
 import {getCount, getTotal} from "~/cart/selectors";
@@ -75,7 +76,7 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
             <Text fontSize="lg">${total}</Text>
           </Flex>
           {hasNextStep ? (
-            <Button variantColor="primary" onClick={onSubmit}>
+            <Button boxShadow="lg" size="lg" variantColor="primary" onClick={onSubmit}>
               {t("common.next")}
             </Button>
           ) : (
