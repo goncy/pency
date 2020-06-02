@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Flex, Text, IconButton, Divider} from "@chakra-ui/core";
+import {Stack, Flex, Text, IconButton} from "@chakra-ui/core";
 
 import {CartItem} from "../../types";
 
@@ -68,7 +68,6 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
       </DrawerBody>
       <DrawerFooter>
         <Stack spacing={4} width="100%">
-          <Divider />
           <Flex alignItems="center" justifyContent="flex-end">
             <Text fontSize="lg" fontWeight="600" mr={2}>
               {t("common.total")}:

@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Divider} from "@chakra-ui/core";
+import {Stack} from "@chakra-ui/core";
 
 import FieldsForm from "../../forms/FieldsForm";
 import {CheckoutFields} from "../../types";
@@ -27,15 +27,14 @@ const Fields: React.FC<Props> = ({fields, onSubmit}) => {
     <FieldsForm defaultValues={defaultValues} fields={fields} onSubmit={onSubmit}>
       {({form, submit}) => (
         <>
-          <DrawerBody overflowY="auto" padding={0}>
+          <DrawerBody overflowY="auto">
             <Stack spacing={6}>
               <DrawerTitle>{t("cart.completeOrder")}</DrawerTitle>
               {form}
             </Stack>
           </DrawerBody>
-          <DrawerFooter padding={0}>
+          <DrawerFooter>
             <Stack spacing={4} width="100%">
-              <Divider />
               <CheckoutButton
                 onClick={(event) => {
                   event.stopPropagation();

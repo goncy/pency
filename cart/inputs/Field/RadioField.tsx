@@ -1,5 +1,4 @@
 import React from "react";
-import {Stack, Text, Radio} from "@chakra-ui/core";
 import {Message} from "react-hook-form";
 
 import {RadioField} from "~/tenant/types";
@@ -18,7 +17,7 @@ const RadioFieldInput: React.FC<Props> = ({value, field, onChange, error}) => {
     <FormControl error={error} label={field.title} width="100%">
       <RadioGroup value={value} onChange={(event) => onChange(event.target.value)}>
         {field.options.map((option) => (
-          <RadioRow note={option.note} value={option.title}>
+          <RadioRow key={option.id} note={option.note} value={option.title}>
             {option.title}
           </RadioRow>
         ))}
