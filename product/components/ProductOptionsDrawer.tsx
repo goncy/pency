@@ -7,11 +7,12 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
-  Button,
 } from "@chakra-ui/core";
 
 import ProductOptionsForm from "../forms/ProductOptionsForm";
 import {Variant} from "../types";
+
+import Button from "~/ui/controls/Button";
 
 interface Props {
   isOpen: boolean;
@@ -35,12 +36,12 @@ const ProductOptionsDrawer: React.FC<Props> = ({isOpen, onClose, onSubmit, optio
               </DrawerBody>
               <DrawerFooter padding={4}>
                 <Button
-                  backgroundColor="primary.500"
-                  color="white"
+                  boxShadow="lg"
                   isLoading={isLoading}
+                  size="lg"
                   type="submit"
                   variantColor="primary"
-                  w="100%"
+                  width="100%"
                   onClick={(event) => {
                     event.stopPropagation();
 
