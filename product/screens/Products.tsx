@@ -123,6 +123,7 @@ const ProductsScreen: React.FC = () => {
                     <Box
                       display="block"
                       margin={{base: 0, sm: "auto"}}
+                      minWidth={{base: "100%", sm: 256}}
                       rounded={4}
                       width={{base: "100%", sm: "auto"}}
                     >
