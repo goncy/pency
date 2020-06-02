@@ -32,7 +32,7 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
           </DrawerTitle>
           <Stack spacing={6}>
             {items.map(({id, title, options, price, count}) => (
-              <Flex key={id} alignItems="center" justifyContent="space-between">
+              <Flex key={id} alignItems="flex-start" justifyContent="space-between">
                 <Flex alignItems="center" mr={2}>
                   <IconButton
                     isRound
