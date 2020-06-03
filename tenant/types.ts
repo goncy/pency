@@ -4,7 +4,7 @@ interface Tenant {
   id: string;
   slug: string;
   category: string;
-  color: Omit<VariantColor, "black" | "white">;
+  color: Exclude<VariantColor, "black" | "white">;
   phone: string;
   logo: string;
   title: string;
