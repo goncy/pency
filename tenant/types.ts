@@ -1,10 +1,10 @@
 import {VariantColor} from "@chakra-ui/core";
 
-export interface Tenant {
+interface Tenant {
   id: string;
   slug: string;
   category: string;
-  color: Exclude<VariantColor, "black" | "white">;
+  color: Omit<VariantColor, "black" | "white">;
   phone: string;
   logo: string;
   title: string;
@@ -16,7 +16,14 @@ export interface Tenant {
   description: string;
   highlight: string;
   fields: Field[];
+  mercadopago: {
+    token: string;
+    refresh: string;
+  };
 }
+
+export type ClientTenant = Omit<Tenant, "mercadopago">;
+export type ServerTenant = Tenant;
 
 export type Field = TextField | RadioField;
 
@@ -41,11 +48,11 @@ export interface RadioFieldOption {
 }
 
 export interface State {
-  tenant: Tenant;
+  tenant: ClientTenant;
 }
 
 export interface Actions {
-  update: (tenant: Tenant) => void;
+  update: (tenant: ClientTenant) => void;
 }
 
 export interface Context {

@@ -1,5 +1,5 @@
 import {Product} from "~/product/types";
-import {Tenant} from "~/tenant/types";
+import {ClientTenant} from "~/tenant/types";
 import {database, auth} from "~/firebase/admin";
 import {parseProduct, formatProduct} from "~/product/selectors";
 
@@ -10,7 +10,7 @@ interface Request {
 
 interface GetRequest extends Request {
   query: {
-    tenant: Tenant["id"];
+    tenant: ClientTenant["id"];
   };
 }
 
@@ -19,7 +19,7 @@ interface PostRequest extends Request {
     authorization: string;
   };
   query: {
-    tenant: Tenant["id"];
+    tenant: ClientTenant["id"];
   };
   body: {
     product: Product;
@@ -33,7 +33,7 @@ interface PatchRequest extends Request {
     authorization: string;
   };
   query: {
-    tenant: Tenant["id"];
+    tenant: ClientTenant["id"];
   };
   body: {
     product: Product;
@@ -45,13 +45,13 @@ interface DeleteRequest extends Request {
     authorization: string;
   };
   query: {
-    tenant: Tenant["id"];
+    tenant: ClientTenant["id"];
     product: Product["id"];
   };
 }
 
 const api = {
-  list: async (tenant: Tenant["id"]): Promise<Product[]> =>
+  list: async (tenant: ClientTenant["id"]): Promise<Product[]> =>
     database
       .collection("tenants")
       .doc(tenant)
@@ -59,16 +59,16 @@ const api = {
       .get()
       .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
       .then((products) => products.map(parseProduct)),
-  create: (tenant: Tenant["id"], product: Product) =>
+  create: (tenant: ClientTenant["id"], product: Product) =>
     database
       .collection("tenants")
       .doc(tenant)
       .collection("products")
       .add(formatProduct(product))
       .then((snapshot) => ({...formatProduct(product), id: snapshot.id})),
-  remove: (tenant: Tenant["id"], product: Product["id"]) =>
+  remove: (tenant: ClientTenant["id"], product: Product["id"]) =>
     database.collection("tenants").doc(tenant).collection("products").doc(product).delete(),
-  update: (tenant: Tenant["id"], {id, ...product}: Product) =>
+  update: (tenant: ClientTenant["id"], {id, ...product}: Product) =>
     database
       .collection("tenants")
       .doc(tenant)

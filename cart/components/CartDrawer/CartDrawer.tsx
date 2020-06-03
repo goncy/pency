@@ -7,13 +7,13 @@ import Overview from "./Overview";
 import Fields from "./Fields";
 
 import Drawer, {DrawerHeader} from "~/ui/controls/Drawer";
-import {Tenant} from "~/tenant/types";
+import {ClientTenant} from "~/tenant/types";
 
 interface Props {
   isOpen: boolean;
   onClose: VoidFunction;
   items: CartItem[];
-  fields?: Tenant["fields"];
+  fields?: ClientTenant["fields"];
   onCheckout: (fields?: CheckoutFields) => void;
   onRemove: (id: string) => void;
 }

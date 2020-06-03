@@ -16,7 +16,7 @@ import {
 
 import ProductsAdminScreen from "~/product/screens/Admin";
 import TenantAdminScreen from "~/tenant/screens/Admin";
-import {Tenant} from "~/tenant/types";
+import {ClientTenant} from "~/tenant/types";
 import BoxIcon from "~/ui/icons/Box";
 import SlidersIcon from "~/ui/icons/Sliders";
 import HelpCircleIcon from "~/ui/icons/HelpCircle";
@@ -27,7 +27,7 @@ import Content from "~/ui/structure/Content";
 import {useTranslation} from "~/hooks/translation";
 
 interface Props {
-  tenant: Tenant;
+  tenant: ClientTenant;
 }
 
 const AdminScreen: React.FC<Props> = ({tenant}) => {

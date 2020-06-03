@@ -1,14 +1,14 @@
 import React from "react";
 import {action} from "@storybook/addon-actions";
 
-import productMock from "../mock";
+import mock from "../mock";
 
 import ProductOptionsDrawer from "./ProductOptionsDrawer";
 
 export const full = () => (
   <ProductOptionsDrawer
     isOpen
-    options={productMock.full.options}
+    options={mock.full.options}
     onClose={action("close")}
     onSubmit={action("submit")}
   />

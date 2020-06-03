@@ -4,10 +4,10 @@ import {Flex} from "@chakra-ui/core";
 import LoginScreen from "./Login";
 import ResetPasswordScreen from "./ResetPassword";
 
-import {Tenant} from "~/tenant/types";
+import {ClientTenant} from "~/tenant/types";
 
 interface Props {
-  tenant: Omit<Tenant, "id">;
+  tenant: Omit<ClientTenant, "id">;
 }
 
 const AuthScreen: React.FC<Props> = ({tenant}) => {

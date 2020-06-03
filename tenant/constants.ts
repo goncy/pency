@@ -1,6 +1,6 @@
-import {Tenant} from "./types";
+import {ClientTenant, ServerTenant} from "./types";
 
-export const DEFAULT_TENANT: Omit<Tenant, "id" | "slug"> = {
+export const DEFAULT_CLIENT_TENANT: Omit<ClientTenant, "id" | "slug"> = {
   phone: "5491173694572",
   color: "cyan",
   title: "Pency - Tu tienda online fácil",
@@ -14,6 +14,14 @@ export const DEFAULT_TENANT: Omit<Tenant, "id" | "slug"> = {
   highlight: "",
   fields: [],
   keywords: "pency, tienda, online, whatsapp, delivery, pedidos",
+};
+
+export const DEFAULT_SERVER_TENANT: Omit<ServerTenant, "id" | "slug"> = {
+  ...DEFAULT_CLIENT_TENANT,
+  mercadopago: {
+    token: "",
+    refresh: "",
+  },
 };
 
 export const CATEGORIES = [

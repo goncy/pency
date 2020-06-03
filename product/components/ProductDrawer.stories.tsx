@@ -1,7 +1,7 @@
 import React from "react";
 import {action} from "@storybook/addon-actions";
 
-import productMock from "../mock";
+import mock from "../mock";
 
 import ProductDrawer from "./ProductDrawer";
 
@@ -11,7 +11,7 @@ export const edit = () => (
   <ProductDrawer
     isOpen
     categories={CATEGORIES}
-    defaultValues={productMock.full}
+    defaultValues={mock.full}
     onClose={action("close")}
     onSubmit={action("submit")}
   />

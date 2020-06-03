@@ -7,11 +7,11 @@ import {CheckoutFields} from "../../types";
 import CheckoutButton from "./CheckoutButton";
 
 import {DrawerTitle, DrawerBody, DrawerFooter} from "~/ui/controls/Drawer";
-import {Tenant} from "~/tenant/types";
+import {ClientTenant} from "~/tenant/types";
 import {useTranslation} from "~/hooks/translation";
 
 interface Props {
-  fields: Tenant["fields"];
+  fields: ClientTenant["fields"];
   onSubmit: (fields: CheckoutFields) => void;
 }
 

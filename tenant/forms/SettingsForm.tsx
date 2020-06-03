@@ -2,7 +2,7 @@ import React from "react";
 import {useForm, Controller} from "react-hook-form";
 import {Stack, Textarea, Text} from "@chakra-ui/core";
 
-import {Tenant} from "../types";
+import {ClientTenant} from "../types";
 import {CATEGORIES} from "../constants";
 import ExtraFieldsInput, {validator as ExtraFieldsInputValidator} from "../inputs/ExtraFields";
 
@@ -13,8 +13,8 @@ import ImageInput from "~/ui/inputs/Image";
 import FormControl from "~/ui/controls/FormControl";
 
 interface Props {
-  defaultValues: Partial<Tenant>;
-  onSubmit: (values: Tenant) => void;
+  defaultValues: Partial<ClientTenant>;
+  onSubmit: (values: ClientTenant) => void;
   children: (options: {
     form: JSX.Element;
     isLoading: boolean;
@@ -23,11 +23,11 @@ interface Props {
 }
 
 const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit}) => {
-  const {handleSubmit: submit, errors, register, control, formState} = useForm<Tenant>({
+  const {handleSubmit: submit, errors, register, control, formState} = useForm<ClientTenant>({
     defaultValues,
   });
 
-  function handleSubmit(values: Tenant) {
+  function handleSubmit(values: ClientTenant) {
     const tenant = {...defaultValues, ...values};
 
     return onSubmit(tenant);

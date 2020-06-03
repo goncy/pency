@@ -20,7 +20,7 @@ const item = () => ({
 export const open = () => (
   <CartDrawer
     isOpen
-    fields={tenantMock.full.fields}
+    fields={tenantMock.client.full.fields}
     items={[item(), item()]}
     onCheckout={action("checkout")}
     onClose={action("close")}
