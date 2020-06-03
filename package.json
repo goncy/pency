@@ -17,7 +17,7 @@
     "@sentry/browser": "^5.15.5",
     "emotion-theming": "^10.0.27",
     "firebase": "^7.14.1",
-    "firebase-admin": "^8.10.0",
+    "firebase-admin": "^8.12.1",
     "i18next": "^19.4.4",
     "i18next-browser-languagedetector": "^4.2.0",
     "immer": "^6.0.3",

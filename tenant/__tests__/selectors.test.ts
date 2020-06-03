@@ -12,7 +12,9 @@ import mock from "../mock";
 describe("selectors", () => {
   describe("formatClientTenant", () => {
     it("should default to default tenant properties", () => {
-      const base = mock.client.full;
+      const base = produce(mock.client.full, (base) => {
+        delete base.id;
+      });
       const actual = produce(base, (actual) => {
         delete actual.banner;
         delete actual.phone;
@@ -32,7 +34,9 @@ describe("selectors", () => {
 
     describe("color", () => {
       it("should default a color", () => {
-        const base = mock.client.full;
+        const base = produce(mock.client.full, (base) => {
+          delete base.id;
+        });
         const actual = produce(base, (actual) => {
           delete actual.color;
         });
@@ -44,7 +48,9 @@ describe("selectors", () => {
 
     describe("phone", () => {
       it("should default a phone", () => {
-        const base = mock.client.full;
+        const base = produce(mock.client.full, (base) => {
+          delete base.id;
+        });
         const actual = produce(base, (actual) => {
           delete actual.phone;
         });
@@ -56,7 +62,9 @@ describe("selectors", () => {
 
     describe("keywords", () => {
       it("should default keywords", () => {
-        const base = mock.client.full;
+        const base = produce(mock.client.full, (base) => {
+          delete base.id;
+        });
         const actual = produce(base, (actual) => {
           delete actual.keywords;
         });
@@ -68,7 +76,9 @@ describe("selectors", () => {
 
     describe("fields", () => {
       it("should default fields", () => {
-        const base = mock.client.full;
+        const base = produce(mock.client.full, (base) => {
+          delete base.id;
+        });
         const actual = produce(base, (actual) => {
           delete actual.fields;
         });
@@ -89,7 +99,9 @@ describe("selectors", () => {
 
   describe("formatServerTenant", () => {
     it("should default to default tenant properties", () => {
-      const base = mock.server.full;
+      const base = produce(mock.server.full, (base) => {
+        delete base.id;
+      });
       const actual = produce(base, (actual) => {
         delete actual.banner;
         delete actual.phone;
@@ -111,7 +123,9 @@ describe("selectors", () => {
 
     describe("color", () => {
       it("should default a color", () => {
-        const base = mock.server.full;
+        const base = produce(mock.server.full, (base) => {
+          delete base.id;
+        });
         const actual = produce(base, (actual) => {
           delete actual.color;
         });
@@ -123,7 +137,9 @@ describe("selectors", () => {
 
     describe("phone", () => {
       it("should default a phone", () => {
-        const base = mock.server.full;
+        const base = produce(mock.server.full, (base) => {
+          delete base.id;
+        });
         const actual = produce(base, (actual) => {
           delete actual.phone;
         });
@@ -135,7 +151,9 @@ describe("selectors", () => {
 
     describe("keywords", () => {
       it("should default keywords", () => {
-        const base = mock.server.full;
+        const base = produce(mock.server.full, (base) => {
+          delete base.id;
+        });
         const actual = produce(base, (actual) => {
           delete actual.keywords;
         });
@@ -147,7 +165,9 @@ describe("selectors", () => {
 
     describe("fields", () => {
       it("should default fields", () => {
-        const base = mock.server.full;
+        const base = produce(mock.server.full, (base) => {
+          delete base.id;
+        });
         const actual = produce(base, (actual) => {
           delete actual.fields;
         });
@@ -159,7 +179,9 @@ describe("selectors", () => {
 
     describe("mercadopago", () => {
       it("should default mercadopago", () => {
-        const base = mock.server.full;
+        const base = produce(mock.server.full, (base) => {
+          delete base.id;
+        });
         const actual = produce(base, (actual) => {
           delete actual.mercadopago;
         });
@@ -172,36 +194,20 @@ describe("selectors", () => {
 
   describe("parseServerTenant", () => {
     describe("id", () => {
-      it("should throw when no id is present", () => {
-        const actual = {...mock.server.full, id: null};
+      it("should return the same id passed", () => {
+        const actual = {...mock.server.full, id: "some-id"};
 
-        expect(() => parseServerTenant(actual)).toThrowError("Esta tienda es inválida");
-      });
-    });
-
-    describe("slug", () => {
-      it("should throw when no slug is present", () => {
-        const actual = {...mock.server.full, slug: null};
-
-        expect(() => parseServerTenant(actual)).toThrowError("Esta tienda es inválida");
+        expect(parseServerTenant(actual)).toHaveProperty("id", "some-id");
       });
     });
   });
 
   describe("parseClientTenant", () => {
     describe("id", () => {
-      it("should throw when no id is present", () => {
-        const actual = {...mock.client.full, id: null};
+      it("should return the same id passed", () => {
+        const actual = {...mock.client.full, id: "some-id"};
 
-        expect(() => parseClientTenant(actual)).toThrowError("Esta tienda es inválida");
-      });
-    });
-
-    describe("slug", () => {
-      it("should throw when no slug is present", () => {
-        const actual = {...mock.client.full, slug: null};
-
-        expect(() => parseClientTenant(actual)).toThrowError("Esta tienda es inválida");
+        expect(parseClientTenant(actual)).toHaveProperty("id", "some-id");
       });
     });
   });

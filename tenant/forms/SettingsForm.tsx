@@ -1,6 +1,6 @@
 import React from "react";
 import {useForm, Controller} from "react-hook-form";
-import {Stack, Textarea, Text} from "@chakra-ui/core";
+import {Stack, Text} from "@chakra-ui/core";
 
 import {ClientTenant} from "../types";
 import {CATEGORIES} from "../constants";
@@ -8,6 +8,7 @@ import ExtraFieldsInput, {validator as ExtraFieldsInputValidator} from "../input
 
 import Select from "~/ui/inputs/Select";
 import Input from "~/ui/inputs/Input";
+import Textarea from "~/ui/inputs/Textarea";
 import ColorRadio from "~/ui/inputs/ColorRadio";
 import ImageInput from "~/ui/inputs/Image";
 import FormControl from "~/ui/controls/FormControl";

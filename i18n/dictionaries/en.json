@@ -15,7 +15,8 @@
     "shop": "Shop",
     "options": "Options",
     "next": "Next",
-    "items": "Items"
+    "item": "Item",
+    "item_plural": "Items"
   },
   "form": {
     "required": "This field is required",

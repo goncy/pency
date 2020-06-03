@@ -1,9 +1,8 @@
 import {ClientTenant, ServerTenant} from "./types";
 import {DEFAULT_CLIENT_TENANT, DEFAULT_SERVER_TENANT} from "./constants";
 
-export function formatClientTenant(tenant: any): ClientTenant {
+export function formatClientTenant(tenant: any): Omit<ClientTenant, "id"> {
   return {
-    id: tenant?.id,
     slug: tenant?.slug,
     category: tenant.category || "",
     color: tenant.color || DEFAULT_CLIENT_TENANT.color,
@@ -21,9 +20,16 @@ export function formatClientTenant(tenant: any): ClientTenant {
   };
 }
 
-export function formatServerTenant(tenant: any): ServerTenant {
+export function parseClientTenant(tenant: any): ClientTenant {
   return {
-    ...parseClientTenant(tenant),
+    ...formatClientTenant(tenant),
+    id: tenant.id,
+  };
+}
+
+export function formatServerTenant(tenant: any): Omit<ServerTenant, "id"> {
+  return {
+    ...formatClientTenant(tenant),
     mercadopago: {
       token: tenant.mercadopago?.token || DEFAULT_SERVER_TENANT.mercadopago.token,
       refresh: tenant.mercadopago?.refresh || DEFAULT_SERVER_TENANT.mercadopago.refresh,
@@ -31,18 +37,9 @@ export function formatServerTenant(tenant: any): ServerTenant {
   };
 }
 
-export function parseClientTenant(tenant: any): ClientTenant {
-  if (!tenant?.id || !tenant?.slug) {
-    throw new Error("Esta tienda es inválida");
-  }
-
-  return formatClientTenant(tenant);
-}
-
 export function parseServerTenant(tenant: any): ServerTenant {
-  if (!tenant?.id || !tenant?.slug) {
-    throw new Error("Esta tienda es inválida");
-  }
-
-  return formatServerTenant(tenant);
+  return {
+    ...formatServerTenant(tenant),
+    id: tenant.id,
+  };
 }

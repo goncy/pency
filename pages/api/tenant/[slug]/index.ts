@@ -5,6 +5,7 @@ import {auth} from "~/firebase/admin";
 import {parseClientTenant} from "~/tenant/selectors";
 import cache from "~/tenant/cache";
 import api from "~/tenant/api/server";
+import {DEFAULT_SERVER_TENANT} from "~/tenant/constants";
 
 interface GetRequest extends NextApiRequest {
   query: {
@@ -44,7 +45,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const cached = cache.get(slug);
 
     if (cached) {
-      return res.status(200).json(cached);
+      return res.status(200).json(parseClientTenant(cached));
     }
 
     return api
@@ -67,7 +68,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       return res.status(304).end();
 
     return api
-      .create(email, password, slug)
+      .create(email, password, {
+        ...DEFAULT_SERVER_TENANT,
+        slug,
+      })
       .then(() => res.status(200).json({success: true}))
       .catch(({status, statusText}) => res.status(status).end(statusText));
   }
