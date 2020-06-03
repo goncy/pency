@@ -43,7 +43,7 @@ export async function getServerSideProps({
   try {
     const BASE_URL = `http://${host}/api`;
 
-    const tenant = await fetch("GET", `${BASE_URL}/tenant?slug=${slug}`);
+    const tenant = await fetch("GET", `${BASE_URL}/tenant/${slug}`);
     const products = await fetch("GET", `${BASE_URL}/product?tenant=${tenant.id}`);
 
     return {props: {tenant, products}};
