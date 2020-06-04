@@ -8,159 +8,138 @@ import {
   ButtonGroup,
   FlexProps,
   Stack,
+  PseudoBox,
 } from "@chakra-ui/core";
+import LazyLoad from "react-lazy-load";
+import styled from "@emotion/styled";
 
-import ProductOptionsDrawer from "./ProductOptionsDrawer";
-import ProductImageModal from "./ProductImageModal";
+import ProductDetails from "./ProductDetails";
 
-import Image from "~/ui/feedback/Image";
 import {Product} from "~/product/types";
-import {useProductCartCount} from "~/cart/hooks";
-import TruncatedText from "~/ui/feedback/TruncatedText";
 import {useTranslation} from "~/hooks/translation";
+
+const ProductDescription = styled(Text)`
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;
 
 interface Props extends FlexProps {
   product: Product;
   add: (product: Product) => void;
-  remove: (id: Product["id"]) => void;
   isRaised?: boolean;
 }
 
-const ProductCard: React.FC<Props> = ({isRaised = false, product, remove, add, ...props}) => {
+const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}) => {
   const {id, image, description, title, price, options} = product;
-  const {isOpen: isImageOpen, onToggle: toggleImage} = useDisclosure();
-  const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
+  const {isOpen: isDetailsOpen, onToggle: toggleDetailsOpen} = useDisclosure();
+
+  // @TODO: Add isRaised
+
   const t = useTranslation();
-  const count = useProductCartCount(id);
-  const hasOptions = Boolean(product.options?.length);
-  const isInCart = Boolean(count);
-
-  function handleAdd() {
-    if (hasOptions) {
-      return toggleOptions();
-    }
-
-    return add(product);
-  }
-
-  function handleRemove() {
-    remove(product.id);
-  }
-
-  function handleAddWithOptions(options) {
-    toggleOptions();
-
-    return add({...product, options});
-  }
 
   return (
     <>
-      <Flex
-        alignItems="flex-end"
-        boxShadow={isRaised ? "lg" : "none"}
+      <PseudoBox
+        _hover={{boxShadow: "md", borderColor: "gray.300"}}
+        borderBottomWidth={1}
+        borderColor={{
+          base: "gray.100",
+          md: "gray.200",
+        }}
+        borderRadius={{
+          md: "md",
+        }}
+        borderWidth={{
+          md: 1,
+        }}
+        cursor="pointer"
         data-test-id="product"
-        direction="column"
+        display="flex"
+        height={{md: 40}}
         justifyContent="space-between"
-        position="relative"
-        rounded="md"
-        transition="transform 0.2s"
-        {...props}
+        overflow="hidden"
+        pb={{
+          base: 5,
+          md: 0,
+        }}
+        transition="box-shadow 0.2s, border-color 0.2s"
+        onClick={toggleDetailsOpen}
       >
-        <Image
-          cursor={image ? "pointer" : "inherit"}
-          height={{base: 48, sm: 56}}
-          rounded="md"
-          src={image || "/assets/fallback.jpg"}
-          width="100%"
-          onClick={() => (image ? toggleImage() : null)}
-        />
+        <Flex direction="column" px={{md: 6}} py={{md: 5}} {...props}>
+          <Text
+            display="block"
+            fontSize={{
+              base: "sm",
+              md: "lg",
+            }}
+            fontWeight="semibold"
+            lineHeight="normal"
+            mb={1}
+            mt={0}
+          >
+            {title}
+          </Text>
+          {description && (
+            <ProductDescription
+              color="gray.500"
+              fontSize={{
+                base: "sm",
+                md: "md",
+              }}
+              mb={2}
+              mt={0}
+            >
+              {description}
+            </ProductDescription>
+          )}
+          <Text
+            color="green.400"
+            flex={1}
+            fontSize={{
+              base: "sm",
+              md: "md",
+            }}
+            fontWeight="semibold"
+            letterSpacing="wide"
+            m={0}
+          >
+            ${price}
+          </Text>
+        </Flex>
         <Box
-          display="flex"
-          flex={1}
-          flexDirection="column"
-          height="100%"
-          justifyContent="space-between"
-          padding={isRaised ? {base: 2, sm: 4} : 0}
-          paddingTop={2}
-          width="100%"
+          flexShrink={0}
+          ml={3}
+          size={{
+            base: 20,
+            md: 40,
+          }}
         >
-          <Stack marginBottom={2} spacing={{base: 1, sm: 2}}>
-            <Text
-              display="block"
-              fontSize={{base: "sm", sm: "lg"}}
-              fontWeight={500}
-              lineHeight="normal"
-            >
-              {title}
-            </Text>
-            {description && (
-              <TruncatedText
-                color="gray.500"
-                fontSize={{base: "xs", sm: "md"}}
-                fontWeight="normal"
-                lines={3}
-              >
-                {description}
-              </TruncatedText>
-            )}
-          </Stack>
-          <Flex alignItems="center">
-            <Text
-              color="green.500"
-              flex={1}
-              fontSize={{base: "sm", sm: "md"}}
-              fontWeight={500}
-              lineHeight={1}
-            >
-              ${price}
-            </Text>
-            <Box position="relative">
-              {!hasOptions && isInCart ? (
-                <ButtonGroup>
-                  <Button fontWeight={500} size="xs" onClick={handleRemove}>
-                    -
-                  </Button>
-                  <Button fontWeight={500} size="xs" onClick={handleAdd}>
-                    +
-                  </Button>
-                </ButtonGroup>
-              ) : (
-                <Button fontWeight={500} size="xs" onClick={handleAdd}>
-                  {t("common.add")}
-                </Button>
-              )}
-              {isInCart && (
-                <Flex
-                  alignItems="center"
-                  backgroundColor="primary.500"
-                  border="2px solid white"
-                  borderRadius="50%"
-                  color="white"
-                  fontSize="10px"
-                  fontWeight="500"
-                  height="20px"
-                  justifyContent="center"
-                  lineHeight={1}
-                  position="absolute"
-                  right="-10px"
-                  top="-10px"
-                  width="20px"
-                  zIndex={1}
-                >
-                  {count}
-                </Flex>
-              )}
-            </Box>
-          </Flex>
+          {image && (
+            <LazyLoad height="100%" offsetVertical={512} width="100%">
+              <Box
+                backgroundColor="gray.100"
+                backgroundImage={`url(${image})`}
+                backgroundPosition="center"
+                backgroundSize="cover"
+                borderColor="gray.200"
+                borderLeftWidth={{
+                  md: 1,
+                }}
+                borderRadius={{
+                  base: 4,
+                  md: 0,
+                }}
+                cursor="pointer"
+                flexShrink={0}
+                size="100%"
+              />
+            </LazyLoad>
+          )}
         </Box>
-      </Flex>
-      <ProductImageModal image={image} isOpen={isImageOpen} onClose={toggleImage} />
-      <ProductOptionsDrawer
-        isOpen={hasOptions && isOptionsOpen}
-        options={options}
-        onClose={toggleOptions}
-        onSubmit={handleAddWithOptions}
-      />
+      </PseudoBox>
+      {isDetailsOpen && <ProductDetails add={add} product={product} onClose={toggleDetailsOpen} />}
     </>
   );
 };

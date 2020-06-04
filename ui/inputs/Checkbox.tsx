@@ -10,16 +10,14 @@ interface Props {
 
 const Checkbox: React.FC<Props> = ({onChange, isReadOnly, isDisabled, isChecked, children}) => (
   <Box
-    backgroundColor={isDisabled ? "gray.100" : "inherit"}
-    borderColor={isChecked ? "primary.500" : "gray.200"}
-    borderWidth="1px"
+    borderBottomWidth="1px"
     cursor={isDisabled || isReadOnly ? "auto" : "pointer"}
     opacity={isDisabled ? 0.5 : 1}
-    padding={3}
+    paddingY={3}
     pointerEvents={isDisabled ? "none" : "auto"}
     onClick={() => !isReadOnly && onChange(!isChecked)}
   >
-    <Flex alignItems="center" justifyContent="space-between">
+    <Flex alignItems="center" justifyContent="flex-start">
       {children}
     </Flex>
   </Box>
