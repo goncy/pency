@@ -3,6 +3,7 @@ import {ClientTenant} from "~/tenant/types";
 import {database} from "~/firebase/admin";
 import {parseProduct, formatProduct} from "~/product/selectors";
 import sessionApi from "~/session/api/server";
+import cache from "~/product/cache";
 
 interface Request {
   method: "GET" | "PATCH" | "DELETE" | "POST";
@@ -26,8 +27,6 @@ interface PostRequest extends Request {
     product: Product;
   };
 }
-
-const cache = new Map();
 
 interface PatchRequest extends Request {
   headers: {
