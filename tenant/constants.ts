@@ -14,6 +14,7 @@ export const DEFAULT_CLIENT_TENANT: Omit<ClientTenant, "id" | "slug"> = {
   highlight: "",
   fields: [],
   keywords: "pency, tienda, online, whatsapp, delivery, pedidos",
+  mercadopago: false,
 };
 
 export const DEFAULT_SERVER_TENANT: Omit<ServerTenant, "id" | "slug"> = {

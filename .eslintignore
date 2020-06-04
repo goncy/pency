@@ -6,3 +6,4 @@ build/
 .next/
 .now
 .log
+next.config.js

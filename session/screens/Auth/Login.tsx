@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/core";
 import {useForm} from "react-hook-form";
 
-import api from "../../api";
+import api from "../../api/client";
 
 import Input from "~/ui/inputs/Input";
 import {useToast} from "~/hooks/toast";

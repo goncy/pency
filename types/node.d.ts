@@ -20,8 +20,11 @@ declare namespace NodeJS {
     FIREBASE_AUTH_PROVIDER_X509_CERT_URL: string;
     FIREBASE_CLIENT_X509_CERT_URL: string;
     FIREBASE_PRIVATE_KEY: string;
+    MERCADOPAGO_CLIENT_SECRET: string;
+    MERCADOPAGO_CLIENT_ID: string;
+    MANTAINER_EMAIL: string;
+    APP_URL: string;
     SECRET: string;
     SENTRY_DSN: string;
-    MANTAINER_EMAIL: string;
   }
 }

@@ -12,6 +12,7 @@ import Textarea from "~/ui/inputs/Textarea";
 import ColorRadio from "~/ui/inputs/ColorRadio";
 import ImageInput from "~/ui/inputs/Image";
 import FormControl from "~/ui/controls/FormControl";
+import ConnectButton from "~/payment/inputs/ConnectButton";
 
 interface Props {
   defaultValues: Partial<ClientTenant>;
@@ -27,6 +28,8 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
   const {handleSubmit: submit, errors, register, control, formState} = useForm<ClientTenant>({
     defaultValues,
   });
+
+  console.log(defaultValues);
 
   function handleSubmit(values: ClientTenant) {
     const tenant = {...defaultValues, ...values};
@@ -170,6 +173,20 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 error={(errors.fields as any)?.type}
                 name="fields"
                 rules={{validate: ExtraFieldsInputValidator}}
+              />
+            </FormControl>
+          </Stack>
+          <Stack>
+            <Text fontSize="2xl" fontWeight={500}>
+              Mercado Pago
+            </Text>
+            <FormControl name="mercadopago">
+              <Controller
+                as={ConnectButton}
+                control={control}
+                id={defaultValues.id}
+                name="mercadopago"
+                slug={defaultValues.slug}
               />
             </FormControl>
           </Stack>

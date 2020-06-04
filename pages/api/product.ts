@@ -1,7 +1,8 @@
 import {Product} from "~/product/types";
 import {ClientTenant} from "~/tenant/types";
-import {database, auth} from "~/firebase/admin";
+import {database} from "~/firebase/admin";
 import {parseProduct, formatProduct} from "~/product/selectors";
+import sessionApi from "~/session/api/server";
 
 interface Request {
   method: "GET" | "PATCH" | "DELETE" | "POST";
@@ -110,8 +111,8 @@ export default async (req: Request, res) => {
 
     if (!tenant) return res.status(304).end();
 
-    return auth
-      .verifyIdToken(token)
+    return sessionApi
+      .verify(token)
       .then(({uid}) => {
         if (uid !== tenant) return res.status(403).end();
 
@@ -136,8 +137,8 @@ export default async (req: Request, res) => {
 
     if (!tenant) return res.status(304).end();
 
-    return auth
-      .verifyIdToken(token)
+    return sessionApi
+      .verify(token)
       .then(({uid}) => {
         if (uid !== tenant) return res.status(403).end();
 
@@ -161,8 +162,8 @@ export default async (req: Request, res) => {
 
     if (!tenant) return res.status(304).end();
 
-    return auth
-      .verifyIdToken(token)
+    return sessionApi
+      .verify(token)
       .then(({uid}) => {
         if (uid !== tenant) return res.status(403).end();
 

@@ -38,6 +38,7 @@ const mock = {
             note: "Solo se entrega en zona sur",
           },
         ],
+        mercadopago: true,
       };
     },
   },

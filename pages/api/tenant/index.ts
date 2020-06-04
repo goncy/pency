@@ -1,8 +1,8 @@
 import {NextApiResponse, NextApiRequest} from "next";
 
-import {formatClientTenant} from "~/tenant/selectors";
 import cache from "~/tenant/cache";
 import api from "~/tenant/api/server";
+import {serverToClient} from "~/tenant/selectors";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           cache.set(tenant.slug, tenant);
         });
 
-        return res.status(200).json(tenants.map(formatClientTenant));
+        return res.status(200).json(tenants.map(serverToClient));
       })
       .catch(({status, statusText}) => res.status(status).end(statusText));
   }

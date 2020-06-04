@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 
 import {ClientTenant} from "~/tenant/types";
 import {auth} from "~/firebase/admin";
-import {parseClientTenant} from "~/tenant/selectors";
+import {serverToClient, clientToServer} from "~/tenant/selectors";
 import cache from "~/tenant/cache";
 import api from "~/tenant/api/server";
 import {DEFAULT_SERVER_TENANT} from "~/tenant/constants";
@@ -45,7 +45,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const cached = cache.get(slug);
 
     if (cached) {
-      return res.status(200).json(parseClientTenant(cached));
+      return res.status(200).json(serverToClient(cached));
     }
 
     return api
@@ -53,7 +53,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .then((tenant) => {
         cache.set(slug, tenant);
 
-        return res.status(200).json(parseClientTenant(tenant));
+        return res.status(200).json(serverToClient(tenant));
       })
       .catch(({status, statusText}) => res.status(status).end(statusText));
   }
@@ -90,11 +90,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         if (uid !== tenant.id) return res.status(403).end();
 
         return api
-          .update(tenant)
+          .update(tenant.id, clientToServer(tenant))
           .then(() => {
             cache.delete(tenant.slug);
 
-            return res.status(200).json(parseClientTenant(tenant));
+            return res.status(200).json(tenant);
           })
           .catch(() => res.status(400).end("Hubo un error actualizando la tienda"));
       })

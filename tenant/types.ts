@@ -22,7 +22,10 @@ interface Tenant {
   };
 }
 
-export type ClientTenant = Omit<Tenant, "mercadopago">;
+export interface ClientTenant extends Omit<Tenant, "mercadopago"> {
+  mercadopago: boolean;
+}
+
 export type ServerTenant = Tenant;
 
 export type Field = TextField | RadioField;

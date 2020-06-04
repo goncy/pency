@@ -2,7 +2,7 @@ import React from "react";
 import {Button, Stack, Text, FormErrorMessage, FormControl, Box} from "@chakra-ui/core";
 import {useForm} from "react-hook-form";
 
-import api from "../../../api";
+import api from "../../../api/client";
 
 import Input from "~/ui/inputs/Input";
 import {useToast} from "~/hooks/toast";
