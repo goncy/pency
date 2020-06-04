@@ -3,20 +3,20 @@ import {VariantColor} from "@chakra-ui/core";
 interface Tenant {
   id: string;
   slug: string;
-  category: string;
+  category?: string;
   color: Exclude<VariantColor, "black" | "white">;
   phone: string;
-  logo: string;
-  title: string;
-  instagram: string;
-  facebook: string;
-  twitter: string;
-  keywords: string;
-  banner: string;
-  description: string;
-  highlight: string;
-  fields: Field[];
-  mercadopago: {
+  logo?: string;
+  title?: string;
+  instagram?: string;
+  facebook?: string;
+  twitter?: string;
+  keywords?: string;
+  banner?: string;
+  description?: string;
+  highlight?: string;
+  fields?: Field[];
+  mercadopago?: {
     token: string;
     refresh: string;
   };

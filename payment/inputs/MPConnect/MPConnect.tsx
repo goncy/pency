@@ -14,7 +14,7 @@ interface Props {
   onChange: (value: boolean) => void;
 }
 
-const ConnectButton: React.FC<Props> = ({id, checked, onChange, slug}) => {
+const MPConnect: React.FC<Props> = ({id, checked, onChange, slug}) => {
   const [isLoading, toggleLoading] = React.useState(false);
   const toast = useToast();
 
@@ -71,4 +71,4 @@ const ConnectButton: React.FC<Props> = ({id, checked, onChange, slug}) => {
   );
 };
 
-export default ConnectButton;
+export default MPConnect;
