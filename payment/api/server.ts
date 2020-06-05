@@ -45,5 +45,6 @@ export default {
       grant_type: "authorization_code",
       redirect_uri: `${process.env.APP_URL}/api/payment/auth`,
     }),
-  disconnect: async (id: ClientTenant["id"]) => fetch("DELETE", `/api/payment/auth?id=${id}`),
+  disconnect: async (id: ClientTenant["id"], slug: ClientTenant["slug"]) =>
+    fetch("DELETE", `/api/payment/auth?id=${id}&slug=${slug}`),
 };

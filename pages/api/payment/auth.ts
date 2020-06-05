@@ -21,6 +21,7 @@ interface DeleteRequest extends NextApiRequest {
   };
   query: {
     id: ClientTenant["id"];
+    slug: ClientTenant["slug"];
   };
 }
 
@@ -66,7 +67,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === "DELETE") {
     const {
-      query: {id},
+      query: {id, slug},
       headers: {authorization: token},
     } = req as DeleteRequest;
 
@@ -78,6 +79,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           await tenantApi.update(id, {
             mercadopago: DEFAULT_SERVER_TENANT.mercadopago,
           });
+
+          tenantCache.delete(slug);
 
           return res.status(200).json({success: true});
         } catch (error) {

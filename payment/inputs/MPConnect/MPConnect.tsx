@@ -26,7 +26,7 @@ const MPConnect: React.FC<Props> = ({id, checked, onChange, slug}) => {
     toggleLoading(true);
 
     api
-      .disconnect(id)
+      .disconnect(id, slug)
       .then(() => {
         toast({
           title: "Bien!",
@@ -59,7 +59,7 @@ const MPConnect: React.FC<Props> = ({id, checked, onChange, slug}) => {
         process.env.MERCADOPAGO_CLIENT_ID
       }&response_type=code&platform_id=mp&redirect_uri=${
         process.env.APP_URL
-      }/api/payment/auth&state=${encodeURIComponent(
+      }/api/payment/auth?state=${encodeURIComponent(
         JSON.stringify({id, slug, token: localStorage.getItem("token")}),
       )}`}
       onClick={handleConnect}
