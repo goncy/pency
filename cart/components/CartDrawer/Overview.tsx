@@ -14,14 +14,25 @@ import {getCount, getTotal} from "~/cart/selectors";
 interface Props {
   items: CartItem[];
   onRemove: (id: string) => void;
-  onSubmit: VoidFunction;
+  onSubmit: () => Promise<void>;
   hasNextStep: boolean;
 }
 
 const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => {
+  const [isLoading, toggleLoading] = React.useState(false);
   const t = useTranslation();
   const count = getCount(items);
   const total = getTotal(items);
+
+  function handleSubmit() {
+    toggleLoading(true);
+
+    onSubmit().finally(() => toggleLoading(false));
+  }
+
+  function handleNext() {
+    onSubmit();
+  }
 
   return (
     <>
@@ -75,11 +86,11 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
             <Text fontSize="lg">${total}</Text>
           </Flex>
           {hasNextStep ? (
-            <Button boxShadow="lg" size="lg" variantColor="primary" onClick={onSubmit}>
+            <Button boxShadow="lg" size="lg" variantColor="primary" onClick={handleNext}>
               {t("common.next")}
             </Button>
           ) : (
-            <CheckoutButton onClick={onSubmit} />
+            <CheckoutButton isLoading={isLoading} onClick={handleSubmit} />
           )}
         </Stack>
       </DrawerFooter>

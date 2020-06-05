@@ -1,10 +1,12 @@
 import {NextApiRequest, NextApiResponse} from "next";
 
-import fetch from "~/utils/fetch";
 import tenantApi from "~/tenant/api/server";
 import sessionApi from "~/session/api/server";
+import tenantCache from "~/tenant/cache";
 import {ClientTenant} from "~/tenant/types";
 import {DEFAULT_SERVER_TENANT} from "~/tenant/constants";
+import api from "~/payment/api/server";
+import {AuthState} from "~/payment/types";
 
 interface GetRequest extends NextApiRequest {
   query: {
@@ -22,23 +24,6 @@ interface DeleteRequest extends NextApiRequest {
   };
 }
 
-interface AuthResponse {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-  scope: string;
-  user_id: number;
-  refresh_token: string;
-  public_key: string;
-  live_mode: boolean;
-}
-
-interface AuthState {
-  id: string;
-  token: string;
-  slug: ClientTenant["slug"];
-}
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     const {query} = req as GetRequest;
@@ -46,17 +31,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const state: AuthState = JSON.parse(query.state);
 
-      const response: AuthResponse = await fetch(
-        "POST",
-        `https://api.mercadopago.com/oauth/token`,
-        {
-          client_id: process.env.MERCADOPAGO_CLIENT_ID,
-          client_secret: process.env.MERCADOPAGO_CLIENT_SECRET,
-          grant_type: "authorization_code",
-          code: query.code,
-          redirect_uri: `${process.env.APP_URL}/api/payment/auth`,
-        },
-      );
+      const response = await api.connect(query.code);
 
       if (state.id && response.access_token && response.refresh_token) {
         try {
@@ -70,6 +45,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                   refresh: response.refresh_token,
                 },
               });
+
+              tenantCache.delete(state.slug);
 
               return res.writeHead(302, {Location: `/${state.slug}/admin`}).end();
             } catch (error) {

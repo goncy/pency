@@ -2,29 +2,32 @@ import React from "react";
 import {Stack} from "@chakra-ui/core";
 
 import FieldsForm from "../../forms/FieldsForm";
-import {CheckoutFields} from "../../types";
 
 import CheckoutButton from "./CheckoutButton";
 
 import {DrawerTitle, DrawerBody, DrawerFooter} from "~/ui/controls/Drawer";
-import {ClientTenant} from "~/tenant/types";
+import {Field} from "~/tenant/types";
 import {useTranslation} from "~/hooks/translation";
 
 interface Props {
-  fields: ClientTenant["fields"];
-  onSubmit: (fields: CheckoutFields) => void;
+  fields: Field[];
+  onSubmit: (fields: Field[]) => void;
 }
 
 const Fields: React.FC<Props> = ({fields, onSubmit}) => {
+  const [isLoading, toggleLoading] = React.useState(false);
   const t = useTranslation();
 
-  const defaultValues: CheckoutFields = fields.reduce(
-    (values, field) => ({...values, [field.title]: ""}),
-    {},
-  );
+  function handleSubmit(event: React.MouseEvent, submit: () => Promise<void>) {
+    event.stopPropagation();
+
+    toggleLoading(true);
+
+    submit().finally(() => toggleLoading(false));
+  }
 
   return (
-    <FieldsForm defaultValues={defaultValues} fields={fields} onSubmit={onSubmit}>
+    <FieldsForm defaultValues={fields} onSubmit={onSubmit}>
       {({form, submit}) => (
         <>
           <DrawerBody overflowY="auto">
@@ -36,11 +39,8 @@ const Fields: React.FC<Props> = ({fields, onSubmit}) => {
           <DrawerFooter>
             <Stack spacing={4} width="100%">
               <CheckoutButton
-                onClick={(event) => {
-                  event.stopPropagation();
-
-                  submit();
-                }}
+                isLoading={isLoading}
+                onClick={(event) => handleSubmit(event, submit)}
               />
             </Stack>
           </DrawerFooter>

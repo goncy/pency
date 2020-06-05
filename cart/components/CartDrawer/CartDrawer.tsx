@@ -1,20 +1,20 @@
 import React from "react";
 
-import {CartItem, CheckoutFields} from "../../types";
+import {CartItem} from "../../types";
 import {getCount} from "../../selectors";
 
 import Overview from "./Overview";
 import Fields from "./Fields";
 
 import Drawer, {DrawerHeader} from "~/ui/controls/Drawer";
-import {ClientTenant} from "~/tenant/types";
+import {ClientTenant, Field} from "~/tenant/types";
 
 interface Props {
   isOpen: boolean;
   onClose: VoidFunction;
   items: CartItem[];
   fields?: ClientTenant["fields"];
-  onCheckout: (fields?: CheckoutFields) => void;
+  onCheckout: (fields?: Field[]) => Promise<void>;
   onRemove: (id: string) => void;
 }
 
@@ -32,20 +32,20 @@ const CartDrawer: React.FC<Props> = ({items, fields, onRemove, onCheckout, isOpe
     setStep("overview");
   }
 
-  function handleNext() {
-    setStep("fields");
-  }
-
   function handlePrevious() {
     setStep("overview");
   }
 
-  function handleCheckoutWithoutFields() {
-    onCheckout();
+  async function handleNext() {
+    return setStep("fields");
   }
 
-  function handleCheckoutWithFields(fields: CheckoutFields) {
-    onCheckout(fields);
+  async function handleCheckoutWithoutFields() {
+    return onCheckout();
+  }
+
+  async function handleCheckoutWithFields(fields: Field[]) {
+    return onCheckout(fields);
   }
 
   React.useEffect(() => {

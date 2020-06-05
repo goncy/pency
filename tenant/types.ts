@@ -35,6 +35,7 @@ export interface TextField {
   title: string;
   type: "text";
   note: string;
+  value?: string;
 }
 
 export interface RadioField {
@@ -42,6 +43,7 @@ export interface RadioField {
   title: string;
   type: "radio";
   options: RadioFieldOption[];
+  value?: string;
 }
 
 export interface RadioFieldOption {

@@ -1,4 +1,6 @@
-import {Order} from "./types";
+import shortid from "shortid";
+
+import {AuthResponse} from "../types";
 
 import fetch from "~/utils/fetch";
 import {CartItem} from "~/cart/types";
@@ -7,7 +9,7 @@ import {ClientTenant} from "~/tenant/types";
 export default {
   create: async (
     items: CartItem[],
-    order: Order,
+    slug: ClientTenant["slug"],
     token: string = "APP_USR-5868376219552098-060320-3d631d2ca54665e10e17ba2c6f140c9b-474601836",
   ) => {
     return fetch("POST", `https://api.mercadopago.com/checkout/preferences?access_token=${token}`, {
@@ -20,15 +22,12 @@ export default {
         currency_id: "ARS",
         unit_price: item.price * item.count,
       })),
-      additional_info: `Compra para ${order.slug}`,
       external_reference: {
-        orderId: order.id,
+        slug,
+        orderId: shortid.generate(),
       },
-      back_urls: {
-        success: `${process.env.APP_URL}/api/payment/complete`,
-      },
-      marketplace_fee: 10,
-      auto_return: "approved",
+      additional_info: `Compra en ${slug}`,
+      marketplace_fee: 1,
       payment_methods: {
         installments: 1,
         default_installments: 1,
@@ -38,7 +37,13 @@ export default {
   },
   get: async (collectionId: string, token: string) =>
     fetch("GET", `https://api.mercadopago.com/v1/payments/${collectionId}?access_token=${token}`),
+  connect: async (code: string): Promise<AuthResponse> =>
+    await fetch("POST", `https://api.mercadopago.com/oauth/token`, {
+      code,
+      client_id: process.env.MERCADOPAGO_CLIENT_ID,
+      client_secret: process.env.MERCADOPAGO_CLIENT_SECRET,
+      grant_type: "authorization_code",
+      redirect_uri: `${process.env.APP_URL}/api/payment/auth`,
+    }),
   disconnect: async (id: ClientTenant["id"]) => fetch("DELETE", `/api/payment/auth?id=${id}`),
 };
-
-// https://donar.me/vamos?collection_id=26364187&collection_status=approved&external_reference={%22slug%22:%22goncy%22}&payment_type=credit_card&merchant_order_id=1511375655&preference_id=474601836-fb378478-c0e9-43bc-a477-1ae63de8d8cd&site_id=MLA&processing_mode=aggregator&merchant_account_id=null

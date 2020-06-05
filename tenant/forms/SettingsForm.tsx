@@ -4,7 +4,7 @@ import {Stack, Text} from "@chakra-ui/core";
 
 import {ClientTenant} from "../types";
 import {CATEGORIES} from "../constants";
-import ExtraFieldsInput, {validator as ExtraFieldsInputValidator} from "../inputs/ExtraFields";
+import FieldsInput, {validator as FieldsInputValidator} from "../inputs/Fields";
 
 import Select from "~/ui/inputs/Select";
 import Input from "~/ui/inputs/Input";
@@ -166,11 +166,11 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             </Text>
             <FormControl name="fields">
               <Controller
-                as={ExtraFieldsInput}
+                as={FieldsInput}
                 control={control}
                 error={(errors.fields as any)?.type}
                 name="fields"
-                rules={{validate: ExtraFieldsInputValidator}}
+                rules={{validate: FieldsInputValidator}}
               />
             </FormControl>
           </Stack>

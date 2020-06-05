@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "@chakra-ui/core";
 
-import api from "../../api";
+import api from "../../api/server";
 
 import {ClientTenant} from "~/tenant/types";
 import Button from "~/ui/controls/Button";

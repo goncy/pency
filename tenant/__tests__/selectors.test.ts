@@ -1,4 +1,3 @@
-import produce from "immer";
 import * as R from "ramda";
 
 import {clientToServer, serverToClient} from "../selectors";

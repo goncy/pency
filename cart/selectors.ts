@@ -1,4 +1,6 @@
-import {CartItem, CheckoutFields} from "./types";
+import {CartItem} from "./types";
+
+import {Field, ClientTenant} from "~/tenant/types";
 
 export function getTotal(items: CartItem[]): number {
   return items.reduce((total, item) => total + item.price * item.count, 0);
@@ -23,16 +25,30 @@ export function getItems(items: CartItem[]): string {
     .join("\n");
 }
 
-export function getFields(fields: CheckoutFields) {
+export function getFields(fields: Field[]) {
   if (!fields) return "";
 
-  return Object.entries(fields)
-    .map(([title, value]) => `${title}: *${value}*`)
+  return fields
+    .filter(({title, value}) => title && value)
+    .map(({title, value}) => `${title}: *${value}*`)
     .join("\n");
 }
 
-export function getMessage(items: CartItem[], fields?: CheckoutFields): string {
+export function getPreferenceFooter(preference?: string) {
+  if (!preference) return "";
+
+  return `
+----------
+Siendo que elegiste Mercado Pago como forma de pago te generamos este link:
+${preference}
+Una vez que hagas el pago compartinos el número de orden.`;
+}
+
+export function getMessage(items: CartItem[], fields?: Field[], preference?: string): string {
   return (
-    getItems(items) + `\n\nTotal: $${getTotal(items)}` + (fields ? "\n\n" + getFields(fields) : "")
+    getItems(items) +
+    `\n\nTotal: $${getTotal(items)}` +
+    (fields ? "\n\n" + getFields(fields) : "") +
+    (preference ? getPreferenceFooter(preference) : "")
   );
 }

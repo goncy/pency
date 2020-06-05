@@ -1,6 +1,6 @@
 import * as R from "ramda";
 
-import {ClientTenant, ServerTenant} from "./types";
+import {ClientTenant, ServerTenant, Field} from "./types";
 
 export function serverToClient(tenant: Partial<ServerTenant>): Partial<ClientTenant> {
   return R.pipe(
@@ -30,4 +30,12 @@ export function serverToClient(tenant: Partial<ServerTenant>): Partial<ClientTen
 
 export function clientToServer(tenant: Partial<ClientTenant>): Partial<ServerTenant> {
   return R.omit(["id", "mercadopago"], tenant);
+}
+
+export function isMercadoPagoSelected(fields?: Field[]): boolean {
+  if (!Boolean(fields?.length)) return false;
+
+  const regexp = new RegExp(/mercado(\s{1})?pago/gim);
+
+  return fields.some((field) => field.value?.match(regexp));
 }
