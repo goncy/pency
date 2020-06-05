@@ -90,8 +90,9 @@ const CartProvider = ({children}: Props) => {
       items,
     });
 
-    let preference = null;
+    // We need to create the window reference before because Safari doesn't let us execute a window.open after an async operation
     let tab = window.open("", "_blank");
+    let preference = null;
 
     try {
       preference =
