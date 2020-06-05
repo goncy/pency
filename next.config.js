@@ -24,7 +24,7 @@ module.exports = withSourceMaps({
       FIREBASE_PRIVATE_KEY: Buffer.from(process.env.FIREBASE_PRIVATE_KEY, 'base64').toString('binary'),
       MERCADOPAGO_CLIENT_ID: process.env.MERCADOPAGO_CLIENT_ID,
       MERCADOPAGO_CLIENT_SECRET: process.env.MERCADOPAGO_CLIENT_SECRET,
-      APP_URL: process.env.VERCEL_URL || process.env.APP_URL,
+      APP_URL: process.env.APP_URL,
       SECRET: process.env.SECRET,
       SENTRY_DSN: process.env.SENTRY_DSN,
       MANTAINER_EMAIL: process.env.MANTAINER_EMAIL,
