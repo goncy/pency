@@ -29,7 +29,7 @@ export function serverToClient(tenant: Partial<ServerTenant>): Partial<ClientTen
 }
 
 export function clientToServer(tenant: Partial<ClientTenant>): Partial<ServerTenant> {
-  return R.omit(["id", "mercadopago"], tenant);
+  return R.omit(["id", "mercadopago", "slug"], tenant);
 }
 
 export function isMercadoPagoSelected(fields?: Field[]): boolean {

@@ -18,6 +18,13 @@ describe("selectors", () => {
 
       expect(actual).not.toHaveProperty("id");
     });
+
+    it("should remove slug property", () => {
+      const base = mock.client.full;
+      const actual = clientToServer(base);
+
+      expect(actual).not.toHaveProperty("slug");
+    });
   });
 
   describe("serverToClient", () => {

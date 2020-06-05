@@ -2,7 +2,6 @@ import {NextApiRequest, NextApiResponse} from "next";
 
 import tenantApi from "~/tenant/api/server";
 import sessionApi from "~/session/api/server";
-import tenantCache from "~/tenant/cache";
 import {ClientTenant} from "~/tenant/types";
 import {DEFAULT_SERVER_TENANT} from "~/tenant/constants";
 import api from "~/payment/api/server";
@@ -40,14 +39,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
           if (session.uid === state.id) {
             try {
-              await tenantApi.update(state.id, {
+              await tenantApi.update(state.id, state.slug, {
                 mercadopago: {
                   token: response.access_token,
                   refresh: response.refresh_token,
                 },
               });
-
-              tenantCache.delete(state.slug);
 
               return res.writeHead(302, {Location: `/${state.slug}/admin`}).end();
             } catch (error) {
@@ -76,11 +73,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       if (session.uid === id) {
         try {
-          await tenantApi.update(id, {
+          await tenantApi.update(id, slug, {
             mercadopago: DEFAULT_SERVER_TENANT.mercadopago,
           });
-
-          tenantCache.delete(slug);
 
           return res.status(200).json({success: true});
         } catch (error) {

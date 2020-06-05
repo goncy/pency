@@ -3,7 +3,6 @@ import {NextApiRequest, NextApiResponse} from "next";
 import {ClientTenant} from "~/tenant/types";
 import {auth} from "~/firebase/admin";
 import {serverToClient, clientToServer} from "~/tenant/selectors";
-import cache from "~/tenant/cache";
 import api from "~/tenant/api/server";
 import {DEFAULT_SERVER_TENANT} from "~/tenant/constants";
 
@@ -42,19 +41,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       query: {slug},
     } = req as GetRequest;
 
-    const cached = cache.get(slug);
-
-    if (cached) {
-      return res.status(200).json(serverToClient(cached));
-    }
-
     return api
       .fetch(slug)
-      .then((tenant) => {
-        cache.set(slug, tenant);
-
-        return res.status(200).json(serverToClient(tenant));
-      })
+      .then((tenant) => res.status(200).json(serverToClient(tenant)))
       .catch(({status, statusText}) => res.status(status).end(statusText));
   }
 
@@ -82,7 +71,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       headers: {authorization: token},
     } = req as PatchRequest;
 
-    if (!tenant) return res.status(304).end();
+    if (!tenant || !tenant?.id || !tenant?.slug) return res.status(304).end();
 
     return auth
       .verifyIdToken(token)
@@ -90,12 +79,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         if (uid !== tenant.id) return res.status(403).end();
 
         return api
-          .update(tenant.id, clientToServer(tenant))
-          .then(() => {
-            cache.delete(tenant.slug);
-
-            return res.status(200).json(tenant);
-          })
+          .update(tenant.id, tenant.slug, clientToServer(tenant))
+          .then(() => res.status(200).json(tenant))
           .catch(() => res.status(400).end("Hubo un error actualizando la tienda"));
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));

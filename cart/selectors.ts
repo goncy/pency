@@ -17,12 +17,11 @@ export function getSummary(items: CartItem[]): string {
 export function getItems(items: CartItem[]): string {
   return items
     .map(
-      ({category, title, options, price, count}) =>
+      ({title, options, price, count}) =>
         `— ${[
           count > 1 ? `*[ ${count} ]*` : "",
-          `[${category}]`,
           title,
-          `_${options}_`,
+          options ? `_${options}_` : "",
           `> *$${price * count}*`,
         ]
           .filter(Boolean)
@@ -43,8 +42,7 @@ export function getFields(fields: Field[]) {
 export function getPreferenceFooter(preference?: string) {
   if (!preference) return "";
 
-  return `
-----------
+  return `----------
 
 Este es tu link de pago. _Una vez realizado envianos el número de operación_.
 ${preference}`;
@@ -62,9 +60,11 @@ export function getMessage(
 ): string {
   return (
     getOrderId(orderId) +
+    "\n\n" +
     getItems(items) +
-    `\n\nTotal: $${getTotal(items)}` +
+    "\n\n" +
+    `*Total: $${getTotal(items)}*` +
     (fields ? "\n\n" + getFields(fields) : "") +
-    (preference ? getPreferenceFooter(preference) : "")
+    (preference ? `\n\n${getPreferenceFooter(preference)}` : "")
   );
 }

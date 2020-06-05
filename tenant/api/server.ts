@@ -1,6 +1,7 @@
 import {ServerTenant} from "../types";
 
 import {database, auth} from "~/firebase/admin";
+import cache from "~/tenant/cache";
 
 export default {
   create: (email: string, password: string, tenant: Partial<ServerTenant>) => {
@@ -22,6 +23,7 @@ export default {
       );
   },
   fetch: async (slug: ServerTenant["slug"]): Promise<ServerTenant> =>
+    cache.get(slug) ||
     database
       .collection("tenants")
       .where("slug", "==", slug)
@@ -32,7 +34,12 @@ export default {
           ? Promise.reject({statusText: "La tienda no existe", status: 404})
           : snapshot.docs[0],
       )
-      .then((doc) => ({...(doc.data() as ServerTenant), id: doc.id})),
+      .then((doc) => ({...(doc.data() as ServerTenant), id: doc.id}))
+      .then((tenant) => {
+        cache.set(tenant.slug, tenant);
+
+        return tenant;
+      }),
   list: async (): Promise<ServerTenant[]> =>
     database
       .collection("tenants")
@@ -42,7 +49,21 @@ export default {
           ? Promise.reject({statusText: "No hay tiendas", status: 404})
           : snapshot.docs,
       )
-      .then((docs) => docs.map((doc) => ({...(doc.data() as ServerTenant), id: doc.id}))),
-  update: async (id: ServerTenant["id"], tenant: Partial<ServerTenant>) =>
-    database.collection("tenants").doc(id).update(tenant),
+      .then((docs) => docs.map((doc) => ({...(doc.data() as ServerTenant), id: doc.id})))
+      .then((tenants) => {
+        tenants.forEach((tenant) => {
+          cache.set(tenant.slug, tenant);
+        });
+
+        return tenants;
+      }),
+  update: async (
+    id: ServerTenant["id"],
+    slug: ServerTenant["slug"],
+    tenant: Partial<ServerTenant>,
+  ) => {
+    cache.delete(slug);
+
+    return database.collection("tenants").doc(id).update(tenant);
+  },
 };
