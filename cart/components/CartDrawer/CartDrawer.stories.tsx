@@ -22,7 +22,11 @@ export const open = () => (
     isOpen
     fields={tenantMock.client.full.fields}
     items={[item(), item()]}
-    onCheckout={action("checkout")}
+    onCheckout={() => {
+      action("checkout");
+
+      return Promise.resolve();
+    }}
     onClose={action("close")}
     onRemove={action("remove")}
   />

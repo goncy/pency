@@ -99,7 +99,7 @@ const CartProvider = ({children}: Props) => {
       console.log("Error generando preferencia de MercadoPago: ", e);
     }
 
-    return window.open(
+    window.open(
       `https://wa.me/${phone}?text=${encodeURIComponent(getMessage(items, fields, preference))}`,
       "_blank",
     );

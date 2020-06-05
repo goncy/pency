@@ -22,7 +22,7 @@ export interface State {
 export interface Actions {
   add: (product: Product) => void;
   remove: (id: CartItem["id"]) => void;
-  checkout: (fields?: Field[]) => void;
+  checkout: (fields?: Field[]) => Promise<void>;
 }
 
 export interface Context {
