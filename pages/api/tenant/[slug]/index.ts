@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
 
-import {ClientTenant} from "~/tenant/types";
+import {ClientTenant, ServerTenant} from "~/tenant/types";
 import {auth} from "~/firebase/admin";
 import {serverToClient, clientToServer} from "~/tenant/selectors";
 import api from "~/tenant/api/server";
@@ -14,13 +14,14 @@ interface GetRequest extends NextApiRequest {
 
 interface PatchRequest extends NextApiRequest {
   headers: {
-    authorization: string;
+    authorization?: string;
+    secret?: string;
   };
   query: {
     slug: ClientTenant["slug"];
   };
   body: {
-    tenant: ClientTenant;
+    tenant: ClientTenant | ServerTenant;
   };
 }
 
@@ -68,18 +69,27 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "PATCH") {
     const {
       body: {tenant},
-      headers: {authorization: token},
+      headers: {authorization: token, secret},
     } = req as PatchRequest;
 
     if (!tenant || !tenant?.id || !tenant?.slug) return res.status(304).end();
 
+    const {id, slug, ...rest} = tenant;
+
+    if (secret === process.env.SECRET) {
+      return api
+        .update(id, slug, rest as ServerTenant)
+        .then(() => res.status(200).json(tenant))
+        .catch(() => res.status(400).end("Hubo un error actualizando la tienda"));
+    }
+
     return auth
       .verifyIdToken(token)
       .then(({uid}) => {
-        if (uid !== tenant.id) return res.status(403).end();
+        if (uid !== id) return res.status(403).end();
 
         return api
-          .update(tenant.id, tenant.slug, clientToServer(tenant))
+          .update(id, slug, clientToServer(rest as ClientTenant))
           .then(() => res.status(200).json(tenant))
           .catch(() => res.status(400).end("Hubo un error actualizando la tienda"));
       })
