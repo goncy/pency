@@ -91,6 +91,7 @@ const CartProvider = ({children}: Props) => {
     });
 
     let preference = null;
+    let tab = window.open("", "_blank");
 
     try {
       preference =
@@ -99,10 +100,9 @@ const CartProvider = ({children}: Props) => {
       console.log("Error generando preferencia de MercadoPago: ", e);
     }
 
-    window.open(
-      `https://wa.me/${phone}?text=${encodeURIComponent(getMessage(items, fields, preference))}`,
-      "_blank",
-    );
+    tab.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(
+      getMessage(items, fields, preference),
+    )}`;
   }
 
   const state: State = {items, cart};
