@@ -1,6 +1,6 @@
 import {CartItem} from "./types";
 
-import {Field, ClientTenant} from "~/tenant/types";
+import {Field} from "~/tenant/types";
 
 export function getTotal(items: CartItem[]): number {
   return items.reduce((total, item) => total + item.price * item.count, 0);
@@ -18,9 +18,15 @@ export function getItems(items: CartItem[]): string {
   return items
     .map(
       ({category, title, options, price, count}) =>
-        `* ${[`[${category}]`, title, options, count > 1 ? `(X${count})` : "", `$${price * count}`]
+        `— ${[
+          count > 1 ? `*[ ${count} ]*` : "",
+          `[${category}]`,
+          title,
+          `_${options}_`,
+          `> *$${price * count}*`,
+        ]
           .filter(Boolean)
-          .join(" - ")}`,
+          .join(" ")}`,
     )
     .join("\n");
 }
@@ -39,13 +45,23 @@ export function getPreferenceFooter(preference?: string) {
 
   return `
 ----------
-Siendo que elegiste Mercado Pago como forma de pago te generamos este link:
-${preference}
-Una vez que hagas el pago compartinos el número de orden.`;
+
+Este es tu link de pago. _Una vez realizado envianos el número de operación_.
+${preference}`;
 }
 
-export function getMessage(items: CartItem[], fields?: Field[], preference?: string): string {
+export function getOrderId(orderId: string) {
+  return `PEDIDO: *${orderId}*`;
+}
+
+export function getMessage(
+  items: CartItem[],
+  orderId: string,
+  fields?: Field[],
+  preference?: string,
+): string {
   return (
+    getOrderId(orderId) +
     getItems(items) +
     `\n\nTotal: $${getTotal(items)}` +
     (fields ? "\n\n" + getFields(fields) : "") +

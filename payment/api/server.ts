@@ -1,5 +1,3 @@
-import shortid from "shortid";
-
 import {AuthResponse} from "../types";
 
 import fetch from "~/utils/fetch";
@@ -10,6 +8,7 @@ export default {
   create: async (
     items: CartItem[],
     slug: ClientTenant["slug"],
+    orderId: string,
     token: string = "APP_USR-5868376219552098-060320-3d631d2ca54665e10e17ba2c6f140c9b-474601836",
   ) => {
     return fetch("POST", `https://api.mercadopago.com/checkout/preferences?access_token=${token}`, {
@@ -24,7 +23,7 @@ export default {
       })),
       external_reference: {
         slug,
-        orderId: shortid.generate(),
+        orderId,
       },
       additional_info: `Compra en ${slug}`,
       marketplace_fee: 1,
@@ -33,7 +32,10 @@ export default {
         default_installments: 1,
         excluded_payment_types: [{id: "ticket"}, {id: "atm"}],
       },
-    }).then((response) => response.sandbox_init_point);
+    }).then((response) => ({
+      url: response.init_point,
+      orderId,
+    }));
   },
   get: async (collectionId: string, token: string) =>
     fetch("GET", `https://api.mercadopago.com/v1/payments/${collectionId}?access_token=${token}`),

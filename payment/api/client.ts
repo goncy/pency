@@ -3,6 +3,6 @@ import {CartItem} from "~/cart/types";
 import {ClientTenant} from "~/tenant/types";
 
 export default {
-  create: (slug: ClientTenant["slug"], items: CartItem[]) =>
-    fetch("POST", `/api/payment`, {slug, items}).then(({url}) => url),
+  create: (slug: ClientTenant["slug"], items: CartItem[], orderId: string) =>
+    fetch("POST", `/api/payment`, {slug, items, orderId}).then(({url}) => url),
 };

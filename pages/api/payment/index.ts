@@ -1,5 +1,4 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import shortid from "shortid";
 
 import {ClientTenant} from "~/tenant/types";
 import tenantCache from "~/tenant/cache";
@@ -11,13 +10,14 @@ interface PostRequest extends NextApiRequest {
   body: {
     items: CartItem[];
     slug: ClientTenant["slug"];
+    orderId: string;
   };
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     const {
-      body: {slug, items},
+      body: {slug, items, orderId},
     } = req as PostRequest;
 
     if (!items?.length) return res.status(304).end();
@@ -26,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (cached?.mercadopago?.token) {
       return paymentsApi
-        .create(items, slug, cached.mercadopago.token)
+        .create(items, slug, orderId, cached.mercadopago.token)
         .then((url) => res.status(200).json({url}))
         .catch(({status, statusText}) => res.status(status).end(statusText));
     }
@@ -36,7 +36,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .then((tenant) =>
         paymentsApi
           .create(items, slug, tenant.mercadopago.token)
-          .then((url) => res.status(200).json({url})),
+          .then((response) => res.status(200).json(response)),
       )
       .catch(({status, statusText}) => res.status(status).end(statusText));
   }

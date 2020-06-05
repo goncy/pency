@@ -90,19 +90,22 @@ const CartProvider = ({children}: Props) => {
       items,
     });
 
+    const orderId = shortid.generate();
     // We need to create the window reference before because Safari doesn't let us execute a window.open after an async operation
     let tab = window.open("", "_blank");
     let preference = null;
 
     try {
       preference =
-        mercadopago && isMercadoPagoSelected(fields) ? await paymentApi.create(slug, items) : null;
+        mercadopago && isMercadoPagoSelected(fields)
+          ? await paymentApi.create(slug, items, orderId)
+          : null;
     } catch (e) {
       console.log("Error generando preferencia de MercadoPago: ", e);
     }
 
     tab.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(
-      getMessage(items, fields, preference),
+      getMessage(items, orderId, fields, preference),
     )}`;
   }
 
