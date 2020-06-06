@@ -20,6 +20,7 @@ interface Tenant {
   mercadopago?: {
     token: string;
     refresh: string;
+    expiration: number;
   };
 }
 
