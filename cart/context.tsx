@@ -90,23 +90,30 @@ const CartProvider = ({children}: Props) => {
       items,
     });
 
+    // We generate an order id
     const orderId = shortid.generate();
-    // We need to create the window reference before because Safari doesn't let us execute a window.open after an async operation
-    let tab = window.open("", "_blank");
-    let preference = null;
 
-    try {
-      preference =
-        mercadopago && isMercadoPagoSelected(fields)
-          ? await paymentApi.create(slug, items, orderId)
-          : null;
-    } catch (e) {
-      console.log("Error generando preferencia de MercadoPago: ", e);
+    if (mercadopago && isMercadoPagoSelected(fields)) {
+      try {
+        // We need to create the window reference before because Safari doesn't let us execute a window.open after an async operation
+        let tab = window.open("", "_blank");
+        // Create a preference for this items
+        const preference = await paymentApi.create(slug, items, orderId);
+
+        // Redirect the new tab to the corresponding url
+        tab.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(
+          getMessage(items, orderId, fields, preference),
+        )}`;
+      } catch (e) {
+        // If we had an error log it to the console
+        console.log("Error generando preferencia de MercadoPago: ", e);
+      }
     }
 
-    tab.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(
-      getMessage(items, orderId, fields, preference),
-    )}`;
+    // If we don't have mercadopago configured and selected, redirect the user to whatsapp
+    window.open(
+      `https://wa.me/${phone}?text=${encodeURIComponent(getMessage(items, orderId, fields))}`,
+    );
   }
 
   const state: State = {items, cart};
