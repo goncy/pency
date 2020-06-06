@@ -1,4 +1,4 @@
-import {Product} from "./types";
+import {Product} from "../types";
 
 import {ClientTenant} from "~/tenant/types";
 import fetch from "~/utils/fetch";

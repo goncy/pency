@@ -1,22 +1,18 @@
+import {NextApiResponse, NextApiRequest} from "next";
+
 import {Product} from "~/product/types";
 import {ClientTenant} from "~/tenant/types";
-import {database} from "~/firebase/admin";
-import {parseProduct, formatProduct} from "~/product/selectors";
+import api from "~/product/api/server";
 import sessionApi from "~/session/api/server";
 import cache from "~/product/cache";
 
-interface Request {
-  method: "GET" | "PATCH" | "DELETE" | "POST";
-  query?: any;
-}
-
-interface GetRequest extends Request {
+interface GetRequest extends NextApiRequest {
   query: {
     tenant: ClientTenant["id"];
   };
 }
 
-interface PostRequest extends Request {
+interface PostRequest extends NextApiRequest {
   headers: {
     authorization: string;
   };
@@ -28,7 +24,7 @@ interface PostRequest extends Request {
   };
 }
 
-interface PatchRequest extends Request {
+interface PatchRequest extends NextApiRequest {
   headers: {
     authorization: string;
   };
@@ -40,7 +36,7 @@ interface PatchRequest extends Request {
   };
 }
 
-interface DeleteRequest extends Request {
+interface DeleteRequest extends NextApiRequest {
   headers: {
     authorization: string;
   };
@@ -50,34 +46,7 @@ interface DeleteRequest extends Request {
   };
 }
 
-const api = {
-  list: async (tenant: ClientTenant["id"]): Promise<Product[]> =>
-    database
-      .collection("tenants")
-      .doc(tenant)
-      .collection("products")
-      .get()
-      .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
-      .then((products) => products.map(parseProduct)),
-  create: (tenant: ClientTenant["id"], product: Product) =>
-    database
-      .collection("tenants")
-      .doc(tenant)
-      .collection("products")
-      .add(formatProduct(product))
-      .then((snapshot) => ({...formatProduct(product), id: snapshot.id})),
-  remove: (tenant: ClientTenant["id"], product: Product["id"]) =>
-    database.collection("tenants").doc(tenant).collection("products").doc(product).delete(),
-  update: (tenant: ClientTenant["id"], {id, ...product}: Product) =>
-    database
-      .collection("tenants")
-      .doc(tenant)
-      .collection("products")
-      .doc(id)
-      .update(formatProduct(product)),
-};
-
-export default async (req: Request, res) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     const {
       query: {tenant},
