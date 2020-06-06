@@ -1,7 +1,7 @@
 import React from "react";
 import {Grid, Stack, Text, Box, BoxProps} from "@chakra-ui/core";
 
-import {Tenant} from "../types";
+import {ClientTenant} from "../types";
 
 import TenantAvatar from "./TenantAvatar";
 
@@ -10,7 +10,7 @@ import Content from "~/ui/structure/Content";
 
 interface Props extends BoxProps {
   tenant: Pick<
-    Tenant,
+    ClientTenant,
     "banner" | "facebook" | "instagram" | "twitter" | "logo" | "title" | "description" | "phone"
   >;
 }

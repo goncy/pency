@@ -1,33 +1,41 @@
-import {Tenant} from "./types";
-import {DEFAULT_TENANT} from "./constants";
+import * as R from "ramda";
 
-export function parseTenant(tenant: any): Tenant {
-  if (!tenant?.id || !tenant?.slug) {
-    throw new Error("Esta tienda es inválida");
-  }
+import {ClientTenant, ServerTenant, Field} from "./types";
 
-  return {
-    id: tenant.id,
-    slug: tenant.slug,
-    category: tenant.category || "",
-    color: tenant.color || DEFAULT_TENANT.color,
-    phone: tenant.phone || DEFAULT_TENANT.phone,
-    logo: tenant.logo || DEFAULT_TENANT.logo,
-    title: tenant.title || "",
-    instagram: tenant.instagram || DEFAULT_TENANT.instagram,
-    facebook: tenant.facebook || DEFAULT_TENANT.facebook,
-    twitter: tenant.twitter || DEFAULT_TENANT.twitter,
-    keywords: tenant.keywords || DEFAULT_TENANT.keywords,
-    banner: tenant.banner || DEFAULT_TENANT.banner,
-    description: tenant.description || "",
-    highlight: tenant.highlight || DEFAULT_TENANT.highlight,
-    fields: tenant.fields || DEFAULT_TENANT.fields,
-  };
+export function serverToClient(tenant: Partial<ServerTenant>): Partial<ClientTenant> {
+  return R.pipe(
+    R.pick([
+      "id",
+      "slug",
+      "category",
+      "color",
+      "phone",
+      "logo",
+      "title",
+      "instagram",
+      "facebook",
+      "twitter",
+      "keywords",
+      "banner",
+      "description",
+      "highlight",
+      "fields",
+      "mercadopago",
+    ]),
+    R.evolve({
+      mercadopago: (mercadopago) => Boolean(mercadopago.token),
+    }),
+  )(tenant);
 }
 
-export function formatTenant(tenant: Partial<Tenant>): Partial<Tenant> {
-  return {
-    ...DEFAULT_TENANT,
-    ...tenant,
-  };
+export function clientToServer(tenant: Partial<ClientTenant>): Partial<ServerTenant> {
+  return R.omit(["id", "mercadopago", "slug"], tenant);
+}
+
+export function isMercadoPagoSelected(fields?: Field[]): boolean {
+  if (!Boolean(fields?.length)) return false;
+
+  const regexp = new RegExp(/mercado(\s{1})?pago/gim);
+
+  return fields.some((field) => field.value?.match(regexp));
 }

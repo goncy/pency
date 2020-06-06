@@ -3,26 +3,26 @@ import {ThemeProvider} from "@chakra-ui/core";
 
 import {useToast} from "../hooks/toast";
 
-import {Tenant, Context, State, Actions} from "./types";
-import api from "./api";
-import {DEFAULT_TENANT} from "./constants";
+import {ClientTenant, Context, State, Actions} from "./types";
+import api from "./api/client";
+import {DEFAULT_CLIENT_TENANT} from "./constants";
 
 import getTheme from "~/theme";
 
 interface Props {
-  initialValue: Tenant;
+  initialValue: ClientTenant;
 }
 
 const ProductTenant = React.createContext({} as Context);
 
 const TenantProvider: React.FC<Props> = ({children, initialValue}) => {
   const toast = useToast();
-  const [tenant, setTenant] = React.useState<Tenant>({
-    ...DEFAULT_TENANT,
+  const [tenant, setTenant] = React.useState<ClientTenant>({
+    ...DEFAULT_CLIENT_TENANT,
     ...initialValue,
   });
 
-  function update(tenant: Tenant) {
+  function update(tenant: ClientTenant) {
     return api
       .update(tenant)
       .then(() => {

@@ -19,7 +19,7 @@ interface Props {
   onChange: (options: Field[]) => void;
 }
 
-const ExtraFieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
+const FieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
   function handleTypeChange(type, index) {
     onChange(
       produce(value, (value) => {
@@ -82,6 +82,7 @@ const ExtraFieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
             error={error === "title" && !value[index].title && "Este campo es requerido"}
           >
             <ClearableTextField
+              backgroundColor="inherit"
               placeholder="Forma de pago"
               value={option.title}
               onChange={(event) => handleTitleChange(index, event.target.value)}
@@ -111,4 +112,4 @@ const ExtraFieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
   );
 };
 
-export default ExtraFieldsInput;
+export default FieldsInput;

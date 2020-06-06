@@ -1,7 +1,7 @@
 import React from "react";
 
 import {Context, State, Actions, Product} from "./types";
-import api from "./api";
+import api from "./api/client";
 
 import {useToast} from "~/hooks/toast";
 import {useTenant} from "~/tenant/hooks";

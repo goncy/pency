@@ -39,7 +39,7 @@ const SummaryButton: React.FC<Props> = ({children, items, ...props}) => {
           variantColor="primary"
         >
           <Text textTransform="lowercase">
-            {count} {t("common.items")}
+            {count} {t("common.item", {count})}
           </Text>
         </Badge>
         <Text flex={1} justifySelf="flex-end" textAlign="right">

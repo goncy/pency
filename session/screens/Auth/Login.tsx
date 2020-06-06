@@ -11,12 +11,12 @@ import {
 } from "@chakra-ui/core";
 import {useForm} from "react-hook-form";
 
-import api from "../../api";
+import api from "../../api/client";
 
 import Input from "~/ui/inputs/Input";
 import {useToast} from "~/hooks/toast";
 import TenantAvatar from "~/tenant/components/TenantAvatar";
-import {Tenant} from "~/tenant/types";
+import {ClientTenant} from "~/tenant/types";
 import {useTranslation} from "~/hooks/translation";
 
 interface FormData {
@@ -26,8 +26,8 @@ interface FormData {
 
 interface Props {
   navigate: (route: string) => void;
-  logo: Tenant["logo"];
-  title: Tenant["title"];
+  logo: ClientTenant["logo"];
+  title: ClientTenant["title"];
 }
 
 const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {

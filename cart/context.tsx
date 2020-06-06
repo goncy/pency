@@ -4,12 +4,15 @@ import produce from "immer";
 
 import {Product} from "../product/types";
 
-import {CartItem, Context, State, Actions, Cart, CheckoutFields} from "./types";
+import {CartItem, Context, State, Actions, Cart} from "./types";
 import {getSummary, getMessage} from "./selectors";
 
 import {useAnalytics} from "~/analytics/hooks";
+import paymentApi from "~/payment/api/client";
 import {useTenant} from "~/tenant/hooks";
 import {getPrice, getOptionsString} from "~/product/selectors";
+import {Field} from "~/tenant/types";
+import {isMercadoPagoSelected} from "~/tenant/selectors";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -19,7 +22,7 @@ const CartContext = React.createContext({} as Context);
 
 const CartProvider = ({children}: Props) => {
   const log = useAnalytics();
-  const {phone} = useTenant();
+  const {phone, slug, mercadopago} = useTenant();
   const [cart, setCart] = React.useState<Cart>({});
   const items = React.useMemo(() => [].concat(...Object.values(cart)), [cart]);
 
@@ -80,17 +83,30 @@ const CartProvider = ({children}: Props) => {
     );
   }
 
-  function checkout(fields?: CheckoutFields) {
+  async function checkout(fields?: Field[]) {
     log("cart_checkout", {
       content_type: "cart",
       description: getSummary(items),
       items,
     });
 
-    window.open(
-      `https://wa.me/${phone}?text=${encodeURIComponent(getMessage(items, fields))}`,
-      "_blank",
-    );
+    const orderId = shortid.generate();
+    // We need to create the window reference before because Safari doesn't let us execute a window.open after an async operation
+    let tab = window.open("", "_blank");
+    let preference = null;
+
+    try {
+      preference =
+        mercadopago && isMercadoPagoSelected(fields)
+          ? await paymentApi.create(slug, items, orderId)
+          : null;
+    } catch (e) {
+      console.log("Error generando preferencia de MercadoPago: ", e);
+    }
+
+    tab.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(
+      getMessage(items, orderId, fields, preference),
+    )}`;
   }
 
   const state: State = {items, cart};

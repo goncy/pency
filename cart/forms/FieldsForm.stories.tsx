@@ -8,7 +8,7 @@ import Button from "~/ui/controls/Button";
 import tenantMock from "~/tenant/mock";
 
 export const full = () => (
-  <FieldsForm fields={tenantMock.full.fields} onSubmit={action("submit")}>
+  <FieldsForm defaultValues={tenantMock.client.full.fields} onSubmit={action("submit")}>
     {({form, submit}) => (
       <Stack>
         {form}

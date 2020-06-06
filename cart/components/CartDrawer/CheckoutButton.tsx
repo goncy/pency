@@ -1,10 +1,13 @@
 import React from "react";
+import {ButtonProps} from "@chakra-ui/core";
 
 import Button from "~/ui/controls/Button";
 import WhatsAppIcon from "~/ui/icons/WhatsApp";
 import {useTranslation} from "~/hooks/translation";
 
-const CheckoutButton = ({onClick}) => {
+interface Props extends Omit<ButtonProps, "children"> {}
+
+const CheckoutButton: React.FC<Props> = ({onClick, ...props}) => {
   const t = useTranslation();
 
   return (
@@ -16,6 +19,7 @@ const CheckoutButton = ({onClick}) => {
       variantColor="green"
       width="100%"
       onClick={onClick}
+      {...props}
     >
       <WhatsAppIcon marginRight={2} />
       {t("cart.completeOnWhatsApp")}

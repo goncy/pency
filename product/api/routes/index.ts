@@ -1,83 +1,53 @@
-import {Product} from "~/product/types";
-import {Tenant} from "~/tenant/types";
-import {database, auth} from "~/firebase/admin";
-import {parseProduct, formatProduct} from "~/product/selectors";
+import {NextApiResponse, NextApiRequest} from "next";
 
-interface Request {
-  method: "GET" | "PATCH" | "DELETE" | "POST";
-  query?: any;
-}
+import {Product} from "../../types";
+import api from "../../api/server";
+import cache from "../../cache";
 
-interface GetRequest extends Request {
+import {ClientTenant} from "~/tenant/types";
+import sessionApi from "~/session/api/server";
+
+interface GetRequest extends NextApiRequest {
   query: {
-    tenant: Tenant["id"];
+    tenant: ClientTenant["id"];
   };
 }
 
-interface PostRequest extends Request {
+interface PostRequest extends NextApiRequest {
   headers: {
     authorization: string;
   };
   query: {
-    tenant: Tenant["id"];
+    tenant: ClientTenant["id"];
   };
   body: {
     product: Product;
   };
 }
 
-const cache = new Map();
-
-interface PatchRequest extends Request {
+interface PatchRequest extends NextApiRequest {
   headers: {
     authorization: string;
   };
   query: {
-    tenant: Tenant["id"];
+    tenant: ClientTenant["id"];
   };
   body: {
     product: Product;
   };
 }
 
-interface DeleteRequest extends Request {
+interface DeleteRequest extends NextApiRequest {
   headers: {
     authorization: string;
   };
   query: {
-    tenant: Tenant["id"];
+    tenant: ClientTenant["id"];
     product: Product["id"];
   };
 }
 
-const api = {
-  list: async (tenant: Tenant["id"]): Promise<Product[]> =>
-    database
-      .collection("tenants")
-      .doc(tenant)
-      .collection("products")
-      .get()
-      .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
-      .then((products) => products.map(parseProduct)),
-  create: (tenant: Tenant["id"], product: Product) =>
-    database
-      .collection("tenants")
-      .doc(tenant)
-      .collection("products")
-      .add(formatProduct(product))
-      .then((snapshot) => ({...formatProduct(product), id: snapshot.id})),
-  remove: (tenant: Tenant["id"], product: Product["id"]) =>
-    database.collection("tenants").doc(tenant).collection("products").doc(product).delete(),
-  update: (tenant: Tenant["id"], {id, ...product}: Product) =>
-    database
-      .collection("tenants")
-      .doc(tenant)
-      .collection("products")
-      .doc(id)
-      .update(formatProduct(product)),
-};
-
-export default async (req: Request, res) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     const {
       query: {tenant},
@@ -110,8 +80,8 @@ export default async (req: Request, res) => {
 
     if (!tenant) return res.status(304).end();
 
-    return auth
-      .verifyIdToken(token)
+    return sessionApi
+      .verify(token)
       .then(({uid}) => {
         if (uid !== tenant) return res.status(403).end();
 
@@ -136,8 +106,8 @@ export default async (req: Request, res) => {
 
     if (!tenant) return res.status(304).end();
 
-    return auth
-      .verifyIdToken(token)
+    return sessionApi
+      .verify(token)
       .then(({uid}) => {
         if (uid !== tenant) return res.status(403).end();
 
@@ -161,8 +131,8 @@ export default async (req: Request, res) => {
 
     if (!tenant) return res.status(304).end();
 
-    return auth
-      .verifyIdToken(token)
+    return sessionApi
+      .verify(token)
       .then(({uid}) => {
         if (uid !== tenant) return res.status(403).end();
 

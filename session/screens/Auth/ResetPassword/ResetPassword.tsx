@@ -3,10 +3,6 @@ import React from "react";
 import ResetPasswordForm from "./Form";
 import ResetPasswordSuccess from "./Success";
 
-interface FormData {
-  email: string;
-}
-
 interface Props {
   navigate: (route: string) => void;
 }
