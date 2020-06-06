@@ -49,6 +49,7 @@ const mock = {
         mercadopago: {
           token: faker.random.uuid(),
           refresh: faker.random.uuid(),
+          expiration: +faker.date.future(),
         },
       };
     },

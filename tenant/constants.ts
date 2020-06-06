@@ -22,6 +22,7 @@ export const DEFAULT_SERVER_TENANT: Omit<ServerTenant, "id" | "slug"> = {
   mercadopago: {
     token: "",
     refresh: "",
+    expiration: null,
   },
 };
 
