@@ -20,6 +20,7 @@ export function serverToClient(tenant: Partial<ServerTenant>): Partial<ClientTen
       "description",
       "highlight",
       "fields",
+      "flags",
       "mercadopago",
     ]),
     R.evolve({
