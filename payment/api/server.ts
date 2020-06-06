@@ -3,15 +3,11 @@ import {AuthResponse} from "../types";
 import fetch from "~/utils/fetch";
 import {CartItem} from "~/cart/types";
 import {ClientTenant} from "~/tenant/types";
+import {getTotal} from "~/cart/selectors";
 
 export default {
-  create: async (
-    items: CartItem[],
-    slug: ClientTenant["slug"],
-    orderId: string,
-    token: string = "APP_USR-5868376219552098-060320-3d631d2ca54665e10e17ba2c6f140c9b-474601836",
-  ) => {
-    return fetch("POST", `https://api.mercadopago.com/checkout/preferences?access_token=${token}`, {
+  create: async (items: CartItem[], slug: ClientTenant["slug"], orderId: string, token: string) =>
+    fetch("POST", `https://api.mercadopago.com/checkout/preferences?access_token=${token}sarasa`, {
       items: items.map((item) => ({
         id: item.id,
         title: item.title,
@@ -26,7 +22,7 @@ export default {
         orderId,
       },
       additional_info: `Compra en ${slug}`,
-      marketplace_fee: 1,
+      marketplace_fee: getTotal(items) * 0.01,
       payment_methods: {
         installments: 1,
         default_installments: 1,
@@ -35,8 +31,7 @@ export default {
     }).then((response) => ({
       url: response.init_point,
       orderId,
-    }));
-  },
+    })),
   get: async (collectionId: string, token: string) =>
     fetch("GET", `https://api.mercadopago.com/v1/payments/${collectionId}?access_token=${token}`),
   connect: async (code: string): Promise<AuthResponse> =>
