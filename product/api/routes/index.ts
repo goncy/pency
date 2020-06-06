@@ -1,10 +1,11 @@
 import {NextApiResponse, NextApiRequest} from "next";
 
-import {Product} from "~/product/types";
+import {Product} from "../../types";
+import api from "../../api/server";
+import cache from "../../cache";
+
 import {ClientTenant} from "~/tenant/types";
-import api from "~/product/api/server";
 import sessionApi from "~/session/api/server";
-import cache from "~/product/cache";
 
 interface GetRequest extends NextApiRequest {
   query: {

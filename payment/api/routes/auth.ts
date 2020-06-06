@@ -1,12 +1,12 @@
 import {NextApiRequest, NextApiResponse} from "next";
 
+import api from "../server";
+import {AuthState} from "../../types";
+
 import tenantApi from "~/tenant/api/server";
 import sessionApi from "~/session/api/server";
 import {ClientTenant} from "~/tenant/types";
 import {DEFAULT_SERVER_TENANT} from "~/tenant/constants";
-import api from "~/payment/api/server";
-import {AuthState} from "~/payment/types";
-import fetch from "~/utils/fetch";
 
 interface GetRequest extends NextApiRequest {
   query: {
@@ -40,21 +40,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
           if (session.uid === state.id) {
             try {
-              await fetch(
-                "PATCH",
-                `${process.env.APP_URL}/api/tenant/${state.slug}`,
-                {
-                  tenant: {
-                    id: state.id,
-                    slug: state.slug,
-                    mercadopago: {
-                      token: response.access_token,
-                      refresh: response.refresh_token,
-                    },
-                  },
+              await tenantApi.update(state.id, state.slug, {
+                mercadopago: {
+                  token: response.access_token,
+                  refresh: response.refresh_token,
                 },
-                {secret: process.env.SECRET},
-              );
+              });
 
               return res.writeHead(302, {Location: `/${state.slug}/admin`}).end();
             } catch (error) {
@@ -86,19 +77,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           await tenantApi.update(id, slug, {
             mercadopago: DEFAULT_SERVER_TENANT.mercadopago,
           });
-
-          await fetch(
-            "PATCH",
-            `${process.env.APP_URL}/api/tenant/${slug}`,
-            {
-              tenant: {
-                id: id,
-                slug: slug,
-                mercadopago: DEFAULT_SERVER_TENANT.mercadopago,
-              },
-            },
-            {secret: process.env.SECRET},
-          );
 
           return res.status(200).json({success: true});
         } catch (error) {

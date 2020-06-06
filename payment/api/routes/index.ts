@@ -1,9 +1,10 @@
 import {NextApiRequest, NextApiResponse} from "next";
 
+import paymentsApi from "../server";
+
 import {ClientTenant} from "~/tenant/types";
 import api from "~/tenant/api/server";
 import {CartItem} from "~/cart/types";
-import paymentsApi from "~/payment/api/server";
 
 interface PostRequest extends NextApiRequest {
   body: {

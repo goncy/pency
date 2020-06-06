@@ -6,19 +6,10 @@ import {serverToClient, clientToServer} from "~/tenant/selectors";
 import api from "~/tenant/api/server";
 import {DEFAULT_SERVER_TENANT} from "~/tenant/constants";
 
-interface GetRequest extends NextApiRequest {
-  query: {
-    slug: ClientTenant["slug"];
-  };
-}
-
 interface PatchRequest extends NextApiRequest {
   headers: {
     authorization?: string;
     secret?: string;
-  };
-  query: {
-    slug: ClientTenant["slug"];
   };
   body: {
     tenant: ClientTenant | ServerTenant;
@@ -31,17 +22,10 @@ interface PostRequest extends NextApiRequest {
     password: string;
     secret: string;
   };
-  query: {
-    slug: ClientTenant["slug"];
-  };
 }
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+export default async (slug: ClientTenant["slug"], req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
-    const {
-      query: {slug},
-    } = req as GetRequest;
-
     return api
       .fetch(slug)
       .then((tenant) => res.status(200).json(serverToClient(tenant)))
@@ -50,7 +34,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === "POST") {
     const {
-      query: {slug},
       body: {email, password, secret},
     } = req as PostRequest;
 
