@@ -16,6 +16,7 @@ interface Tenant {
   description?: string;
   highlight?: string;
   fields?: Field[];
+  flags?: string[];
   mercadopago?: {
     token: string;
     refresh: string;

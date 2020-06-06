@@ -174,23 +174,25 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               />
             </FormControl>
           </Stack>
-          <Stack shouldWrapChildren spacing={4}>
-            <Text fontSize="2xl" fontWeight={500}>
-              Mercado Pago
-            </Text>
-            <FormControl
-              help="Una comisión del 1% se cobrará por cada pago realizado por este medio"
-              name="mercadopago"
-            >
-              <Controller
-                as={MPConnect}
-                control={control}
-                id={defaultValues.id}
+          {defaultValues.flags?.includes("mercadopago") && (
+            <Stack shouldWrapChildren spacing={4}>
+              <Text fontSize="2xl" fontWeight={500}>
+                Mercado Pago
+              </Text>
+              <FormControl
+                help="Una comisión del 1% se cobrará por cada pago realizado por este medio"
                 name="mercadopago"
-                slug={defaultValues.slug}
-              />
-            </FormControl>
-          </Stack>
+              >
+                <Controller
+                  as={MPConnect}
+                  control={control}
+                  id={defaultValues.id}
+                  name="mercadopago"
+                  slug={defaultValues.slug}
+                />
+              </FormControl>
+            </Stack>
+          )}
         </Stack>
       </form>
     ),
