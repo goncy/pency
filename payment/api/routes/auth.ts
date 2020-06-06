@@ -59,7 +59,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
       }
     } catch (error) {
-      console.log({error});
       return res.status(403).json({error: "Bad request"});
     }
   }
