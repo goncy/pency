@@ -22,14 +22,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (!items?.length) return res.status(304).end();
 
-    return api
-      .fetch(slug)
-      .then((tenant) =>
-        paymentsApi
-          .create(items, slug, orderId, tenant.mercadopago.token)
-          .then((response) => res.status(200).json(response)),
-      )
-      .catch(({status, statusText}) => res.status(status).end(statusText));
+    try {
+      const tenant = await api.fetch(slug);
+      const preference = await paymentsApi.create(items, slug, orderId, tenant.mercadopago.token);
+
+      return res.status(200).json(preference);
+    } catch (error) {
+      return res.status(error.status).end(error.statusText);
+    }
   }
 
   return res.status(304).end();
