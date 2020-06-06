@@ -17,18 +17,22 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     params: [path, ...params],
   } = req.query as Query;
 
+  // We handle all the routes ourselves so only one lambda is deployed and we can access cache from any route
   switch (path) {
     case "tenant": {
       const [slug] = params;
 
       if (slug) {
+        // /api/tenant/[slug]
         return tenantHandler(slug, req, res);
       } else {
+        // /api/tenant
         return tenantsHandler(req, res);
       }
     }
 
     case "product": {
+      // /api/product
       return productsHandler(req, res);
     }
 
@@ -36,8 +40,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const [subroute] = params;
 
       if (subroute === "auth") {
+        // /api/payment/auth
         return paymentAuthHandler(req, res);
       } else {
+        // /api/payment
         return paymentHandler(req, res);
       }
     }
