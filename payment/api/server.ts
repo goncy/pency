@@ -39,14 +39,23 @@ export default {
   },
   get: async (collectionId: string, token: string) =>
     fetch("GET", `https://api.mercadopago.com/v1/payments/${collectionId}?access_token=${token}`),
-  connect: async (code: string): Promise<AuthResponse> =>
-    await fetch("POST", `https://api.mercadopago.com/oauth/token`, {
+  connect: async (code: string): Promise<AuthResponse> => {
+    console.log({
       code,
       client_id: process.env.MERCADOPAGO_CLIENT_ID,
       client_secret: process.env.MERCADOPAGO_CLIENT_SECRET,
       grant_type: "authorization_code",
       redirect_uri: `${process.env.APP_URL}/api/payment/auth`,
-    }),
+    });
+
+    return fetch("POST", `https://api.mercadopago.com/oauth/token`, {
+      code,
+      client_id: process.env.MERCADOPAGO_CLIENT_ID,
+      client_secret: process.env.MERCADOPAGO_CLIENT_SECRET,
+      grant_type: "authorization_code",
+      redirect_uri: `${process.env.APP_URL}/api/payment/auth`,
+    });
+  },
   disconnect: async (id: ClientTenant["id"], slug: ClientTenant["slug"]) =>
     fetch("DELETE", `/api/payment/auth?id=${id}&slug=${slug}`),
 };
