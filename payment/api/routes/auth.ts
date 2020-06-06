@@ -27,6 +27,7 @@ interface DeleteRequest extends NextApiRequest {
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
+    console.log(req.query);
     const {query} = req as GetRequest;
 
     try {
@@ -49,17 +50,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
               return res.writeHead(302, {Location: `/${state.slug}/admin`}).end();
             } catch (error) {
-              return res.status(400).send({error: "There was an error updating the tenant"});
+              return res.status(400).json({error: "There was an error updating the tenant"});
             }
           } else {
-            return res.status(401).end({error: "Unauthorized"});
+            return res.status(401).json({error: "Unauthorized"});
           }
         } catch (error) {
-          return res.status(401).end({error: "Session expired"});
+          return res.status(401).json({error: "Session expired"});
         }
       }
     } catch (error) {
-      return res.status(403).end({error: "Bad request"});
+      return res.status(403).json({error: "Bad request"});
     }
   }
 
