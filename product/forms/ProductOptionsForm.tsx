@@ -13,7 +13,7 @@ interface Props {
   children: (options: {
     form: JSX.Element;
     isLoading: boolean;
-    watch: (string) => any;
+    watch: () => any;
     submit: (e?: React.BaseSyntheticEvent<object, any, any> | undefined) => Promise<void>;
   }) => JSX.Element;
 }

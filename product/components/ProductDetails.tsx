@@ -104,7 +104,19 @@ export default function ProductDetails({product, add, onClose}: Props) {
           }}
         >
           {({form, submit, isLoading, watch}) => {
-            const quantity = watch("quantity");
+            const formValues = watch();
+
+            const optionsPrice = Object.keys(formValues)
+              .filter((key) => key.startsWith("options"))
+              .reduce((optionsTotal, optionKey) => {
+                const optionsTypeTotal = formValues[optionKey]
+                  .map((option) => option.price || 0)
+                  .reduce((a, b) => a + b, 0);
+
+                return optionsTotal + optionsTypeTotal;
+              }, 0);
+
+            const totalPrice = price * formValues.quantity + optionsPrice;
 
             return (
               <Box position="relative">
@@ -176,11 +188,10 @@ export default function ProductDetails({product, add, onClose}: Props) {
                       px="2"
                       py="2px"
                     >
-                      {/* @TODO: Add options price to final price */}
-                      {quantity} item{quantity > 1 ? "s" : ""}
+                      {formValues.quantity} item{formValues.quantity > 1 ? "s" : ""}
                     </Box>
                   </Flex>
-                  <Box>${price * quantity}</Box>
+                  <Box>${totalPrice}</Box>
                 </Button>
               </Box>
             );
