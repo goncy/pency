@@ -72,7 +72,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}
           </Text>
           {description && (
             <Text
-              color="gray.500"
+              color="gray.600"
               display={{
                 base: isRaised ? "none" : "-webkit-box",
                 md: "-webkit-box",
@@ -109,7 +109,6 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}
         <Box
           backgroundColor={{base: isRaised && "gray.100", md: "transparent"}}
           flexShrink={0}
-          height={isRaised && "32"}
           ml={{
             base: isRaised ? 0 : 3,
             md: 3,
@@ -118,7 +117,12 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}
             base: 20,
             md: 40,
           }}
-          width={isRaised && "40"}
+          {...(isRaised
+            ? {
+                width: {base: "40"},
+                height: {base: "32"},
+              }
+            : {})}
         >
           {image && (
             <LazyLoad height="100%" offsetVertical={512} width="100%">
