@@ -42,7 +42,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
       <form onSubmit={submit(handleSubmit)}>
         <Stack spacing={8}>
           <Stack spacing={4}>
-            <Text fontSize="2xl" fontWeight={500}>
+            <Text fontSize="2xl" fontWeight={500} id="basic">
               Información básica
             </Text>
             <FormControl
@@ -141,7 +141,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
           <Divider />
           <Stack spacing={4}>
             <Stack spacing={1}>
-              <Text fontSize="2xl" fontWeight={500}>
+              <Text fontSize="2xl" fontWeight={500} id="customization">
                 Personalización
               </Text>
               <Text color="gray.600">Dale a tu tienda tu estilo</Text>
@@ -169,7 +169,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
           </Stack>
           <Divider />
           <Stack spacing={4}>
-            <Text fontSize="2xl" fontWeight={500}>
+            <Text fontSize="2xl" fontWeight={500} id="social">
               Redes sociales
             </Text>
             <FormControl
@@ -235,7 +235,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
           <Divider />
           <Stack spacing={4}>
             <Stack spacing={1}>
-              <Text fontSize="2xl" fontWeight={500}>
+              <Text fontSize="2xl" fontWeight={500} id="fields">
                 Campos adicionales
               </Text>
               <Text color="gray.600">
@@ -258,7 +258,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               <Divider />
               <Stack spacing={4}>
                 <Stack spacing={1}>
-                  <Text fontSize="2xl" fontWeight={500}>
+                  <Text fontSize="2xl" fontWeight={500} id="mercadopago">
                     Mercado Pago
                   </Text>
                   <Text color="gray.600">

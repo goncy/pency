@@ -1,10 +1,10 @@
 import React from "react";
-import {Text, Button, Stack} from "@chakra-ui/core";
+import {Button, Stack} from "@chakra-ui/core";
 
 import {Product} from "../types";
 import ProductForm from "../forms/ProductForm";
 
-import Drawer, {DrawerHeader, DrawerBody} from "~/ui/controls/Drawer";
+import Drawer, {DrawerHeader, DrawerBody, DrawerTitle} from "~/ui/controls/Drawer";
 
 interface Props {
   isOpen: boolean;
@@ -24,16 +24,13 @@ const ProductDrawer: React.FC<Props> = ({categories, isOpen, defaultValues, onCl
         {({form, submit, isLoading}) => (
           <DrawerBody marginBottom={4}>
             <Stack shouldWrapChildren spacing={4}>
-              <Text fontSize="2xl" fontWeight={500}>
-                {isNew ? "Agregar" : "Editar"} producto
-              </Text>
+              <DrawerTitle>{isNew ? "Agregar" : "Editar"} producto</DrawerTitle>
               {form}
               <Button
                 backgroundColor="primary.500"
                 color="white"
                 data-test-id={isNew ? `submit-new-product` : `submit-edit-product`}
                 isLoading={isLoading}
-                marginTop="auto"
                 type="submit"
                 variantColor="primary"
                 width="100%"
