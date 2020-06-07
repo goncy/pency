@@ -19,7 +19,7 @@ const HomeScreen: React.FC = () => {
 
   return (
     <Content padding={4}>
-      <SimpleGrid minChildWidth={480} spacing={12}>
+      <SimpleGrid columns={{base: 1, sm: 2}} spacing={{base: 4, sm: 12}}>
         <Stack spacing={8}>
           <Stack spacing={1}>
             <Text fontSize="xl" fontWeight="bold">
