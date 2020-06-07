@@ -115,12 +115,12 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               error={errors.country && "Este campo es requerido"}
               help="Ayudá a tus clientes a encontrar más rápido tus productos"
               label="País"
-              name="category"
+              name="country"
             >
               <Select
                 ref={register({required: true})}
-                name="category"
-                placeholder="Seleccioná un rubro"
+                name="country"
+                placeholder="Seleccioná un país"
               >
                 {COUNTRIES.map((country) => (
                   <option key={country} value={country}>
