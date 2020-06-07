@@ -14,6 +14,8 @@ interface Tenant {
   keywords?: string;
   banner?: string;
   description?: string;
+  country?: string;
+  address?: string;
   highlight?: string;
   fields?: Field[];
   flags?: string[];

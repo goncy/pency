@@ -4,8 +4,9 @@ import {Link} from "@chakra-ui/core";
 import api from "../../api/server";
 
 import {ClientTenant} from "~/tenant/types";
-import Button from "~/ui/controls/Button";
 import {useToast} from "~/hooks/toast";
+import IconButton from "~/ui/controls/IconButton";
+import ZapIcon from "~/ui/icons/Zap";
 
 interface Props {
   id: ClientTenant["id"];
@@ -49,9 +50,16 @@ const MPConnect: React.FC<Props> = ({id, checked, onChange, slug}) => {
   }
 
   return checked ? (
-    <Button isLoading={isLoading} variantColor="blue" onClick={handleDisconnect}>
+    <IconButton
+      color="red.500"
+      fontWeight="normal"
+      isLoading={isLoading}
+      justifyContent="flex-start"
+      leftIcon={ZapIcon}
+      onClick={handleDisconnect}
+    >
       Desconectar de Mercado Pago
-    </Button>
+    </IconButton>
   ) : (
     <Link
       _hover={{textDecoration: "none"}}
@@ -64,9 +72,14 @@ const MPConnect: React.FC<Props> = ({id, checked, onChange, slug}) => {
       )}`}
       onClick={handleConnect}
     >
-      <Button isLoading={isLoading} variantColor="blue">
-        Conectar con Mercado Pago
-      </Button>
+      <IconButton
+        fontWeight="normal"
+        isLoading={isLoading}
+        justifyContent="flex-start"
+        leftIcon={ZapIcon}
+      >
+        Conectar de Mercado Pago
+      </IconButton>
     </Link>
   );
 };
