@@ -14,6 +14,8 @@ import {
   Text,
 } from "@chakra-ui/core";
 
+import HomeAdminScreen from "./Home";
+
 import ProductsAdminScreen from "~/product/screens/Admin";
 import TenantAdminScreen from "~/tenant/screens/Admin";
 import {ClientTenant} from "~/tenant/types";
@@ -25,6 +27,7 @@ import IconButton from "~/ui/controls/IconButton";
 import {useSession} from "~/session/hooks";
 import Content from "~/ui/structure/Content";
 import {useTranslation} from "~/hooks/translation";
+import HomeIcon from "~/ui/icons/Home";
 
 interface Props {
   tenant: ClientTenant;
@@ -106,6 +109,10 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
             <Box height="100%" width="100%">
               <TabList border="none" height={16}>
                 <Tab fontSize="md" fontWeight={500}>
+                  <HomeIcon marginRight={2} />
+                  <Text>{t("common.home")}</Text>
+                </Tab>
+                <Tab fontSize="md" fontWeight={500}>
                   <BoxIcon marginRight={2} />
                   <Text>{t("common.products")}</Text>
                 </Tab>
@@ -119,6 +126,9 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
         </Stack>
         <Box>
           <TabPanels>
+            <TabPanel>
+              <HomeAdminScreen />
+            </TabPanel>
             <TabPanel>
               <ProductsAdminScreen />
             </TabPanel>

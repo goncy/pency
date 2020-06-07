@@ -72,6 +72,19 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               />
             </FormControl>
             <FormControl
+              error={errors.highlight && "Máximo 140 caracteres"}
+              help="Mostrado debajo de la descripción"
+              label="Mensaje destacado"
+              name="highlight"
+            >
+              <Input
+                ref={register({maxLength: 140})}
+                maxLength={140}
+                name="highlight"
+                placeholder="Solo se despacharán pedidos hechos de lunes a viernes entre las 9 y las 18 horas"
+              />
+            </FormControl>
+            <FormControl
               isRequired
               error={errors.phone && (errors.phone.message || "Este campo es inválido")}
               help="Código país + código de area + teléfono. Ej: 5491173694572"
@@ -166,6 +179,13 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 width={64}
               />
             </FormControl>
+            <FormControl
+              isRequired
+              error={errors.color && "Este campo es inválido"}
+              label="Color principal"
+            >
+              <Controller as={ColorRadio} control={control} name="color" rules={{required: true}} />
+            </FormControl>
           </Stack>
           <Divider />
           <Stack spacing={4}>
@@ -211,27 +231,6 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               />
             </FormControl>
           </Stack>
-          <FormControl
-            isRequired
-            error={errors.color && "Este campo es inválido"}
-            isInvalid={Boolean(errors.color)}
-            label="Color principal"
-          >
-            <Controller as={ColorRadio} control={control} name="color" rules={{required: true}} />
-          </FormControl>
-          <FormControl
-            error={errors.highlight && "Máximo 140 caracteres"}
-            help="Mostrado debajo de la descripción"
-            label="Mensaje destacado"
-            name="highlight"
-          >
-            <Input
-              ref={register({maxLength: 140})}
-              maxLength={140}
-              name="highlight"
-              placeholder="Solo se despacharán pedidos hechos de lunes a viernes entre las 9 y las 18 horas"
-            />
-          </FormControl>
           <Divider />
           <Stack spacing={4}>
             <Stack spacing={1}>

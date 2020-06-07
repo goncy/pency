@@ -23,6 +23,7 @@ declare namespace NodeJS {
     MERCADOPAGO_CLIENT_SECRET: string;
     MERCADOPAGO_CLIENT_ID: string;
     MANTAINER_EMAIL: string;
+    MANTAINER_PHONE: string;
     APP_URL: string;
     SECRET: string;
     SENTRY_DSN: string;

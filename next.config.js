@@ -28,5 +28,6 @@ module.exports = withSourceMaps({
       SECRET: process.env.SECRET,
       SENTRY_DSN: process.env.SENTRY_DSN,
       MANTAINER_EMAIL: process.env.MANTAINER_EMAIL,
+      MANTAINER_PHONE: process.env.MANTAINER_PHONE,
   }
 })
