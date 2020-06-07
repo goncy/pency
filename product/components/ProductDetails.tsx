@@ -3,7 +3,6 @@ import {
   Drawer,
   DrawerOverlay,
   DrawerContent,
-  // DrawerCloseButton,
   Stack,
   Flex,
   Box,
@@ -22,38 +21,37 @@ const GoBackButton = styled(IconButton)`
 
 interface Props {
   product: Product;
-  add: (Product) => void;
+  add: (Product, number) => void;
   onClose: () => void;
+}
+
+function getProductWithOptionsPrice(price = 0, formValues): number {
+  const optionsPrice: number = Object.keys(formValues)
+    .filter((key) => key.startsWith("options"))
+    .reduce((optionsTotal, optionKey) => {
+      const optionsTypeTotal = formValues[optionKey]
+        .map((option) => option.price || 0)
+        .reduce((a, b) => a + b, 0);
+
+      return optionsTotal + optionsTypeTotal;
+    }, 0);
+
+  return (price + optionsPrice) * formValues.quantity;
 }
 
 export default function ProductDetails({product, add, onClose}: Props) {
   const {image, description, title, price, options} = product;
 
-  // @TODO: Add "add product" logic
-  // add(product)
-  // add({...product, options})
+  function handleAdd({options, quantity}) {
+    add({...product, options}, quantity);
+    return onClose();
+  }
 
   return (
-    <ProductOptionsForm
-      options={options}
-      onSubmit={(...props) => {
-        console.log("on submit result", props);
-      }}
-    >
+    <ProductOptionsForm options={options} onSubmit={handleAdd}>
       {({form, submit, isLoading, watch}) => {
         const formValues = watch();
-
-        const optionsPrice = Object.keys(formValues)
-          .filter((key) => key.startsWith("options"))
-          .reduce((optionsTotal, optionKey) => {
-            const optionsTypeTotal = formValues[optionKey]
-              .map((option) => option.price || 0)
-              .reduce((a, b) => a + b, 0);
-
-            return optionsTotal + optionsTypeTotal;
-          }, 0);
-
-        const totalPrice = price * formValues.quantity + optionsPrice;
+        const totalPrice = getProductWithOptionsPrice(price, formValues);
 
         return (
           <Drawer isOpen={true} placement="right" onClose={onClose}>
@@ -138,9 +136,7 @@ export default function ProductDetails({product, add, onClose}: Props) {
                 zIndex={1}
                 onClick={(event) => {
                   event.stopPropagation();
-
-                  console.log("submit form");
-                  // submit();
+                  submit();
                 }}
               >
                 <Flex alignItems="center">

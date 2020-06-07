@@ -9,7 +9,7 @@ import ProductQuantityInput from "../inputs/ProductQuantityInput";
 
 interface Props {
   options: Product["options"];
-  onSubmit: (values: Product["options"]) => void;
+  onSubmit: (props: {quantity: number; options?: Product["options"]}) => void;
   children: (options: {
     form: JSX.Element;
     isLoading: boolean;
@@ -29,13 +29,14 @@ const ProductOptionsForm: React.FC<Props> = ({children, options, onSubmit}) => {
   });
 
   function handleSubmit(values) {
-    onSubmit(
-      produce(options, (options) => {
+    onSubmit({
+      options: produce(options, (options) => {
         values.options.forEach((option, index) => {
           options[index].value = option.value;
         });
       }),
-    );
+      quantity: values.quantity,
+    });
   }
 
   return children({

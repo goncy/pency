@@ -88,12 +88,7 @@ const ProductsScreen: React.FC = () => {
                         >
                           <ProductsGrid data-test-id="category" title={category}>
                             {products.map((product) => (
-                              <ProductCard
-                                key={product.id}
-                                add={add}
-                                product={product}
-                                remove={remove}
-                              />
+                              <ProductCard key={product.id} add={add} product={product} />
                             ))}
                           </ProductsGrid>
                         </PseudoBox>

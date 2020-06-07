@@ -26,7 +26,7 @@ const CartProvider = ({children}: Props) => {
   const [cart, setCart] = React.useState<Cart>({});
   const items = React.useMemo(() => [].concat(...Object.values(cart)), [cart]);
 
-  function add(product: Product) {
+  function add(product: Product, quantity: number) {
     log("product_add", {
       content_type: "product",
       description: `[${product.category}] ${product.title}`,
@@ -41,7 +41,7 @@ const CartProvider = ({children}: Props) => {
           cart[id] = {
             id,
             product: product.id,
-            count: 1,
+            count: quantity,
             category: product.category,
             price: getPrice(product),
             title: product.title,
@@ -50,7 +50,7 @@ const CartProvider = ({children}: Props) => {
           };
         } else {
           if (cart[product.id]) {
-            cart[product.id].count++;
+            cart[product.id].count += quantity;
           } else {
             cart[product.id] = {
               id: product.id,
@@ -59,7 +59,7 @@ const CartProvider = ({children}: Props) => {
               description: product.description,
               title: product.title,
               price: product.price,
-              count: 1,
+              count: quantity,
             };
           }
         }
