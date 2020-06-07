@@ -1,7 +1,7 @@
 import React from "react";
 import {Flex, Button, Stack, Box} from "@chakra-ui/core";
 
-import {Tenant} from "../types";
+import {ClientTenant} from "../types";
 import SettingsForm from "../forms/SettingsForm";
 import {useTenant, useTenantActions} from "../hooks";
 
@@ -11,7 +11,7 @@ const AdminScreen: React.FC = () => {
   const tenant = useTenant();
   const {update} = useTenantActions();
 
-  function handleUpdate(tenant: Tenant) {
+  function handleUpdate(tenant: ClientTenant) {
     return update(tenant);
   }
 

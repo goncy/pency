@@ -1,6 +1,5 @@
 import produce from "immer";
 import {theme as defaultTheme, DefaultTheme, ColorHues, VariantColor} from "@chakra-ui/core";
-
 interface Theme extends DefaultTheme {
   colors: DefaultTheme["colors"] & {
     primary: ColorHues;
@@ -8,12 +7,8 @@ interface Theme extends DefaultTheme {
 }
 
 const getTheme = (color?: Exclude<VariantColor, "black" | "white">): Theme | DefaultTheme =>
-  color
-    ? produce(defaultTheme, (theme: Theme) => {
-        theme.colors.primary = defaultTheme.colors[color];
-
-        return theme;
-      })
-    : defaultTheme;
+  produce<DefaultTheme, Theme>(defaultTheme, (theme) => {
+    theme.colors.primary = defaultTheme.colors[color || "cyan"];
+  });
 
 export default getTheme;

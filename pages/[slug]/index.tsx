@@ -2,7 +2,7 @@ import React from "react";
 
 import fetch from "~/utils/fetch";
 import ProductsScreen from "~/product/screens/Products";
-import {Tenant} from "~/tenant/types";
+import {ClientTenant} from "~/tenant/types";
 import {Product} from "~/product/types";
 import StoreLayout from "~/app/layouts/StoreLayout";
 import {Provider as I18nProvider} from "~/i18n/context";
@@ -11,7 +11,7 @@ import {Provider as AnalyticsProvider} from "~/analytics/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 interface Props {
-  tenant: Tenant;
+  tenant: ClientTenant;
   products: Product[];
 }
 
@@ -43,7 +43,7 @@ export async function getServerSideProps({
   try {
     const BASE_URL = `http://${host}/api`;
 
-    const tenant = await fetch("GET", `${BASE_URL}/tenant?slug=${slug}`);
+    const tenant = await fetch("GET", `${BASE_URL}/tenant/${slug}`);
     const products = await fetch("GET", `${BASE_URL}/product?tenant=${tenant.id}`);
 
     return {props: {tenant, products}};

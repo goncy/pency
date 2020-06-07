@@ -2,36 +2,41 @@
 # yarn lockfile v1
 
 
-"@ampproject/toolbox-core@^2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@ampproject/toolbox-core/-/toolbox-core-2.3.0.tgz#f27bd17e01fdc6725c440aefa844f63466c0f37e"
-  integrity sha512-NT+kVR5Rm2cxp12h40IXgPRWmq0cpUdmcgZmgdelplp/q//4aWkt2+llGHR2foQJkwICxMVVlb/XidsHz0Rh9g==
+"@ampproject/toolbox-core@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@ampproject/toolbox-core/-/toolbox-core-2.5.0.tgz#8ea4575f1c0d0048e73f64bf7e5cfc8a8e5bd6ef"
+  integrity sha512-aQjE8wORKXJ2tLWHuevdSL31zhQdUhC+skyEhESBV/8eOzd7ROaOzR/F43bS7uAhnYta1G0Zd/HqofgN7LRSfw==
   dependencies:
     cross-fetch "3.0.4"
+    lru-cache "5.1.1"
 
-"@ampproject/toolbox-optimizer@2.3.1":
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/@ampproject/toolbox-optimizer/-/toolbox-optimizer-2.3.1.tgz#ad31d2bbeef8cf863b055bd9a520337f796a957d"
-  integrity sha512-614CKgpHJfVVnns1kHMuXd8uTvE0bhgIEyhnBqQ06Af1s91bKDUKDksGFVd/drGhEYmyX3Y8pizoZgw2tiQtSQ==
+"@ampproject/toolbox-optimizer@2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@ampproject/toolbox-optimizer/-/toolbox-optimizer-2.5.0.tgz#cc5e5dd43919ec8b9731148f44b2a9feb43d6aa7"
+  integrity sha512-aMUx4pyxx2j+HA1qT3RuzGj9unjMO7HEt5FBsV5hqc4g+6MkKlLi/GOktvhHArVWKWOy0qNOzCIHhPzIP5xQTA==
   dependencies:
-    "@ampproject/toolbox-core" "^2.3.0"
-    "@ampproject/toolbox-runtime-version" "^2.3.1"
+    "@ampproject/toolbox-core" "^2.5.0"
+    "@ampproject/toolbox-runtime-version" "^2.5.0"
     "@ampproject/toolbox-script-csp" "^2.3.0"
     "@ampproject/toolbox-validator-rules" "^2.3.0"
+    cross-fetch "3.0.4"
     cssnano "4.1.10"
+    dom-serializer "1.0.1"
     domhandler "3.0.0"
-    domutils "2.0.0"
+    domutils "2.1.0"
     htmlparser2 "4.1.0"
+    lru-cache "5.1.1"
     normalize-html-whitespace "1.0.0"
+    postcss "7.0.31"
     postcss-safe-parser "4.0.2"
-    terser "4.6.13"
+    terser "4.7.0"
 
-"@ampproject/toolbox-runtime-version@^2.3.1":
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/@ampproject/toolbox-runtime-version/-/toolbox-runtime-version-2.3.1.tgz#c1d0d937a7474b958cb8e713ea8be00e7bc724f4"
-  integrity sha512-ocDCSaSUlbgPbuXRVyLU7k+dLGYluKrnfSPKXIwwpGkwNw58JOddvgnQGyB0R/2Ma36nxFA8AAyxjnghLSScpg==
+"@ampproject/toolbox-runtime-version@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/@ampproject/toolbox-runtime-version/-/toolbox-runtime-version-2.5.0.tgz#671823d749121ffb1b745912a8c2fc8dce27da80"
+  integrity sha512-mDeHgbxkBag1L/HsH3WhA7rRqoq3H7iiqZ8g/1Mvre4wP1YuN2iOjM/8EJvBJ4JM+UQsu3Kyljc88Mf8FHkSmg==
   dependencies:
-    "@ampproject/toolbox-core" "^2.3.0"
+    "@ampproject/toolbox-core" "^2.5.0"
 
 "@ampproject/toolbox-script-csp@^2.3.0":
   version "2.3.0"
@@ -1903,10 +1908,10 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@next/react-dev-overlay@9.4.2":
-  version "9.4.2"
-  resolved "https://registry.yarnpkg.com/@next/react-dev-overlay/-/react-dev-overlay-9.4.2.tgz#b8d816ae1bbf89cd6f3e509fa1fd8e4dfed7f8fd"
-  integrity sha512-Dg6ysRiGIu6wdJ3iOcBEJY5MZwmd3CSPawSpQsj+rClNwcHqLKJKz3TfMTKH05r77On68GNKq4RaYix8y0D3Qw==
+"@next/react-dev-overlay@9.4.5-canary.5":
+  version "9.4.5-canary.5"
+  resolved "https://registry.yarnpkg.com/@next/react-dev-overlay/-/react-dev-overlay-9.4.5-canary.5.tgz#c40842150127ee53d59c1615d18049db0e4edeb5"
+  integrity sha512-OfwIcgPIw3uXraboxuMF1f087DugUz9V7TsxDfB5qiYIR/KcD+QhIdL8YOFi6Nm4lofAMVQ/QkJJiVrzQiSffw==
   dependencies:
     "@babel/code-frame" "7.8.3"
     ally.js "1.4.1"
@@ -1919,10 +1924,10 @@
     stacktrace-parser "0.1.10"
     strip-ansi "6.0.0"
 
-"@next/react-refresh-utils@9.4.2":
-  version "9.4.2"
-  resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-9.4.2.tgz#a94c793b8442bcad29d4413740955dca5d7c555d"
-  integrity sha512-N2bn3fU+N26Pkf+c7ZaG04T9FrDUeGtIBaJ/NGygm9GMrIkCU/6nkeWNboaAiHvji8UooqhLf1Yesf4BJLzHOA==
+"@next/react-refresh-utils@9.4.5-canary.5":
+  version "9.4.5-canary.5"
+  resolved "https://registry.yarnpkg.com/@next/react-refresh-utils/-/react-refresh-utils-9.4.5-canary.5.tgz#db8c3f1c03363f3df69d056a10526229218d2d10"
+  integrity sha512-KZ28GwGNAVj5GhWbkt9iRQf90xcyAXKRBk+SBiu9mwh9YHmhrnuW/6phyPlJB88hNFb87dvQOPQuITw+0cKPXQ==
 
 "@nodelib/fs.stat@^1.1.2":
   version "1.1.3"
@@ -3077,6 +3082,13 @@
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
   integrity sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==
+
+"@types/ramda@^0.27.6":
+  version "0.27.6"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.6.tgz#5b914266cb73ea61fe3778949ef9b0aa455804b4"
+  integrity sha512-ephagb0ZIAJSoS5I/qMS4Mqo1b/Nd50pWM+o1QO/dz8NF//GsCGPTLDVRqgXlVncy74KShfHzE5rPZXTeek4PA==
+  dependencies:
+    ts-toolbelt "^6.3.3"
 
 "@types/reach__router@^1.2.3":
   version "1.3.5"
@@ -4826,7 +4838,7 @@ chokidar@2.1.8, chokidar@^2.0.4, chokidar@^2.1.8:
   optionalDependencies:
     fsevents "^1.2.7"
 
-chokidar@^3.3.0, chokidar@^3.4.0:
+chokidar@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.4.0.tgz#b30611423ce376357c765b9b8f904b9fba3c0be8"
   integrity sha512-aXAaho2VJtisB/1fg1+3nlLJqGOuewTzQpd/Tz0yTg2R0e4IGtshYvtjowyEumcBv2z+y4+kc75Mz7j5xJskcQ==
@@ -5932,6 +5944,15 @@ dom-serializer@0, dom-serializer@^0.2.1:
     domelementtype "^2.0.1"
     entities "^2.0.0"
 
+dom-serializer@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/dom-serializer/-/dom-serializer-1.0.1.tgz#79695eb49af3cd8abc8d93a73da382deb1ca0795"
+  integrity sha512-1Aj1Qy3YLbdslkI75QEOfdp9TkQ3o8LRISAzxOibjBs/xWwr1WxZFOQphFkZuepHFGo+kB8e5FVJSS0faAJ4Rw==
+  dependencies:
+    domelementtype "^2.0.1"
+    domhandler "^3.0.0"
+    entities "^2.0.0"
+
 dom-storage@2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/dom-storage/-/dom-storage-2.1.0.tgz#00fb868bc9201357ea243c7bcfd3304c1e34ea39"
@@ -5986,10 +6007,10 @@ domutils@1.5.1:
     dom-serializer "0"
     domelementtype "1"
 
-domutils@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/domutils/-/domutils-2.0.0.tgz#15b8278e37bfa8468d157478c58c367718133c08"
-  integrity sha512-n5SelJ1axbO636c2yUtOGia/IcJtVtlhQbFiVDBZHKV5ReJO1ViX7sFEemtuyoAnBxk5meNSYgA8V4s0271efg==
+domutils@2.1.0, domutils@^2.0.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/domutils/-/domutils-2.1.0.tgz#7ade3201af43703fde154952e3a868eb4b635f16"
+  integrity sha512-CD9M0Dm1iaHfQ1R/TI+z3/JWp/pgub0j4jIQKH89ARR4ATAV2nbaOQS5XxU9maJP5jHaPdDDQSEHuE2UmpUTKg==
   dependencies:
     dom-serializer "^0.2.1"
     domelementtype "^2.0.1"
@@ -6002,15 +6023,6 @@ domutils@^1.5.1, domutils@^1.7.0:
   dependencies:
     dom-serializer "0"
     domelementtype "1"
-
-domutils@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/domutils/-/domutils-2.1.0.tgz#7ade3201af43703fde154952e3a868eb4b635f16"
-  integrity sha512-CD9M0Dm1iaHfQ1R/TI+z3/JWp/pgub0j4jIQKH89ARR4ATAV2nbaOQS5XxU9maJP5jHaPdDDQSEHuE2UmpUTKg==
-  dependencies:
-    dom-serializer "^0.2.1"
-    domelementtype "^2.0.1"
-    domhandler "^3.0.0"
 
 dot-case@^3.0.3:
   version "3.0.3"
@@ -6051,7 +6063,7 @@ dotenv@^6.2.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
   integrity sha512-HygQCKUBSFl8wKQZBSemMywRWcEDNidvNbjGVyZu3nbZ8qq9ubiPoGLMdRDpfSrpkkm9BXYFkpKxxFX38o/76w==
 
-dotenv@^8.0.0, dotenv@^8.2.0:
+dotenv@^8.0.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
   integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
@@ -6998,7 +7010,7 @@ find-up@^4.0.0, find-up@^4.1.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
-firebase-admin@^8.10.0:
+firebase-admin@^8.12.1:
   version "8.12.1"
   resolved "https://registry.yarnpkg.com/firebase-admin/-/firebase-admin-8.12.1.tgz#a380c43a9e6ba37dfbe42211a253dd890a442063"
   integrity sha512-DZ4Q7QQJYaO2BhnhZLrhL+mGRTCLS5WrxjbJtuKGmbKRBepwMhx++EQA5yhnGnIXgDHnp5SrZnVKygNdXtH8BQ==
@@ -7094,20 +7106,6 @@ fork-ts-checker-webpack-plugin@1.5.0:
     babel-code-frame "^6.22.0"
     chalk "^2.4.1"
     chokidar "^2.0.4"
-    micromatch "^3.1.10"
-    minimatch "^3.0.4"
-    semver "^5.6.0"
-    tapable "^1.0.0"
-    worker-rpc "^0.1.0"
-
-fork-ts-checker-webpack-plugin@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/fork-ts-checker-webpack-plugin/-/fork-ts-checker-webpack-plugin-3.1.1.tgz#a1642c0d3e65f50c2cc1742e9c0a80f441f86b19"
-  integrity sha512-DuVkPNrM12jR41KM2e+N+styka0EgLkTnXmNcXdgOM37vtGeY+oCBK/Jx0hzSeEU6memFCtWb4htrHPMDfwwUQ==
-  dependencies:
-    babel-code-frame "^6.22.0"
-    chalk "^2.4.1"
-    chokidar "^3.3.0"
     micromatch "^3.1.10"
     minimatch "^3.0.4"
     semver "^5.6.0"
@@ -9545,7 +9543,7 @@ lowlight@~1.11.0:
     fault "^1.0.2"
     highlight.js "~9.13.0"
 
-lru-cache@^5.0.0, lru-cache@^5.1.1:
+lru-cache@5.1.1, lru-cache@^5.0.0, lru-cache@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-5.1.1.tgz#1da27e6710271947695daf6848e847f01d84b920"
   integrity sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==
@@ -9999,12 +9997,12 @@ next-tick@~1.0.0:
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
   integrity sha1-yobR/ogoFpsBICCOPchCS524NCw=
 
-next@^9.4.2:
-  version "9.4.2"
-  resolved "https://registry.yarnpkg.com/next/-/next-9.4.2.tgz#5d086aaaf9d683b457f615073dca39ed96a78cce"
-  integrity sha512-T/3Rmz/R++OyrWNZ3ZQn+RR9Tbu6DWxZGVXUc+2z4/FxIkeZXggB/494i3IsAssiK1Fu8WVDIwYxOWQ0RgITUg==
+next@canary:
+  version "9.4.5-canary.5"
+  resolved "https://registry.yarnpkg.com/next/-/next-9.4.5-canary.5.tgz#505492010c5883f4f4f984235f4e3fc10d549912"
+  integrity sha512-F6q51TA/dlFCx45HHfE+tkjhpC7axAgbaheS0fWjcxekn4SJ0u3ro1v200QuJqo2xg+Y14v1orG8D4t5404dfw==
   dependencies:
-    "@ampproject/toolbox-optimizer" "2.3.1"
+    "@ampproject/toolbox-optimizer" "2.5.0"
     "@babel/code-frame" "7.8.3"
     "@babel/core" "7.7.7"
     "@babel/plugin-proposal-class-properties" "7.8.3"
@@ -10022,8 +10020,8 @@ next@^9.4.2:
     "@babel/preset-typescript" "7.9.0"
     "@babel/runtime" "7.9.6"
     "@babel/types" "7.9.6"
-    "@next/react-dev-overlay" "9.4.2"
-    "@next/react-refresh-utils" "9.4.2"
+    "@next/react-dev-overlay" "9.4.5-canary.5"
+    "@next/react-refresh-utils" "9.4.5-canary.5"
     babel-plugin-syntax-jsx "6.18.0"
     babel-plugin-transform-define "2.0.0"
     babel-plugin-transform-react-remove-prop-types "0.4.24"
@@ -10032,7 +10030,6 @@ next@^9.4.2:
     chokidar "2.1.8"
     css-loader "3.5.3"
     find-cache-dir "3.3.1"
-    fork-ts-checker-webpack-plugin "3.1.1"
     jest-worker "24.9.0"
     loader-utils "2.0.0"
     mini-css-extract-plugin "0.8.0"
@@ -10044,7 +10041,7 @@ next@^9.4.2:
     prop-types "15.7.2"
     prop-types-exact "1.2.0"
     react-is "16.13.1"
-    react-refresh "0.8.2"
+    react-refresh "0.8.3"
     resolve-url-loader "3.1.1"
     sass-loader "8.0.2"
     schema-utils "2.6.6"
@@ -11141,6 +11138,15 @@ postcss@7.0.29:
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
+postcss@7.0.31:
+  version "7.0.31"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.31.tgz#332af45cb73e26c0ee2614d7c7fb02dfcc2bd6dd"
+  integrity sha512-a937VDHE1ftkjk+8/7nj/mrjtmkn69xxzJgRETXdAUU+IgOYPQNJF17haGWbeDxSyk++HA14UA98FurvPyBJOA==
+  dependencies:
+    chalk "^2.4.2"
+    source-map "^0.6.1"
+    supports-color "^6.1.0"
+
 postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.16, postcss@^7.0.26, postcss@^7.0.27, postcss@^7.0.30, postcss@^7.0.5, postcss@^7.0.6:
   version "7.0.30"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.30.tgz#cc9378beffe46a02cbc4506a0477d05fcea9a8e2"
@@ -11458,6 +11464,11 @@ ramda@^0.21.0:
   resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.21.0.tgz#a001abedb3ff61077d4ff1d577d44de77e8d0a35"
   integrity sha1-oAGr7bP/YQd9T/HVd9RN536NCjU=
 
+ramda@^0.27.0:
+  version "0.27.0"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.27.0.tgz#915dc29865c0800bf3f69b8fd6c279898b59de43"
+  integrity sha512-pVzZdDpWwWqEVVLshWUHjNwuVP7SfcmPraYuqocJp1yo2U1R7P+5QAfDhdItkuoGqIBnBYrtPp7rEPqDn9HlZA==
+
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
@@ -11696,10 +11707,10 @@ react-popper@^1.3.7:
     typed-styles "^0.0.7"
     warning "^4.0.2"
 
-react-refresh@0.8.2:
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.2.tgz#24bb0858eac92b0d7b0dd561747f0c9fd6c60327"
-  integrity sha512-n8GXxo3DwM2KtFEL69DAVhGc4A1THn2qjmfvSo3nze0NLCoPbywazeJPqdp0RdSGLmyhQzeyA+XPXOobbYlkzg==
+react-refresh@0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
+  integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
 react-select@^3.0.8:
   version "3.1.0"
@@ -13254,16 +13265,7 @@ terser-webpack-plugin@^2.1.2:
     terser "^4.6.12"
     webpack-sources "^1.4.3"
 
-terser@4.6.13:
-  version "4.6.13"
-  resolved "https://registry.yarnpkg.com/terser/-/terser-4.6.13.tgz#e879a7364a5e0db52ba4891ecde007422c56a916"
-  integrity sha512-wMvqukYgVpQlymbnNbabVZbtM6PN63AzqexpwJL8tbh/mRT9LE5o+ruVduAGL7D6Fpjl+Q+06U5I9Ul82odAhw==
-  dependencies:
-    commander "^2.20.0"
-    source-map "~0.6.1"
-    source-map-support "~0.5.12"
-
-terser@^4.1.2, terser@^4.6.12, terser@^4.6.3:
+terser@4.7.0, terser@^4.1.2, terser@^4.6.12, terser@^4.6.3:
   version "4.7.0"
   resolved "https://registry.yarnpkg.com/terser/-/terser-4.7.0.tgz#15852cf1a08e3256a80428e865a2fa893ffba006"
   integrity sha512-Lfb0RiZcjRDXCC3OSHJpEkxJ9Qeqs6mp2v4jf2MHfy8vGERmVDuvjXdd/EnP5Deme5F2yBRBymKmKHCBg2echw==
@@ -13495,6 +13497,11 @@ ts-pnp@^1.1.2, ts-pnp@^1.1.6:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
+
+ts-toolbelt@^6.3.3:
+  version "6.9.4"
+  resolved "https://registry.yarnpkg.com/ts-toolbelt/-/ts-toolbelt-6.9.4.tgz#cc3a070d99c557c552b4f69e36f13d430c47a760"
+  integrity sha512-muRZZqfOTOVvLk5cdnp7YWm6xX+kD/WL2cS/L4zximBRcbQSuMoTbQQ2ZZBVMs1gB0EZw1qThP+HrIQB35OmEw==
 
 tsconfig-paths-webpack-plugin@^3.2.0:
   version "3.2.0"

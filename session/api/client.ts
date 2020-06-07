@@ -1,6 +1,5 @@
-import firebase from "../firebase/client";
-
-import {User} from "./types";
+import firebase from "../../firebase/client";
+import {User} from "../types";
 
 export default {
   signIn: (email: string, password: string) =>

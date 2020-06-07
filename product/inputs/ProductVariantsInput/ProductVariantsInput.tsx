@@ -83,15 +83,7 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error, onChange}) =>
               onClear={() => handleRemove(index)}
             />
           </FormControl>
-          <FormControl
-            isRequired
-            error={
-              error === "optionsCount" &&
-              value[index].count > value.length &&
-              "No pueden seleccionar mas opciones de las que existen"
-            }
-            label="Cuantas opciones podrá elegir?"
-          >
+          <FormControl isRequired label="Cuantas opciones podrá elegir?">
             <CountInput
               value={option.count}
               onChange={(count) => handleCountChange(count, index)}

@@ -1,8 +1,8 @@
 import React from "react";
 import faker from "faker";
-import {Box} from "@chakra-ui/core";
+import {action} from "@storybook/addon-actions";
 
-import CartTotalButton from "./CartTotalButton";
+import SummaryButton from "./SummaryButton";
 
 const item = () => ({
   id: faker.random.uuid(),
@@ -16,9 +16,9 @@ const item = () => ({
 });
 
 export const full = () => (
-  <Box maxWidth="340px">
-    <CartTotalButton items={[item(), item(), item()]} onClick={() => {}} />
-  </Box>
+  <SummaryButton items={[item(), item(), item()]} maxWidth="320px" onClick={action("clicked")}>
+    Tu pedido
+  </SummaryButton>
 );
 
-export default {title: "Cart/Components/CartTotalButton"};
+export default {title: "Cart/Components/SummaryButton"};

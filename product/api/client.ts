@@ -1,0 +1,14 @@
+import {Product} from "../types";
+
+import {ClientTenant} from "~/tenant/types";
+import fetch from "~/utils/fetch";
+
+export default {
+  list: (tenant: ClientTenant["id"]) => fetch("GET", `/api/product?tenant=${tenant}`),
+  create: (tenant: ClientTenant["id"], product: Product) =>
+    fetch("POST", `/api/product?tenant=${tenant}`, {product}),
+  remove: (tenant: ClientTenant["id"], product: Product["id"]) =>
+    fetch("DELETE", `/api/product?tenant=${tenant}&product=${product}`),
+  update: (tenant: ClientTenant["id"], product: Product) =>
+    fetch("PATCH", `/api/product?tenant=${tenant}`, {product}),
+};

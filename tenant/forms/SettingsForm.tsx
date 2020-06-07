@@ -1,20 +1,22 @@
 import React from "react";
 import {useForm, Controller} from "react-hook-form";
-import {Stack, Textarea, Text} from "@chakra-ui/core";
+import {Stack, Text} from "@chakra-ui/core";
 
-import {Tenant} from "../types";
+import {ClientTenant} from "../types";
 import {CATEGORIES} from "../constants";
-import ExtraFieldsInput, {validator as ExtraFieldsInputValidator} from "../inputs/ExtraFields";
+import FieldsInput, {validator as FieldsInputValidator} from "../inputs/Fields";
 
 import Select from "~/ui/inputs/Select";
 import Input from "~/ui/inputs/Input";
+import Textarea from "~/ui/inputs/Textarea";
 import ColorRadio from "~/ui/inputs/ColorRadio";
 import ImageInput from "~/ui/inputs/Image";
 import FormControl from "~/ui/controls/FormControl";
+import MPConnect from "~/payment/inputs/MPConnect";
 
 interface Props {
-  defaultValues: Partial<Tenant>;
-  onSubmit: (values: Tenant) => void;
+  defaultValues: Partial<ClientTenant>;
+  onSubmit: (values: ClientTenant) => void;
   children: (options: {
     form: JSX.Element;
     isLoading: boolean;
@@ -23,11 +25,11 @@ interface Props {
 }
 
 const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit}) => {
-  const {handleSubmit: submit, errors, register, control, formState} = useForm<Tenant>({
+  const {handleSubmit: submit, errors, register, control, formState} = useForm<ClientTenant>({
     defaultValues,
   });
 
-  function handleSubmit(values: Tenant) {
+  function handleSubmit(values: ClientTenant) {
     const tenant = {...defaultValues, ...values};
 
     return onSubmit(tenant);
@@ -164,14 +166,33 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             </Text>
             <FormControl name="fields">
               <Controller
-                as={ExtraFieldsInput}
+                as={FieldsInput}
                 control={control}
                 error={(errors.fields as any)?.type}
                 name="fields"
-                rules={{validate: ExtraFieldsInputValidator}}
+                rules={{validate: FieldsInputValidator}}
               />
             </FormControl>
           </Stack>
+          {defaultValues.flags?.includes("mercadopago") && (
+            <Stack shouldWrapChildren spacing={4}>
+              <Text fontSize="2xl" fontWeight={500}>
+                Mercado Pago
+              </Text>
+              <FormControl
+                help="Una comisión del 1% se cobrará por cada pago realizado por este medio"
+                name="mercadopago"
+              >
+                <Controller
+                  as={MPConnect}
+                  control={control}
+                  id={defaultValues.id}
+                  name="mercadopago"
+                  slug={defaultValues.slug}
+                />
+              </FormControl>
+            </Stack>
+          )}
         </Stack>
       </form>
     ),

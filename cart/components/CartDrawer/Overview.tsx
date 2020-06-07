@@ -1,11 +1,12 @@
 import React from "react";
-import {Stack, Flex, Text, IconButton, Divider, Button} from "@chakra-ui/core";
+import {Stack, Flex, Text, IconButton} from "@chakra-ui/core";
 
 import {CartItem} from "../../types";
 
 import CheckoutButton from "./CheckoutButton";
 
 import {DrawerTitle, DrawerBody, DrawerFooter} from "~/ui/controls/Drawer";
+import Button from "~/ui/controls/Button";
 import Badge from "~/ui/feedback/Badge";
 import {useTranslation} from "~/hooks/translation";
 import {getCount, getTotal} from "~/cart/selectors";
@@ -13,14 +14,25 @@ import {getCount, getTotal} from "~/cart/selectors";
 interface Props {
   items: CartItem[];
   onRemove: (id: string) => void;
-  onSubmit: VoidFunction;
+  onSubmit: () => Promise<void>;
   hasNextStep: boolean;
 }
 
 const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => {
+  const [isLoading, toggleLoading] = React.useState(false);
   const t = useTranslation();
   const count = getCount(items);
   const total = getTotal(items);
+
+  function handleSubmit() {
+    toggleLoading(true);
+
+    onSubmit().finally(() => toggleLoading(false));
+  }
+
+  function handleNext() {
+    onSubmit();
+  }
 
   return (
     <>
@@ -31,7 +43,7 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
           </DrawerTitle>
           <Stack spacing={6}>
             {items.map(({id, title, options, price, count}) => (
-              <Flex key={id} alignItems="center" justifyContent="space-between">
+              <Flex key={id} alignItems="flex-start" justifyContent="space-between">
                 <Flex alignItems="center" mr={2}>
                   <IconButton
                     isRound
@@ -67,7 +79,6 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
       </DrawerBody>
       <DrawerFooter>
         <Stack spacing={4} width="100%">
-          <Divider />
           <Flex alignItems="center" justifyContent="flex-end">
             <Text fontSize="lg" fontWeight="600" mr={2}>
               {t("common.total")}:
@@ -75,11 +86,11 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
             <Text fontSize="lg">${total}</Text>
           </Flex>
           {hasNextStep ? (
-            <Button variantColor="primary" onClick={onSubmit}>
+            <Button boxShadow="lg" size="lg" variantColor="primary" onClick={handleNext}>
               {t("common.next")}
             </Button>
           ) : (
-            <CheckoutButton onClick={onSubmit} />
+            <CheckoutButton isLoading={isLoading} onClick={handleSubmit} />
           )}
         </Stack>
       </DrawerFooter>

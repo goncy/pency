@@ -1,2 +1,2 @@
-export {default} from "./ExtraFields";
+export {default} from "./Fields";
 export {default as validator} from "./validator";

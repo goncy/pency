@@ -4,10 +4,10 @@ import {Global, css} from "@emotion/core";
 
 import {META} from "../constants";
 
-import {Tenant} from "~/tenant/types";
+import {ClientTenant} from "~/tenant/types";
 
 interface Props {
-  tenant: Tenant;
+  tenant: ClientTenant;
 }
 
 const StoreLayout: React.FC<Props> = ({tenant, children}) => (
