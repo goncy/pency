@@ -1,2 +1,3 @@
 defaults
 android >= 4
+chrome >= 52
