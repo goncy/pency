@@ -37,12 +37,14 @@ export default {
   connect: async (code: string): Promise<AuthResponse> =>
     fetch("POST", `https://api.mercadopago.com/oauth/token`, {
       code,
+      client_id: process.env.MERCADOPAGO_CLIENT_ID,
       client_secret: process.env.MERCADOPAGO_CLIENT_SECRET,
       grant_type: "authorization_code",
       redirect_uri: `${process.env.APP_URL}/api/payment/auth`,
     }),
   refresh: async (token: string): Promise<AuthResponse> =>
     fetch("POST", `https://api.mercadopago.com/oauth/token`, {
+      client_id: process.env.MERCADOPAGO_CLIENT_ID,
       client_secret: process.env.MERCADOPAGO_CLIENT_SECRET,
       grant_type: "refresh_token",
       refresh_token: token,
