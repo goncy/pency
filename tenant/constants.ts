@@ -108,3 +108,14 @@ export const CATEGORIES = [
   "Vinoteca",
   "Vivero / Florería",
 ];
+
+export const COUNTRIES = [
+  "Argentina",
+  "Colombia",
+  "Ecuador",
+  "España",
+  "México",
+  "Perú",
+  "Uruguay",
+  "Hawaii",
+];
