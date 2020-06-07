@@ -1,29 +1,10 @@
 import React from "react";
-import {
-  Box,
-  Text,
-  Flex,
-  Button,
-  useDisclosure,
-  ButtonGroup,
-  FlexProps,
-  Stack,
-  PseudoBox,
-} from "@chakra-ui/core";
+import {Box, Text, Flex, useDisclosure, FlexProps, PseudoBox} from "@chakra-ui/core";
 import LazyLoad from "react-lazy-load";
-import styled from "@emotion/styled";
 
 import ProductDetails from "./ProductDetails";
 
 import {Product} from "~/product/types";
-import {useTranslation} from "~/hooks/translation";
-
-const ProductDescription = styled(Text)`
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-`;
 
 interface Props extends FlexProps {
   product: Product;
@@ -32,42 +13,50 @@ interface Props extends FlexProps {
 }
 
 const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}) => {
-  const {id, image, description, title, price, options} = product;
+  const {image, description, title, price} = product;
   const {isOpen: isDetailsOpen, onToggle: toggleDetailsOpen} = useDisclosure();
-
-  // @TODO: Add isRaised
-
-  const t = useTranslation();
 
   return (
     <>
       <PseudoBox
         _hover={{boxShadow: "md", borderColor: "gray.300"}}
-        borderBottomWidth={1}
+        borderBottomWidth={{base: 1}}
         borderColor={{
           base: "gray.100",
           md: "gray.200",
         }}
         borderRadius={{
+          base: isRaised ? "md" : 0,
           md: "md",
         }}
         borderWidth={{
+          base: isRaised && 1,
           md: 1,
         }}
+        boxShadow={{base: isRaised ? "md" : "none", md: "none"}}
         cursor="pointer"
         data-test-id="product"
         display="flex"
+        flexDirection={{
+          base: isRaised ? "column-reverse" : "row", // If isRaised show image first
+          md: "row",
+        }}
         height={{md: 40}}
         justifyContent="space-between"
         overflow="hidden"
         pb={{
-          base: 5,
+          base: isRaised ? 0 : 5,
           md: 0,
         }}
         transition="box-shadow 0.2s, border-color 0.2s"
         onClick={toggleDetailsOpen}
+        {...props}
       >
-        <Flex direction="column" px={{md: 6}} py={{md: 5}} {...props}>
+        <Flex
+          direction="column"
+          px={{base: isRaised ? 3 : 0, md: 6}}
+          py={{base: isRaised ? 2 : 0, md: 5}}
+        >
           <Text
             display="block"
             fontSize={{
@@ -82,17 +71,26 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}
             {title}
           </Text>
           {description && (
-            <ProductDescription
+            <Text
               color="gray.500"
+              display={{
+                base: isRaised ? "none" : "-webkit-box",
+                md: "-webkit-box",
+              }}
               fontSize={{
                 base: "sm",
                 md: "md",
               }}
               mb={2}
               mt={0}
+              overflow="hidden"
+              style={{
+                WebkitBoxOrient: "vertical",
+                WebkitLineClamp: 2,
+              }}
             >
               {description}
-            </ProductDescription>
+            </Text>
           )}
           <Text
             color="green.400"
@@ -109,26 +107,35 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}
           </Text>
         </Flex>
         <Box
+          backgroundColor={{base: isRaised && "gray.100", md: "transparent"}}
           flexShrink={0}
-          ml={3}
+          height={isRaised && "32"}
+          ml={{
+            base: isRaised ? 0 : 3,
+            md: 3,
+          }}
           size={{
             base: 20,
             md: 40,
           }}
+          width={isRaised && "40"}
         >
           {image && (
             <LazyLoad height="100%" offsetVertical={512} width="100%">
               <Box
-                backgroundColor="gray.100"
                 backgroundImage={`url(${image})`}
                 backgroundPosition="center"
                 backgroundSize="cover"
-                borderColor="gray.200"
+                borderBottomWidth={{
+                  base: isRaised && 1,
+                  md: 0,
+                }}
+                borderColor="gray.100"
                 borderLeftWidth={{
                   md: 1,
                 }}
                 borderRadius={{
-                  base: 4,
+                  base: isRaised ? 0 : 4,
                   md: 0,
                 }}
                 cursor="pointer"

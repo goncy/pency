@@ -74,14 +74,7 @@ const ProductsScreen: React.FC = () => {
                     {Boolean(featuredProducts.length) && (
                       <ProductsCarousel title={t("common.featured")} zIndex={0}>
                         {featuredProducts.map((product) => (
-                          <ProductCard
-                            key={product.id}
-                            isRaised
-                            add={add}
-                            minWidth={280}
-                            product={product}
-                            remove={remove}
-                          />
+                          <ProductCard key={product.id} isRaised add={add} product={product} />
                         ))}
                       </ProductsCarousel>
                     )}

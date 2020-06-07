@@ -13,12 +13,22 @@ const ProductsCarousel: React.FC<Props> = ({children, title, ...props}) => (
       </Text>
     )}
     <Grid
-      gridAutoFlow="column"
-      gridGap={{base: 4, sm: 8}}
+      autoRows={"auto"}
+      gridAutoColumns={{base: "160px", md: "auto"}}
+      gridAutoFlow={{
+        base: "column",
+        md: "row",
+      }}
+      gridColumnGap={{base: 2, md: 8}}
+      gridRowGap={{base: 4, md: 6}}
+      marginX={{base: -4, md: 0}}
       overflowX="auto"
       overflowY="hidden"
       paddingBottom={4}
-      templateColumns="repeat(auto-fill, minmax(280px,1fr))"
+      paddingX={{base: 4, md: 0}}
+      templateColumns={{
+        md: "repeat(auto-fill, minmax(440px,1fr))",
+      }}
       {...props}
     >
       {children}
