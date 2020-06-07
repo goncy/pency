@@ -62,6 +62,7 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
           fontWeight="500"
           height="100%"
           maxWidth={{base: "100%", sm: "140px"}}
+          paddingLeft={0}
           placeholder={t("common.categories")}
           value=""
           variant="unstyled"
