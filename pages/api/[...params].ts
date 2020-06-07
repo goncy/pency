@@ -9,6 +9,7 @@ import paymentHandler from "~/payment/api/routes";
 type NextQuery = NextApiRequest["query"];
 
 interface Query extends NextQuery {
+  // All routes and subroutes comes in [route, subroute, ...] format
   params: string[];
 }
 
@@ -49,5 +50,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
   }
 
+  // If nothing matched, we return a 400
   return res.status(400).end();
 };

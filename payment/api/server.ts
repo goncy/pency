@@ -17,11 +17,13 @@ export default {
         currency_id: "ARS",
         unit_price: item.price * item.count,
       })),
-      external_reference: {
-        slug,
-        orderId,
+      external_reference: `Orden: ${orderId}`,
+      back_urls: {
+        success: `${process.env.APP_URL}/${slug}`,
+        failure: `${process.env.APP_URL}/${slug}`,
       },
-      additional_info: `Compra en ${slug}`,
+      additional_info: `Compra en ${slug} - ${orderId}`,
+      auto_return: "all",
       marketplace_fee: getTotal(items) * 0.01,
       payment_methods: {
         installments: 1,
