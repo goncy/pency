@@ -7,6 +7,7 @@ import MailIcon from "~/ui/icons/Mail";
 import {useProducts} from "~/product/hooks";
 import CircleIcon from "~/ui/icons/Circle";
 import CheckIcon from "~/ui/icons/Check";
+import WhatsappIcon from "~/ui/icons/WhatsApp";
 
 const HomeScreen: React.FC = () => {
   const tenant = useTenant();
@@ -33,15 +34,27 @@ const HomeScreen: React.FC = () => {
             <Text fontSize="md" fontWeight="500">
               Si necesitas ayuda escribinos:
             </Text>
-            <Stack backgroundColor="gray.100" padding={4} rounded="md">
-              <Stack isInline>
-                <MailIcon />
+            <Stack backgroundColor="gray.100" padding={4} rounded="md" spacing={6}>
+              <Stack isInline alignItems="center" spacing={2}>
+                <MailIcon width={6} />
                 <Link
                   isExternal
                   fontWeight={500}
                   href={`mailto:${process.env.MANTAINER_EMAIL}?subject=Consulta por la tienda`}
+                  lineHeight="normal"
                 >
                   {process.env.MANTAINER_EMAIL}
+                </Link>
+              </Stack>
+              <Stack isInline alignItems="center" spacing={2}>
+                <WhatsappIcon width={6} />
+                <Link
+                  isExternal
+                  fontWeight={500}
+                  href={`https://wa.me/${process.env.MANTAINER_PHONE}`}
+                  lineHeight="normal"
+                >
+                  {process.env.MANTAINER_PHONE}
                 </Link>
               </Stack>
             </Stack>
