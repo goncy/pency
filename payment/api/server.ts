@@ -3,7 +3,6 @@ import {AuthResponse} from "../types";
 import fetch from "~/utils/fetch";
 import {CartItem} from "~/cart/types";
 import {ClientTenant} from "~/tenant/types";
-import {getTotal} from "~/cart/selectors";
 
 export default {
   create: async (items: CartItem[], slug: ClientTenant["slug"], orderId: string, token: string) =>
@@ -24,7 +23,6 @@ export default {
       },
       additional_info: `Compra en ${slug} - ${orderId}`,
       auto_return: "all",
-      marketplace_fee: getTotal(items) * 0.01,
       payment_methods: {
         installments: 1,
         default_installments: 1,
