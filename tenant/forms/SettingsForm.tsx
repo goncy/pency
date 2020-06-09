@@ -265,10 +265,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                     generemos un link de pago a tus clientes luego e que hayan hecho su pedido.
                   </Text>
                 </Stack>
-                <FormControl
-                  help="Se cobrará una comisión del 1% por cada pago realizando utilizando estos links."
-                  name="mercadopago"
-                >
+                <FormControl name="mercadopago">
                   <Controller
                     as={MPConnect}
                     control={control}
