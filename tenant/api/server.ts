@@ -73,7 +73,7 @@ export default {
     slug: ServerTenant["slug"],
     tenant: Partial<ServerTenant>,
   ) => {
-    cache.delete(slug);
+    cache.update(slug, tenant);
 
     console.log(`Cache cleaned for tenant ${slug}`);
 

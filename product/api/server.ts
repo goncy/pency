@@ -33,34 +33,40 @@ export default {
     );
   },
   create: (tenant: ClientTenant["id"], product: Product) => {
-    cache.delete(tenant);
-
-    console.log(`Cache cleaned for products ${tenant}`);
-
     return database
       .collection("tenants")
       .doc(tenant)
       .collection("products")
       .add(formatProduct(product))
-      .then((snapshot) => ({...formatProduct(product), id: snapshot.id}));
+      .then((snapshot) => {
+        const parsed: Product = {...product, id: snapshot.id};
+
+        cache.add(tenant, parsed);
+
+        console.log(`Cache added for products ${tenant}`);
+
+        return parsed;
+      });
   },
   remove: (tenant: ClientTenant["id"], product: Product["id"]) => {
-    cache.delete(tenant);
+    cache.pluck(tenant, product);
 
-    console.log(`Cache cleaned for products ${tenant}`);
+    console.log(`Cache plucked for products ${tenant}`);
 
     return database.collection("tenants").doc(tenant).collection("products").doc(product).delete();
   },
   update: (tenant: ClientTenant["id"], {id, ...product}: Product) => {
-    cache.delete(tenant);
+    const formated = formatProduct(product);
 
-    console.log(`Cache cleaned for products ${tenant}`);
+    cache.update(tenant, id, formated);
+
+    console.log(`Cache updated for products ${tenant}`);
 
     return database
       .collection("tenants")
       .doc(tenant)
       .collection("products")
       .doc(id)
-      .update(formatProduct(product));
+      .update(formated);
   },
 };
