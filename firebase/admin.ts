@@ -4,7 +4,7 @@ import credentials from "./credentials";
 
 if (!admin.apps.length) {
   admin.initializeApp({
-    credential: admin.credential.cert(credentials[process.env.NODE_ENV] as admin.ServiceAccount),
+    credential: admin.credential.cert(credentials[process.env.ENV] as admin.ServiceAccount),
   });
 }
 
