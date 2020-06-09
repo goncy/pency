@@ -38,10 +38,17 @@ function get(id: ClientTenant["id"]) {
   return cache.get(id);
 }
 
+function clear(): number {
+  cache.clear();
+
+  return cache.size;
+}
+
 export default {
   add,
   get,
   set,
+  clear,
   pluck,
   update,
   remove,

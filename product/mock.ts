@@ -1,5 +1,7 @@
 import faker from "faker";
 
+import {Product} from "./types";
+
 export default {
   get withoutVariants() {
     return {
@@ -35,7 +37,7 @@ export default {
       price: Number(faker.commerce.price()),
     };
   },
-  get full() {
+  get full(): Product {
     return {
       ...this.withoutVariants,
       options: [

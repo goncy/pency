@@ -22,9 +22,16 @@ function get(slug: ServerTenant["slug"]) {
   return cache.get(slug);
 }
 
+function clear(): number {
+  cache.clear();
+
+  return cache.size;
+}
+
 export default {
   get,
   set,
   update,
   remove,
+  clear,
 };
