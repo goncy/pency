@@ -1,5 +1,5 @@
 # Pency
-Tu tienda online
+Tu tienda online, fácil.
 
 ## Qué es?
 Pency es una tienda online multipropósito, pensada para quienes venden (o quieren vender) via WhatsApp.
