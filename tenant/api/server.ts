@@ -25,7 +25,7 @@ export default {
   fetch: async (slug: ServerTenant["slug"]): Promise<ServerTenant> => {
     const cached = cache.get(slug);
 
-    console.log(cached ? `CACHED FOR ${slug}` : `NOT CACHED FOR ${slug}`);
+    console.log(cached ? `CACHED FOR ${slug}!` : `NOT CACHED FOR ${slug}!`);
 
     return (
       cached ||
