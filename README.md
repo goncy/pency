@@ -28,7 +28,9 @@ Mandame un mail a gonzalo.pozzo4@gmail.com
 ## ¿Cómo puedo correr el proyecto?
 Completá todas las variables que aparecen en `.env.template` y guardalo como `.env.development.local`
 
-> Todas las variables de firebase las encontramos en la configuración del proyecto de firebase y otras de una cuenta de servicio que podés encontrar en firebase yendo a `Configuración > Usuarios y permisos > Cuentas de servicio` y generando una nueva clave privada. El único campo diferente es `FIREBASE_PRIVATE_KEY` que antes de agregarlo al archivo `.env.[ambiente].local` lo tenés que pasar a Base64 (podés usar la función `btoa` integrada en los navegadores). Luego el `next.config.js` se encarga de decodificarlo. Copialo con los \n, los espacios, todo, exactamente igual que como está en el archivo .json.
+Todas las variables de firebase las encontramos en la configuración del proyecto de firebase.
+
+En `firebase/credentials.ts` están las credenciales de firebase admin para cada ambiente, necesitás obtener el json de una cuenta de servicio que podés encontrar en firebase yendo a `Configuración > Usuarios y permisos > Cuentas de servicio` y generando una nueva clave privada. Después andá a https://www.devglan.com/online-tools/aes-encryption-decryption y seleccioná tu archivo de credenciales, en `mode` seleccioná `CBC`, `Key Size in Bits` `128`, `Enter IV (Optional)` la misma clave iv que en tu archivo `.env.development.local`, `Enter Secret Key` la misma secret key que en tu archivo `.env.development.local`, `Output Text Format` en `Base64`, clickea `Encrypt` y pegá el contenido en `firebase/credentials.ts` en el ambiente que corresponda.
 
 Luego en consola ejecutá:
 ```bash
