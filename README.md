@@ -14,7 +14,7 @@ Pency es una tienda online multipropósito, pensada para quienes venden (o quier
 * Configuración de la tienda (color, título, descripción, imagen, logo, etc)
 
 ## Algo no me anda!
-Podés crear un `issue` acá en GitHub
+Podés crear un `issue` acá en GitHub.
 
 ## Quiero ayudar!
 Entrá a los `issues` acá en GitHub
