@@ -6,34 +6,23 @@ import {database} from "~/firebase/admin";
 import {ClientTenant} from "~/tenant/types";
 
 export default {
-  list: async (tenant: ClientTenant["id"]): Promise<Product[]> => {
-    const cached = cache.get(tenant);
+  list: async (tenant: ClientTenant["id"]): Promise<Product[]> =>
+    cache.get(tenant) ||
+    database
+      .collection("tenants")
+      .doc(tenant)
+      .collection("products")
+      .get()
+      .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
+      .then((products) => {
+        const parsed = products.map(parseProduct);
 
-    console.log(
-      cached
-        ? `Cached product response for ${tenant}`
-        : `Not cached product response for ${tenant}`,
-    );
+        cache.set(tenant, parsed);
 
-    return (
-      cached ||
-      database
-        .collection("tenants")
-        .doc(tenant)
-        .collection("products")
-        .get()
-        .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
-        .then((products) => {
-          const parsed = products.map(parseProduct);
-
-          cache.set(tenant, parsed);
-
-          return parsed;
-        })
-    );
-  },
-  create: (tenant: ClientTenant["id"], product: Product) => {
-    return database
+        return parsed;
+      }),
+  create: (tenant: ClientTenant["id"], product: Product) =>
+    database
       .collection("tenants")
       .doc(tenant)
       .collection("products")
@@ -43,15 +32,10 @@ export default {
 
         cache.add(tenant, parsed);
 
-        console.log(`Cache added for products ${tenant}`);
-
         return parsed;
-      });
-  },
+      }),
   remove: (tenant: ClientTenant["id"], product: Product["id"]) => {
     cache.pluck(tenant, product);
-
-    console.log(`Cache plucked for products ${tenant}`);
 
     return database.collection("tenants").doc(tenant).collection("products").doc(product).delete();
   },
@@ -59,8 +43,6 @@ export default {
     const formated = formatProduct(product);
 
     cache.update(tenant, id, formated);
-
-    console.log(`Cache updated for products ${tenant}`);
 
     return database
       .collection("tenants")

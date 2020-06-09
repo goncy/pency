@@ -1,7 +1,9 @@
 import faker from "faker";
 
+import {Product, Variant, Option} from "./types";
+
 export default {
-  get withoutVariants() {
+  get withoutVariants(): Product {
     return {
       id: faker.random.uuid(),
       category: faker.commerce.department(),
@@ -14,13 +16,13 @@ export default {
       options: [],
     };
   },
-  get withoutImage() {
+  get withoutImage(): Product {
     return {
       ...this.withoutVariants,
       image: null,
     };
   },
-  get variant() {
+  get variant(): Variant {
     return {
       id: faker.random.uuid(),
       title: faker.commerce.productName(),
@@ -28,14 +30,14 @@ export default {
       options: [this.option, this.option, this.option],
     };
   },
-  get option() {
+  get option(): Option {
     return {
       id: faker.random.uuid(),
       title: faker.commerce.productName(),
       price: Number(faker.commerce.price()),
     };
   },
-  get full() {
+  get full(): Product {
     return {
       ...this.withoutVariants,
       options: [
