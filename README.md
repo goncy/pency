@@ -43,7 +43,6 @@ npm start
 > Necesitás tener un .env.[ambiente].local para cada ambiente en el que vas a correr la app.
 
 ## ¿Cómo correr Storybook?
-
 Storybook nos permite observar los distintos componentes visuales utilizados en el proyecto en un ambiente aislado.
 
 Ejecutá en la consola los siguientes comandos para abrir Storybook:
