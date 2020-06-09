@@ -22,24 +22,31 @@ export default {
           : Promise.reject({statusText: "Esa tienda ya existe", status: 409}),
       );
   },
-  fetch: async (slug: ServerTenant["slug"]): Promise<ServerTenant> =>
-    cache.get(slug) ||
-    database
-      .collection("tenants")
-      .where("slug", "==", slug)
-      .limit(1)
-      .get()
-      .then((snapshot) =>
-        snapshot.empty
-          ? Promise.reject({statusText: "La tienda no existe", status: 404})
-          : snapshot.docs[0],
-      )
-      .then((doc) => ({...(doc.data() as ServerTenant), id: doc.id}))
-      .then((tenant) => {
-        cache.set(tenant.slug, tenant);
+  fetch: async (slug: ServerTenant["slug"]): Promise<ServerTenant> => {
+    const cached = cache.get(slug);
 
-        return tenant;
-      }),
+    console.log(cached ? `CACHED FOR ${slug}` : `NOT CACHED FOR ${slug}`);
+
+    return (
+      cached ||
+      database
+        .collection("tenants")
+        .where("slug", "==", slug)
+        .limit(1)
+        .get()
+        .then((snapshot) =>
+          snapshot.empty
+            ? Promise.reject({statusText: "La tienda no existe", status: 404})
+            : snapshot.docs[0],
+        )
+        .then((doc) => ({...(doc.data() as ServerTenant), id: doc.id}))
+        .then((tenant) => {
+          cache.set(tenant.slug, tenant);
+
+          return tenant;
+        })
+    );
+  },
   list: async (): Promise<ServerTenant[]> =>
     database
       .collection("tenants")
