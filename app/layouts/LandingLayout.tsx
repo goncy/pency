@@ -15,11 +15,6 @@ const LandingLayout: React.FC = ({children}) => (
         }
       `}
     />
-    <script
-      async
-      data-ad-client="ca-pub-5429810264386021"
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-    />
     <Head>
       <link href={META.favicon} rel="icon" />
       <link href={META.appleicon} rel="apple-touch-icon" />
