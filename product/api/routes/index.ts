@@ -2,7 +2,6 @@ import {NextApiResponse, NextApiRequest} from "next";
 
 import {Product} from "../../types";
 import api from "../../api/server";
-import cache from "../../cache";
 
 import {ClientTenant} from "~/tenant/types";
 import sessionApi from "~/session/api/server";
@@ -55,19 +54,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (!tenant) return res.status(304).end();
 
-    const cached = cache.get(tenant);
-
-    if (cached) {
-      return res.status(200).json(cached);
-    }
-
     return api
       .list(tenant)
-      .then((products) => {
-        cache.set(tenant, products);
-
-        return res.status(200).json(products || []);
-      })
+      .then((products) => res.status(200).json(products || []))
       .catch(({status, statusText}) => res.status(status).end(statusText));
   }
 
@@ -87,11 +76,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         return api
           .create(tenant, product)
-          .then((product) => {
-            cache.delete(tenant);
-
-            return res.status(200).json(product);
-          })
+          .then((product) => res.status(200).json(product))
           .catch(() => res.status(400).end("Hubo un error creando el producto"));
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
@@ -113,11 +98,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         return api
           .update(tenant, product)
-          .then(() => {
-            cache.delete(tenant);
-
-            return res.status(200).json(product);
-          })
+          .then(() => res.status(200).json(product))
           .catch(() => res.status(400).end("Hubo un error actualizando el producto"));
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
@@ -138,11 +119,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         return api
           .remove(tenant, product)
-          .then(() => {
-            cache.delete(tenant);
-
-            return res.status(200).json({success: true});
-          })
+          .then(() => res.status(200).json({success: true}))
           .catch(() => res.status(400).end("Hubo un error borrando el producto"));
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
