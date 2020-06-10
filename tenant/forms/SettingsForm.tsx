@@ -140,7 +140,6 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                     {name}
                   </option>
                 ))}
-                <option value="Otro">Otro</option>
               </Select>
             </FormControl>
             <FormControl
