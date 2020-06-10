@@ -107,7 +107,7 @@ const AdminScreen: React.FC<Props> = ({tenant}) => {
         >
           <Content paddingX={4}>
             <Box height="100%" width="100%">
-              <TabList border="none" height={16}>
+              <TabList border="none" height={16} overflowX="auto">
                 <Tab fontSize="md" fontWeight={500}>
                   <HomeIcon marginRight={2} />
                   <Text>{t("common.home")}</Text>
