@@ -112,12 +112,11 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 name="category"
                 placeholder="Seleccioná un rubro"
               >
-                {CATEGORIES.map((category) => (
-                  <option key={category} value={category}>
-                    {category}
+                {CATEGORIES.map(({label, value}) => (
+                  <option key={value} value={value}>
+                    {label}
                   </option>
                 ))}
-                <option value="Otro">Otro</option>
               </Select>
             </FormControl>
             <FormControl help="Separadas por comas" label="Palabras clave" name="keywords">
