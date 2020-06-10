@@ -135,9 +135,9 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 name="country"
                 placeholder="Seleccioná un país"
               >
-                {COUNTRIES.map((country) => (
-                  <option key={country} value={country}>
-                    {country}
+                {COUNTRIES.map(({code, name}) => (
+                  <option key={code} value={code}>
+                    {name}
                   </option>
                 ))}
                 <option value="Otro">Otro</option>

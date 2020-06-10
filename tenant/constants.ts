@@ -110,12 +110,16 @@ export const CATEGORIES = [
 ];
 
 export const COUNTRIES = [
-  "Argentina",
-  "Colombia",
-  "Ecuador",
-  "España",
-  "México",
-  "Perú",
-  "Uruguay",
-  "Hawaii",
+  {name: "Argentina", code: "AR"},
+  {name: "Brazil", code: "BR"},
+  {name: "Colombia", code: "CO"},
+  {name: "Cuba", code: "CU"},
+  {name: "Ecuador", code: "EC"},
+  {name: "México", code: "MX"},
+  {name: "Paraguay", code: "PY"},
+  {name: "Perú", code: "PE"},
+  {name: "España", code: "ES"},
+  {name: "United States", code: "US"},
+  {name: "Uruguay", code: "UY"},
+  {name: "Venezuela", code: "VE"},
 ];
