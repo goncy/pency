@@ -39,7 +39,7 @@ const ProductsScreen: React.FC = () => {
           overflowX="hidden"
           overflowY="auto"
         >
-          <Content height="100%">
+          <Content height="100%" paddingX={{base: 0, sm: 4}}>
             <TenantHeader data-test-id="header" marginBottom={4} tenant={tenant} />
             <Box flex={1}>
               {highlight && (
@@ -50,8 +50,8 @@ const ProductsScreen: React.FC = () => {
                   marginTop={4}
                   paddingX={4}
                   paddingY={3}
-                  roundedTop={{sm: 0, xl: "lg"}}
-                  textAlign={{base: "left", xl: "center"}}
+                  roundedTop={{base: 0, sm: "lg"}}
+                  textAlign={{base: "left", sm: "center"}}
                 >
                   {highlight}
                 </Box>
