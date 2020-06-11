@@ -27,7 +27,7 @@ const TenantHeader: React.FC<Props> = ({
       backgroundSize="cover"
       height={{base: 24, sm: 56}}
       minHeight={{base: 24, sm: 56}}
-      roundedBottom="lg"
+      roundedBottom={{base: "none", sm: "lg"}}
       width="100%"
     />
     <Box paddingX={4}>

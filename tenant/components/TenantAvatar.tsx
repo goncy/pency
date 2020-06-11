@@ -13,8 +13,7 @@ interface Props extends Omit<AvatarProps, "onLoad" | "onError"> {
 const TenantAvatar: React.FC<Props> = ({logo, title, ...props}) => {
   return logo ? (
     <Image
-      border="3px solid white"
-      boxShadow="inset 0 0 2px rgba(0,0,0,0.2)"
+      boxShadow="inset 0 0 2px rgba(0,0,0,0.2), 0px 0px 0px 3px white"
       height={{base: 24, sm: 32}}
       minHeight={{base: 24, sm: 32}}
       minWidth={{base: 24, sm: 32}}
@@ -25,9 +24,7 @@ const TenantAvatar: React.FC<Props> = ({logo, title, ...props}) => {
     />
   ) : (
     <Avatar
-      borderColor="white"
-      borderWidth={3}
-      boxShadow="sm"
+      boxShadow="inset 0 0 2px rgba(0,0,0,0.2), 0px 0px 0px 3px white"
       height={{base: 24, sm: 32}}
       minHeight={{base: 24, sm: 32}}
       minWidth={{base: 24, sm: 32}}

@@ -1,38 +1,30 @@
 import React from "react";
-import {Image, Stack, Tag, TagLabel} from "@chakra-ui/core";
+import {Image, PseudoBox} from "@chakra-ui/core";
+
+import Link from "~/ui/controls/Link";
 
 interface Props {
   title: string;
   image: string;
+  store: string;
 }
 
-const Preview: React.FC<Props> = ({title, image}) => {
-  const [isHovered, toggleHover] = React.useState(false);
-
+const Preview: React.FC<Props> = ({image, store}) => {
   return (
-    <Stack
-      alignItems="center"
-      spacing={4}
-      onMouseOut={() => toggleHover(false)}
-      onMouseOver={() => toggleHover(true)}
-    >
-      <Tag
-        backgroundColor={isHovered ? "teal.100" : "teal.50"}
-        rounded="full"
-        size="lg"
-        transition="background-color .25s"
-        variant="solid"
-      >
-        <TagLabel color="teal.900">{title}</TagLabel>
-      </Tag>
-      <Image
-        alt="Panaderias"
-        boxShadow={isHovered ? "lg" : "none"}
-        src={image}
-        transform={isHovered ? "translateY(-4px)" : ""}
+    <Link isExternal href={`https://pency.app/${store}`}>
+      <PseudoBox
+        _hover={{
+          boxShadow: "lg",
+          transform: "translateY(-4px)",
+        }}
+        borderRadius="lg"
+        minWidth="300px"
         transition="all .25s"
-      />
-    </Stack>
+        width={{base: "60vw", sm: "100%"}}
+      >
+        <Image borderRadius="lg" src={image} />
+      </PseudoBox>
+    </Link>
   );
 };
 

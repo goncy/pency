@@ -41,7 +41,7 @@ const ProductsScreen: React.FC = () => {
         >
           <Content height="100%">
             <TenantHeader data-test-id="header" marginBottom={4} tenant={tenant} />
-            <Box flex={1} paddingX={4}>
+            <Box flex={1}>
               {highlight && (
                 <Box
                   backgroundColor="primary.50"
@@ -68,7 +68,7 @@ const ProductsScreen: React.FC = () => {
                   </Box>
                 </Flex>
               </Box>
-              <Box>
+              <Box paddingX={{base: 4, sm: 0}}>
                 <Stack margin="auto" spacing={5} width="100%">
                   {Boolean(products.length) ? (
                     <Stack spacing={{base: 5, sm: 10}} width="100%">
