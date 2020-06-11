@@ -77,7 +77,7 @@ npm install && npm run dev
 ### Creando la tienda
  - Bajamos y abrimos [Postman](https://www.postman.com/downloads/).
  - Comprobamos que la aplicación este corriendo en **http://localhost:3000/**.
- - Seleccionamos POST Request y colocamos como URL: `http://localhost:3000/api/tenant?slug=NOMBRE_DE_TU_TIENDA` (si bien podémos poner lo que queramos en slug recomiendo que sean solo letras minúsculas y guiones)
+ - Seleccionamos POST Request y colocamos como URL: `http://localhost:3000/api/tenant/NOMBRE_DE_TU_TIENDA` (si bien podémos poner lo que queramos en slug recomiendo que sean solo letras minúsculas y guiones)
  - En `body` seleccionamos `x-www-form-urlencoded` y colocamos los siguientes valores:
 ```markdown
 	|   KEY  |                    VALUE                         |
