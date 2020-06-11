@@ -4,11 +4,11 @@ import {Stack, Avatar, Flex, Text} from "@chakra-ui/core";
 import Content from "./Content";
 
 const Testimonial = () => (
-  <Content as="section">
+  <Content as="section" paddingY={{base: 8, sm: 20}}>
     <Stack
       alignItems="center"
       bg="gray.50"
-      borderRadius={2}
+      rounded="lg"
       flexDirection="column"
       paddingX={4}
       paddingY={{base: 8, sm: 20}}

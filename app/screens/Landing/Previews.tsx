@@ -13,8 +13,8 @@ const Previews = () => (
     textAlign={{base: "left", sm: "center"}}
   >
     <Content>
-      <Stack spacing={6}>
-        <Stack spacing={2}>
+      <Stack spacing={12}>
+        <Stack spacing={2} alignItems="center">
           <Text
             as="h3"
             color="gray.900"
@@ -24,8 +24,14 @@ const Previews = () => (
           >
             Versatil, para todo tipo de negocios
           </Text>
-          <Text as="h4" color="gray.500">
-            No importa cual sea tu rubro, Pency se adapta a vos y tus productos.
+          <Text
+            as="h4"
+            fontSize={{base: 18, sm: 20}}
+            color="gray.500"
+            maxWidth={{base: "auto", sm: "3xl"}}
+            textAlign={[ 'left', 'center' ]}
+          >
+            Independientemente del rubro, tu tienda Pency se ajusta a vos y tus productos, además de ofrecer una experiencia simple y agradable de compra a tus clientes.
           </Text>
         </Stack>
         <Stack
