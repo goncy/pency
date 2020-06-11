@@ -39,7 +39,7 @@ const ProductsScreen: React.FC = () => {
           overflowX="hidden"
           overflowY="auto"
         >
-          <Content height="100%">
+          <Content height="100%" paddingX={{base: 0, sm: 4}}>
             <TenantHeader data-test-id="header" marginBottom={4} tenant={tenant} />
             <Box flex={1}>
               {highlight && (
