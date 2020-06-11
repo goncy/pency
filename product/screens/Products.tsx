@@ -50,8 +50,8 @@ const ProductsScreen: React.FC = () => {
                   marginTop={4}
                   paddingX={4}
                   paddingY={3}
-                  roundedTop={{sm: 0, xl: "lg"}}
-                  textAlign={{base: "left", xl: "center"}}
+                  roundedTop={{base: 0, sm: "lg"}}
+                  textAlign={{base: "left", sm: "center"}}
                 >
                   {highlight}
                 </Box>
@@ -68,7 +68,7 @@ const ProductsScreen: React.FC = () => {
                   </Box>
                 </Flex>
               </Box>
-              <Box paddingX={{base: 4, sm: 0}}>
+              <Box paddingX={4}>
                 <Stack margin="auto" spacing={5} width="100%">
                   {Boolean(products.length) ? (
                     <Stack spacing={{base: 5, sm: 10}} width="100%">
