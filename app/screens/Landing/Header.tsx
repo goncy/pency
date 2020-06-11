@@ -48,7 +48,7 @@ const Header: React.FC = () => (
           marginBottom={{base: -20, sm: -24}}
           maxWidth="80vw"
           paddingTop={{base: 2, sm: 0}}
-          src="./phone.png"
+          src="/assets/landing/phone.png"
         />
       </Flex>
     </Content>
