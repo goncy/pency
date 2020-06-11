@@ -9,7 +9,7 @@ const Previews = () => (
     as="section"
     backgroundColor="teal.50"
     paddingBottom={{base: 12, sm: 24}}
-    paddingTop={{base: 16, sm: 16}}
+    paddingTop={{base: 16, sm: 24}}
     textAlign={{base: "left", sm: "center"}}
   >
     <Content>
@@ -18,7 +18,7 @@ const Previews = () => (
           <Text
             as="h3"
             color="gray.900"
-            fontSize={{base: 24, sm: 36}}
+            fontSize={["2xl", "3xl", "3xl", "4xl", "5xl"]}
             fontWeight={500}
             marginBottom={{base: 4, sm: 0}}
           >
@@ -40,21 +40,30 @@ const Previews = () => (
           alignItems="center"
           as="section"
           overflowX="auto"
-          paddingY={4}
-          spacing={6}
+          paddingY={8}
+          spacing={12}
+
         >
-          <Preview
-            image="/assets/landing/store-0.jpg"
-            store="tiendabastamaria"
-            title="Basta María"
-          />
-          <Preview image="/assets/landing/store-1.jpg" store="faithdecoarg" title="Faith" />
           <Preview
             image="/assets/landing/store-2.jpg"
             store="fosforo.cocina"
             title="Fosforo Cocina"
           />
-          <Preview image="/assets/landing/store-3.jpg" store="hardymarket" title="Hardy Market" />
+          <Preview
+            image="/assets/landing/store-3.jpg"
+            store="hardymarket"
+            title="Hardy Market"
+          />
+          <Preview
+            image="/assets/landing/store-1.jpg"
+            store="faithdecoarg"
+            title="Faith"
+          />
+          <Preview
+            image="/assets/landing/store-0.jpg"
+            store="tiendabastamaria"
+            title="Basta María"
+          />
         </Stack>
       </Stack>
     </Content>

@@ -13,15 +13,15 @@ const Steps = () => (
   <Content as="section" paddingY={{base: 12, sm: 20}}>
     <Text
       color="black"
-      fontSize={{base: 24, sm: 36}}
+      fontSize={["2xl", "3xl", "3xl", "4xl", "5xl"]}
       fontWeight={500}
-      marginBottom={8}
+      marginBottom={16}
       marginTop={2}
-      maxWidth={{base: "auto", sm: 560}}
+      maxWidth={{base: "auto", sm: "xl", lg:"2xl", xl:"3xl"}}
     >
       Comenzá ahora y abrí las puertas de tu negocio online en minutos
     </Text>
-    <Grid gridGap={{base: 8, sm: 6}} templateColumns="repeat(auto-fit, minmax(320px,1fr))">
+    <Grid gridGap={{base: 8, sm: 12}} templateColumns="repeat(auto-fit, minmax(276px,1fr))">
       <Feature icon={UserIcon} title="Creá tu cuenta">
         Es gratis y rápido. Solo necesitás una dirección de correo electrónico.
       </Feature>

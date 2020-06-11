@@ -8,11 +8,11 @@ import Link from "~/ui/controls/Link";
 const Header: React.FC = () => (
   <Flex alignItems="center" as="header" backgroundColor="teal.600" color="white" paddingY={8}>
     <Content alignItems="center" display="flex" flexDirection={{base: "column", md: "row"}}>
-      <Box maxWidth={{base: "auto", sm: 500}}>
-        <Text as="h2" fontSize={{base: 24, sm: 48}} fontWeight={500} lineHeight={"130%"} mb={2}>
+      <Box maxWidth={{base: "auto", sm: 500, lg:580, xl:640}}>
+        <Text fontSize={["2xl", "2xl", "4xl", "5xl", "6xl"]} fontWeight={500} lineHeight={"130%"} mb={2}>
           Ahorrá tiempo y dinero con tu tienda Pency
         </Text>
-        <Text as="h3" color="teal.50" fontSize={{base: 20, sm: 24}}>
+        <Text as="h3" color="teal.50" fontSize={["lg", "lg", "xl", "2xl", "3xl"]}>
         Publicá tu catálogo online y recibí por Whatsapp los pedidos de tus clientes ¡GRATIS!
         </Text>
         <Box display={{base: "none", sm: "block"}} marginTop={10}>

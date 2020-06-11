@@ -11,7 +11,14 @@ const Shout = () => (
     width="100%"
 
   >
-    <Text fontSize={{base: 24, sm: 48}} fontWeight={500} marginBottom={{base: 4, sm: 6}} marginX="auto" maxWidth={{base: "auto", sm: "3xl"}} >
+    <Text
+      fontSize={["3xl", "3xl", "4xl", "5xl", "6xl"]}
+      fontWeight={500}
+      lineHeight={"130%"}
+      marginBottom={{base: 4, sm: 6}}
+      marginX="auto"
+      maxWidth={{base: "auto", sm: "3xl", xl:"5xl"}}
+      >
       Creá ahora tu tienda online y potenciá la gestión de tu negocio
     </Text>
   </Content>
