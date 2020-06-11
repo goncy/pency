@@ -14,7 +14,7 @@ const Features = () => (
       as="section"
       gridGap={{base: 8, sm: 6}}
       paddingBottom={{base: 12, sm: 20}}
-      paddingTop={{base: 48, sm: 32}}
+      paddingTop={{base: 20, sm: 32}}
       templateColumns="repeat(auto-fit, minmax(320px,1fr))"
     >
       <Feature icon={ShoppingIcon} title="Mantené tu catálogo actualizado">
