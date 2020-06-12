@@ -4,7 +4,7 @@ import {Stack} from "@chakra-ui/core";
 import {useForm, Controller, FieldError} from "react-hook-form";
 
 import {Product} from "../../types";
-import ProductLimitedCheckboxInput from "../../inputs/ProductCheckboxInput";
+import ProductOptionSelectorInput from "../../inputs/ProductOptionSelectorInput";
 
 import validator from "./validator";
 
@@ -58,7 +58,7 @@ const ProductOptionsForm: React.FC<Props> = ({children, defaultValues, onSubmit}
                 name={`options[${index}]`}
               >
                 <Controller
-                  as={ProductLimitedCheckboxInput}
+                  as={ProductOptionSelectorInput}
                   control={control}
                   defaultValue={[]}
                   label={(option) => `${option.title} ${option.price ? `+ $${option.price}` : ""}`}

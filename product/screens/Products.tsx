@@ -68,7 +68,7 @@ const ProductsScreen: React.FC = () => {
                   </Box>
                 </Flex>
               </Box>
-              <Box paddingX={4}>
+              <Box paddingX={{base: 4, sm: 0}}>
                 <Stack margin="auto" spacing={5} width="100%">
                   {Boolean(products.length) ? (
                     <Stack spacing={{base: 5, sm: 10}} width="100%">
