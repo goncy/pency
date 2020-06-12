@@ -17,14 +17,10 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}
   const {image, description, title, price} = product;
   const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
 
-  function handleAdd() {
-    return toggleOptions();
-  }
-
-  function handleAddWithOptions(options) {
+  function handleAdd(product) {
     toggleOptions();
 
-    return add({...product, options});
+    return add(product);
   }
 
   return (
@@ -39,7 +35,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}
         position="relative"
         rounded="md"
         transition="transform 0.2s"
-        onClick={handleAdd}
+        onClick={toggleOptions}
         {...props}
       >
         <Image
@@ -96,7 +92,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}
         isOpen={isOptionsOpen}
         product={product}
         onClose={toggleOptions}
-        onSubmit={handleAddWithOptions}
+        onSubmit={handleAdd}
       />
     </>
   );

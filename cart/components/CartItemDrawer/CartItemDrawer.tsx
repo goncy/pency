@@ -4,7 +4,7 @@ import {IDrawer, Text, Stack, Box} from "@chakra-ui/core";
 import Drawer, {DrawerBody} from "~/ui/controls/Drawer";
 import {Product} from "~/product/types";
 import Image from "~/ui/feedback/Image";
-import ProductOptionsForm from "~/product/forms/ProductOptionsForm/ProductOptionsForm";
+import ProductVariantForm from "~/product/forms/ProductVariantForm";
 import ArrowLeftIcon from "~/ui/icons/ArrowLeft";
 import Button from "~/ui/controls/Button";
 
@@ -20,7 +20,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
 
   return (
     <Drawer id="cart-item" placement="right" size="md" onClose={onClose} {...props}>
-      <ProductOptionsForm defaultValues={product.options} onSubmit={handleSubmit}>
+      <ProductVariantForm defaultValues={product.options} onSubmit={handleSubmit}>
         {({form, submit, isLoading}) => (
           <DrawerBody paddingX={0} position="relative">
             <ArrowLeftIcon
@@ -58,7 +58,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
             </Stack>
           </DrawerBody>
         )}
-      </ProductOptionsForm>
+      </ProductVariantForm>
     </Drawer>
   );
 };
