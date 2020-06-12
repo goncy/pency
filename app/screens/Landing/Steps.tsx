@@ -19,7 +19,7 @@ const Steps = () => (
       marginTop={2}
       maxWidth={{base: "auto", sm: "xl", lg:"2xl", xl:"3xl"}}
     >
-      Comenzá ahora y abrí las puertas de tu negocio online en minutos
+      Abrí las puertas de tu negocio online en minutos
     </Text>
     <Grid gridGap={{base: 8, sm: 12}} templateColumns="repeat(auto-fit, minmax(276px,1fr))">
       <Feature icon={UserIcon} title="Creá tu cuenta">

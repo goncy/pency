@@ -20,13 +20,25 @@ const Header: React.FC = () => (
             isExternal
             href="https://docs.google.com/forms/d/1P1o0HVHDluk-VMHHRLFVPn_TDKkqg_JhlMBmclcd6Co"
           >
-            <Button backgroundColor="white" color="black" size="lg">
+            <Button
+              _hover={{
+                boxShadow: "xl",
+                transform: "translateY(-1px)",
+              }}
+              backgroundColor="white"
+              color="black"
+              size="lg"
+            >
               Crear tienda
             </Button>
           </Link>
           <Link isExternal href="https://pency.app/demo">
             <Button
-              _hover={{color: "black", backgroundColor: "white"}}
+              _hover={{
+                backgroundColor: "rgba(255,255,255,0.15)",
+                boxShadow: "xl",
+                transform: "translateY(-1px)",
+              }}
               color="white"
               marginLeft={{base: 0, sm: 6}}
               size="lg"

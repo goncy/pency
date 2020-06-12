@@ -31,7 +31,7 @@ const Previews = () => (
             maxWidth={{base: "auto", sm: "3xl"}}
             textAlign={[ 'left', 'center' ]}
           >
-            Independientemente del rubro, tu tienda Pency se ajusta a vos y tus productos, además de ofrecer una experiencia simple y agradable de compra a tus clientes.
+          Independientemente del rubro, tu tienda Pency se ajusta a vos y tus productos, además de ofrecer una experiencia de compra simple y agradable a tus clientes.
           </Text>
         </Stack>
         <Stack
