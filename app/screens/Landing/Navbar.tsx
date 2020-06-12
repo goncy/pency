@@ -1,5 +1,5 @@
 import React from "react";
-import {Grid, Button, Image} from "@chakra-ui/core";
+import {Grid, Button} from "@chakra-ui/core";
 
 import Content from "./Content";
 
