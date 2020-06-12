@@ -1,21 +1,25 @@
 import React from "react";
-import {IDrawer, Text, Stack, Box} from "@chakra-ui/core";
+import {IDrawer, Text, Stack, Box, Flex} from "@chakra-ui/core";
 
 import Drawer, {DrawerBody} from "~/ui/controls/Drawer";
-import {Product} from "~/product/types";
+import {Product, Variant} from "~/product/types";
 import Image from "~/ui/feedback/Image";
 import ProductVariantForm from "~/product/forms/ProductVariantForm";
 import ArrowLeftIcon from "~/ui/icons/ArrowLeft";
 import Button from "~/ui/controls/Button";
+import FormControl from "~/ui/controls/FormControl";
+import Stepper from "~/ui/inputs/Stepper";
 
 interface Props extends Omit<IDrawer, "children"> {
-  onSubmit: (product: Product) => void;
+  onSubmit: (product: Product, options: Variant[], count: number) => void;
   product: Product;
 }
 
 const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props}) => {
-  function handleSubmit(options: Product["options"]) {
-    onSubmit({...product, options});
+  const [count, setCount] = React.useState(1);
+
+  function handleSubmit(options: Variant[]) {
+    onSubmit(product, options, count);
   }
 
   return (
@@ -32,15 +36,18 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
               onClick={onClose}
             />
             {product.image && <Image height="100%" maxHeight="30vh" src={product.image} />}
-            <Stack flex={1} marginTop={product.image ? 0 : 8} padding={4} spacing={6}>
-              <Stack spacing={2}>
+            <Flex direction="column" flex={1} marginTop={product.image ? 0 : 8} padding={4}>
+              <Stack marginBottom={6} spacing={2}>
                 <Text fontSize="2xl" fontWeight="bold">
                   {product.title}
                 </Text>
                 <Text color="gray.500">{product.description}</Text>
               </Stack>
               {form}
-              <Box marginTop="auto" paddingTop={4}>
+              <FormControl label="Cantidad" marginY={6}>
+                <Stepper min={1} value={count} onChange={setCount} />
+              </FormControl>
+              <Box marginTop="auto">
                 <Button
                   isFullWidth
                   isLoading={isLoading}
@@ -55,7 +62,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                   Agregar
                 </Button>
               </Box>
-            </Stack>
+            </Flex>
           </DrawerBody>
         )}
       </ProductVariantForm>

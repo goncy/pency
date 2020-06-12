@@ -28,6 +28,7 @@ export default {
       title: faker.commerce.productName(),
       count: 5,
       options: [this.option, this.option, this.option],
+      value: [this.option, this.option, this.option],
     };
   },
   get option(): Option {

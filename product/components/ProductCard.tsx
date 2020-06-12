@@ -2,14 +2,13 @@ import React from "react";
 import {Box, Text, Flex, useDisclosure, FlexProps, Stack} from "@chakra-ui/core";
 
 import Image from "~/ui/feedback/Image";
-import {Product} from "~/product/types";
+import {Product, Variant} from "~/product/types";
 import TruncatedText from "~/ui/feedback/TruncatedText";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 
 interface Props extends FlexProps {
   product: Product;
-  add: (product: Product) => void;
-  remove: (id: Product["id"]) => void;
+  add: (product: Product, variants: Variant[], count: number) => void;
   isRaised?: boolean;
 }
 
@@ -17,10 +16,10 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}
   const {image, description, title, price} = product;
   const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
 
-  function handleAdd(product) {
+  function handleAdd(product: Product, variants: Variant[], count: number) {
     toggleOptions();
 
-    return add(product);
+    return add(product, variants, count);
   }
 
   return (

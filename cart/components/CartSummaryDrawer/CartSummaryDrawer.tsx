@@ -18,7 +18,14 @@ interface Props {
   onRemove: (id: string) => void;
 }
 
-const CartDrawer: React.FC<Props> = ({items, fields, onRemove, onCheckout, isOpen, onClose}) => {
+const CartSummaryDrawer: React.FC<Props> = ({
+  items,
+  fields,
+  onRemove,
+  onCheckout,
+  isOpen,
+  onClose,
+}) => {
   const [step, setStep] = React.useState("overview");
   const count = getCount(items);
   const hasNextStep = Boolean(fields?.length);
@@ -75,4 +82,4 @@ const CartDrawer: React.FC<Props> = ({items, fields, onRemove, onCheckout, isOpe
   );
 };
 
-export default CartDrawer;
+export default CartSummaryDrawer;

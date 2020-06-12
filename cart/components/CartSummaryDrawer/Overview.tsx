@@ -10,6 +10,7 @@ import Button from "~/ui/controls/Button";
 import Badge from "~/ui/feedback/Badge";
 import {useTranslation} from "~/hooks/translation";
 import {getCount, getTotal} from "~/cart/selectors";
+import {getVariantsString} from "~/product/selectors";
 
 interface Props {
   items: CartItem[];
@@ -42,7 +43,7 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
             {t("cart.yourCart")} ({count})
           </DrawerTitle>
           <Stack spacing={6}>
-            {items.map(({id, title, options, price, count}) => (
+            {items.map(({id, product, count, variants}) => (
               <Flex key={id} alignItems="flex-start" justifyContent="space-between">
                 <Flex alignItems="center" mr={2}>
                   <IconButton
@@ -59,18 +60,18 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
                   />
                   <Flex direction="column">
                     <Flex alignItems="center">
-                      <Text>{title}</Text>
+                      <Text>{product.title}</Text>
                       <Badge count={count} marginLeft={2} variantColor="primary" />
                     </Flex>
-                    {options && (
+                    {variants && (
                       <Text color="gray.500" fontSize="sm">
-                        {options}
+                        {getVariantsString(variants)}
                       </Text>
                     )}
                   </Flex>
                 </Flex>
                 <Flex alignItems="center">
-                  <Text>${price * count}</Text>
+                  <Text>${product.price * count}</Text>
                 </Flex>
               </Flex>
             ))}
