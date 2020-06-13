@@ -22,7 +22,7 @@ const Previews = () => (
             fontWeight={500}
             marginBottom={{base: 4, sm: 0}}
           >
-            Versatil, para todo tipo de negocios
+            Versátil, para todo tipo de negocios
           </Text>
           <Text
             as="h4"
