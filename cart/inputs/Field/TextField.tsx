@@ -12,7 +12,7 @@ interface Props {
 
 const TextFieldInput: React.FC<Props> = ({value, field, onChange}) => {
   return (
-    <FormControl help={field.note} label={field.title} width="100%">
+    <FormControl help={field.note} isRequired={field.required} label={field.title} width="100%">
       <Input
         maxLength={70}
         paddingX={0}

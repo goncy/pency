@@ -77,46 +77,48 @@ const FieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
 
   return (
     <Stack spacing={3}>
-      {value?.map((option, index) => (
-        <Stack
-          key={option.id}
-          shouldWrapChildren
-          borderBottomWidth={1}
-          borderColor="gray.200"
-          paddingBottom={3}
-          spacing={3}
-        >
-          <FormControl
-            isRequired
-            error={error === "title" && !value[index].title && "Este campo es requerido"}
+      {value?.map((option, index) => {
+        return (
+          <Stack
+            key={option.id}
+            shouldWrapChildren
+            borderBottomWidth={1}
+            borderColor="gray.200"
+            paddingBottom={3}
+            spacing={3}
           >
-            <ClearableTextField
-              backgroundColor="inherit"
-              placeholder="Forma de pago"
-              value={option.title}
-              onChange={(event) => handleTitleChange(index, event.target.value)}
-              onClear={() => handleRemove(index)}
+            <FormControl
+              isRequired
+              error={error === "title" && !value[index].title && "Este campo es requerido"}
+            >
+              <ClearableTextField
+                backgroundColor="inherit"
+                placeholder="Forma de pago"
+                value={option.title}
+                onChange={(event) => handleTitleChange(index, event.target.value)}
+                onClear={() => handleRemove(index)}
+              />
+            </FormControl>
+            <FormControl name="required">
+              <SwitchInput
+                checked={option.required}
+                label="Obligatorio"
+                name="required"
+                onChange={(checked) => handleRequiredChange(index, checked)}
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <TypeInput value={option.type} onChange={(type) => handleTypeChange(type, index)} />
+            </FormControl>
+            <FieldInput
+              error={error}
+              index={index}
+              value={option}
+              onChange={(value) => handleChange(index, value)}
             />
-          </FormControl>
-          <FormControl name="required">
-            <SwitchInput
-              label="Obligatorio"
-              name="required"
-              value={option.required}
-              onChange={(checked) => handleRequiredChange(index, checked)}
-            />
-          </FormControl>
-          <FormControl isRequired>
-            <TypeInput value={option.type} onChange={(type) => handleTypeChange(type, index)} />
-          </FormControl>
-          <FieldInput
-            error={error}
-            index={index}
-            value={option}
-            onChange={(value) => handleChange(index, value)}
-          />
-        </Stack>
-      ))}
+          </Stack>
+        );
+      })}
       <IconButton
         fontWeight="normal"
         justifyContent="flex-start"

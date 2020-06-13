@@ -97,9 +97,9 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error, onChange}) =>
             name="required"
           >
             <SwitchInput
+              checked={option.required}
               label="Obligatorio"
               name="required"
-              value={option.required}
               onChange={(checked) => handleRequiredChange(index, checked)}
             />
           </FormControl>

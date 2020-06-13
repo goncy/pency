@@ -141,7 +141,6 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                   control={control}
                   defaultValue={false}
                   display="block"
-                  id="featured"
                   label="Destacar"
                   name="featured"
                 />
@@ -152,7 +151,6 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                   color="primary"
                   control={control}
                   display="block"
-                  id="available"
                   label="Disponible"
                   name="available"
                 />

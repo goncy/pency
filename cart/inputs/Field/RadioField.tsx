@@ -12,7 +12,7 @@ interface Props {
 
 const RadioFieldInput: React.FC<Props> = ({value, field, onChange}) => {
   return (
-    <FormControl label={field.title} width="100%">
+    <FormControl isRequired={field.required} label={field.title} width="100%">
       <RadioGroup value={value} onChange={(event) => onChange(event.target.value)}>
         {field.options.map((option) => (
           <RadioRow key={option.id} note={option.note} value={option.title}>
