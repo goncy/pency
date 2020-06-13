@@ -1,9 +1,15 @@
-import {Option} from "~/product/types";
+import {Option, Variant} from "~/product/types";
 
-export default function validator(option) {
+export default function validator(variant: Variant) {
   return (values: Option[]) => {
-    if (option.count === 1 && values.length === 0) {
-      return "Este campo es requerido";
+    if (variant.required) {
+      if (variant.count && values.length !== variant.count) {
+        return `Debes seleccionar ${variant.count} opciones`;
+      }
+
+      if (!variant.count && !values.length) {
+        return "Debes seleccionar al menos una opcion";
+      }
     }
 
     return true;

@@ -4,11 +4,11 @@ import {Stack} from "@chakra-ui/core";
 import {useForm, Controller, FieldError} from "react-hook-form";
 
 import {Variant} from "../../types";
-import ProductOptionSelectorInput from "../../inputs/ProductOptionSelectorInput";
+import ProductVariantSelector from "../../inputs/ProductVariantSelector";
 
 import validator from "./validator";
 
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 
 interface Props {
   defaultValues: Variant[];
@@ -46,7 +46,7 @@ const ProductVariantForm: React.FC<Props> = ({children, defaultValues, onSubmit}
     submit: submit(handleSubmit),
     form: (
       <form onSubmit={submit(handleSubmit)}>
-        <Stack overflowY="auto" spacing={4}>
+        <Stack overflowY="auto" spacing={6}>
           {defaultValues.map((variant, index) => {
             const error = ((errors.variants?.[index]?.value as unknown) as FieldError)?.message;
 
@@ -54,21 +54,21 @@ const ProductVariantForm: React.FC<Props> = ({children, defaultValues, onSubmit}
               <FormControl
                 key={variant.id}
                 error={error}
-                label={`${variant.title} ${variant.count ? `(Máximo ${variant.count})` : ""}`}
+                isRequired={variant.required}
+                label={variant.title}
                 name={`variants[${index}]`}
+                note={variant.count > 1 && `(Máx. ${variant.count})`}
               >
                 <Controller
-                  as={ProductOptionSelectorInput}
+                  as={ProductVariantSelector}
                   control={control}
                   defaultValue={[]}
-                  label={(option) => `${option.title} ${option.price ? `+ $${option.price}` : ""}`}
                   limit={variant.count}
                   name={`variants[${index}].value`}
                   options={variant.options}
                   rules={{
                     validate: validator(variant),
                   }}
-                  valueProp="title"
                 />
               </FormControl>
             );

@@ -1,6 +1,6 @@
 import React from "react";
 import {useForm, Controller, FormContext} from "react-hook-form";
-import {Flex, Stack, Text, Divider, FormLabel} from "@chakra-ui/core";
+import {Flex, Stack, Text, Divider} from "@chakra-ui/core";
 
 import {Product} from "../types";
 import ProductVariantsInput, {
@@ -13,7 +13,7 @@ import Textarea from "~/ui/inputs/Textarea";
 import ImageInput from "~/ui/inputs/Image";
 import SwitchInput from "~/ui/inputs/Switch";
 import Price from "~/ui/inputs/Price";
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 
 interface Props {
   defaultValues?: Partial<Product>;
@@ -135,35 +135,27 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
             </FormControl>
             <Stack isInline spacing={8}>
               <FormControl error={errors.featured?.message} name="featured">
-                <Stack isInline alignItems="center">
-                  <Controller
-                    as={SwitchInput}
-                    color="primary"
-                    control={control}
-                    defaultValue={false}
-                    display="block"
-                    id="featured"
-                    name="featured"
-                  />
-                  <FormLabel cursor="pointer" fontWeight="normal" htmlFor="featured" padding={0}>
-                    Destacar
-                  </FormLabel>
-                </Stack>
+                <Controller
+                  as={SwitchInput}
+                  color="primary"
+                  control={control}
+                  defaultValue={false}
+                  display="block"
+                  id="featured"
+                  label="Destacar"
+                  name="featured"
+                />
               </FormControl>
               <FormControl error={errors.available?.message} name="available">
-                <Stack isInline alignItems="center">
-                  <Controller
-                    as={SwitchInput}
-                    color="primary"
-                    control={control}
-                    display="block"
-                    id="available"
-                    name="available"
-                  />
-                  <FormLabel cursor="pointer" fontWeight="normal" htmlFor="available" padding={0}>
-                    Disponible
-                  </FormLabel>
-                </Stack>
+                <Controller
+                  as={SwitchInput}
+                  color="primary"
+                  control={control}
+                  display="block"
+                  id="available"
+                  label="Disponible"
+                  name="available"
+                />
               </FormControl>
             </Stack>
             <Divider />

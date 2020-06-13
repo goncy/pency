@@ -3,7 +3,7 @@ import produce from "immer";
 
 import {TextField} from "../../../types";
 
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 import Input from "~/ui/inputs/Input";
 
 interface Props {

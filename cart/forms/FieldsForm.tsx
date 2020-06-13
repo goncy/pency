@@ -5,7 +5,7 @@ import {produce} from "immer";
 
 import FieldInput from "../inputs/Field";
 
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 import {Field} from "~/tenant/types";
 
 interface Props {

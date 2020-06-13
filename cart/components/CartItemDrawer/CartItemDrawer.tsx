@@ -7,7 +7,7 @@ import Image from "~/ui/feedback/Image";
 import ProductVariantForm from "~/product/forms/ProductVariantForm";
 import ArrowLeftIcon from "~/ui/icons/ArrowLeft";
 import Button from "~/ui/controls/Button";
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 import Stepper from "~/ui/inputs/Stepper";
 
 interface Props extends Omit<IDrawer, "children"> {
@@ -36,7 +36,13 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
               onClick={onClose}
             />
             {product.image && <Image height="100%" maxHeight="30vh" src={product.image} />}
-            <Flex direction="column" flex={1} marginTop={product.image ? 0 : 8} padding={4}>
+            <Flex
+              direction="column"
+              flex={1}
+              marginTop={product.image ? 0 : 8}
+              paddingX={{base: 4, sm: 12}}
+              paddingY={4}
+            >
               <Stack marginBottom={6} spacing={2}>
                 <Text fontSize="2xl" fontWeight="bold">
                   {product.title}

@@ -1,7 +1,7 @@
 import React from "react";
 
 import {RadioField} from "~/tenant/types";
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 import RadioGroup, {RadioRow} from "~/ui/inputs/Radio";
 
 interface Props {

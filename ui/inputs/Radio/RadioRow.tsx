@@ -16,16 +16,17 @@ const RadioRow: React.FC<Props> = ({children, note = null, ...props}) => (
   <StyledRadio
     isFullWidth
     borderBottomWidth={1}
+    height={12}
     paddingBottom={4}
-    paddingTop={2}
     paddingX={0}
+    paddingY={2}
     rounded="md"
     size="lg"
     width="100%"
     {...props}
   >
     <Stack isInline alignItems="center" justifyContent="space-between" width="100%">
-      <Text fontSize={{base: "sm", sm: "md"}} fontWeight={300}>
+      <Text fontSize={{base: "sm", sm: "md"}} fontWeight="normal">
         {children}
       </Text>
       {note && (

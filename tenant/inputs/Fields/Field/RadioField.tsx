@@ -6,7 +6,7 @@ import {RadioField} from "../../../types";
 import {getRadioOption} from "../constants";
 
 import PlusIcon from "~/ui/icons/Plus";
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 import IconButton from "~/ui/controls/IconButton";
 import Input from "~/ui/inputs/Input";
 

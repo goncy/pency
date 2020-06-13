@@ -8,7 +8,7 @@ import {getTextField, getRadioField} from "./constants";
 import FieldInput from "./Field";
 import TypeInput from "./Type";
 
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 import IconButton from "~/ui/controls/IconButton";
 import ClearableTextField from "~/ui/inputs/ClearableTextField";
 import PlusIcon from "~/ui/icons/Plus";
