@@ -9,6 +9,7 @@ import ArrowLeftIcon from "~/ui/icons/ArrowLeft";
 import Button from "~/ui/controls/Button";
 import FormControl from "~/ui/form/FormControl";
 import Stepper from "~/ui/inputs/Stepper";
+import FormLabel from "~/ui/form/FormLabel";
 
 interface Props extends Omit<IDrawer, "children"> {
   onSubmit: (product: Product, options: Variant[], count: number) => void;
@@ -50,9 +51,10 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                 <Text color="gray.500">{product.description}</Text>
               </Stack>
               {form}
-              <FormControl label="Cantidad" marginY={6}>
+              <Flex alignItems="center" justifyContent="space-between" marginY={6}>
+                <FormLabel>Cantidad</FormLabel>
                 <Stepper min={1} value={count} onChange={setCount} />
-              </FormControl>
+              </Flex>
               <Box marginTop="auto">
                 <Button
                   isFullWidth
