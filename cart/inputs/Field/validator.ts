@@ -1,4 +1,3 @@
-import {Option, Variant} from "~/product/types";
 import {Field} from "~/tenant/types";
 
 export default function validator(field: Field) {

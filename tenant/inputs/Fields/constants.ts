@@ -8,6 +8,7 @@ export const getTextField = (overrides: Partial<TextField> = {}): TextField => {
     title: "",
     type: "text",
     note: "",
+    required: false,
     ...overrides,
   };
 };
@@ -17,6 +18,7 @@ export const getRadioField = (overrides: Partial<RadioField> = {}): RadioField =
     id: shortid.generate(),
     title: "",
     type: "radio",
+    required: false,
     options: [getRadioOption(), getRadioOption()],
     ...overrides,
   };
