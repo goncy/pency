@@ -42,15 +42,17 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                 direction="column"
                 flex={1}
                 marginTop={product.image ? 0 : 8}
+                paddingTop={4}
                 paddingX={{base: 4, sm: 12}}
-                paddingY={4}
                 spacing={6}
               >
                 <Stack spacing={0}>
                   <Text fontSize="2xl" fontWeight="bold">
                     {product.title}
                   </Text>
-                  <Text color="gray.500">{product.description}</Text>
+                  <Text color="gray.500" fontSize={{base: "sm", sm: "md"}}>
+                    {product.description}
+                  </Text>
                 </Stack>
                 {form}
                 <Flex alignItems="center" justifyContent="space-between">

@@ -5,6 +5,8 @@ import styled from "@emotion/styled";
 const StyledRadio = styled(ChakraRadio)`
   [type="radio"] {
     background: white;
+    width: 24px;
+    height: 24px;
   }
 `;
 
@@ -26,7 +28,7 @@ const RadioRow: React.FC<Props> = ({children, note = null, ...props}) => (
     {...props}
   >
     <Stack isInline alignItems="center" justifyContent="space-between" width="100%">
-      <Text fontSize={{base: "sm", sm: "md"}} fontWeight="normal">
+      <Text fontSize="md" fontWeight="normal">
         {children}
       </Text>
       {note && (

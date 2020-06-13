@@ -39,26 +39,39 @@ const MultiInput: React.FC<Props> = ({limit, options, onChange, value = [], ...p
           <Stack
             key={option.id}
             isInline
-            shouldWrapChildren
             alignItems="center"
             borderBottomWidth={1}
             height={12}
+            justifyContent="space-between"
             paddingY={2}
-            spacing={2}
+            userSelect="none"
           >
-            <Stepper
-              max={isFull ? count : limit || undefined}
-              min={0}
-              value={count}
-              onDecrease={() => handleDecrease(option)}
-              onIncrease={() => handleIncrease(option)}
-            />
-            <Text
-              color={isFull ? (count ? "black" : "gray.400") : "black"}
-              fontWeight={count ? 500 : "normal"}
+            <Stack
+              isInline
+              shouldWrapChildren
+              cursor="pointer"
+              spacing={2}
+              onClick={() => handleIncrease(option)}
             >
-              {option.title}
-            </Text>
+              <Stepper
+                max={isFull ? count : limit || undefined}
+                min={0}
+                value={count}
+                onDecrease={() => handleDecrease(option)}
+                onIncrease={() => handleIncrease(option)}
+              />
+              <Text
+                color={isFull ? (count ? "black" : "gray.400") : "black"}
+                fontWeight={count ? 500 : "normal"}
+              >
+                {option.title}
+              </Text>
+            </Stack>
+            {Boolean(option.price) && (
+              <Text color="gray.400" fontSize={{base: "13px", sm: "sm"}} fontWeight={500}>
+                + ${option.price}
+              </Text>
+            )}
           </Stack>
         );
       })}

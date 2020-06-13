@@ -46,7 +46,7 @@ const ProductVariantForm: React.FC<Props> = ({children, defaultValues, onSubmit}
     submit: submit(handleSubmit),
     form: (
       <form onSubmit={submit(handleSubmit)}>
-        <Stack overflowY="auto" spacing={6}>
+        <Stack overflowY="auto" paddingLeft={1} spacing={6}>
           {defaultValues.map((variant, index) => {
             const error = ((errors.variants?.[index]?.value as unknown) as FieldError)?.message;
 
