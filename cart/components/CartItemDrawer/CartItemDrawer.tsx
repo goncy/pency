@@ -7,7 +7,6 @@ import Image from "~/ui/feedback/Image";
 import ProductVariantForm from "~/product/forms/ProductVariantForm";
 import ArrowLeftIcon from "~/ui/icons/ArrowLeft";
 import Button from "~/ui/controls/Button";
-import FormControl from "~/ui/form/FormControl";
 import Stepper from "~/ui/inputs/Stepper";
 import FormLabel from "~/ui/form/FormLabel";
 
