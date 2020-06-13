@@ -60,9 +60,10 @@ export default {
     id: ServerTenant["id"],
     slug: ServerTenant["slug"],
     tenant: Partial<ServerTenant>,
-  ) => {
-    cache.update(slug, tenant);
-
-    return database.collection("tenants").doc(id).update(tenant);
-  },
+  ) =>
+    database
+      .collection("tenants")
+      .doc(id)
+      .update(tenant)
+      .then(() => cache.update(slug, tenant)),
 };
