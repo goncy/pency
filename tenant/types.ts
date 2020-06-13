@@ -39,6 +39,7 @@ export interface TextField {
   title: string;
   type: "text";
   note: string;
+  required: boolean;
   value?: string;
 }
 
@@ -47,6 +48,7 @@ export interface RadioField {
   title: string;
   type: "radio";
   options: RadioFieldOption[];
+  required: boolean;
   value?: string;
 }
 

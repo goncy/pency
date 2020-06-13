@@ -6,21 +6,24 @@ import {database} from "~/firebase/admin";
 import {ClientTenant} from "~/tenant/types";
 
 export default {
-  list: async (tenant: ClientTenant["id"]): Promise<Product[]> =>
-    cache.get(tenant) ||
-    database
-      .collection("tenants")
-      .doc(tenant)
-      .collection("products")
-      .get()
-      .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
-      .then((products) => {
-        const parsed = products.map(parseProduct);
+  list: async (tenant: ClientTenant["id"]): Promise<Product[]> => {
+    return (
+      cache.get(tenant) ||
+      database
+        .collection("tenants")
+        .doc(tenant)
+        .collection("products")
+        .get()
+        .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
+        .then((products) => {
+          const parsed = products.map(parseProduct);
 
-        cache.set(tenant, parsed);
+          cache.set(tenant, parsed);
 
-        return parsed;
-      }),
+          return parsed;
+        })
+    );
+  },
   create: (tenant: ClientTenant["id"], product: Product) =>
     database
       .collection("tenants")

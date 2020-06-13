@@ -4,9 +4,9 @@ import {Stack} from "@chakra-ui/core";
 import {useForm, Controller, FieldError} from "react-hook-form";
 
 import {Variant} from "../../types";
-import ProductVariantSelector from "../../inputs/ProductVariantSelector";
-
-import validator from "./validator";
+import ProductVariantSelector, {
+  validator as ProductVariantSelectorValidator,
+} from "../../inputs/ProductVariantSelector";
 
 import FormControl from "~/ui/form/FormControl";
 
@@ -56,7 +56,7 @@ const ProductVariantForm: React.FC<Props> = ({children, defaultValues, onSubmit}
                 error={error}
                 isRequired={variant.required}
                 label={variant.title}
-                name={`variants[${index}]`}
+                name={`variants[${index}].value`}
                 note={variant.count > 1 && `(Máx. ${variant.count})`}
               >
                 <Controller
@@ -67,7 +67,7 @@ const ProductVariantForm: React.FC<Props> = ({children, defaultValues, onSubmit}
                   name={`variants[${index}].value`}
                   options={variant.options}
                   rules={{
-                    validate: validator(variant),
+                    validate: ProductVariantSelectorValidator(variant),
                   }}
                 />
               </FormControl>

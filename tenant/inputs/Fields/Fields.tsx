@@ -12,6 +12,7 @@ import FormControl from "~/ui/form/FormControl";
 import IconButton from "~/ui/controls/IconButton";
 import ClearableTextField from "~/ui/inputs/ClearableTextField";
 import PlusIcon from "~/ui/icons/Plus";
+import SwitchInput from "~/ui/inputs/Switch";
 
 interface Props {
   value?: Partial<Field[]>;
@@ -66,6 +67,14 @@ const FieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
     );
   }
 
+  function handleRequiredChange(index, checked) {
+    onChange(
+      produce(value, (value) => {
+        value[index].required = checked;
+      }),
+    );
+  }
+
   return (
     <Stack spacing={3}>
       {value?.map((option, index) => (
@@ -87,6 +96,14 @@ const FieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
               value={option.title}
               onChange={(event) => handleTitleChange(index, event.target.value)}
               onClear={() => handleRemove(index)}
+            />
+          </FormControl>
+          <FormControl name="required">
+            <SwitchInput
+              label="Obligatorio"
+              name="required"
+              value={option.required}
+              onChange={(checked) => handleRequiredChange(index, checked)}
             />
           </FormControl>
           <FormControl isRequired>

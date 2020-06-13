@@ -26,7 +26,7 @@ export function getItems(items: CartItem[]): string {
           count > 1 ? `*[ ${count} ]*` : "",
           product.title,
           variants ? `_${getVariantsString(variants)}_` : "",
-          `> *$${product.price * count}*`,
+          `> *$${(product.price + getVariantsPrice(variants)) * count}*`,
         ]
           .filter(Boolean)
           .join(" ")}`,

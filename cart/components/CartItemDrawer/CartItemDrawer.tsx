@@ -50,7 +50,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                   <Text fontSize="2xl" fontWeight="bold">
                     {product.title}
                   </Text>
-                  <Text color="gray.500" fontSize={{base: "sm", sm: "md"}}>
+                  <Text color="gray.500" fontSize="md">
                     {product.description}
                   </Text>
                 </Stack>

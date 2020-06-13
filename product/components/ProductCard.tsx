@@ -3,7 +3,6 @@ import {Box, Text, Flex, useDisclosure, FlexProps, Stack} from "@chakra-ui/core"
 
 import Image from "~/ui/feedback/Image";
 import {Product, Variant} from "~/product/types";
-import TruncatedText from "~/ui/feedback/TruncatedText";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 
 interface Props extends FlexProps {
@@ -13,7 +12,7 @@ interface Props extends FlexProps {
 }
 
 const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}) => {
-  const {image, description, title, price} = product;
+  const {image, title, price} = product;
   const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
 
   function handleAdd(product: Product, variants: Variant[], count: number) {
@@ -63,16 +62,6 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}
             >
               {title}
             </Text>
-            {description && (
-              <TruncatedText
-                color="gray.500"
-                fontSize={{base: "xs", sm: "md"}}
-                fontWeight="normal"
-                lines={3}
-              >
-                {description}
-              </TruncatedText>
-            )}
           </Stack>
           <Flex alignItems="center">
             <Text

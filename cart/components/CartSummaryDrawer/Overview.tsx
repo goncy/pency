@@ -10,7 +10,7 @@ import Button from "~/ui/controls/Button";
 import Badge from "~/ui/feedback/Badge";
 import {useTranslation} from "~/hooks/translation";
 import {getCount, getTotal} from "~/cart/selectors";
-import {getVariantsString} from "~/product/selectors";
+import {getVariantsString, getVariantsPrice} from "~/product/selectors";
 
 interface Props {
   items: CartItem[];
@@ -71,7 +71,7 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
                   </Flex>
                 </Flex>
                 <Flex alignItems="center">
-                  <Text>${product.price * count}</Text>
+                  <Text>${(product.price + getVariantsPrice(variants)) * count}</Text>
                 </Flex>
               </Flex>
             ))}
