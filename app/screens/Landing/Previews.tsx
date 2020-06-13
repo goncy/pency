@@ -22,10 +22,10 @@ const Previews = () => (
             fontWeight={500}
             marginBottom={{base: 4, sm: 0}}
           >
-            Versatil, para todo tipo de negocios
+            Versátil, para todo tipo de negocios
           </Text>
           <Text as="h4" color="gray.500">
-            No importa cual sea tu rubro, Pency se adapta a vos y tus productos.
+            No importa cuál sea tu rubro, Pency se adapta a vos y tus productos.
           </Text>
         </Stack>
         <Stack
