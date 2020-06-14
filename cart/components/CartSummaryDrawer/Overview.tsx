@@ -42,7 +42,7 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
           <DrawerTitle>
             {t("cart.yourCart")} ({count})
           </DrawerTitle>
-          <Stack spacing={6}>
+          <Stack shouldWrapChildren spacing={6}>
             {items.map(({id, product, count, variants}) => (
               <Flex key={id} alignItems="flex-start" justifyContent="space-between">
                 <Flex alignItems="center" mr={2}>

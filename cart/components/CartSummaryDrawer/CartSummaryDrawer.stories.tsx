@@ -22,4 +22,26 @@ export const open = () => (
   />
 );
 
+export const manyItems = () => (
+  <CartSummaryDrawer
+    isOpen
+    fields={tenantMock.client.full.fields}
+    items={[
+      ...mock.items,
+      ...mock.items,
+      ...mock.items,
+      ...mock.items,
+      ...mock.items,
+      ...mock.items,
+    ]}
+    onCheckout={() => {
+      action("checkout");
+
+      return Promise.resolve();
+    }}
+    onClose={action("close")}
+    onRemove={action("remove")}
+  />
+);
+
 export default {title: "Cart/Components/CartSummaryDrawer"};
