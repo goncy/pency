@@ -15,8 +15,8 @@ describe("selectors", () => {
       const actual = getMessage(items, orderId);
 
       items.forEach((item) => {
-        expect(actual).toContain(item.title);
-        expect(actual).toContain(item.price * item.count);
+        expect(actual).toContain(item.product.title);
+        expect(actual).toContain(item.product.price * item.count);
       });
     });
 

@@ -55,6 +55,7 @@ export function parseProduct(product: any): Product {
           id: variant.id || shortid.generate(),
           title: variant.title || DEFAULT_PRODUCT_VARIANT.title,
           required: variant.required || DEFAULT_PRODUCT_VARIANT.required,
+          value: variant.value || DEFAULT_PRODUCT_VARIANT.value,
           count: variant.count === undefined ? DEFAULT_PRODUCT_VARIANT.count : variant.count,
           options: variant.options?.length
             ? variant.options.map((option) => ({

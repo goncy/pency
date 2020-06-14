@@ -15,6 +15,7 @@ export const DEFAULT_PRODUCT_VARIANT: Omit<Variant, "id"> = {
   title: "-",
   count: 1,
   options: [],
+  value: [],
   required: false,
 };
 
