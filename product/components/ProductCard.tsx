@@ -56,7 +56,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}
           <Stack marginBottom={2} spacing={{base: 1, sm: 2}}>
             <Text
               display="block"
-              fontSize={{base: "sm", sm: "lg"}}
+              fontSize={{base: "md", sm: "md"}}
               fontWeight={500}
               lineHeight="normal"
             >

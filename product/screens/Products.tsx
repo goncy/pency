@@ -46,6 +46,7 @@ const ProductsScreen: React.FC = () => {
                 <Box
                   backgroundColor="primary.50"
                   color="primary.500"
+                  fontSize={{base: "sm", sm: "md"}}
                   fontWeight="500"
                   marginTop={4}
                   paddingX={4}
