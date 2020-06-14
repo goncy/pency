@@ -9,9 +9,7 @@ interface Props extends BoxProps {
 
 const FormLabel: React.FC<Props> = ({isRequired, name, children, note, ...props}) => (
   <ChakraFormLabel alignItems="center" display="flex" htmlFor={name} {...props}>
-    <Text fontSize={{base: "sm", sm: "md"}} fontWeight={500}>
-      {children}
-    </Text>
+    <Text fontWeight={500}>{children}</Text>
     {note && (
       <Text color="gray.400" marginLeft={2}>
         {note}

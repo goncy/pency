@@ -9,6 +9,7 @@ import ArrowLeftIcon from "~/ui/icons/ArrowLeft";
 import Button from "~/ui/controls/Button";
 import Stepper from "~/ui/inputs/Stepper";
 import FormLabel from "~/ui/form/FormLabel";
+import TruncatedText from "~/ui/feedback/TruncatedText";
 
 interface Props extends Omit<IDrawer, "children"> {
   onSubmit: (product: Product, options: Variant[], count: number) => void;
@@ -46,13 +47,13 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                 paddingX={{base: 4, sm: 12}}
                 spacing={6}
               >
-                <Stack spacing={0}>
-                  <Text fontSize="2xl" fontWeight="bold">
+                <Stack spacing={2}>
+                  <Text fontSize="2xl" fontWeight="bold" lineHeight="normal">
                     {product.title}
                   </Text>
-                  <Text color="gray.500" fontSize="md">
+                  <TruncatedText color="gray.500" fontSize="md" limit={280} whiteSpace="pre-line">
                     {product.description}
-                  </Text>
+                  </TruncatedText>
                 </Stack>
                 {form}
                 <Flex alignItems="center" justifyContent="space-between">

@@ -64,7 +64,7 @@ const MultiInput: React.FC<Props> = ({limit, options, onChange, value = [], ...p
               </Text>
             </Stack>
             {Boolean(option.price) && (
-              <Text color="gray.400" fontSize={{base: "13px", sm: "sm"}} fontWeight={500}>
+              <Text color="gray.400" fontSize={{base: "15px", sm: "sm"}} fontWeight={500}>
                 + ${option.price}
               </Text>
             )}

@@ -80,14 +80,14 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
               />
             </FormControl>
             <FormControl
-              error={errors.description && "La descripción no puede ser mayor a 1024 caracteres"}
-              help="Máximo 1024 caracteres"
+              error={errors.description && "La descripción no puede ser mayor a 1400 caracteres"}
+              help="Máximo 1400 caracteres"
               label="Descripción"
               name="description"
             >
               <Textarea
-                ref={register({maxLength: 1024})}
-                maxLength={1024}
+                ref={register({maxLength: 1400})}
+                maxLength={1400}
                 name="description"
                 placeholder="64GB mem. Silver."
                 variant="filled"

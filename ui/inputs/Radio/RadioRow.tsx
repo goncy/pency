@@ -32,7 +32,7 @@ const RadioRow: React.FC<Props> = ({children, note = null, ...props}) => (
         {children}
       </Text>
       {note && (
-        <Text color="gray.400" fontSize={{base: "13px", sm: "sm"}} fontWeight={500}>
+        <Text color="gray.400" fontSize={{base: "15px", sm: "sm"}} fontWeight={500}>
           {note}
         </Text>
       )}
