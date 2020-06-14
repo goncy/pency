@@ -3,13 +3,13 @@ import {IDrawer, Text, Stack, Flex} from "@chakra-ui/core";
 
 import Drawer, {DrawerBody, DrawerFooter} from "~/ui/controls/Drawer";
 import {Product, Variant} from "~/product/types";
-import Image from "~/ui/feedback/Image";
 import ProductVariantForm from "~/product/forms/ProductVariantForm";
 import ArrowLeftIcon from "~/ui/icons/ArrowLeft";
 import Button from "~/ui/controls/Button";
 import Stepper from "~/ui/inputs/Stepper";
 import FormLabel from "~/ui/form/FormLabel";
 import TruncatedText from "~/ui/feedback/TruncatedText";
+import ToggleableImage from "~/ui/feedback/ToggleableImage";
 
 interface Props extends Omit<IDrawer, "children"> {
   onSubmit: (product: Product, options: Variant[], count: number) => void;
@@ -37,7 +37,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                 top={0}
                 onClick={onClose}
               />
-              {product.image && <Image height="100%" maxHeight="30vh" src={product.image} />}
+              {product.image && <ToggleableImage maxHeight="30vh" src={product.image} />}
               <Stack
                 shouldWrapChildren
                 direction="column"

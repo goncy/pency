@@ -16,7 +16,7 @@ const TruncatedText: React.FC<Props> = ({limit = 280, children, ...props}) => {
   return (
     <Stack spacing={0}>
       <Text {...props}>{isToggled ? children : `${truncated}...`}</Text>
-      <Text onClick={() => toggle(!isToggled)} {...props} fontWeight="bold">
+      <Text cursor="pointer" onClick={() => toggle(!isToggled)} {...props} fontWeight="bold">
         {isToggled ? "Ver menos" : "Ver más"}
       </Text>
     </Stack>
