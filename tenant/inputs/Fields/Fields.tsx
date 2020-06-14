@@ -8,10 +8,11 @@ import {getTextField, getRadioField} from "./constants";
 import FieldInput from "./Field";
 import TypeInput from "./Type";
 
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 import IconButton from "~/ui/controls/IconButton";
 import ClearableTextField from "~/ui/inputs/ClearableTextField";
 import PlusIcon from "~/ui/icons/Plus";
+import SwitchInput from "~/ui/inputs/Switch";
 
 interface Props {
   value?: Partial<Field[]>;
@@ -66,40 +67,59 @@ const FieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
     );
   }
 
+  function handleRequiredChange(index, checked) {
+    onChange(
+      produce(value, (value) => {
+        value[index].required = checked;
+      }),
+    );
+  }
+
   return (
     <Stack spacing={3}>
-      {value?.map((option, index) => (
-        <Stack
-          key={option.id}
-          shouldWrapChildren
-          borderBottomWidth={1}
-          borderColor="gray.200"
-          paddingBottom={3}
-          spacing={3}
-        >
-          <FormControl
-            isRequired
-            error={error === "title" && !value[index].title && "Este campo es requerido"}
+      {value?.map((option, index) => {
+        console.log({option});
+        return (
+          <Stack
+            key={option.id}
+            shouldWrapChildren
+            borderBottomWidth={1}
+            borderColor="gray.200"
+            paddingBottom={3}
+            spacing={3}
           >
-            <ClearableTextField
-              backgroundColor="inherit"
-              placeholder="Forma de pago"
-              value={option.title}
-              onChange={(event) => handleTitleChange(index, event.target.value)}
-              onClear={() => handleRemove(index)}
+            <FormControl
+              isRequired
+              error={error === "title" && !value[index].title && "Este campo es requerido"}
+            >
+              <ClearableTextField
+                backgroundColor="inherit"
+                placeholder="Forma de pago"
+                value={option.title}
+                onChange={(event) => handleTitleChange(index, event.target.value)}
+                onClear={() => handleRemove(index)}
+              />
+            </FormControl>
+            <FormControl name="required">
+              <SwitchInput
+                checked={option.required}
+                label="Obligatorio"
+                name="required"
+                onChange={(checked) => handleRequiredChange(index, checked)}
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <TypeInput value={option.type} onChange={(type) => handleTypeChange(type, index)} />
+            </FormControl>
+            <FieldInput
+              error={error}
+              index={index}
+              value={option}
+              onChange={(value) => handleChange(index, value)}
             />
-          </FormControl>
-          <FormControl isRequired>
-            <TypeInput value={option.type} onChange={(type) => handleTypeChange(type, index)} />
-          </FormControl>
-          <FieldInput
-            error={error}
-            index={index}
-            value={option}
-            onChange={(value) => handleChange(index, value)}
-          />
-        </Stack>
-      ))}
+          </Stack>
+        );
+      })}
       <IconButton
         fontWeight="normal"
         justifyContent="flex-start"

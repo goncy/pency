@@ -20,7 +20,8 @@ const RadioGroup: React.FC<ChakraRadioGroupProps> = ({isInline, ...props}) => (
     display="flex"
     flexDirection={isInline ? "row" : "column"}
     isInline={isInline}
-    spacing={3}
+    size="lg"
+    spacing={isInline ? 3 : 0}
     variantColor="primary"
     {...props}
   />

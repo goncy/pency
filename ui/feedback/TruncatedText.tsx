@@ -1,26 +1,25 @@
 import React from "react";
-import {Text, BoxProps} from "@chakra-ui/core";
+import {Text, BoxProps, Stack} from "@chakra-ui/core";
 
 interface Props extends BoxProps {
-  lines: number;
+  limit: number;
+  children: string;
 }
 
-const TruncatedText: React.FC<Props> = ({lines, children, ...props}) => {
+const TruncatedText: React.FC<Props> = ({limit = 280, children, ...props}) => {
   const [isToggled, toggle] = React.useState(false);
+  const truncated = children.slice(0, limit);
+  const shouldTruncate = children.length > truncated.length;
+
+  if (!shouldTruncate) return <Text {...props}>{children}</Text>;
 
   return (
-    <Text
-      overflow="hidden"
-      style={{
-        display: isToggled ? "inherit" : "-webkit-box",
-        WebkitBoxOrient: "vertical",
-        WebkitLineClamp: lines,
-      }}
-      onClick={() => toggle(!isToggled)}
-      {...props}
-    >
-      {children}
-    </Text>
+    <Stack spacing={0}>
+      <Text {...props}>{isToggled ? children : `${truncated}...`}</Text>
+      <Text cursor="pointer" onClick={() => toggle(!isToggled)} {...props} fontWeight="bold">
+        {isToggled ? "Ver menos" : "Ver más"}
+      </Text>
+    </Stack>
   );
 };
 

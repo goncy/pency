@@ -1,2 +1,2 @@
-export {default} from "./Field";
+export {default} from "./ProductVariantSelector";
 export {default as validator} from "./validator";

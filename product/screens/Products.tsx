@@ -8,7 +8,7 @@ import ProductsCarousel from "../components/ProductsCarousel";
 
 import {useCart} from "~/cart/hooks";
 import {groupBy} from "~/selectors/group";
-import CartDrawer from "~/cart/components/CartDrawer";
+import CartSummaryDrawer from "~/cart/components/CartSummaryDrawer";
 import {filterBy} from "~/selectors/filter";
 import {useTenant} from "~/tenant/hooks";
 import {useTranslation} from "~/hooks/translation";
@@ -46,6 +46,7 @@ const ProductsScreen: React.FC = () => {
                 <Box
                   backgroundColor="primary.50"
                   color="primary.500"
+                  fontSize={{base: "sm", sm: "md"}}
                   fontWeight="500"
                   marginTop={4}
                   paddingX={4}
@@ -81,7 +82,6 @@ const ProductsScreen: React.FC = () => {
                               add={add}
                               minWidth={280}
                               product={product}
-                              remove={remove}
                             />
                           ))}
                         </ProductsCarousel>
@@ -96,12 +96,7 @@ const ProductsScreen: React.FC = () => {
                           >
                             <ProductsGrid data-test-id="category" title={category}>
                               {products.map((product) => (
-                                <ProductCard
-                                  key={product.id}
-                                  add={add}
-                                  product={product}
-                                  remove={remove}
-                                />
+                                <ProductCard key={product.id} add={add} product={product} />
                               ))}
                             </ProductsGrid>
                           </PseudoBox>
@@ -140,7 +135,7 @@ const ProductsScreen: React.FC = () => {
           </Content>
         </Flex>
       </Flex>
-      <CartDrawer
+      <CartSummaryDrawer
         fields={fields}
         isOpen={isCartOpen}
         items={items}

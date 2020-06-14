@@ -25,6 +25,7 @@ const mock = {
             id: faker.random.uuid(),
             title: "Métodos de pago",
             type: "radio",
+            required: false,
             options: [
               {id: faker.random.uuid(), title: "Efectivo", note: "20% Off"},
               {id: faker.random.uuid(), title: "Tarjeta de débito", note: "10% Off"},
@@ -34,6 +35,7 @@ const mock = {
           {
             id: faker.random.uuid(),
             title: "Dirección de entrega",
+            required: true,
             type: "text",
             note: "Solo se entrega en zona sur",
           },

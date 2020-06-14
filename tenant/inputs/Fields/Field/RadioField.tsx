@@ -6,7 +6,7 @@ import {RadioField} from "../../../types";
 import {getRadioOption} from "../constants";
 
 import PlusIcon from "~/ui/icons/Plus";
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 import IconButton from "~/ui/controls/IconButton";
 import Input from "~/ui/inputs/Input";
 
@@ -71,7 +71,7 @@ const RadioFieldInput: React.FC<Props> = ({value, onChange, error}) => {
                 orientation="vertical"
                 style={{marginLeft: "-1px"}}
               />
-              <FormControl flexShrink={2} width="100%">
+              <FormControl width="100%">
                 <Input
                   maxLength={35}
                   placeholder="Nota"

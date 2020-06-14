@@ -3,9 +3,9 @@ import {useForm, Controller, FormContext} from "react-hook-form";
 import {Stack} from "@chakra-ui/core";
 import {produce} from "immer";
 
-import FieldInput from "../inputs/Field";
+import FieldInput, {validator as FieldInputValidator} from "../inputs/Field";
 
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 import {Field} from "~/tenant/types";
 
 interface Props {
@@ -26,7 +26,7 @@ const FieldsForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
   const form = useForm<FormData>({
     defaultValues: {fields: defaultValues.map((field) => field.value)},
   });
-  const {handleSubmit: submit, formState, control} = form;
+  const {handleSubmit: submit, formState, control, errors} = form;
 
   function handleSubmit(values: FormData) {
     return onSubmit(
@@ -46,13 +46,23 @@ const FieldsForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
         <form onSubmit={submit(handleSubmit)}>
           <Stack spacing={8}>
             {defaultValues.map((field, index) => {
+              const error = errors.fields?.[index]?.message;
+
               return (
-                <FormControl key={field.id} name={`fields[${index}]`}>
+                <FormControl
+                  key={field.id}
+                  error={error}
+                  isRequired={field.required}
+                  name={`fields[${index}]`}
+                >
                   <Controller
                     as={FieldInput}
                     control={control}
                     field={field}
                     name={`fields[${index}]`}
+                    rules={{
+                      validate: FieldInputValidator(field),
+                    }}
                   />
                 </FormControl>
               );

@@ -6,6 +6,7 @@ export const getVariant = (): Variant => {
   return {
     id: shortid.generate(),
     title: "",
+    required: false,
     count: 1,
     options: [getOption(), getOption()],
   };
