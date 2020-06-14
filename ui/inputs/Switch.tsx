@@ -12,7 +12,7 @@ interface Props extends Omit<SwitchProps, "onChange"> {
   name?: string;
 }
 
-const SwitchInput: React.FC<Props> = ({checked, onChange, label, name, ...props}) => {
+const SwitchInput: React.FC<Props> = ({checked = false, onChange, label, name, ...props}) => {
   const {current} = React.useRef(shortid.generate());
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {

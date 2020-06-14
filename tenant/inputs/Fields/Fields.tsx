@@ -78,7 +78,6 @@ const FieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
   return (
     <Stack spacing={3}>
       {value?.map((option, index) => {
-        console.log({option});
         return (
           <Stack
             key={option.id}
