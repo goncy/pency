@@ -28,8 +28,19 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
     onSubmit(product, options, count);
   }
 
+  function handleReset() {
+    setCount(1);
+  }
+
   return (
-    <Drawer id="cart-item" placement="right" size="md" onClose={onClose} {...props}>
+    <Drawer
+      id="cart-item"
+      placement="right"
+      size="md"
+      onAnimationEnd={handleReset}
+      onClose={onClose}
+      {...props}
+    >
       <ProductVariantForm defaultValues={product.options} onSubmit={handleSubmit}>
         {({form, submit, isLoading}) => (
           <>
