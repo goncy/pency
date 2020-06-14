@@ -1,8 +1,6 @@
 import React from "react";
 import {Text, BoxProps, Stack} from "@chakra-ui/core";
 
-import Button from "../controls/Button";
-
 interface Props extends BoxProps {
   limit: number;
   children: string;
