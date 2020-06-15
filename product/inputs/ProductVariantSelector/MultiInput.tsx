@@ -41,12 +41,12 @@ const MultiInput: React.FC<Props> = ({limit, options, onChange, value = [], ...p
             isInline
             alignItems="center"
             borderBottomWidth={1}
-            cursor="pointer"
+            cursor={isFull ? "not-allowed" : "pointer"}
             height={12}
             justifyContent="space-between"
             paddingY={2}
             userSelect="none"
-            onClick={() => handleIncrease(option)}
+            onClick={() => !isFull && handleIncrease(option)}
           >
             <Stack isInline shouldWrapChildren spacing={2}>
               <Stepper
