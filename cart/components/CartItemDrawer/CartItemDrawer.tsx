@@ -1,6 +1,5 @@
 import React from "react";
 import {IDrawer, Text, Stack, Flex} from "@chakra-ui/core";
-import styled from "@emotion/styled";
 
 import SummaryButton from "../SummaryButton";
 
@@ -13,11 +12,6 @@ import FormLabel from "~/ui/form/FormLabel";
 import TruncatedText from "~/ui/feedback/TruncatedText";
 import ToggleableImage from "~/ui/feedback/ToggleableImage";
 import {useTranslation} from "~/i18n/hooks";
-
-const BackButton = styled(ArrowLeftIcon)`
-  filter: drop-shadow(0px 0px 4px white);
-`;
-
 interface Props extends Omit<IDrawer, "children"> {
   onSubmit: (product: Product, options: Variant[], count: number) => void;
   product: Product;
@@ -53,10 +47,14 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
           return (
             <>
               <DrawerBody paddingX={0} position="relative">
-                <BackButton
+                <ArrowLeftIcon
+                  background="white"
+                  boxShadow="md"
                   cursor="pointer"
                   left={0}
-                  padding={4}
+                  marginTop={2}
+                  paddingX={4}
+                  paddingY={2}
                   position="absolute"
                   top={0}
                   onClick={onClose}
