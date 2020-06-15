@@ -52,10 +52,11 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                   boxShadow="md"
                   cursor="pointer"
                   left={0}
-                  marginTop={2}
+                  marginTop={4}
                   paddingX={4}
-                  paddingY={2}
+                  paddingY={3}
                   position="absolute"
+                  roundedRight="lg"
                   top={0}
                   onClick={onClose}
                 />
