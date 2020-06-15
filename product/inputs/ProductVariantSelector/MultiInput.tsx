@@ -2,38 +2,40 @@ import React from "react";
 import {Text, Stack} from "@chakra-ui/core";
 import produce from "immer";
 
-import {Option} from "../../types";
+import {Option, Variant} from "../../types";
 
 import Stepper from "~/ui/inputs/Stepper";
 
 interface Props {
-  options: Props["value"];
-  value?: Option[];
+  value?: Variant;
   limit: number;
   onChange: (value: Props["value"]) => void;
 }
 
-const MultiInput: React.FC<Props> = ({limit, options, onChange, value = [], ...props}) => {
-  const isFull = limit ? value?.length >= limit : false;
+const MultiInput: React.FC<Props> = ({limit, onChange, value, ...props}) => {
+  const isFull = limit ? value.value?.length >= limit : false;
 
   function handleDecrease(option: Option) {
-    const index = value.findIndex((selected) => selected.id === option.id);
+    const index = value.value.findIndex((selected) => selected.id === option.id);
 
     onChange(
       produce(value, (value) => {
-        value.splice(index, 1);
+        value.value.splice(index, 1);
       }),
     );
   }
 
   function handleIncrease(option) {
-    onChange(value.concat(option));
+    onChange({
+      ...value,
+      value: value.value.concat(option),
+    });
   }
 
   return (
     <Stack shouldWrapChildren spacing={0} width="100%" {...props}>
-      {options.map((option) => {
-        const count = value?.filter((selected) => selected.id === option.id).length;
+      {value.options.map((option) => {
+        const count = value?.value.filter((selected) => selected.id === option.id).length;
 
         return (
           <Stack

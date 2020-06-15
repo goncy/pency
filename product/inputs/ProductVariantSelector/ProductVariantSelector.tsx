@@ -1,32 +1,23 @@
 import React from "react";
 
-import {Option} from "../../types";
+import {Variant} from "../../types";
 
 import SingleInput from "./SingleInput";
 import MultiInput from "./MultiInput";
 
 interface Props {
-  options: Props["value"];
-  value?: Option[];
+  value?: Variant;
   limit: number;
   onChange: (value: Props["value"]) => void;
 }
 
-const ProductVariantSelector: React.FC<Props> = ({
-  limit,
-  options,
-  onChange,
-  value = [],
-  ...props
-}) => {
+const ProductVariantSelector: React.FC<Props> = ({limit, onChange, value, ...props}) => {
   if (limit === 1) {
-    return <SingleInput options={options} value={value} onChange={onChange} {...props} />;
+    return <SingleInput value={value} onChange={onChange} {...props} />;
   }
 
   if (limit !== 1) {
-    return (
-      <MultiInput limit={limit} options={options} value={value} onChange={onChange} {...props} />
-    );
+    return <MultiInput limit={limit} value={value} onChange={onChange} {...props} />;
   }
 };
 

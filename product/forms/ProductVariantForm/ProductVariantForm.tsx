@@ -1,5 +1,4 @@
 import React from "react";
-import produce from "immer";
 import {Stack} from "@chakra-ui/core";
 import {useForm, Controller, FieldError} from "react-hook-form";
 
@@ -16,39 +15,34 @@ interface Props {
   children: (options: {
     form: JSX.Element;
     isLoading: boolean;
+    watch: () => FormData;
     submit: (e?: React.BaseSyntheticEvent<object, any, any> | undefined) => Promise<void>;
   }) => JSX.Element;
 }
 
-interface FormData {
-  variants: Variant[];
-}
+type FormData = Record<string, Variant>;
 
 const ProductVariantForm: React.FC<Props> = ({children, defaultValues, onSubmit}) => {
-  const {handleSubmit: submit, formState, control, errors} = useForm<FormData>({
-    defaultValues: {
-      variants: defaultValues,
-    },
+  const {handleSubmit: submit, formState, control, errors, watch} = useForm<FormData>({
+    defaultValues: defaultValues.reduce(
+      (acc, value, index) => ({...acc, [`options[${index}]`]: value}),
+      {},
+    ),
   });
 
-  function handleSubmit({variants}: FormData) {
-    const result = produce(defaultValues, (defaultValues) => {
-      variants?.forEach((option, index) => {
-        defaultValues[index].value = option.value;
-      });
-    });
-
-    onSubmit(result);
+  function handleSubmit(formData: FormData) {
+    onSubmit((formData.options as unknown) as Variant[]);
   }
 
   return children({
     isLoading: formState.isSubmitting,
     submit: submit(handleSubmit),
+    watch,
     form: (
       <form onSubmit={submit(handleSubmit)}>
         <Stack overflowY="auto" paddingLeft={1} spacing={6}>
           {defaultValues.map((variant, index) => {
-            const error = ((errors.variants?.[index]?.value as unknown) as FieldError)?.message;
+            const error = ((errors.options?.[index] as unknown) as FieldError)?.message;
 
             return (
               <FormControl
@@ -56,18 +50,16 @@ const ProductVariantForm: React.FC<Props> = ({children, defaultValues, onSubmit}
                 error={error}
                 isRequired={variant.required}
                 label={variant.title}
-                name={`variants[${index}].value`}
+                name={`options[${index}]`}
                 note={variant.count > 1 && `(Máx. ${variant.count})`}
               >
                 <Controller
                   as={ProductVariantSelector}
                   control={control}
-                  defaultValue={[]}
                   limit={variant.count}
-                  name={`variants[${index}].value`}
-                  options={variant.options}
+                  name={`options[${index}]`}
                   rules={{
-                    validate: ProductVariantSelectorValidator(variant),
+                    validate: ProductVariantSelectorValidator,
                   }}
                 />
               </FormControl>
