@@ -1,5 +1,5 @@
 import React from "react";
-import {useForm, Controller, FormContext} from "react-hook-form";
+import {useForm, Controller} from "react-hook-form";
 import {Stack} from "@chakra-ui/core";
 import {produce} from "immer";
 
@@ -23,10 +23,9 @@ interface FormData {
 }
 
 const FieldsForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
-  const form = useForm<FormData>({
+  const {handleSubmit: submit, formState, control, errors} = useForm<FormData>({
     defaultValues: {fields: defaultValues.map((field) => field.value)},
   });
-  const {handleSubmit: submit, formState, control, errors} = form;
 
   function handleSubmit(values: FormData) {
     return onSubmit(
@@ -42,34 +41,32 @@ const FieldsForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
     isLoading: formState.isSubmitting,
     submit: submit(handleSubmit),
     form: (
-      <FormContext {...form}>
-        <form onSubmit={submit(handleSubmit)}>
-          <Stack spacing={8}>
-            {defaultValues.map((field, index) => {
-              const error = errors.fields?.[index]?.message;
+      <form onSubmit={submit(handleSubmit)}>
+        <Stack spacing={8}>
+          {defaultValues.map((field, index) => {
+            const error = errors.fields?.[index]?.message;
 
-              return (
-                <FormControl
-                  key={field.id}
-                  error={error}
-                  isRequired={field.required}
+            return (
+              <FormControl
+                key={field.id}
+                error={error}
+                isRequired={field.required}
+                name={`fields[${index}]`}
+              >
+                <Controller
+                  as={FieldInput}
+                  control={control}
+                  field={field}
                   name={`fields[${index}]`}
-                >
-                  <Controller
-                    as={FieldInput}
-                    control={control}
-                    field={field}
-                    name={`fields[${index}]`}
-                    rules={{
-                      validate: FieldInputValidator(field),
-                    }}
-                  />
-                </FormControl>
-              );
-            })}
-          </Stack>
-        </form>
-      </FormContext>
+                  rules={{
+                    validate: FieldInputValidator(field),
+                  }}
+                />
+              </FormControl>
+            );
+          })}
+        </Stack>
+      </form>
     ),
   });
 };

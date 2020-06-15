@@ -13,6 +13,7 @@ const ToggleableImage: React.FC<Props> = ({maxHeight = "30vh", ...props}) => {
   return (
     <Image
       {...props}
+      backgroundSize={isToggled ? "contain" : "cover"}
       cursor="pointer"
       height="100%"
       maxHeight={isToggled ? "100%" : maxHeight}
