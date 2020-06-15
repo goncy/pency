@@ -1,13 +1,14 @@
+import i18n from "~/i18n/instance";
 import {Variant} from "~/product/types";
 
 export default function validator(variant: Variant) {
   if (variant.required) {
     if (variant.count && variant.value.length !== variant.count) {
-      return `Debes seleccionar ${variant.count} opciones`;
+      return i18n.t("products.variants.countError", {count: variant.count});
     }
 
     if (!variant.count && !variant.value.length) {
-      return "Debes seleccionar al menos una opcion";
+      return i18n.t("products.variants.emptyError");
     }
   }
 

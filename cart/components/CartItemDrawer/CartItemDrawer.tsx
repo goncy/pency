@@ -12,6 +12,7 @@ import Stepper from "~/ui/inputs/Stepper";
 import FormLabel from "~/ui/form/FormLabel";
 import TruncatedText from "~/ui/feedback/TruncatedText";
 import ToggleableImage from "~/ui/feedback/ToggleableImage";
+import {useTranslation} from "~/i18n/hooks";
 
 const BackButton = styled(ArrowLeftIcon)`
   filter: drop-shadow(0px 0px 4px white);
@@ -24,6 +25,7 @@ interface Props extends Omit<IDrawer, "children"> {
 
 const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props}) => {
   const [count, setCount] = React.useState(1);
+  const t = useTranslation();
 
   function handleSubmit(options: Variant[]) {
     onSubmit(product, options, count);
@@ -79,7 +81,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                   </Stack>
                   {form}
                   <Flex alignItems="center" justifyContent="space-between">
-                    <FormLabel>Cantidad</FormLabel>
+                    <FormLabel>{t("common.count")}</FormLabel>
                     <Stepper min={1} value={count} onChange={setCount} />
                   </Flex>
                 </Stack>
@@ -101,7 +103,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                     submit();
                   }}
                 >
-                  Agregar
+                  {t("common.add")}
                 </SummaryButton>
               </DrawerFooter>
             </>

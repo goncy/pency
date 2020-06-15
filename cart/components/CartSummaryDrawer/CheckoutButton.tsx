@@ -3,7 +3,7 @@ import {ButtonProps} from "@chakra-ui/core";
 
 import Button from "~/ui/controls/Button";
 import WhatsAppIcon from "~/ui/icons/WhatsApp";
-import {useTranslation} from "~/hooks/translation";
+import {useTranslation} from "~/i18n/hooks";
 
 interface Props extends Omit<ButtonProps, "children"> {}
 

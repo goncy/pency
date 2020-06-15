@@ -17,7 +17,7 @@ import Input from "~/ui/inputs/Input";
 import {useToast} from "~/hooks/toast";
 import TenantAvatar from "~/tenant/components/TenantAvatar";
 import {ClientTenant} from "~/tenant/types";
-import {useTranslation} from "~/hooks/translation";
+import {useTranslation} from "~/i18n/hooks";
 
 interface FormData {
   email: string;

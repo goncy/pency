@@ -11,7 +11,7 @@ import {groupBy} from "~/selectors/group";
 import CartSummaryDrawer from "~/cart/components/CartSummaryDrawer";
 import {filterBy} from "~/selectors/filter";
 import {useTenant} from "~/tenant/hooks";
-import {useTranslation} from "~/hooks/translation";
+import {useTranslation} from "~/i18n/hooks";
 import TenantHeader from "~/tenant/components/TenantHeader";
 import NoResults from "~/ui/feedback/NoResults";
 import Content from "~/ui/structure/Content";

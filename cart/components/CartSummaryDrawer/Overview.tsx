@@ -8,7 +8,7 @@ import CheckoutButton from "./CheckoutButton";
 import {DrawerTitle, DrawerBody, DrawerFooter} from "~/ui/controls/Drawer";
 import Button from "~/ui/controls/Button";
 import Badge from "~/ui/feedback/Badge";
-import {useTranslation} from "~/hooks/translation";
+import {useTranslation} from "~/i18n/hooks";
 import {getCount, getTotal} from "~/cart/selectors";
 import {getVariantsString, getVariantsPrice} from "~/product/selectors";
 
@@ -40,7 +40,7 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
       <DrawerBody>
         <Stack spacing={6}>
           <DrawerTitle>
-            {t("cart.yourCart")} ({count})
+            {t("cart.yourOrder")} ({count})
           </DrawerTitle>
           <Stack shouldWrapChildren spacing={6}>
             {items.map(({id, product, count, variants}) => (

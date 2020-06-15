@@ -12,6 +12,7 @@
     "help": "Ayuda",
     "home": "Inicio",
     "exit": "Salir",
+    "count": "Cantidad",
     "products": "Productos",
     "shop": "Tienda",
     "options": "Opciones",
@@ -31,13 +32,17 @@
     "empty": "No se encontraron productos"
   },
   "cart": {
-    "yourCart": "Tu carrito",
+    "yourOrder": "Tu orden",
     "completeOrder": "Completá tu pedido",
     "completeOnWhatsApp": "Completar pedido en WhatsApp"
   },
   "products": {
     "empty": "No se encontraron productos",
-    "review": "Tu pedido"
+    "review": "Tu pedido",
+    "variants": {
+      "countError": "Debes seleccionar {{count}} opciones",
+      "emptyError": "Debes seleccionar al menos una opción"
+    }
   },
   "auth": {
     "resetPasswordForm": {

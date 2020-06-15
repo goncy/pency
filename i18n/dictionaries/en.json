@@ -12,6 +12,7 @@
     "help": "Help",
     "home": "Home",
     "exit": "Exit",
+    "count": "Count",
     "products": "Products",
     "shop": "Shop",
     "options": "Options",
@@ -31,13 +32,17 @@
     "empty": "No products found"
   },
   "cart": {
-    "yourCart": "Your cart",
+    "yourOrder": "Your order",
     "completeOrder": "Complete your order",
     "completeOnWhatsApp": "Complete order on WhatsApp"
   },
   "products": {
     "empty": "No products found",
-    "review": "Your order"
+    "review": "Your order",
+    "variants": {
+      "countError": "You must select {{count}} options",
+      "emptyError": "You must select at least one option"
+    }
   },
   "auth": {
     "resetPasswordForm": {
