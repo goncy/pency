@@ -1,9 +1,9 @@
 import {NextApiRequest, NextApiResponse} from "next";
 
 import {ClientTenant, ServerTenant} from "~/tenant/types";
-import {auth} from "~/firebase/admin";
 import {serverToClient, clientToServer} from "~/tenant/selectors";
 import api from "~/tenant/api/server";
+import sessionApi from "~/session/api/server";
 import {DEFAULT_SERVER_TENANT} from "~/tenant/constants";
 
 interface PatchRequest extends NextApiRequest {
@@ -66,8 +66,8 @@ export default async (slug: ClientTenant["slug"], req: NextApiRequest, res: Next
         .catch(() => res.status(400).end("Hubo un error actualizando la tienda"));
     }
 
-    return auth
-      .verifyIdToken(token)
+    return sessionApi
+      .verify(token)
       .then(({uid}) => {
         if (uid !== id) return res.status(403).end();
 

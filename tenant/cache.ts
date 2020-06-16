@@ -5,7 +5,9 @@ const cache = new Map<ServerTenant["slug"], ServerTenant>();
 function update(slug: ServerTenant["slug"], value: Partial<ServerTenant>) {
   const cached: ServerTenant = cache.get(slug);
 
-  cache.set(slug, {...cached, ...value});
+  if (cached) {
+    cache.set(slug, {...cached, ...value});
+  }
 }
 
 function set(slug: ServerTenant["slug"], value: ServerTenant) {
