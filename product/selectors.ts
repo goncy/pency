@@ -23,6 +23,8 @@ export function getVariantsPrice(variants: Variant[]): number {
   if (!variants?.length) return 0;
 
   return variants?.reduce((total, option) => {
+    if (!option.value?.length) return total;
+
     return total + option.value.reduce((total, option) => total + Number(option.price || 0), 0);
   }, 0);
 }
