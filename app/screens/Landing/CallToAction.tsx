@@ -31,7 +31,7 @@ const CallToAction = () => (
         variantColor="teal"
         width="100%"
       >
-        Ver demo
+        Ver tienda de prueba
       </Button>
     </Link>
   </Stack>

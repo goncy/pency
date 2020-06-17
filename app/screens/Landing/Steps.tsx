@@ -22,17 +22,11 @@ const Steps = () => (
       Abrí las puertas de tu negocio online en minutos
     </Text>
     <Grid gridGap={{base: 8, sm: 12}} templateColumns="repeat(auto-fit, minmax(276px,1fr))">
-      <Feature icon={UserIcon} title="Creá tu cuenta">
-        Es gratis y rápido. Solo necesitás una dirección de correo electrónico.
+      <Feature icon={UserIcon} title="Entrá a la tienda y armá tu pedido">
       </Feature>
-      <Feature icon={CustomizableIcon} title="Personalizá tu tienda">
-        Configurala con las imágenes y colores que definan tu marca.
+      <Feature icon={CustomizableIcon} title="Revisá y completá tu pedido">
       </Feature>
-      <Feature icon={SquareIcon} title="Agregá tus productos">
-        Nuestro menú es intuitivo. Encontrá las opciones que se ajustan a tus productos.
-      </Feature>
-      <Feature icon={ShareIcon} title="Compartí tu tienda Pency ">
-        Enviala a través de WhatsApp, mail, y añadila como sitio web en tus redes sociales.
+      <Feature icon={ShareIcon} title="Generamos tu pedido y te llevamos al WhatsApp de la tienda">
       </Feature>
     </Grid>
   </Content>

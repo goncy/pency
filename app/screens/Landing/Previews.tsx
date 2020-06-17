@@ -45,25 +45,26 @@ const Previews = () => (
 
         >
           <Preview
-            image="/assets/landing/store-2.jpg"
+            image="/assets/landing/tienda-fosforococina.jpg"
             store="fosforo.cocina"
             title="Fosforo Cocina"
           />
           <Preview
-            image="/assets/landing/store-3.jpg"
-            store="hardymarket"
-            title="Hardy Market"
-          />
-          <Preview
-            image="/assets/landing/store-1.jpg"
+            image="/assets/landing/tienda-faithco.jpg"
             store="faithdecoarg"
             title="Faith"
           />
           <Preview
-            image="/assets/landing/store-0.jpg"
-            store="tiendabastamaria"
-            title="Basta María"
+            image="/assets/landing/tienda-almacen.jpg"
+            store="faithdecoarg"
+            title="Almacen Saludable"
           />
+          <Preview
+            image="/assets/landing/tienda-brule.jpg"
+            store="tiendabastamaria"
+            title="Brule Bakery"
+          />
+          
         </Stack>
       </Stack>
     </Content>

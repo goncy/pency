@@ -5,7 +5,6 @@ import Content from "./Content";
 
 const Shout = () => (
   <Content
-    borderTopWidth={1}
     paddingY={{base: 12, sm: 20}}
     textAlign={{base: "left", sm: "center"}}
     width="100%"
