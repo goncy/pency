@@ -22,9 +22,7 @@ const CheckoutButton: React.FC<Props> = ({onClick, ...props}) => {
       {...props}
     >
       <Stack isInline alignItems="center" spacing={2}>
-        <Box height={6} width={6}>
-          <WhatsAppIcon />
-        </Box>
+        <WhatsAppIcon height={6} width={6} />
         <Text>{t("cart.completeOnWhatsApp")}</Text>
       </Stack>
     </Button>
