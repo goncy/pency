@@ -44,15 +44,16 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
   function onSubmit({email, password}: FormData) {
     setLoading(true);
 
-    api.signIn(email, password).catch(() => {
-      toast({
-        title: t("common.error"),
-        description: t("auth.login.signInError"),
-        status: "error",
-      });
-
-      setLoading(false);
-    });
+    api
+      .signIn(email, password)
+      .catch(() =>
+        toast({
+          title: t("common.error"),
+          description: t("auth.login.signInError"),
+          status: "error",
+        }),
+      )
+      .then(() => setLoading(false));
   }
 
   return (
