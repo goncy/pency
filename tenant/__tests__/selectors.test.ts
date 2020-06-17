@@ -1,98 +1,54 @@
-import produce from "immer";
+import * as R from "ramda";
 
-import {parseTenant, formatTenant} from "../selectors";
-import {DEFAULT_TENANT} from "../constants";
+import {clientToServer, serverToClient} from "../selectors";
 import mock from "../mock";
 
 describe("selectors", () => {
-  describe("formatTenant", () => {
-    it("should default to default tenant properties", () => {
-      const base = mock.full;
-      const actual = produce(base, (actual) => {
-        delete actual.banner;
-        delete actual.phone;
-        delete actual.color;
-        delete actual.title;
-        delete actual.description;
-        delete actual.category;
-      });
-      const expected = {
-        ...base,
-        banner: DEFAULT_TENANT.banner,
-        phone: DEFAULT_TENANT.phone,
-        color: DEFAULT_TENANT.color,
-        title: DEFAULT_TENANT.title,
-        description: DEFAULT_TENANT.description,
-        category: DEFAULT_TENANT.category,
-      };
+  describe("clientToServer", () => {
+    it("should remove mercadopago property", () => {
+      const base = mock.client.full;
+      const actual = clientToServer(base);
 
-      expect(formatTenant(actual)).toMatchObject(expected);
+      expect(actual).not.toHaveProperty("mercadopago");
+    });
+
+    it("should remove id property", () => {
+      const base = mock.client.full;
+      const actual = clientToServer(base);
+
+      expect(actual).not.toHaveProperty("id");
+    });
+
+    it("should remove slug property", () => {
+      const base = mock.client.full;
+      const actual = clientToServer(base);
+
+      expect(actual).not.toHaveProperty("slug");
     });
   });
 
-  describe("parseTenant", () => {
-    describe("id", () => {
-      it("should throw when no id is present", () => {
-        const actual = {...mock.full, id: null};
+  describe("serverToClient", () => {
+    it("should map to truthy mercadopago correctly", () => {
+      const base = mock.server.full;
+      const actual = serverToClient(base);
+      const expected = R.assoc("mercadopago", true, base);
 
-        expect(() => parseTenant(actual)).toThrowError("Esta tienda es inválida");
-      });
+      expect(actual).toMatchObject(expected);
     });
 
-    describe("slug", () => {
-      it("should throw when no slug is present", () => {
-        const actual = {...mock.full, slug: null};
+    it("should map to falsy mercadopago correctly", () => {
+      const base = R.assoc(
+        "mercadopago",
+        {
+          token: "",
+          refresh: "",
+        },
+        mock.server.full,
+      );
+      const actual = serverToClient(base);
+      const expected = R.assoc("mercadopago", false, base);
 
-        expect(() => parseTenant(actual)).toThrowError("Esta tienda es inválida");
-      });
-    });
-
-    describe("color", () => {
-      it("should default a color", () => {
-        const base = mock.full;
-        const actual = produce(base, (actual) => {
-          delete actual.color;
-        });
-        const expected = {...base, color: DEFAULT_TENANT.color};
-
-        expect(parseTenant(actual)).toMatchObject(expected);
-      });
-    });
-
-    describe("phone", () => {
-      it("should default a phone", () => {
-        const base = mock.full;
-        const actual = produce(base, (actual) => {
-          delete actual.phone;
-        });
-        const expected = {...base, phone: DEFAULT_TENANT.phone};
-
-        expect(parseTenant(actual)).toMatchObject(expected);
-      });
-    });
-
-    describe("keywords", () => {
-      it("should default keywords", () => {
-        const base = mock.full;
-        const actual = produce(base, (actual) => {
-          delete actual.keywords;
-        });
-        const expected = {...base, keywords: DEFAULT_TENANT.keywords};
-
-        expect(parseTenant(actual)).toMatchObject(expected);
-      });
-    });
-
-    describe("fields", () => {
-      it("should default fields", () => {
-        const base = mock.full;
-        const actual = produce(base, (actual) => {
-          delete actual.fields;
-        });
-        const expected = {...base, fields: DEFAULT_TENANT.fields};
-
-        expect(parseTenant(actual)).toMatchObject(expected);
-      });
+      expect(actual).toMatchObject(expected);
     });
   });
 });

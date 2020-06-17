@@ -1,40 +1,23 @@
 import React from "react";
-import {Stack, Text, Radio} from "@chakra-ui/core";
-import {Message} from "react-hook-form";
 
 import {RadioField} from "~/tenant/types";
-import FormControl from "~/ui/controls/FormControl";
-import RadioGroup from "~/ui/inputs/RadioGroup";
+import FormControl from "~/ui/form/FormControl";
+import RadioGroup, {RadioRow} from "~/ui/inputs/Radio";
 
 interface Props {
   value: string;
   field: RadioField;
   onChange: (value: string) => void;
-  error?: Message;
 }
 
-const RadioFieldInput: React.FC<Props> = ({value, field, onChange, error}) => {
+const RadioFieldInput: React.FC<Props> = ({value, field, onChange}) => {
   return (
-    <FormControl error={error} label={field.title} width="100%">
+    <FormControl isRequired={field.required} label={field.title} width="100%">
       <RadioGroup value={value} onChange={(event) => onChange(event.target.value)}>
         {field.options.map((option) => (
-          <Radio
-            isFullWidth
-            borderBottomWidth={1}
-            paddingBottom={4}
-            paddingTop={2}
-            size="lg"
-            value={option.title}
-          >
-            <Stack isInline alignItems="center" justifyContent="space-between" width="100%">
-              <Text fontSize="sm" fontWeight={300}>
-                {option.title}
-              </Text>
-              <Text color="gray.400" fontSize="sm" fontWeight={500}>
-                {option.note}
-              </Text>
-            </Stack>
-          </Radio>
+          <RadioRow key={option.id} note={option.note} value={option.title}>
+            {option.title}
+          </RadioRow>
         ))}
       </RadioGroup>
     </FormControl>

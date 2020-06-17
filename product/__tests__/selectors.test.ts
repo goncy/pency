@@ -63,7 +63,7 @@ describe("selectors", () => {
     describe("options", () => {
       it("should remove type for options", () => {
         const expected = mock.full;
-        const actual = produce(expected, (actual) => {
+        const actual = produce(expected, (actual: any) => {
           actual.options[0].type = "single";
         });
 

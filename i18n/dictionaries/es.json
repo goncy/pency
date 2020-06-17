@@ -10,10 +10,15 @@
     "add": "Agregar",
     "goBack": "Volver",
     "help": "Ayuda",
+    "home": "Inicio",
     "exit": "Salir",
+    "count": "Cantidad",
     "products": "Productos",
     "shop": "Tienda",
-    "options": "Opciones"
+    "options": "Opciones",
+    "next": "Siguiente",
+    "item": "Item",
+    "item_plural": "Items"
   },
   "form": {
     "required": "Este campo es requerido",
@@ -27,12 +32,17 @@
     "empty": "No se encontraron productos"
   },
   "cart": {
-    "yourCart": "Tu carrito",
-    "complete": "Completar pedido en WhatsApp"
+    "yourOrder": "Tu orden",
+    "completeOrder": "Completá tu pedido",
+    "completeOnWhatsApp": "Completar pedido en WhatsApp"
   },
   "products": {
     "empty": "No se encontraron productos",
-    "check": "Revisar pedido"
+    "review": "Tu pedido",
+    "variants": {
+      "countError": "Debes seleccionar {{count}} opciones",
+      "emptyError": "Debes seleccionar al menos una opción"
+    }
   },
   "auth": {
     "resetPasswordForm": {

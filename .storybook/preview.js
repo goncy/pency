@@ -13,7 +13,7 @@ import productMock from "~/product/mock"
 import tenantMock from "~/tenant/mock"
 
 const PRODUCTS = new Array(20).fill(true).map(() => productMock.withoutVariants);
-const TENANT = tenantMock.full;
+const TENANT = tenantMock.client.full;
 
 addDecorator(storyFn => (
     <ThemeProvider>

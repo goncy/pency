@@ -1,17 +1,10 @@
 import React from "react";
-import {
-  DrawerCloseButton,
-  DrawerBody,
-  DrawerContent,
-  DrawerOverlay,
-  Text,
-  Drawer,
-  Button,
-  Stack,
-} from "@chakra-ui/core";
+import {Button, Stack} from "@chakra-ui/core";
 
 import {Product} from "../types";
 import ProductForm from "../forms/ProductForm";
+
+import Drawer, {DrawerHeader, DrawerBody, DrawerTitle} from "~/ui/controls/Drawer";
 
 interface Props {
   isOpen: boolean;
@@ -25,46 +18,34 @@ const ProductDrawer: React.FC<Props> = ({categories, isOpen, defaultValues, onCl
   const isNew = Boolean(!defaultValues?.id);
 
   return (
-    <Drawer
-      closeOnOverlayClick={false}
-      id="product"
-      isOpen={isOpen}
-      placement="right"
-      size="md"
-      onClose={onClose}
-    >
-      <DrawerOverlay />
-      <DrawerContent>
-        <DrawerCloseButton right="12px" top="12px" />
-        <ProductForm categories={categories} defaultValues={defaultValues} onSubmit={onSubmit}>
-          {({form, submit, isLoading}) => (
-            <DrawerBody overflowY="auto" padding={0}>
-              <Stack shouldWrapChildren marginX={{base: 4, sm: 12}} marginY={8} spacing={4}>
-                <Text fontSize="2xl" fontWeight={500}>
-                  {isNew ? "Agregar" : "Editar"} producto
-                </Text>
-                {form}
-                <Button
-                  backgroundColor="primary.500"
-                  color="white"
-                  data-test-id={isNew ? `submit-new-product` : `submit-edit-product`}
-                  isLoading={isLoading}
-                  type="submit"
-                  variantColor="primary"
-                  width="100%"
-                  onClick={(event) => {
-                    event.stopPropagation();
+    <Drawer closeOnOverlayClick={false} id="product" isOpen={isOpen} onClose={onClose}>
+      <DrawerHeader onClose={onClose} />
+      <ProductForm categories={categories} defaultValues={defaultValues} onSubmit={onSubmit}>
+        {({form, submit, isLoading}) => (
+          <DrawerBody marginBottom={4}>
+            <Stack shouldWrapChildren spacing={4}>
+              <DrawerTitle>{isNew ? "Agregar" : "Editar"} producto</DrawerTitle>
+              {form}
+              <Button
+                backgroundColor="primary.500"
+                color="white"
+                data-test-id={isNew ? `submit-new-product` : `submit-edit-product`}
+                isLoading={isLoading}
+                type="submit"
+                variantColor="primary"
+                width="100%"
+                onClick={(event) => {
+                  event.stopPropagation();
 
-                    submit();
-                  }}
-                >
-                  {isNew ? "Agregar producto" : "Editar producto"}
-                </Button>
-              </Stack>
-            </DrawerBody>
-          )}
-        </ProductForm>
-      </DrawerContent>
+                  submit();
+                }}
+              >
+                {isNew ? "Agregar producto" : "Editar producto"}
+              </Button>
+            </Stack>
+          </DrawerBody>
+        )}
+      </ProductForm>
     </Drawer>
   );
 };

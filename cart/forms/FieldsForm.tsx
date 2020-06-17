@@ -1,17 +1,16 @@
 import React from "react";
-import {useForm, Controller, FormContext} from "react-hook-form";
+import {useForm, Controller} from "react-hook-form";
 import {Stack} from "@chakra-ui/core";
+import {produce} from "immer";
 
 import FieldInput, {validator as FieldInputValidator} from "../inputs/Field";
 
-import FormControl from "~/ui/controls/FormControl";
-import {Field as TenantField} from "~/tenant/types";
-import {CheckoutFields} from "~/cart/types";
+import FormControl from "~/ui/form/FormControl";
+import {Field} from "~/tenant/types";
 
 interface Props {
-  defaultValues?: CheckoutFields;
-  fields: TenantField[];
-  onSubmit: (values: CheckoutFields) => void;
+  defaultValues?: Field[];
+  onSubmit: (values: Field[]) => void;
   children: (options: {
     form: JSX.Element;
     isLoading: boolean;
@@ -19,40 +18,55 @@ interface Props {
   }) => JSX.Element;
 }
 
-const FieldsForm: React.FC<Props> = ({defaultValues, children, onSubmit, fields}) => {
-  const form = useForm<Partial<any>>({defaultValues});
-  const {handleSubmit: submit, errors, formState, control} = form;
+interface FormData {
+  fields: string[];
+}
 
-  function handleSubmit(fields: CheckoutFields) {
-    return onSubmit(fields);
+const FieldsForm: React.FC<Props> = ({defaultValues, children, onSubmit}) => {
+  const {handleSubmit: submit, formState, control, errors} = useForm<FormData>({
+    defaultValues: {fields: defaultValues.map((field) => field.value)},
+  });
+
+  function handleSubmit(values: FormData) {
+    return onSubmit(
+      produce(defaultValues, (fields) => {
+        fields.forEach((field, index) => {
+          field.value = values.fields[index];
+        });
+      }),
+    );
   }
 
   return children({
     isLoading: formState.isSubmitting,
     submit: submit(handleSubmit),
     form: (
-      <FormContext {...form}>
-        <form onSubmit={submit(handleSubmit)}>
-          <Stack spacing={8}>
-            {fields.map((field) => {
-              return (
-                <FormControl key={field.id} name={field.title}>
-                  <Controller
-                    as={FieldInput}
-                    control={control}
-                    error={errors[field.title]}
-                    field={field}
-                    name={field.title}
-                    rules={{
-                      validate: FieldInputValidator,
-                    }}
-                  />
-                </FormControl>
-              );
-            })}
-          </Stack>
-        </form>
-      </FormContext>
+      <form onSubmit={submit(handleSubmit)}>
+        <Stack spacing={8}>
+          {defaultValues.map((field, index) => {
+            const error = errors.fields?.[index]?.message;
+
+            return (
+              <FormControl
+                key={field.id}
+                error={error}
+                isRequired={field.required}
+                name={`fields[${index}]`}
+              >
+                <Controller
+                  as={FieldInput}
+                  control={control}
+                  field={field}
+                  name={`fields[${index}]`}
+                  rules={{
+                    validate: FieldInputValidator(field),
+                  }}
+                />
+              </FormControl>
+            );
+          })}
+        </Stack>
+      </form>
     ),
   });
 };

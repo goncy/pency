@@ -3,7 +3,7 @@ import React from "react";
 import {useToast} from "../hooks/toast";
 
 import {User, Context, State, Actions} from "./types";
-import api from "./api";
+import api from "./api/client";
 import AuthScreen from "./screens/Auth";
 
 import {useTenant} from "~/tenant/hooks";
@@ -80,6 +80,8 @@ const SessionProvider: React.FC = ({children}) => {
   React.useEffect(() => {
     if (user) {
       user.getIdToken().then((token) => localStorage.setItem("token", token));
+    } else {
+      localStorage.removeItem("token");
     }
   }, [user]);
 

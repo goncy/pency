@@ -1,0 +1,6 @@
+{
+  "env": {
+    "ENCRYPTION_IV": "@encryption-iv",
+    "ENCRYPTION_KEY": "@encryption-secret"
+  }
+}

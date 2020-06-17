@@ -1,26 +1,23 @@
 import React from "react";
-import {Message} from "react-hook-form";
 
 import {TextField} from "~/tenant/types";
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 import Input from "~/ui/inputs/Input";
 
 interface Props {
   value: string;
   field: TextField;
   onChange: (value: string) => void;
-  error?: Message;
 }
 
-const TextFieldInput: React.FC<Props> = ({value, field, onChange, error}) => {
+const TextFieldInput: React.FC<Props> = ({value, field, onChange}) => {
   return (
-    <FormControl error={error} help={field.note} label={field.title} width="100%">
+    <FormControl help={field.note} isRequired={field.required} label={field.title} width="100%">
       <Input
-        fontSize="sm"
         maxLength={70}
         paddingX={0}
         roundedRight={0}
-        value={value}
+        value={value || ""}
         variant="flushed"
         onChange={(event) => onChange(event.target.value || "")}
       />

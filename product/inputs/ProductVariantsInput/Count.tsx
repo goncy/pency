@@ -1,8 +1,7 @@
 import React from "react";
 
 import Input from "~/ui/inputs/Input";
-import RadioGroup from "~/ui/inputs/RadioGroup";
-import Radio from "~/ui/inputs/Radio";
+import RadioGroup, {RadioColumn} from "~/ui/inputs/Radio";
 import {Variant} from "~/product/types";
 
 interface Props {
@@ -35,9 +34,9 @@ const CountInput: React.FC<Props> = ({value, onChange}) => {
 
   return (
     <RadioGroup isInline value={value} onChange={handleChange}>
-      <Radio value={1}>Una</Radio>
-      <Radio value={0}>Ilimitadas</Radio>
-      <Radio paddingRight={0} paddingY={0} value={count}>
+      <RadioColumn value={1}>Una</RadioColumn>
+      <RadioColumn value={0}>Ilimitadas</RadioColumn>
+      <RadioColumn paddingRight={0} paddingY={0} value={count}>
         <Input
           _placeholder={{
             color: "black",
@@ -53,7 +52,7 @@ const CountInput: React.FC<Props> = ({value, onChange}) => {
           onChange={handleCountChange}
           onFocus={handleCountFocus}
         />
-      </Radio>
+      </RadioColumn>
     </RadioGroup>
   );
 };

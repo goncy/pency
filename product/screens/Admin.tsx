@@ -11,7 +11,7 @@ import PlusIcon from "~/ui/icons/Plus";
 import IconButton from "~/ui/controls/IconButton";
 import Content from "~/ui/structure/Content";
 import NoResults from "~/ui/feedback/NoResults";
-import {useTranslation} from "~/hooks/translation";
+import {useTranslation} from "~/i18n/hooks";
 
 const AdminScreen: React.FC = () => {
   const [selected, setSelected] = React.useState<Partial<Product> | undefined>(undefined);

@@ -1,0 +1,4 @@
+defaults
+android >= 4
+chrome >= 40
+safari >= 10

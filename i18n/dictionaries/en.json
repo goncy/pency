@@ -10,13 +10,19 @@
     "add": "Add",
     "goBack": "Go back",
     "help": "Help",
+    "home": "Home",
     "exit": "Exit",
+    "count": "Count",
     "products": "Products",
     "shop": "Shop",
-    "options": "Options"
+    "options": "Options",
+    "next": "Next",
+    "item": "Item",
+    "item_plural": "Items"
   },
   "form": {
-    "required": "This field is required"
+    "required": "This field is required",
+    "invalidEmail": "Invalid email"
   },
   "filters": {
     "search": "Search..."
@@ -26,14 +32,25 @@
     "empty": "No products found"
   },
   "cart": {
-    "yourCart": "Your cart",
-    "complete": "Complete order on WhatsApp"
+    "yourOrder": "Your order",
+    "completeOrder": "Complete your order",
+    "completeOnWhatsApp": "Complete order on WhatsApp"
   },
   "products": {
     "empty": "No products found",
-    "check": "Review cart"
+    "review": "Your order",
+    "variants": {
+      "countError": "You must select {{count}} options",
+      "emptyError": "You must select at least one option"
+    }
   },
   "auth": {
+    "resetPasswordForm": {
+      "resetError": "An error occurred reseting your password, try again later",
+      "title": "Reset your password",
+      "description": "Fill your email and we will send you instructions on how to reset your password.",
+      "sendInstructions": "Send instructions"
+    },
     "resetPasswordSuccess": {
       "title": "Ready! We just sent you the instructions",
       "description": "You will receive an email with a link to reset your password. If you can't find it in a couple of minutes, check your spam folder.",

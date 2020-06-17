@@ -7,7 +7,7 @@ import {Variant} from "../../types";
 import {getOption} from "./constants";
 
 import Input from "~/ui/inputs/Input";
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 import PlusIcon from "~/ui/icons/Plus";
 import IconButton from "~/ui/controls/IconButton";
 import Price from "~/ui/inputs/Price";
@@ -48,7 +48,7 @@ const OptionInput: React.FC<Props> = ({error, value, onChange}) => {
     <Stack spacing={3}>
       <Stack spacing={0}>
         {value.options.length && (
-          <FormLabel fontSize="sm" marginBottom={0}>
+          <FormLabel fontSize={{base: "sm", sm: "md"}} fontWeight={500} marginBottom={0}>
             Opciones
           </FormLabel>
         )}

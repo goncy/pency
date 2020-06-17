@@ -9,7 +9,7 @@ import Select from "~/ui/inputs/Select";
 import {extractUniqueBy, filterBy} from "~/selectors/filter";
 import {sort} from "~/selectors/sort";
 import {groupBy} from "~/selectors/group";
-import {useTranslation} from "~/hooks/translation";
+import {useTranslation} from "~/i18n/hooks";
 
 export function useProducts() {
   const {
@@ -61,7 +61,8 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
           flex={{base: 1, sm: "inherit"}}
           fontWeight="500"
           height="100%"
-          maxWidth={{base: "100%", sm: "220px"}}
+          maxWidth={{base: "100%", sm: "140px"}}
+          paddingLeft={0}
           placeholder={t("common.categories")}
           value=""
           variant="unstyled"

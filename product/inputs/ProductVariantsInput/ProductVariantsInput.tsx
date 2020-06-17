@@ -8,10 +8,11 @@ import {getVariant} from "./constants";
 import OptionInput from "./Option";
 import CountInput from "./Count";
 
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 import IconButton from "~/ui/controls/IconButton";
 import ClearableTextField from "~/ui/inputs/ClearableTextField";
 import PlusIcon from "~/ui/icons/Plus";
+import SwitchInput from "~/ui/inputs/Switch";
 
 interface Props {
   value?: Partial<Variant[]>;
@@ -60,6 +61,14 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error, onChange}) =>
     );
   }
 
+  function handleRequiredChange(index, checked) {
+    onChange(
+      produce(value, (value) => {
+        value[index].required = checked;
+      }),
+    );
+  }
+
   return (
     <Stack spacing={3}>
       {value?.map((option, index) => (
@@ -84,14 +93,17 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error, onChange}) =>
             />
           </FormControl>
           <FormControl
-            isRequired
-            error={
-              error === "optionsCount" &&
-              value[index].count > value.length &&
-              "No pueden seleccionar mas opciones de las que existen"
-            }
-            label="Cuantas opciones podrá elegir?"
+            help="Al activarlo, el usuario deberá indicar su elección antes de continuar."
+            name="required"
           >
+            <SwitchInput
+              checked={option.required}
+              label="Obligatorio"
+              name="required"
+              onChange={(checked) => handleRequiredChange(index, checked)}
+            />
+          </FormControl>
+          <FormControl isRequired label="Cuantas opciones podrá elegir?">
             <CountInput
               value={option.count}
               onChange={(count) => handleCountChange(count, index)}

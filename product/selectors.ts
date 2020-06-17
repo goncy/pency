@@ -1,11 +1,11 @@
 import shortid from "shortid";
 
 import {DEFAULT_PRODUCT, DEFAULT_PRODUCT_VARIANT, DEFAULT_PRODUCT_OPTION} from "./constants";
-import {Product} from "./types";
+import {Product, Variant} from "./types";
 
 import {groupBy} from "~/selectors/group";
 
-export function getOptionsString(options: Product["options"]): string {
+export function getVariantsString(options: Variant[]): string {
   if (!options?.length) return "";
 
   return options
@@ -17,6 +17,16 @@ export function getOptionsString(options: Product["options"]): string {
         .join(", ")}`;
     })
     .join(" - ");
+}
+
+export function getVariantsPrice(variants: Variant[]): number {
+  if (!variants?.length) return 0;
+
+  return variants?.reduce((total, option) => {
+    if (!option.value?.length) return total;
+
+    return total + option.value.reduce((total, option) => total + Number(option.price || 0), 0);
+  }, 0);
 }
 
 export function getPrice(product: Product): number {
@@ -46,6 +56,8 @@ export function parseProduct(product: any): Product {
       ? product.options.map((variant) => ({
           id: variant.id || shortid.generate(),
           title: variant.title || DEFAULT_PRODUCT_VARIANT.title,
+          required: variant.required || DEFAULT_PRODUCT_VARIANT.required,
+          value: variant.value || DEFAULT_PRODUCT_VARIANT.value,
           count: variant.count === undefined ? DEFAULT_PRODUCT_VARIANT.count : variant.count,
           options: variant.options?.length
             ? variant.options.map((option) => ({

@@ -1,7 +1,7 @@
 import React from "react";
 import {Stack, Link, Text} from "@chakra-ui/core";
 
-import {useTranslation} from "~/hooks/translation";
+import {useTranslation} from "~/i18n/hooks";
 
 const ResetPasswordSuccess: React.FC = () => {
   const t = useTranslation();

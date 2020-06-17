@@ -1,22 +1,31 @@
 import React from "react";
 import {Grid, Stack, Text, Box, BoxProps} from "@chakra-ui/core";
 
-import {Tenant} from "../types";
+import {ClientTenant} from "../types";
 
 import TenantAvatar from "./TenantAvatar";
 
 import SocialLinks from "~/ui/list/SocialLinks";
-import Content from "~/ui/structure/Content";
+import MarkerIcon from "~/ui/icons/Marker";
+import Link from "~/ui/controls/Link";
 
 interface Props extends BoxProps {
   tenant: Pick<
-    Tenant,
-    "banner" | "facebook" | "instagram" | "twitter" | "logo" | "title" | "description" | "phone"
+    ClientTenant,
+    | "banner"
+    | "facebook"
+    | "instagram"
+    | "twitter"
+    | "logo"
+    | "title"
+    | "description"
+    | "phone"
+    | "address"
   >;
 }
 
 const TenantHeader: React.FC<Props> = ({
-  tenant: {banner, facebook, instagram, twitter, logo, title, description, phone},
+  tenant: {banner, facebook, instagram, twitter, logo, title, description, phone, address},
   ...props
 }) => (
   <Box {...props}>
@@ -28,9 +37,10 @@ const TenantHeader: React.FC<Props> = ({
       backgroundSize="cover"
       height={{base: 24, sm: 56}}
       minHeight={{base: 24, sm: 56}}
+      roundedBottom={{base: "none", sm: "lg"}}
       width="100%"
     />
-    <Content paddingX={4}>
+    <Box paddingX={4}>
       <Grid
         gridTemplateAreas={{
           base: `"avatar links" "information information"`,
@@ -56,6 +66,16 @@ const TenantHeader: React.FC<Props> = ({
           <Text color="gray.500" fontSize={{base: "sm", sm: "md"}} lineHeight="tall">
             {description}
           </Text>
+          {address && (
+            <Stack isInline alignItems="center" color="primary.500" marginTop={1} spacing={1}>
+              <MarkerIcon size={4} />
+              <Link isExternal href={`https://www.google.com.ar/maps/place/${address}`}>
+                <Text fontSize={{base: "sm", sm: "md"}} lineHeight="tall">
+                  {address}
+                </Text>
+              </Link>
+            </Stack>
+          )}
         </Stack>
         <SocialLinks
           facebook={facebook}
@@ -67,7 +87,7 @@ const TenantHeader: React.FC<Props> = ({
           whatsapp={phone}
         />
       </Grid>
-    </Content>
+    </Box>
   </Box>
 );
 
