@@ -1,5 +1,5 @@
 import React from "react";
-import {ButtonProps, Stack, Box, Text} from "@chakra-ui/core";
+import {ButtonProps, Stack, Text} from "@chakra-ui/core";
 
 import Button from "~/ui/controls/Button";
 import WhatsAppIcon from "~/ui/icons/WhatsApp";
