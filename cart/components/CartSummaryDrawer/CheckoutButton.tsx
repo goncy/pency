@@ -1,5 +1,5 @@
 import React from "react";
-import {ButtonProps} from "@chakra-ui/core";
+import {ButtonProps, Stack, Box, Text} from "@chakra-ui/core";
 
 import Button from "~/ui/controls/Button";
 import WhatsAppIcon from "~/ui/icons/WhatsApp";
@@ -21,8 +21,12 @@ const CheckoutButton: React.FC<Props> = ({onClick, ...props}) => {
       onClick={onClick}
       {...props}
     >
-      <WhatsAppIcon marginRight={2} />
-      {t("cart.completeOnWhatsApp")}
+      <Stack isInline alignItems="center" spacing={2}>
+        <Box height={6} width={6}>
+          <WhatsAppIcon />
+        </Box>
+        <Text>{t("cart.completeOnWhatsApp")}</Text>
+      </Stack>
     </Button>
   );
 };

@@ -21,7 +21,7 @@ const ProductsScreen: React.FC = () => {
   const {add, remove, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
-  const {products, filters} = useFilteredProducts({available: true});
+  const {products, filters} = useFilteredProducts();
   const {highlight, fields, ...tenant} = useTenant();
 
   const featuredProducts = filterBy(products, {featured: true});
