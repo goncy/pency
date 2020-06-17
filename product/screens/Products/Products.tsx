@@ -1,10 +1,12 @@
 import React from "react";
 import {Stack, Box, PseudoBox, Flex, useDisclosure} from "@chakra-ui/core";
 
-import ProductCard from "../components/ProductCard";
-import {useFilteredProducts} from "../hooks";
-import ProductsGrid from "../components/ProductsGrid";
-import ProductsCarousel from "../components/ProductsCarousel";
+import ProductCard from "../../components/ProductCard";
+import {useFilteredProducts} from "../../hooks";
+import ProductsGrid from "../../components/ProductsGrid";
+import ProductsCarousel from "../../components/ProductsCarousel";
+
+import Onboarding from "./Onboarding";
 
 import {useCart} from "~/cart/hooks";
 import {groupBy} from "~/selectors/group";
@@ -143,6 +145,7 @@ const ProductsScreen: React.FC = () => {
         onClose={closeCart}
         onRemove={remove}
       />
+      <Onboarding />
     </>
   );
 };

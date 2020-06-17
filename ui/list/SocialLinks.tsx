@@ -35,9 +35,9 @@ const IconButton = styled(ChakraIconButton)`
 const SocialIcon: React.FC<IconButtonProps> = (props) => (
   <IconButton
     isRound
-    height={{base: "32px", sm: "36px"}}
+    height={{base: "34px", sm: "36px"}}
     variantColor="primary"
-    width={{base: "32px", sm: "36px"}}
+    width={{base: "34px", sm: "36px"}}
     {...props}
   />
 );

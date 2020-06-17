@@ -86,6 +86,7 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
             top="inherit"
           />
           <Input
+            fontSize="md"
             paddingLeft={10}
             placeholder={t("filters.search")}
             value={query}
