@@ -8,7 +8,6 @@ import {
   Text,
   Stack,
   Flex,
-  Box,
 } from "@chakra-ui/core";
 
 const Onboarding = () => {
