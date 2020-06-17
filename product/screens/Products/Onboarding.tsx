@@ -35,7 +35,7 @@ const Onboarding = () => {
         position="absolute"
         top="auto"
       >
-        <ModalCloseButton right={6} top={6} />
+        <ModalCloseButton data-test-id="product-onboarding-close" right={6} top={6} />
         <ModalBody
           backgroundColor="primary.50"
           borderColor="primary.500"
