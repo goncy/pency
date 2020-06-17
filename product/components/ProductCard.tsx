@@ -12,7 +12,7 @@ interface Props extends FlexProps {
 }
 
 const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}) => {
-  const {image, title, price} = product;
+  const {image, title, price, available} = product;
   const {isOpen: isOptionsOpen, onToggle: toggleOptions} = useDisclosure();
 
   function handleAdd(product: Product, variants: Variant[], count: number) {
@@ -26,18 +26,18 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}
       <Flex
         alignItems="flex-end"
         boxShadow={isRaised ? "lg" : "none"}
-        cursor="pointer"
+        cursor={available ? "pointer" : "not-allowed"}
         data-test-id="product"
         direction="column"
         justifyContent="space-between"
+        opacity={available ? 1 : 0.5}
         position="relative"
         rounded="md"
         transition="transform 0.2s"
-        onClick={toggleOptions}
+        onClick={() => available && toggleOptions()}
         {...props}
       >
         <Image
-          cursor={image ? "pointer" : "inherit"}
           height={{base: 48, sm: 56}}
           rounded="md"
           src={image || "/assets/fallback.jpg"}
@@ -65,13 +65,13 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, add, ...props}
           </Stack>
           <Flex alignItems="center">
             <Text
-              color="green.500"
+              color={available ? "green.500" : "yellow.500"}
               flex={1}
               fontSize={{base: "sm", sm: "md"}}
               fontWeight={500}
               lineHeight={1}
             >
-              ${price}
+              {available ? `$${price}` : `Sin stock`}
             </Text>
           </Flex>
         </Box>
