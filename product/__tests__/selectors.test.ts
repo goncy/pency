@@ -1,12 +1,12 @@
 import produce from "immer";
 
-import {parseProduct, formatProduct} from "../selectors";
+import {serverToClient, clientToServer} from "../selectors";
 import {DEFAULT_PRODUCT, DEFAULT_PRODUCT_VARIANT, DEFAULT_PRODUCT_OPTION} from "../constants";
 import mock from "../mock";
 import {Product} from "../types";
 
 describe("selectors", () => {
-  describe("formatProduct", () => {
+  describe("clientToServer", () => {
     it("should default product default properties", () => {
       const base = mock.full;
       const actual = produce<Partial<Product>>(base, (actual) => {
@@ -15,15 +15,25 @@ describe("selectors", () => {
         delete actual.image;
         delete actual.featured;
       });
-      const expected = {
-        ...base,
-        description: DEFAULT_PRODUCT.description,
-        category: DEFAULT_PRODUCT.category,
-        image: DEFAULT_PRODUCT.image,
-        featured: DEFAULT_PRODUCT.featured,
-      };
+      const expected = produce(actual, (expected) => {
+        delete expected.id;
 
-      expect(formatProduct(actual)).toMatchObject(expected);
+        expected.description = DEFAULT_PRODUCT.description;
+        expected.category = DEFAULT_PRODUCT.category;
+        expected.image = DEFAULT_PRODUCT.image;
+        expected.featured = DEFAULT_PRODUCT.featured;
+      });
+
+      expect(clientToServer(actual)).toMatchObject(expected);
+    });
+
+    it("should remove id", () => {
+      const actual = mock.full;
+      const expected = produce(actual, (expected) => {
+        delete expected.id;
+      });
+
+      expect(clientToServer(actual)).toMatchObject(expected);
     });
 
     it("should default product variant properties", () => {
@@ -32,10 +42,11 @@ describe("selectors", () => {
         delete actual.options[0].count;
       });
       const expected = produce(base, (expected) => {
+        delete expected.id;
         expected.options[0].count = DEFAULT_PRODUCT_VARIANT.count;
       });
 
-      expect(formatProduct(actual)).toMatchObject(expected);
+      expect(clientToServer(actual)).toMatchObject(expected);
     });
 
     it("should default product variant options properties", () => {
@@ -44,22 +55,15 @@ describe("selectors", () => {
         delete actual.options[0].options[0].title;
       });
       const expected = produce(base, (expected) => {
+        delete expected.id;
         expected.options[0].options[0].title = DEFAULT_PRODUCT_OPTION.title;
       });
 
-      expect(formatProduct(actual)).toMatchObject(expected);
+      expect(clientToServer(actual)).toMatchObject(expected);
     });
   });
 
-  describe("parseProduct", () => {
-    describe("id", () => {
-      it("should throw when no id is present", () => {
-        const actual = {...mock.full, id: null};
-
-        expect(() => parseProduct(actual)).toThrowError("Este producto es inválido");
-      });
-    });
-
+  describe("serverToClient", () => {
     describe("options", () => {
       it("should remove type for options", () => {
         const expected = mock.full;
@@ -67,7 +71,7 @@ describe("selectors", () => {
           actual.options[0].type = "single";
         });
 
-        expect(parseProduct(actual)).toMatchObject(expected);
+        expect(serverToClient(actual)).toMatchObject(expected);
       });
 
       it("should add count for options", () => {
@@ -79,13 +83,13 @@ describe("selectors", () => {
           actual.options[0].count = DEFAULT_PRODUCT_VARIANT.count;
         });
 
-        expect(parseProduct(actual)).toMatchObject(expected);
+        expect(serverToClient(actual)).toMatchObject(expected);
       });
 
       it("should return correct options untouched", () => {
         const actual = mock.withoutVariants;
 
-        expect(parseProduct(actual)).toEqual(actual);
+        expect(serverToClient(actual)).toEqual(actual);
       });
 
       it("should add options when missing", () => {
@@ -95,7 +99,7 @@ describe("selectors", () => {
         });
         const expected = {...base, options: DEFAULT_PRODUCT.options};
 
-        expect(parseProduct(actual)).toEqual(expected);
+        expect(serverToClient(actual)).toEqual(expected);
       });
     });
   });
