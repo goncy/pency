@@ -20,6 +20,10 @@ const MultiInput: React.FC<Props> = ({limit, onChange, value, ...props}) => {
 
     onChange(
       produce(value, (value) => {
+        if (!value?.value) {
+          value.value = [];
+        }
+
         value.value.splice(index, 1);
       }),
     );
@@ -28,14 +32,16 @@ const MultiInput: React.FC<Props> = ({limit, onChange, value, ...props}) => {
   function handleIncrease(option) {
     onChange({
       ...value,
-      value: value.value.concat(option),
+      value: value?.value ? value.value.concat(option) : [option],
     });
   }
 
   return (
     <Stack shouldWrapChildren spacing={0} width="100%" {...props}>
-      {value.options.map((option) => {
-        const count = value?.value.filter((selected) => selected.id === option.id).length;
+      {value?.options?.map((option) => {
+        const count = value?.value
+          ? value.value.filter((selected) => selected.id === option.id).length
+          : 0;
 
         return (
           <Stack
