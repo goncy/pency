@@ -8,10 +8,10 @@ const Testimonial = () => (
     <Stack
       alignItems="center"
       bg="gray.50"
-      rounded="lg"
       flexDirection="column"
       paddingX={4}
       paddingY={{base: 8, sm: 20}}
+      rounded="lg"
       spacing={4}
       textAlign="center"
     >
@@ -21,7 +21,7 @@ const Testimonial = () => (
         potenciar la venta on line y llegar a nuestros clientes de manera simple y segura."
       </Text>
       <Flex alignItems="center" flexDirection={{base: "column", sm: "row"}} fontSize={{base: 20}}>
-        <Text color="teal.800" marginBottom={{base: 2, sm: 0}} fontWeight={500} >
+        <Text color="teal.800" fontWeight={500} marginBottom={{base: 2, sm: 0}}>
           Francisco Bellocchio
         </Text>
         <Text color="teal.500" display={{base: "none", sm: "block"}} marginX={2}>

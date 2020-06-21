@@ -12,8 +12,8 @@ const Features = () => (
   <Content>
     <Grid
       as="section"
-      gridRowGap={{base: 8, sm: 12}}
       gridColumnGap={{base: 8, sm: 10}}
+      gridRowGap={{base: 8, sm: 12}}
       paddingBottom={{base: 12, sm: 20}}
       paddingTop={{base: 20, sm: 32}}
       templateColumns="repeat(auto-fit, minmax(276px,1fr))"
@@ -22,7 +22,8 @@ const Features = () => (
         Optimizamos tus recursos simplificando la forma de recibir los pedidos.
       </Feature>
       <Feature icon={UsersIcon} title="Poné fin a las comisiones abusivas">
-        Olvidate de los intermediarios y las comisiones por venta. Ofrecé un mejor precio con tu tienda independiente.
+        Olvidate de los intermediarios y las comisiones por venta. Ofrecé un mejor precio con tu
+        tienda independiente.
       </Feature>
       <Feature icon={ShoppingIcon} title="Hablá con tus clientes sin intermediarios">
         Brindá un mejor servicio y atención gracias a la comunicación directa.

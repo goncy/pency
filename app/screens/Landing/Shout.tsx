@@ -4,20 +4,15 @@ import {Text} from "@chakra-ui/core";
 import Content from "./Content";
 
 const Shout = () => (
-  <Content
-    paddingY={{base: 12, sm: 20}}
-    textAlign={{base: "left", sm: "center"}}
-    width="100%"
-
-  >
+  <Content paddingY={{base: 12, sm: 20}} textAlign={{base: "left", sm: "center"}} width="100%">
     <Text
-      fontSize={["3xl", "3xl", "4xl", "5xl", "6xl"]}
+      fontSize={{base: "3xl", sm: "3xl", md: "4xl", lg: "5xl", xl: "6xl"}}
       fontWeight={500}
       lineHeight={"130%"}
       marginBottom={{base: 4, sm: 6}}
       marginX="auto"
-      maxWidth={{base: "auto", sm: "3xl", xl:"5xl"}}
-      >
+      maxWidth={{base: "auto", sm: "3xl", xl: "5xl"}}
+    >
       Creá ahora tu tienda online y potenciá la gestión de tu negocio
     </Text>
   </Content>

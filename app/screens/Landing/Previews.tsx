@@ -14,11 +14,11 @@ const Previews = () => (
   >
     <Content>
       <Stack spacing={12}>
-        <Stack spacing={2} alignItems="center">
+        <Stack alignItems="center" spacing={2}>
           <Text
             as="h3"
             color="gray.900"
-            fontSize={["2xl", "3xl", "3xl", "4xl", "5xl"]}
+            fontSize={{base: "2xl", sm: "3xl", md: "3xl", lg: "4xl", xl: "5xl"}}
             fontWeight={500}
             marginBottom={{base: 4, sm: 0}}
           >
@@ -26,12 +26,13 @@ const Previews = () => (
           </Text>
           <Text
             as="h4"
-            fontSize={{base: 18, sm: 20}}
             color="gray.500"
+            fontSize={{base: 18, sm: 20}}
             maxWidth={{base: "auto", sm: "3xl"}}
-            textAlign={[ 'left', 'center' ]}
+            textAlign={{base: "left", sm: "left"}}
           >
-          Independientemente del rubro, tu tienda Pency se ajusta a vos y tus productos, además de ofrecer una experiencia de compra simple y agradable a tus clientes.
+            Independientemente del rubro, tu tienda Pency se ajusta a vos y tus productos, además de
+            ofrecer una experiencia de compra simple y agradable a tus clientes.
           </Text>
         </Stack>
         <Stack
@@ -42,18 +43,13 @@ const Previews = () => (
           overflowX="auto"
           paddingY={8}
           spacing={12}
-
         >
           <Preview
             image="/assets/landing/tienda-fosforococina.jpg"
             store="fosforo.cocina"
             title="Fosforo Cocina"
           />
-          <Preview
-            image="/assets/landing/tienda-faithco.jpg"
-            store="faithdecoarg"
-            title="Faith"
-          />
+          <Preview image="/assets/landing/tienda-faithco.jpg" store="faithdecoarg" title="Faith" />
           <Preview
             image="/assets/landing/tienda-almacen.jpg"
             store="faithdecoarg"
@@ -64,7 +60,6 @@ const Previews = () => (
             store="tiendabastamaria"
             title="Brule Bakery"
           />
-          
         </Stack>
       </Stack>
     </Content>
