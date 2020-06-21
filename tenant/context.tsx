@@ -13,7 +13,7 @@ interface Props {
   initialValue: ClientTenant;
 }
 
-const ProductTenant = React.createContext({} as Context);
+const TenantContext = React.createContext({} as Context);
 
 const TenantProvider: React.FC<Props> = ({children, initialValue}) => {
   const toast = useToast();
@@ -49,9 +49,9 @@ const TenantProvider: React.FC<Props> = ({children, initialValue}) => {
 
   return (
     <ThemeProvider theme={getTheme(tenant.color)}>
-      <ProductTenant.Provider value={{state, actions}}>{children}</ProductTenant.Provider>
+      <TenantContext.Provider value={{state, actions}}>{children}</TenantContext.Provider>
     </ThemeProvider>
   );
 };
 
-export {TenantProvider as Provider, ProductTenant as default};
+export {TenantProvider as Provider, TenantContext as default};
