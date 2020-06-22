@@ -19,24 +19,21 @@ const Mail = () => (
 const FAQ = () => (
   <Box
     as="section"
-    backgroundColor="gray.100"
+    backgroundColor="gray.50"
     paddingBottom={{base: 12, sm: 24}}
     paddingTop={{base: 16, sm: 24}}
     textAlign={{base: "left", sm: "center"}}
   >
     <Content>
       <Stack spacing={12}>
-        <Stack alignItems="center" spacing={2}>
-          <Text
-            as="h3"
-            color="gray.900"
-            fontSize={{base: "2xl", sm: "3xl", lg: "4xl", xl: "5xl"}}
-            fontWeight={500}
-            marginBottom={{base: 4, sm: 0}}
-          >
-            Preguntas frecuentes
-          </Text>
-        </Stack>
+        <Text
+          as="h3"
+          color="gray.900"
+          fontSize={{base: "2xl", sm: "3xl", lg: "4xl", xl: "5xl"}}
+          fontWeight={500}
+        >
+          Preguntas frecuentes
+        </Text>
         <Grid
           as="section"
           gridGap={10}

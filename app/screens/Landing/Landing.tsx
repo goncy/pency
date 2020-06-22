@@ -18,8 +18,8 @@ const Landing = () => (
     <Features />
     <Previews />
     <Testimonial />
-    <FAQ />
     <Shout />
+    <FAQ />
     <CallToAction />
     <Footer />
   </Stack>

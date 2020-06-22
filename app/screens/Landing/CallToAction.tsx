@@ -7,25 +7,24 @@ const CallToAction = () => (
   <Stack
     isInline
     bottom={0}
+    display={{base: "flex", sm: "none"}}
     justifyContent="center"
-    paddingBottom={{base: 0, sm: 20}}
-    paddingX={{base: 0, sm: 20}}
-    position={{base: "sticky", sm: "relative"}}
-    spacing={{base: 0, sm: 8}}
+    position="sticky"
+    spacing={0}
   >
     <Link
       isExternal
-      flex={{base: 1, sm: "inherit"}}
+      flex={1}
       href="https://docs.google.com/forms/d/1P1o0HVHDluk-VMHHRLFVPn_TDKkqg_JhlMBmclcd6Co"
     >
-      <Button rounded={{base: "none", sm: "md"}} size="lg" variantColor="teal" width="100%">
+      <Button rounded="none" size="lg" variantColor="teal" width="100%">
         Crear tienda
       </Button>
     </Link>
-    <Link isExternal flex={{base: 1, sm: "inherit"}} href="https://pency.app/demo">
+    <Link isExternal flex={1} href="https://pency.app/demo">
       <Button
         backgroundColor="teal.50"
-        rounded={{base: "none", sm: "md"}}
+        rounded="none"
         size="lg"
         variant="ghost"
         variantColor="teal"
