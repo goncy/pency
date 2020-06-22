@@ -27,6 +27,7 @@ const Shout = () => (
         isInline
         display={{base: "none", sm: "flex"}}
         justifyContent="center"
+        marginTop={12}
         paddingBottom={20}
         paddingX={20}
         spacing={8}
