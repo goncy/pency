@@ -16,10 +16,11 @@ const SocialButton: React.FC<IconButtonProps> = (props) => (
   <IconButton
     isRound
     _hover={{
-      backgroundColor: "white",
+      color: "white",
+      backgroundColor: "teal.700",
     }}
     backgroundColor="white"
-    color="teal.900"
+    color="teal.600"
     height="36px"
     variantColor="teal"
     width="36px"
