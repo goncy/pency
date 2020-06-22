@@ -4,32 +4,33 @@ import {Grid} from "@chakra-ui/core";
 import Feature from "./Feature";
 import Content from "./Content";
 
-import ShoppingIcon from "~/ui/icons/Shopping";
-import ClockIcon from "~/ui/icons/Clock";
-import UsersIcon from "~/ui/icons/Users";
+import PhoneClockIcon from "~/ui/icons/PhoneClock";
+import MoneyShieldIcon from "~/ui/icons/MoneyShield";
+import UsersChatIcon from "~/ui/icons/UsersChat";
+import UserDistanceIcon from "~/ui/icons/UserDistance";
 
 const Features = () => (
   <Content>
     <Grid
       as="section"
-      gridGap={{base: 8, sm: 6}}
+      gridColumnGap={{base: 8, sm: 10}}
+      gridRowGap={{base: 8, sm: 12}}
       paddingBottom={{base: 12, sm: 20}}
       paddingTop={{base: 20, sm: 32}}
-      templateColumns="repeat(auto-fit, minmax(320px,1fr))"
+      templateColumns="repeat(auto-fit, minmax(276px,1fr))"
     >
-      <Feature icon={ShoppingIcon} title="Mantené tu catálogo actualizado">
-        Cada cambio en tu carta o actualización de precios se refleja al instante.
+      <Feature icon={PhoneClockIcon} title="Agilizá la gestión de tu negocio">
+        Optimizamos tus recursos simplificando la forma de recibir los pedidos.
       </Feature>
-      <Feature icon={ClockIcon} title="Agilizá la gestión de tu negocio">
-        Recibir pedidos por teléfono es lento, costoso y favorece errores, optimiza tiempo de tus
-        empleados.
+      <Feature icon={MoneyShieldIcon} title="Poné fin a las comisiones abusivas">
+        Olvidate de los intermediarios y las comisiones por venta. Ofrecé un mejor precio con tu
+        tienda independiente.
       </Feature>
-      <Feature icon={UsersIcon} title="Alcanzá a muchos más clientes">
-        Agregá, modificá o eliminar productos fácilmente.
+      <Feature icon={UsersChatIcon} title="Hablá con tus clientes sin intermediarios">
+        Brindá un mejor servicio y atención gracias a la comunicación directa.
       </Feature>
-      <Feature icon={ShoppingIcon} title="Sin intermediarios">
-        Los clientes son de tu negocio, no pagás comisiones por cada venta y ofreces un mejor
-        precio.
+      <Feature icon={UserDistanceIcon} title="Evitá aglomeraciones en tu local">
+        Reducí los tiempos de espera y librate de las filas innecesarias vendiendo online.
       </Feature>
     </Grid>
   </Content>

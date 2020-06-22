@@ -1,20 +1,58 @@
 import React from "react";
-import {Text} from "@chakra-ui/core";
+import {Text, Stack, Button, Flex} from "@chakra-ui/core";
 
 import Content from "./Content";
 
+import Link from "~/ui/controls/Link";
+
 const Shout = () => (
   <Content
-    borderTopWidth={1}
-    paddingY={{base: 12, sm: 20}}
+    paddingBottom={{base: 12, sm: 4}}
+    paddingTop={{base: 12, sm: 20}}
     textAlign={{base: "left", sm: "center"}}
+    width="100%"
   >
-    <Text fontSize={{base: 24, sm: 48}} fontWeight={500} marginBottom={{base: 4, sm: 6}}>
-      Empezá una gestión rápida y profesional de tu negocio
-    </Text>
-    <Text color="gray.500" fontSize={{base: 18, sm: 24}}>
-      Estás a un paso de llevar tu negocio a otro nivel.
-    </Text>
+    <Flex direction="column">
+      <Text
+        fontSize={{base: "3xl", md: "4xl", lg: "5xl", xl: "6xl"}}
+        fontWeight={500}
+        lineHeight={"130%"}
+        marginBottom={{base: 4, sm: 0}}
+        marginX="auto"
+        maxWidth={{base: "auto", sm: "3xl", xl: "5xl"}}
+      >
+        Creá ahora tu tienda online y potenciá la gestión de tu negocio
+      </Text>
+      <Stack
+        isInline
+        display={{base: "none", sm: "flex"}}
+        justifyContent="center"
+        paddingBottom={20}
+        paddingX={20}
+        spacing={8}
+      >
+        <Link
+          isExternal
+          href="https://docs.google.com/forms/d/1P1o0HVHDluk-VMHHRLFVPn_TDKkqg_JhlMBmclcd6Co"
+        >
+          <Button rounded="md" size="lg" variantColor="teal" width="100%">
+            Crear tienda
+          </Button>
+        </Link>
+        <Link isExternal href="https://pency.app/demo">
+          <Button
+            backgroundColor="teal.50"
+            rounded="md"
+            size="lg"
+            variant="ghost"
+            variantColor="teal"
+            width="100%"
+          >
+            Ver tienda de prueba
+          </Button>
+        </Link>
+      </Stack>
+    </Flex>
   </Content>
 );
 
