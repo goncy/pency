@@ -4,7 +4,7 @@ import {Stack, Avatar, Flex, Text} from "@chakra-ui/core";
 import Content from "./Content";
 
 const Testimonial = () => (
-  <Content as="section">
+  <Content as="section" marginTop={12}>
     <Stack
       alignItems="center"
       bg="gray.50"

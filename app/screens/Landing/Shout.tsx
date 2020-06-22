@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, Stack, Button} from "@chakra-ui/core";
+import {Text, Stack, Button, Flex} from "@chakra-ui/core";
 
 import Content from "./Content";
 
@@ -12,12 +12,12 @@ const Shout = () => (
     textAlign={{base: "left", sm: "center"}}
     width="100%"
   >
-    <Stack>
+    <Flex direction="column">
       <Text
         fontSize={{base: "3xl", md: "4xl", lg: "5xl", xl: "6xl"}}
         fontWeight={500}
         lineHeight={"130%"}
-        marginBottom={{base: 4, sm: 6}}
+        marginBottom={{base: 4, sm: 0}}
         marginX="auto"
         maxWidth={{base: "auto", sm: "3xl", xl: "5xl"}}
       >
@@ -52,7 +52,7 @@ const Shout = () => (
           </Button>
         </Link>
       </Stack>
-    </Stack>
+    </Flex>
   </Content>
 );
 
