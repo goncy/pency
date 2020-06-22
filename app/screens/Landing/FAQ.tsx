@@ -51,9 +51,10 @@ const FAQ = () => (
           </Question>
           <Question title="¿Cuál es el costo de crear una tienda Pency?">
             Para pequeñas y medianas empresas crear su tienda online es totalmente gratis. Sin
-            costos de alta, mantenimiento ni comisiones por venta. Si se trata de empresas grandes y
-            cadenas que buscan una integración personalizada de nuestra plataforma, pueden
-            escribirnos a <Mail />
+            costos de alta, mantenimiento ni comisiones por venta.
+            <br />
+            Si se trata de empresas grandes y cadenas ofrecemos una integración personalizada de
+            nuestra plataforma. Pueden escribirnos a <Mail />.
           </Question>
           <Question title="¿Cómo agrego productos a mi tienda?">
             En el panel Admin vas a encontrar el botón “Agregar producto”. Ahí, podés colocar
