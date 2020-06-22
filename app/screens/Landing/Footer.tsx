@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Flex, Link as ChakraLink, SimpleGrid} from "@chakra-ui/core";
+import {Stack, Flex, Link as ChakraLink, Grid} from "@chakra-ui/core";
 
 import SocialButton from "./SocialButton";
 import Content from "./Content";
@@ -13,7 +13,13 @@ import Link from "~/ui/controls/Link";
 const Footer = () => (
   <Flex alignItems="center" backgroundColor="teal.600" color="white" minHeight={20} paddingY={4}>
     <Content>
-      <SimpleGrid columns={{base: 1, sm: 2}} spacing={4}>
+      <Grid
+        gridGap={4}
+        gridTemplateColumns={{
+          base: "1fr",
+          sm: "1fr auto",
+        }}
+      >
         <Stack isInline justifyContent="flex-start" spacing={2}>
           <Link isExternal href="https://twitter.com/Pencyapp">
             <SocialButton aria-label="Seguinos en Twitter" icon={TwitterIcon} />
@@ -28,10 +34,13 @@ const Footer = () => (
             <SocialButton aria-label="Seguinos en Whatsapp" icon={WhatsappIcon} />
           </Link>
         </Stack>
-        <SimpleGrid
+        <Grid
           alignItems="center"
-          columns={{base: 1, sm: 2}}
-          spacing={2}
+          gridGap={2}
+          gridTemplateColumns={{
+            base: "1fr",
+            sm: "repeat(2, 1fr)",
+          }}
           textAlign={{base: "left", sm: "right"}}
         >
           <ChakraLink
@@ -46,8 +55,8 @@ const Footer = () => (
           >
             Políticas de privacidad
           </ChakraLink>
-        </SimpleGrid>
-      </SimpleGrid>
+        </Grid>
+      </Grid>
     </Content>
   </Flex>
 );
