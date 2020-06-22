@@ -14,11 +14,11 @@ const Preview: React.FC<Props> = ({image, store}) => {
     <Link isExternal href={`https://pency.app/${store}`}>
       <PseudoBox
         _hover={{
-          boxShadow: "lg",
+          boxShadow: "xl",
           transform: "translateY(-4px)",
         }}
         borderRadius="lg"
-        minWidth="300px"
+        minWidth="276px"
         transition="all .25s"
         width={{base: "60vw", sm: "100%"}}
       >
