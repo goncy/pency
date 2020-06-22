@@ -76,7 +76,7 @@ const Overview: React.FC<Props> = ({items, onIncrease, onDecrease, onSubmit, has
           </Stack>
         </Stack>
       </DrawerBody>
-      <DrawerFooter borderTopColor="gray.100" borderTopWidth={1}>
+      <DrawerFooter borderTopColor="gray.100" borderTopWidth={1} marginTop={2}>
         <Stack spacing={4} width="100%">
           <Flex alignItems="center" fontSize="lg" fontWeight={500} justifyContent="space-between">
             <Text>{t("cart.estimatedTotal")}</Text>
