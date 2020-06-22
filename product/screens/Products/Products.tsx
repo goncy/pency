@@ -20,7 +20,7 @@ import Content from "~/ui/structure/Content";
 import SummaryButton from "~/cart/components/SummaryButton";
 
 const ProductsScreen: React.FC = () => {
-  const {add, remove, items, checkout} = useCart();
+  const {add, increase, decrease, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts();
@@ -143,7 +143,8 @@ const ProductsScreen: React.FC = () => {
         items={items}
         onCheckout={checkout}
         onClose={closeCart}
-        onRemove={remove}
+        onDecrease={decrease}
+        onIncrease={increase}
       />
       <Onboarding />
     </>

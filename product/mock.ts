@@ -24,6 +24,7 @@ export default {
   },
   get variant(): Variant {
     const options = [this.option, this.option, this.option];
+    const option = this.option;
 
     return {
       id: faker.random.uuid(),
@@ -31,7 +32,7 @@ export default {
       count: faker.random.number(5),
       required: faker.random.boolean(),
       options,
-      value: [],
+      value: [this.option, option, option],
     };
   },
   get option(): Option {

@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Text, IconButton} from "@chakra-ui/core";
+import {Stack, Text, IconButton, StackProps} from "@chakra-ui/core";
 import styled from "@emotion/styled";
 
 const RoundButton = styled(IconButton)`
@@ -9,7 +9,7 @@ const RoundButton = styled(IconButton)`
   }
 `;
 
-interface Props {
+interface Props extends Omit<StackProps, "value" | "onChange"> {
   value?: number;
   max?: number;
   min?: number;
@@ -18,7 +18,15 @@ interface Props {
   onDecrease?: (value: number) => void;
 }
 
-const Stepper: React.FC<Props> = ({value, onDecrease, onIncrease, onChange, min, max}) => {
+const Stepper: React.FC<Props> = ({
+  value,
+  onDecrease,
+  onIncrease,
+  onChange,
+  min,
+  max,
+  ...props
+}) => {
   const isMinDisabled = min === undefined ? false : value <= min;
   const isMaxDisabled = max === undefined ? false : value >= max;
 
@@ -37,7 +45,7 @@ const Stepper: React.FC<Props> = ({value, onDecrease, onIncrease, onChange, min,
   }
 
   return (
-    <Stack isInline alignItems="center" rounded="lg" spacing={0} width="auto">
+    <Stack isInline alignItems="center" rounded="lg" spacing={0} width="auto" {...props}>
       {value && (
         <RoundButton
           isRound

@@ -34,7 +34,8 @@
   "cart": {
     "yourOrder": "Your order",
     "completeOrder": "Complete your order",
-    "completeOnWhatsApp": "Complete order on WhatsApp"
+    "completeOnWhatsApp": "Complete order on WhatsApp",
+    "estimatedTotal": "Estimated total"
   },
   "products": {
     "empty": "No products found",

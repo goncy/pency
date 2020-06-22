@@ -6,7 +6,7 @@ import mock from "../mock";
 import SummaryButton from "./SummaryButton";
 
 export const full = () => (
-  <SummaryButton items={mock.items} maxWidth="320px" onClick={action("clicked")}>
+  <SummaryButton items={[mock.item, mock.item]} maxWidth="320px" onClick={action("clicked")}>
     Tu pedido
   </SummaryButton>
 );

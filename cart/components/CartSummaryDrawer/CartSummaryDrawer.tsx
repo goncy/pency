@@ -15,13 +15,15 @@ interface Props {
   items: CartItem[];
   fields?: ClientTenant["fields"];
   onCheckout: (fields?: Field[]) => Promise<void>;
-  onRemove: (id: string) => void;
+  onDecrease: (id: string) => void;
+  onIncrease: (id: string) => void;
 }
 
 const CartSummaryDrawer: React.FC<Props> = ({
   items,
   fields,
-  onRemove,
+  onIncrease,
+  onDecrease,
   onCheckout,
   isOpen,
   onClose,
@@ -73,7 +75,8 @@ const CartSummaryDrawer: React.FC<Props> = ({
         <Overview
           hasNextStep={hasNextStep}
           items={items}
-          onRemove={onRemove}
+          onDecrease={onDecrease}
+          onIncrease={onIncrease}
           onSubmit={hasNextStep ? handleNext : handleCheckoutWithoutFields}
         />
       )}

@@ -6,10 +6,12 @@ import {CartItem} from "./types";
 export function useCart() {
   const {
     state: {items, cart},
-    actions: {add, remove, checkout},
+    actions: {add, remove, checkout, increase, decrease},
   } = React.useContext(CartContext);
 
   return {
+    increase,
+    decrease,
     add,
     remove,
     checkout,

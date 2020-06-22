@@ -29,7 +29,7 @@ const Previews = () => (
             color="gray.500"
             fontSize={{base: 18, sm: 20}}
             maxWidth={{base: "auto", sm: "3xl"}}
-            textAlign="left"
+            textAlign={{base: "left", sm: "center"}}
           >
             Independientemente del rubro, tu tienda Pency se ajusta a vos y tus productos, además de
             ofrecer una experiencia de compra simple y agradable a tus clientes.

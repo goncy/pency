@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Flex, Text, IconButton} from "@chakra-ui/core";
+import {Stack, Flex, Text} from "@chakra-ui/core";
 
 import {CartItem} from "../../types";
 
@@ -7,19 +7,20 @@ import CheckoutButton from "./CheckoutButton";
 
 import {DrawerTitle, DrawerBody, DrawerFooter} from "~/ui/controls/Drawer";
 import Button from "~/ui/controls/Button";
-import Badge from "~/ui/feedback/Badge";
 import {useTranslation} from "~/i18n/hooks";
 import {getCount, getTotal} from "~/cart/selectors";
+import Stepper from "~/ui/inputs/Stepper";
 import {getVariantsString, getVariantsPrice} from "~/product/selectors";
 
 interface Props {
   items: CartItem[];
-  onRemove: (id: string) => void;
+  onDecrease: (id: string) => void;
+  onIncrease: (id: string) => void;
   onSubmit: () => Promise<void>;
   hasNextStep: boolean;
 }
 
-const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => {
+const Overview: React.FC<Props> = ({items, onIncrease, onDecrease, onSubmit, hasNextStep}) => {
   const [isLoading, toggleLoading] = React.useState(false);
   const t = useTranslation();
   const count = getCount(items);
@@ -35,6 +36,14 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
     onSubmit();
   }
 
+  function handleDecrease(id: CartItem["id"]) {
+    onDecrease(id);
+  }
+
+  function handleIncrease(id: CartItem["id"]) {
+    onIncrease(id);
+  }
+
   return (
     <>
       <DrawerBody>
@@ -46,45 +55,32 @@ const Overview: React.FC<Props> = ({items, onRemove, onSubmit, hasNextStep}) => 
             {items.map(({id, product, count, variants}) => (
               <Flex key={id} alignItems="flex-start" justifyContent="space-between">
                 <Flex alignItems="center" mr={2}>
-                  <IconButton
-                    isRound
-                    aria-label="Borrar elemento"
-                    fontSize="12px"
-                    height={6}
-                    icon="minus"
-                    minWidth={6}
-                    mr={4}
-                    variantColor="red"
-                    width={6}
-                    onClick={() => onRemove(id)}
-                  />
-                  <Flex direction="column">
-                    <Flex alignItems="center">
-                      <Text>{product.title}</Text>
-                      <Badge count={count} marginLeft={2} variantColor="primary" />
-                    </Flex>
-                    {variants && (
-                      <Text color="gray.500" fontSize="sm">
-                        {getVariantsString(variants)}
-                      </Text>
-                    )}
-                  </Flex>
+                  <Stack spacing={0}>
+                    <Text fontWeight={500}>{product.title}</Text>
+                    {variants && <Text color="gray.600">{getVariantsString(variants)}</Text>}
+                    <Stepper
+                      marginTop={2}
+                      value={count}
+                      onDecrease={() => handleDecrease(id)}
+                      onIncrease={() => handleIncrease(id)}
+                    />
+                  </Stack>
                 </Flex>
                 <Flex alignItems="center">
-                  <Text>${(product.price + getVariantsPrice(variants)) * count}</Text>
+                  <Text fontWeight={500}>
+                    ${(product.price + getVariantsPrice(variants)) * count}
+                  </Text>
                 </Flex>
               </Flex>
             ))}
           </Stack>
         </Stack>
       </DrawerBody>
-      <DrawerFooter>
+      <DrawerFooter borderTopColor="gray.100" borderTopWidth={1} marginTop={2}>
         <Stack spacing={4} width="100%">
-          <Flex alignItems="center" justifyContent="flex-end">
-            <Text fontSize="lg" fontWeight="600" mr={2}>
-              {t("common.total")}:
-            </Text>
-            <Text fontSize="lg">${total}</Text>
+          <Flex alignItems="center" fontSize="lg" fontWeight={500} justifyContent="space-between">
+            <Text>{t("cart.estimatedTotal")}</Text>
+            <Text>${total}</Text>
           </Flex>
           {hasNextStep ? (
             <Button boxShadow="lg" size="lg" variantColor="primary" onClick={handleNext}>

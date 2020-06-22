@@ -9,7 +9,7 @@ import tenantMock from "~/tenant/mock";
 describe("selectors", () => {
   describe("getMessage", () => {
     it("should show products without fields", () => {
-      const items = cartMock.items;
+      const items = [cartMock.itemWithoutVariants, cartMock.itemWithoutVariants];
       const orderId = shortid.generate();
 
       const actual = getMessage(items, orderId);
@@ -21,7 +21,7 @@ describe("selectors", () => {
     });
 
     it("should show products with fields", () => {
-      const items = cartMock.items;
+      const items = [cartMock.item, cartMock.item];
       const orderId = shortid.generate();
       const fields = tenantMock.client.full.fields.map((field) => ({
         ...field,
