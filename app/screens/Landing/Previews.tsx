@@ -18,7 +18,7 @@ const Previews = () => (
           <Text
             as="h3"
             color="gray.900"
-            fontSize={{base: "2xl", sm: "3xl", md: "3xl", lg: "4xl", xl: "5xl"}}
+            fontSize={{base: "2xl", sm: "3xl", lg: "4xl", xl: "5xl"}}
             fontWeight={500}
             marginBottom={{base: 4, sm: 0}}
           >
@@ -29,7 +29,7 @@ const Previews = () => (
             color="gray.500"
             fontSize={{base: 18, sm: 20}}
             maxWidth={{base: "auto", sm: "3xl"}}
-            textAlign={{base: "left", sm: "left"}}
+            textAlign="left"
           >
             Independientemente del rubro, tu tienda Pency se ajusta a vos y tus productos, además de
             ofrecer una experiencia de compra simple y agradable a tus clientes.
@@ -52,7 +52,7 @@ const Previews = () => (
           <Preview image="/assets/landing/tienda-faithco.jpg" store="faithdecoarg" title="Faith" />
           <Preview
             image="/assets/landing/tienda-almacen.jpg"
-            store="faithdecoarg"
+            store="almacensaludableok"
             title="Almacen Saludable"
           />
           <Preview

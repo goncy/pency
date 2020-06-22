@@ -12,7 +12,7 @@ const Steps = () => (
   <Content as="section" paddingY={{base: 12, sm: 20}}>
     <Text
       color="black"
-      fontSize={{base: "2xl", sm: "3xl", md: "3xl", lg: "4xl", xl: "5xl"}}
+      fontSize={{base: "2xl", sm: "3xl", lg: "4xl", xl: "5xl"}}
       fontWeight={500}
       marginBottom={16}
       marginTop={2}

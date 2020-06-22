@@ -6,7 +6,7 @@ import Content from "./Content";
 const Shout = () => (
   <Content paddingY={{base: 12, sm: 20}} textAlign={{base: "left", sm: "center"}} width="100%">
     <Text
-      fontSize={{base: "3xl", sm: "3xl", md: "4xl", lg: "5xl", xl: "6xl"}}
+      fontSize={{base: "3xl", md: "4xl", lg: "5xl", xl: "6xl"}}
       fontWeight={500}
       lineHeight={"130%"}
       marginBottom={{base: 4, sm: 6}}
