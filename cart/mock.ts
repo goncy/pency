@@ -13,7 +13,10 @@ export default {
       variants: [productMock.variant, productMock.variant],
     };
   },
-  get items(): CartItem[] {
-    return [this.item, this.item];
+  get itemWithoutVariants(): CartItem {
+    return {
+      ...this.item,
+      variants: [],
+    };
   },
 };

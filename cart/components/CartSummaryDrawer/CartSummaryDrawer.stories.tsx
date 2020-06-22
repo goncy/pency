@@ -11,7 +11,7 @@ export const open = () => (
   <CartSummaryDrawer
     isOpen
     fields={tenantMock.client.full.fields}
-    items={mock.items}
+    items={[mock.item]}
     onCheckout={() => {
       action("checkout");
 
@@ -28,12 +28,12 @@ export const manyItems = () => (
     isOpen
     fields={tenantMock.client.full.fields}
     items={[
-      ...mock.items,
-      ...mock.items,
-      ...mock.items,
-      ...mock.items,
-      ...mock.items,
-      ...mock.items,
+      ...[mock.item, mock.item],
+      ...[mock.item, mock.item],
+      ...[mock.item, mock.item],
+      ...[mock.item, mock.item],
+      ...[mock.item, mock.item],
+      ...[mock.item, mock.item],
     ]}
     onCheckout={() => {
       action("checkout");
