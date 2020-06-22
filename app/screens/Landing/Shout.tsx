@@ -4,7 +4,12 @@ import {Text} from "@chakra-ui/core";
 import Content from "./Content";
 
 const Shout = () => (
-  <Content paddingY={{base: 12, sm: 20}} textAlign={{base: "left", sm: "center"}} width="100%">
+  <Content
+    paddingBottom={{base: 12, sm: 4}}
+    paddingTop={{base: 12, sm: 20}}
+    textAlign={{base: "left", sm: "center"}}
+    width="100%"
+  >
     <Text
       fontSize={{base: "3xl", md: "4xl", lg: "5xl", xl: "6xl"}}
       fontWeight={500}

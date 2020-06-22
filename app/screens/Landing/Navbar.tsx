@@ -1,10 +1,11 @@
 import React from "react";
-import {Grid, Button} from "@chakra-ui/core";
+import {Grid, Button, Stack, Text} from "@chakra-ui/core";
 
 import Content from "./Content";
 
 import Link from "~/ui/controls/Link";
 import Logo from "~/ui/static/Logo";
+import WhatsappIcon from "~/ui/icons/WhatsApp";
 
 const Navbar = () => (
   <Content
@@ -18,12 +19,17 @@ const Navbar = () => (
     <Logo />
     <Grid alignItems="center" gridAutoFlow="column" gridGap={{base: 4, sm: 8}}>
       <Link
-        _hover={{color: "teal.700", borderBottom: "1px", borderColor: "gray.400"}}
+        isExternal
+        _hover={{color: "teal.700"}}
+        color="gray.900"
         fontWeight={500}
-        href={`mailto:${process.env.MANTAINER_EMAIL}?subject:"Pregunta por Pency"`}
+        href={`https://wa.me/${process.env.MANTAINER_PHONE}`}
         transition="color 0.15s ease-out"
       >
-        Soporte
+        <Stack isInline>
+          <WhatsappIcon width={6} />
+          <Text>Soporte</Text>
+        </Stack>
       </Link>
       <Link
         isExternal

@@ -8,7 +8,7 @@ const CallToAction = () => (
     isInline
     bottom={0}
     justifyContent="center"
-    marginBottom={{base: 0, sm: 20}}
+    paddingBottom={{base: 0, sm: 20}}
     paddingX={{base: 0, sm: 20}}
     position={{base: "sticky", sm: "relative"}}
     spacing={{base: 0, sm: 8}}
