@@ -12,10 +12,13 @@ export function getVariantsString(options: Variant[]): string {
     .map((option) => {
       const groups = groupBy(option.value, ({title}) => title);
 
+      if (!groups?.length) return "";
+
       return `${option.title}: ${groups
         .map(([title, items]) => `${title}${items.length > 1 ? ` X${items.length}` : ``}`)
         .join(", ")}`;
     })
+    .filter(Boolean)
     .join(" - ");
 }
 

@@ -18,7 +18,8 @@ export const open = () => (
       return Promise.resolve();
     }}
     onClose={action("close")}
-    onRemove={action("remove")}
+    onDecrease={action("decrease")}
+    onIncrease={action("increase")}
   />
 );
 
@@ -40,7 +41,8 @@ export const manyItems = () => (
       return Promise.resolve();
     }}
     onClose={action("close")}
-    onRemove={action("remove")}
+    onDecrease={action("decrease")}
+    onIncrease={action("increase")}
   />
 );
 

@@ -17,6 +17,8 @@ export interface State {
 
 export interface Actions {
   add: (product: Product, variants: Variant[], count: number) => void;
+  increase: (id: CartItem["id"]) => void;
+  decrease: (id: CartItem["id"]) => void;
   remove: (id: CartItem["id"]) => void;
   checkout: (fields?: Field[]) => Promise<void>;
 }

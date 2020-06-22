@@ -32,7 +32,7 @@ const CartProvider = ({children}: Props) => {
       value: product.price,
     });
 
-    setCart(
+    return setCart(
       produce((cart) => {
         const id = shortid.generate();
 
@@ -47,15 +47,35 @@ const CartProvider = ({children}: Props) => {
   }
 
   function remove(id: CartItem["id"]) {
-    setCart(
-      produce((cart) => {
-        if (cart[id].count === 1) {
-          delete cart[id];
-        } else {
-          cart[id].count--;
-        }
+    if (!cart[id]) return;
 
-        return cart;
+    return setCart(
+      produce((cart) => {
+        delete cart[id];
+      }),
+    );
+  }
+
+  function increase(id: CartItem["id"]) {
+    if (!cart[id]) return;
+
+    return setCart(
+      produce((cart) => {
+        cart[id].count++;
+      }),
+    );
+  }
+
+  function decrease(id: CartItem["id"]) {
+    if (!cart[id]) return;
+
+    if (cart[id].count === 1) {
+      return remove(id);
+    }
+
+    return setCart(
+      produce((cart) => {
+        cart[id].count--;
       }),
     );
   }
@@ -94,7 +114,7 @@ const CartProvider = ({children}: Props) => {
   }
 
   const state: State = {items, cart};
-  const actions: Actions = {add, remove, checkout};
+  const actions: Actions = {add, remove, checkout, increase, decrease};
 
   return <CartContext.Provider value={{state, actions}}>{children}</CartContext.Provider>;
 };
