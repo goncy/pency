@@ -55,11 +55,7 @@ const Previews = () => (
             store="almacensaludableok"
             title="Almacen Saludable"
           />
-          <Preview
-            image="/assets/landing/tienda-brule.jpg"
-            store="tiendabastamaria"
-            title="Brule Bakery"
-          />
+          <Preview image="/assets/landing/tienda-brulee.jpg" store="brulee" title="Brulee Bakery" />
         </Stack>
       </Stack>
     </Content>
