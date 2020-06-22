@@ -1,4 +1,7 @@
 defaults
 android >= 4
-chrome >= 40
+chrome >= 30
 safari >= 10
+> 1%
+last 2 versions
+not ie <= 8
