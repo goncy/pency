@@ -5,7 +5,7 @@ import {CartItem} from "../types";
 import {getTotal, getCount} from "../selectors";
 
 import Button from "~/ui/controls/Button";
-import {useTranslation} from "~/hooks/translation";
+import {useTranslation} from "~/i18n/hooks";
 
 interface Props extends ButtonProps {
   items: CartItem[];

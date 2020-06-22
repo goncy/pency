@@ -1,17 +1,19 @@
 import React from "react";
 import {Stack, Box, PseudoBox, Flex, useDisclosure} from "@chakra-ui/core";
 
-import ProductCard from "../components/ProductCard";
-import {useFilteredProducts} from "../hooks";
-import ProductsGrid from "../components/ProductsGrid";
-import ProductsCarousel from "../components/ProductsCarousel";
+import ProductCard from "../../components/ProductCard";
+import {useFilteredProducts} from "../../hooks";
+import ProductsGrid from "../../components/ProductsGrid";
+import ProductsCarousel from "../../components/ProductsCarousel";
+
+import Onboarding from "./Onboarding";
 
 import {useCart} from "~/cart/hooks";
 import {groupBy} from "~/selectors/group";
-import CartDrawer from "~/cart/components/CartDrawer";
+import CartSummaryDrawer from "~/cart/components/CartSummaryDrawer";
 import {filterBy} from "~/selectors/filter";
 import {useTenant} from "~/tenant/hooks";
-import {useTranslation} from "~/hooks/translation";
+import {useTranslation} from "~/i18n/hooks";
 import TenantHeader from "~/tenant/components/TenantHeader";
 import NoResults from "~/ui/feedback/NoResults";
 import Content from "~/ui/structure/Content";
@@ -21,7 +23,7 @@ const ProductsScreen: React.FC = () => {
   const {add, remove, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
-  const {products, filters} = useFilteredProducts({available: true});
+  const {products, filters} = useFilteredProducts();
   const {highlight, fields, ...tenant} = useTenant();
 
   const featuredProducts = filterBy(products, {featured: true});
@@ -39,19 +41,20 @@ const ProductsScreen: React.FC = () => {
           overflowX="hidden"
           overflowY="auto"
         >
-          <Content height="100%">
+          <Content height="100%" paddingX={{base: 0, sm: 4}}>
             <TenantHeader data-test-id="header" marginBottom={4} tenant={tenant} />
             <Box flex={1}>
               {highlight && (
                 <Box
                   backgroundColor="primary.50"
                   color="primary.500"
+                  fontSize={{base: "sm", sm: "md"}}
                   fontWeight="500"
                   marginTop={4}
                   paddingX={4}
                   paddingY={3}
-                  roundedTop={{sm: 0, xl: "lg"}}
-                  textAlign={{base: "left", xl: "center"}}
+                  roundedTop={{base: 0, sm: "lg"}}
+                  textAlign={{base: "left", sm: "center"}}
                 >
                   {highlight}
                 </Box>
@@ -81,7 +84,6 @@ const ProductsScreen: React.FC = () => {
                               add={add}
                               minWidth={280}
                               product={product}
-                              remove={remove}
                             />
                           ))}
                         </ProductsCarousel>
@@ -96,12 +98,7 @@ const ProductsScreen: React.FC = () => {
                           >
                             <ProductsGrid data-test-id="category" title={category}>
                               {products.map((product) => (
-                                <ProductCard
-                                  key={product.id}
-                                  add={add}
-                                  product={product}
-                                  remove={remove}
-                                />
+                                <ProductCard key={product.id} add={add} product={product} />
                               ))}
                             </ProductsGrid>
                           </PseudoBox>
@@ -140,7 +137,7 @@ const ProductsScreen: React.FC = () => {
           </Content>
         </Flex>
       </Flex>
-      <CartDrawer
+      <CartSummaryDrawer
         fields={fields}
         isOpen={isCartOpen}
         items={items}
@@ -148,6 +145,7 @@ const ProductsScreen: React.FC = () => {
         onClose={closeCart}
         onRemove={remove}
       />
+      <Onboarding />
     </>
   );
 };

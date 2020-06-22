@@ -2,7 +2,7 @@
 Tu tienda online, fácil.
 
 ## Qué es?
-Pency es una tienda online multipropósito, pensada para quienes venden (o quieren vender) via WhatsApp.
+Pency es una tienda online multipropósito, pensada para quienes venden (o quieren vender) vía WhatsApp.
 
 ## Qué tiene?
 * Catálogo online
@@ -10,7 +10,7 @@ Pency es una tienda online multipropósito, pensada para quienes venden (o quier
 * Carrito de compra
 * Imagen, precio y descripción para cada producto
 * Opciones para cada producto (pueden modificar el precio del producto)
-* Envío del pedido via WhatsApp
+* Envío del pedido vía WhatsApp
 * Configuración de la tienda (color, título, descripción, imagen, logo, etc)
 
 ## Algo no me anda!
@@ -61,7 +61,7 @@ npm run storybook
 Para esta aplicación vamos a necesitar dos cosas de Firebase, la primera va a ser configurar las reglas de firestore (las podés encontrar en el archivo `firestore.rules`) y habilitar en firebase el inicio de sesión con usuario y contraseña (lo haces en Firebase desde `Auth > Sign in methods`).
 
 ## Configurando Cloudinary
-También vamos a necesitar una cuenta en Cloudinary para alojar las imágenes de la tienda. De allí vamos a necesitar el Cloudinary Cloud name para la variable `CLOUDINARY_CLOUD` del _environment_ (lo vas a ver arriba a la derecha una vez que inices sesión). Además vamos a tener que ir a `Settings > Upload` donde podemos configurar los presets. El `CLOUDINARY_PRESET_LOW` se va a usar para las imágenes de los productos cargados y `CLOUDINARY_PRESET_HIGH` para las imágenes de banner y logo. Tenemos que asegurarnos de setear el Signing Mode en *Unsigned*, el resto de las configuraciónes depende de tus preferencias. También vamos a setear la variable `CLOUDINARY_FOLDER` con el nombre de la carpeta donde queremos que se guarden las imágenes dentro de cloudinary, "pency" por ejemplo.
+También vamos a necesitar una cuenta en Cloudinary para alojar las imágenes de la tienda. De allí vamos a necesitar el Cloudinary Cloud name para la variable `CLOUDINARY_CLOUD` del _environment_ (lo vas a ver arriba a la derecha una vez que inicies sesión). Además vamos a tener que ir a `Settings > Upload` donde podemos configurar los presets. El `CLOUDINARY_PRESET_LOW` se va a usar para las imágenes de los productos cargados y `CLOUDINARY_PRESET_HIGH` para las imágenes de banner y logo. Tenemos que asegurarnos de setear el Signing Mode en *Unsigned*, el resto de las configuraciones depende de tus preferencias. También vamos a setear la variable `CLOUDINARY_FOLDER` con el nombre de la carpeta donde queremos que se guarden las imágenes dentro de cloudinary, "pency", por ejemplo.
 
 ## Configurando el proyecto
 Una vez que tengamos nuestro `.env.[ambiente].local` listo, vamos a la consola, nos paramos en la carpeta de nuestro proyecto y ejecutamos:
@@ -74,10 +74,10 @@ yarn && yarn dev
 npm install && npm run dev
 ```
 
-### Creando la tienda
+## Creando la tienda
  - Bajamos y abrimos [Postman](https://www.postman.com/downloads/).
  - Comprobamos que la aplicación este corriendo en **http://localhost:3000/**.
- - Seleccionamos POST Request y colocamos como URL: `http://localhost:3000/api/tenant?slug=NOMBRE_DE_TU_TIENDA` (si bien podémos poner lo que queramos en slug recomiendo que sean solo letras minúsculas y guiones)
+ - Seleccionamos POST Request y colocamos como URL: `http://localhost:3000/api/tenant/NOMBRE_DE_TU_TIENDA` (si bien podemos poner lo que queramos en slug recomiendo que sean solo letras minúsculas y guiones)
  - En `body` seleccionamos `x-www-form-urlencoded` y colocamos los siguientes valores:
 ```markdown
 	|   KEY  |                    VALUE                         |
@@ -88,7 +88,7 @@ npm install && npm run dev
 ```
  - Hacemos click en `Send` y comprobamos si se creó la tienda entrando en: `http://localhost:3000/NOMBRE_DE_TU_TIENDA`
  -  Para acceder al panel de administración debemos entrar mediante el siguiente link: `http://localhost:3000/NOMBRE_DE_TU_TIENDA/admin`
- > Tomá en cuenta que ya que usamos el uid del usuario como id del documento, no podémos tener mas de un usuario por tienda ni tampoco mas de una tienda por usuario.
+ > Tomá en cuenta que ya que usamos el uid del usuario como id del documento, no podémos tener más de un usuario por tienda ni tampoco más de una tienda por usuario.
 
-## Qué puedo hacer con Pency?
+## ¿Qué puedo hacer con Pency?
 Podés leer la licencia [acá](./LICENSE.md). En resumen, podés usar Pency para lo que quieras mientras no lucres con eso y menciones la fuente original cuando lo uses 🥰.

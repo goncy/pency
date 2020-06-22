@@ -80,6 +80,8 @@ const SessionProvider: React.FC = ({children}) => {
   React.useEffect(() => {
     if (user) {
       user.getIdToken().then((token) => localStorage.setItem("token", token));
+    } else {
+      localStorage.removeItem("token");
     }
   }, [user]);
 

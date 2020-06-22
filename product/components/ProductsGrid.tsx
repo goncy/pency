@@ -8,7 +8,12 @@ interface Props extends StackProps {
 const ProductsGrid: React.FC<Props> = ({children, title, ...props}) => (
   <Stack spacing={{base: 4, sm: 5}} {...props}>
     {title && (
-      <Text data-test-id="title" fontSize={{base: "lg", sm: "2xl"}} fontWeight={500}>
+      <Text
+        data-test-id="title"
+        fontSize={{base: "lg", sm: "2xl"}}
+        fontWeight={500}
+        textTransform="capitalize"
+      >
         {title}
       </Text>
     )}
@@ -17,7 +22,7 @@ const ProductsGrid: React.FC<Props> = ({children, title, ...props}) => (
       gridGap={{base: 4, sm: 8}}
       templateColumns={{
         base: "repeat(auto-fill, minmax(140px,1fr))",
-        sm: "repeat(auto-fill, minmax(280px,1fr))",
+        sm: "repeat(auto-fill, minmax(200px,1fr))",
       }}
     >
       {children}

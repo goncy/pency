@@ -21,24 +21,27 @@ export default {
               .catch(({errorInfo}) => Promise.reject({statusText: errorInfo.message, status: 400}))
           : Promise.reject({statusText: "Esa tienda ya existe", status: 409}),
       ),
-  fetch: async (slug: ServerTenant["slug"]): Promise<ServerTenant> =>
-    cache.get(slug) ||
-    database
-      .collection("tenants")
-      .where("slug", "==", slug)
-      .limit(1)
-      .get()
-      .then((snapshot) =>
-        snapshot.empty
-          ? Promise.reject({statusText: "La tienda no existe", status: 404})
-          : snapshot.docs[0],
-      )
-      .then((doc) => ({...(doc.data() as ServerTenant), id: doc.id}))
-      .then((tenant) => {
-        cache.set(tenant.slug, tenant);
+  fetch: async (slug: ServerTenant["slug"]): Promise<ServerTenant> => {
+    return (
+      cache.get(slug) ||
+      database
+        .collection("tenants")
+        .where("slug", "==", slug)
+        .limit(1)
+        .get()
+        .then((snapshot) =>
+          snapshot.empty
+            ? Promise.reject({statusText: "La tienda no existe", status: 404})
+            : snapshot.docs[0],
+        )
+        .then((doc) => ({...(doc.data() as ServerTenant), id: doc.id}))
+        .then((tenant) => {
+          cache.set(tenant.slug, tenant);
 
-        return tenant;
-      }),
+          return tenant;
+        })
+    );
+  },
   list: async (): Promise<ServerTenant[]> =>
     database
       .collection("tenants")
@@ -60,9 +63,10 @@ export default {
     id: ServerTenant["id"],
     slug: ServerTenant["slug"],
     tenant: Partial<ServerTenant>,
-  ) => {
-    cache.update(slug, tenant);
-
-    return database.collection("tenants").doc(id).update(tenant);
-  },
+  ) =>
+    database
+      .collection("tenants")
+      .doc(id)
+      .update(tenant)
+      .then(() => cache.update(slug, {id, slug, ...tenant})),
 };

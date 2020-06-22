@@ -3,18 +3,19 @@ import {AuthResponse} from "../types";
 import fetch from "~/utils/fetch";
 import {CartItem} from "~/cart/types";
 import {ClientTenant} from "~/tenant/types";
+import {getVariantsPrice} from "~/product/selectors";
 
 export default {
   create: async (items: CartItem[], slug: ClientTenant["slug"], orderId: string, token: string) =>
     fetch("POST", `https://api.mercadopago.com/checkout/preferences?access_token=${token}`, {
-      items: items.map((item) => ({
-        id: item.id,
-        title: item.title,
-        description: item.description,
-        category_id: item.category,
-        quantity: item.count,
+      items: items.map(({product, count, variants}) => ({
+        id: product.id,
+        title: product.title,
+        description: product.description,
+        category_id: product.category,
+        quantity: count,
         currency_id: "ARS",
-        unit_price: item.price * item.count,
+        unit_price: product.price + getVariantsPrice(variants),
       })),
       external_reference: `Orden: ${orderId}`,
       back_urls: {

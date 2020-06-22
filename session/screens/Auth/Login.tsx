@@ -17,7 +17,7 @@ import Input from "~/ui/inputs/Input";
 import {useToast} from "~/hooks/toast";
 import TenantAvatar from "~/tenant/components/TenantAvatar";
 import {ClientTenant} from "~/tenant/types";
-import {useTranslation} from "~/hooks/translation";
+import {useTranslation} from "~/i18n/hooks";
 
 interface FormData {
   email: string;
@@ -44,15 +44,16 @@ const LoginScreen: React.FC<Props> = ({navigate, logo, title}) => {
   function onSubmit({email, password}: FormData) {
     setLoading(true);
 
-    api.signIn(email, password).catch(() => {
-      toast({
-        title: t("common.error"),
-        description: t("auth.login.signInError"),
-        status: "error",
-      });
-
-      setLoading(false);
-    });
+    api
+      .signIn(email, password)
+      .catch(() =>
+        toast({
+          title: t("common.error"),
+          description: t("auth.login.signInError"),
+          status: "error",
+        }),
+      )
+      .then(() => setLoading(false));
   }
 
   return (

@@ -6,7 +6,7 @@ import api from "../../../api/client";
 
 import Input from "~/ui/inputs/Input";
 import {useToast} from "~/hooks/toast";
-import {useTranslation} from "~/hooks/translation";
+import {useTranslation} from "~/i18n/hooks";
 
 interface FormData {
   email: string;

@@ -35,6 +35,7 @@ const StoreLayout: React.FC<Props> = ({tenant, children}) => (
         }
 
         #drawer-cart,
+        #drawer-cart-item,
         #drawer-options {
           height: 100% !important;
         }

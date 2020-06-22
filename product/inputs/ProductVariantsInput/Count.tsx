@@ -11,6 +11,7 @@ interface Props {
 
 const CountInput: React.FC<Props> = ({value, onChange}) => {
   const initialCount = value > 1 ? value : undefined;
+  const countRef = React.useRef<HTMLInputElement>();
   const [count, setCount] = React.useState<number>(initialCount);
 
   function handleChange(event) {
@@ -36,19 +37,26 @@ const CountInput: React.FC<Props> = ({value, onChange}) => {
     <RadioGroup isInline value={value} onChange={handleChange}>
       <RadioColumn value={1}>Una</RadioColumn>
       <RadioColumn value={0}>Ilimitadas</RadioColumn>
-      <RadioColumn paddingRight={0} paddingY={0} value={count}>
+      <RadioColumn
+        paddingRight={0}
+        paddingY={0}
+        value={count}
+        onClick={() => countRef?.current.focus()}
+      >
         <Input
+          ref={countRef}
           _placeholder={{
             color: "black",
           }}
           color="black"
           defaultValue={initialCount}
           fontSize="16px"
-          height={10}
+          height="43px"
           placeholder="Definir"
           roundedLeft={0}
           roundedRight="md"
           size="sm"
+          type="number"
           onChange={handleCountChange}
           onFocus={handleCountFocus}
         />

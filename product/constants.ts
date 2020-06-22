@@ -1,4 +1,6 @@
-export const DEFAULT_PRODUCT = {
+import {Variant, Product, Option} from "./types";
+
+export const DEFAULT_PRODUCT: Omit<Product, "id"> = {
   title: "-",
   description: "",
   category: null,
@@ -9,13 +11,15 @@ export const DEFAULT_PRODUCT = {
   options: [],
 };
 
-export const DEFAULT_PRODUCT_VARIANT = {
+export const DEFAULT_PRODUCT_VARIANT: Omit<Variant, "id"> = {
   title: "-",
   count: 1,
   options: [],
+  value: [],
+  required: false,
 };
 
-export const DEFAULT_PRODUCT_OPTION = {
+export const DEFAULT_PRODUCT_OPTION: Omit<Option, "id"> = {
   title: "-",
   price: 0,
 };

@@ -23,11 +23,15 @@ export default {
     };
   },
   get variant(): Variant {
+    const options = [this.option, this.option, this.option];
+
     return {
       id: faker.random.uuid(),
       title: faker.commerce.productName(),
-      count: 5,
-      options: [this.option, this.option, this.option],
+      count: faker.random.number(5),
+      required: faker.random.boolean(),
+      options,
+      value: [],
     };
   },
   get option(): Option {

@@ -2,7 +2,7 @@ import React from "react";
 import faker from "faker";
 import { configure } from '@storybook/react';
 import { addDecorator } from '@storybook/react';
-
+import { withA11y } from '@storybook/addon-a11y';
 import { ThemeProvider, CSSReset, Box } from "@chakra-ui/core";
 import { Provider as ProductProvider } from "~/product/context";
 import { Provider as TenantProvider } from "~/tenant/context";
@@ -33,5 +33,5 @@ addDecorator(storyFn => (
       </TenantProvider>
     </ThemeProvider>
 ));
-
+addDecorator(withA11y);
 configure(require.context('../', true, /\.stories\.tsx$/), module);

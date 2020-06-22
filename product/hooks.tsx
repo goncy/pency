@@ -9,7 +9,7 @@ import Select from "~/ui/inputs/Select";
 import {extractUniqueBy, filterBy} from "~/selectors/filter";
 import {sort} from "~/selectors/sort";
 import {groupBy} from "~/selectors/group";
-import {useTranslation} from "~/hooks/translation";
+import {useTranslation} from "~/i18n/hooks";
 
 export function useProducts() {
   const {
@@ -86,6 +86,7 @@ export function useFilteredProducts(filters: Partial<Product> = {}) {
             top="inherit"
           />
           <Input
+            fontSize="md"
             paddingLeft={10}
             placeholder={t("filters.search")}
             value={query}

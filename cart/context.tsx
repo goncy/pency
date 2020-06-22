@@ -2,7 +2,7 @@ import React from "react";
 import shortid from "shortid";
 import produce from "immer";
 
-import {Product} from "../product/types";
+import {Product, Variant} from "../product/types";
 
 import {CartItem, Context, State, Actions, Cart} from "./types";
 import {getSummary, getMessage} from "./selectors";
@@ -10,7 +10,6 @@ import {getSummary, getMessage} from "./selectors";
 import {useAnalytics} from "~/analytics/hooks";
 import paymentApi from "~/payment/api/client";
 import {useTenant} from "~/tenant/hooks";
-import {getPrice, getOptionsString} from "~/product/selectors";
 import {Field} from "~/tenant/types";
 import {isMercadoPagoSelected} from "~/tenant/selectors";
 
@@ -26,7 +25,7 @@ const CartProvider = ({children}: Props) => {
   const [cart, setCart] = React.useState<Cart>({});
   const items = React.useMemo(() => [].concat(...Object.values(cart)), [cart]);
 
-  function add(product: Product) {
+  function add(product: Product, variants: Variant[], count: number = 1) {
     log("product_add", {
       content_type: "product",
       description: `[${product.category}] ${product.title}`,
@@ -35,36 +34,14 @@ const CartProvider = ({children}: Props) => {
 
     setCart(
       produce((cart) => {
-        if (product.options?.length) {
-          const id = shortid.generate();
+        const id = shortid.generate();
 
-          cart[id] = {
-            id,
-            product: product.id,
-            count: 1,
-            category: product.category,
-            price: getPrice(product),
-            title: product.title,
-            description: product.description,
-            options: getOptionsString(product.options),
-          };
-        } else {
-          if (cart[product.id]) {
-            cart[product.id].count++;
-          } else {
-            cart[product.id] = {
-              id: product.id,
-              product: product.id,
-              category: product.category,
-              description: product.description,
-              title: product.title,
-              price: product.price,
-              count: 1,
-            };
-          }
-        }
-
-        return cart;
+        cart[id] = {
+          id,
+          variants,
+          count,
+          product,
+        };
       }),
     );
   }

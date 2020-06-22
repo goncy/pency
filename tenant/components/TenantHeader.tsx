@@ -6,16 +6,26 @@ import {ClientTenant} from "../types";
 import TenantAvatar from "./TenantAvatar";
 
 import SocialLinks from "~/ui/list/SocialLinks";
+import MarkerIcon from "~/ui/icons/Marker";
+import Link from "~/ui/controls/Link";
 
 interface Props extends BoxProps {
   tenant: Pick<
     ClientTenant,
-    "banner" | "facebook" | "instagram" | "twitter" | "logo" | "title" | "description" | "phone"
+    | "banner"
+    | "facebook"
+    | "instagram"
+    | "twitter"
+    | "logo"
+    | "title"
+    | "description"
+    | "phone"
+    | "address"
   >;
 }
 
 const TenantHeader: React.FC<Props> = ({
-  tenant: {banner, facebook, instagram, twitter, logo, title, description, phone},
+  tenant: {banner, facebook, instagram, twitter, logo, title, description, phone, address},
   ...props
 }) => (
   <Box {...props}>
@@ -56,6 +66,16 @@ const TenantHeader: React.FC<Props> = ({
           <Text color="gray.500" fontSize={{base: "sm", sm: "md"}} lineHeight="tall">
             {description}
           </Text>
+          {address && (
+            <Stack isInline alignItems="center" color="primary.500" marginTop={1} spacing={1}>
+              <MarkerIcon size={4} />
+              <Link isExternal href={`https://www.google.com.ar/maps/place/${address}`}>
+                <Text fontSize={{base: "sm", sm: "md"}} lineHeight="tall">
+                  {address}
+                </Text>
+              </Link>
+            </Stack>
+          )}
         </Stack>
         <SocialLinks
           facebook={facebook}

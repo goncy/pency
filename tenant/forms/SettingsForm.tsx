@@ -11,7 +11,7 @@ import Input from "~/ui/inputs/Input";
 import Textarea from "~/ui/inputs/Textarea";
 import ColorRadio from "~/ui/inputs/ColorRadio";
 import ImageInput from "~/ui/inputs/Image";
-import FormControl from "~/ui/controls/FormControl";
+import FormControl from "~/ui/form/FormControl";
 import MPConnect from "~/payment/inputs/MPConnect";
 
 interface Props {

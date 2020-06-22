@@ -1,5 +1,3 @@
-import * as R from "ramda";
-
 import {ServerTenant} from "./types";
 
 const cache = new Map<ServerTenant["slug"], ServerTenant>();
@@ -7,7 +5,9 @@ const cache = new Map<ServerTenant["slug"], ServerTenant>();
 function update(slug: ServerTenant["slug"], value: Partial<ServerTenant>) {
   const cached: ServerTenant = cache.get(slug);
 
-  cache.set(slug, R.mergeRight(cached, value));
+  if (cached) {
+    cache.set(slug, {...cached, ...value});
+  }
 }
 
 function set(slug: ServerTenant["slug"], value: ServerTenant) {

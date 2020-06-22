@@ -1,11 +1,11 @@
 import React from "react";
 
-import ProductContext from "./context";
+import TenantContext from "./context";
 
 export function useTenant() {
   const {
     state: {tenant},
-  } = React.useContext(ProductContext);
+  } = React.useContext(TenantContext);
 
   return tenant;
 }
@@ -13,7 +13,7 @@ export function useTenant() {
 export function useTenantActions() {
   const {
     actions: {update},
-  } = React.useContext(ProductContext);
+  } = React.useContext(TenantContext);
 
   return {update};
 }

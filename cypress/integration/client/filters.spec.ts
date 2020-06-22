@@ -1,4 +1,8 @@
 describe("User filters", () => {
+  beforeEach(() => {
+    window.localStorage.setItem("onboarding:Products", "completed");
+  });
+
   describe("criteria", () => {
     it("should filter by criteria", () => {
       cy.visit("/full");

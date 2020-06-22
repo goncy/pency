@@ -1,15 +1,15 @@
 import React from "react";
-import {BoxProps, DrawerHeader, Flex, Stack} from "@chakra-ui/core";
+import {BoxProps, DrawerHeader, Flex, Stack, IDrawer} from "@chakra-ui/core";
 
 import ArrowLeftIcon from "~/ui/icons/ArrowLeft";
 import CrossIcon from "~/ui/icons/Cross";
 
 interface Props extends BoxProps {
-  onBack?: VoidFunction;
-  onClose?: VoidFunction;
+  onBack?: IDrawer["onClose"] | VoidFunction;
+  onClose?: IDrawer["onClose"];
 }
 
-const Header: React.FC<Props> = ({onBack, onClose, children = null, ...props}) => (
+const Header: React.FC<Props> = ({onBack, onClose, ...props}) => (
   <DrawerHeader padding={4} {...props}>
     <Stack spacing={2}>
       {(onBack || onClose) && (
@@ -18,7 +18,6 @@ const Header: React.FC<Props> = ({onBack, onClose, children = null, ...props}) =
           {onClose && <CrossIcon cursor="pointer" marginLeft="auto" onClick={onClose} />}
         </Flex>
       )}
-      {children}
     </Stack>
   </DrawerHeader>
 );

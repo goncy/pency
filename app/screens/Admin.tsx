@@ -26,7 +26,7 @@ import LogOutIcon from "~/ui/icons/LogOut";
 import IconButton from "~/ui/controls/IconButton";
 import {useSession} from "~/session/hooks";
 import Content from "~/ui/structure/Content";
-import {useTranslation} from "~/hooks/translation";
+import {useTranslation} from "~/i18n/hooks";
 import HomeIcon from "~/ui/icons/Home";
 
 interface Props {
