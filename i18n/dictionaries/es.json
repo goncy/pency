@@ -20,6 +20,26 @@
     "item": "Item",
     "item_plural": "Items"
   },
+  "app":{
+    "landing": {
+      "keepCatalogUpdate": {
+        "title":"Mantené tu catálogo actualizado",
+        "description":"Cada cambio en tu carta o actualización de precios se refleja al instante."
+      },
+      "streamlineBusinessManagment":{
+        "title":"Agilizá la gestión de tu negocio",
+        "description":"Recibir pedidos por teléfono es lento, costoso y favorece errores, optimiza tiempo de tus empleados."
+      },
+      "reachManyCustomers":{
+        "title":"Alcanzá a muchos más clientes",
+        "description":"Agregá, modificá o eliminar productos fácilmente."
+      },
+      "withoutIntermediaries":{
+        "title":"Sin intermediarios",
+        "description":"Los clientes son de tu negocio, no pagás comisiones por cada venta y ofreces un mejor precio."
+      }
+    }
+  },
   "form": {
     "required": "Este campo es requerido",
     "invalidEmail": "No es un email válido"
