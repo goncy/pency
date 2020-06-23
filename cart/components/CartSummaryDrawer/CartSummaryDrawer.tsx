@@ -15,8 +15,8 @@ interface Props {
   items: CartItem[];
   fields?: ClientTenant["fields"];
   onCheckout: (fields?: Field[]) => Promise<void>;
-  onDecrease: (id: string) => void;
-  onIncrease: (id: string) => void;
+  onDecrease: (id: CartItem["id"]) => void;
+  onIncrease: (id: CartItem["id"]) => void;
 }
 
 const CartSummaryDrawer: React.FC<Props> = ({

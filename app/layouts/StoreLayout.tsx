@@ -30,8 +30,8 @@ const StoreLayout: React.FC<Props> = ({tenant, children}) => (
 
         * {
           touch-action: manipulation;
-          font-family: aktiv-grotesk, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
-            Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+          font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+            "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
         }
 
         #drawer-cart,
@@ -49,7 +49,10 @@ const StoreLayout: React.FC<Props> = ({tenant, children}) => (
     <Head>
       <link href={META.favicon} rel="icon" />
       <link href={tenant.logo || META.appleicon} rel="apple-touch-icon" />
-      <link href="https://use.typekit.net/kdb3mdf.css" rel="stylesheet" />
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap"
+        rel="stylesheet"
+      />
       <title>{tenant.title || META.title}</title>
       <meta content={tenant.color || META.theme} name="theme-color" />
       <meta content={tenant.description || META.description} name="description" />
@@ -70,10 +73,7 @@ const StoreLayout: React.FC<Props> = ({tenant, children}) => (
       <meta content={META.banner?.width} property="og:image:width" />
       <meta content={META.banner?.height} property="og:image:height" />
       <meta content={tenant.title || META.title} property="og:image:alt" />
-      <meta
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-        name="viewport"
-      />
+      <meta content="width=device-width, initial-scale=1.0" name="viewport" />
       {process.env.NODE_ENV === "production" && (
         <script async src="https://www.googletagmanager.com/gtag/js" />
       )}

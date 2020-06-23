@@ -14,8 +14,8 @@ import {getVariantsString, getVariantsPrice} from "~/product/selectors";
 
 interface Props {
   items: CartItem[];
-  onDecrease: (id: string) => void;
-  onIncrease: (id: string) => void;
+  onDecrease: (id: CartItem["id"]) => void;
+  onIncrease: (id: CartItem["id"]) => void;
   onSubmit: () => Promise<void>;
   hasNextStep: boolean;
 }
