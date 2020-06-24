@@ -15,12 +15,13 @@ const AdminLayout: React.FC = ({children}) => (
         }
 
         * {
+          letter-spacing: -0.2px;
           touch-action: manipulation;
           font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
             "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
         }
 
-        #drawer-product {
+        [id*="drawer"] {
           height: 100% !important;
         }
       `}
