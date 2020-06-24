@@ -21,7 +21,7 @@ const AdminLayout: React.FC = ({children}) => (
             "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
         }
 
-        [id*="drawer"] {
+        #drawer-product {
           height: 100% !important;
         }
       `}

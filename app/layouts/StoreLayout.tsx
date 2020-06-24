@@ -35,7 +35,8 @@ const StoreLayout: React.FC<Props> = ({tenant, children}) => (
             "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
         }
 
-        [id*="drawer"] {
+        #drawer-cart,
+        #drawer-cart-item {
           height: 100% !important;
         }
       `}
