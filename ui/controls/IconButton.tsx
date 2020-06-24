@@ -16,7 +16,7 @@ const IconButton: React.FC<Props> = ({
   ...props
 }) => {
   return (
-    <Button alignItems="center" display="flex" {...props}>
+    <Button alignItems="center" display="flex" paddingX={3} {...props}>
       {leftIcon && React.createElement(leftIcon)}
       {children && (
         <Box

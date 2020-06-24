@@ -164,7 +164,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
               <Controller
                 as={ProductVariantsInput}
                 control={control}
-                error={(errors.options as any)?.type}
+                error={errors.options as any}
                 name="options"
                 rules={{
                   validate: ProductVariantsInputValidator,
