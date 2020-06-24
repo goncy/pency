@@ -3,13 +3,14 @@ import {Grid} from "@chakra-ui/core";
 
 import Feature from "./Feature";
 import Content from "./Content";
+
 import PhoneClockIcon from "~/ui/icons/PhoneClock";
 import MoneyShieldIcon from "~/ui/icons/MoneyShield";
 import UsersChatIcon from "~/ui/icons/UsersChat";
 import UserDistanceIcon from "~/ui/icons/UserDistance";
 import {useTranslation} from "~/i18n/hooks";
 
-const Features:React.FC = () => {
+const Features: React.FC = () => {
   const t = useTranslation();
 
   return (
