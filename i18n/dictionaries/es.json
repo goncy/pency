@@ -22,21 +22,21 @@
   },
   "app":{
     "landing": {
-      "keepCatalogUpdate": {
-        "title":"Mantené tu catálogo actualizado",
-        "description":"Cada cambio en tu carta o actualización de precios se refleja al instante."
-      },
       "streamlineBusinessManagment":{
         "title":"Agilizá la gestión de tu negocio",
-        "description":"Recibir pedidos por teléfono es lento, costoso y favorece errores, optimiza tiempo de tus empleados."
+        "description":"Optimizamos tus recursos simplificando la forma de recibir los pedidos."
       },
-      "reachManyCustomers":{
-        "title":"Alcanzá a muchos más clientes",
-        "description":"Agregá, modificá o eliminar productos fácilmente."
+      "endAbusiveCommissions":{
+        "title":"Poné fin a las comisiones abusivas",
+        "description":"Olvidate de los intermediarios y las comisiones por venta. Ofrecé un mejor precio con tu tienda independiente."
       },
-      "withoutIntermediaries":{
-        "title":"Sin intermediarios",
-        "description":"Los clientes son de tu negocio, no pagás comisiones por cada venta y ofreces un mejor precio."
+      "talkClientWithoutIntermediaries":{
+        "title":"Hablá con tus clientes sin intermediarios.",
+        "description":"Brindá un mejor servicio y atención gracias a la comunicación directa."
+      },
+      "avoidCrowdsPremises":{
+        "title":"Evitá aglomeraciones en tu local",
+        "descrition":"Reducí los tiempos de espera y librate de las filas innecesarias vendiendo online."
       }
     }
   },

@@ -22,21 +22,21 @@
   },
   "app":{
     "landing": {
-      "keepCatalogUpdate": {
-        "title":"Keep your catalog updated",
-        "description":"Every change in your menu or price update is instantly reflected."
-      },
       "streamlineBusinessManagment":{
         "title":"Streamline your business management",
-        "description":"Receiving orders by phone is slow, expensive and favors errors, optimizing your employees' time."
+        "description":"We optimize your resources by simplifying the way you receive orders."
       },
-      "reachManyCustomers":{
-        "title":"Reach many more customers.",
-        "description":"Add, modify or remove products easily."
+      "endAbusiveCommissions":{
+        "title":"End abusive commissions",
+        "description":"Forget about intermediaries and sales commissions. You will be able to offer a better price with your independent store."
       },
-      "withoutIntermediaries":{
-        "title":"Without intermediaries",
-        "description":"Customers are from your business, you don't pay commissions for each sale and you offer a better price."
+      "talkClientWithoutIntermediaries":{
+        "title":"Talk to your clients without intermediaries.",
+        "description":"Provide better service and attention thanks to direct communication."
+      },
+      "avoidCrowdsPremises":{
+        "title":"Avoid crowds in your premises",
+        "description":"Reduce waiting times and get rid of unnecessary lines by selling online."
       }
     }
   },

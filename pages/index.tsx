@@ -7,7 +7,9 @@ import {Provider as I18nProvider} from "~/i18n/context";
 const LandingScreen: React.FC = () => (
   <LandingLayout>
     <I18nProvider>
+
       <Landing />
+      
     </I18nProvider>
   </LandingLayout>
 );
