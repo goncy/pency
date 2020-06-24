@@ -13,10 +13,26 @@ import Input from "~/ui/inputs/Input";
 interface Props {
   value: Partial<RadioField>;
   onChange: (value: Partial<RadioField>) => void;
-  error?: string;
+  error?: {
+    index: number;
+    type: string;
+    message: string;
+  };
 }
 
-const RadioFieldInput: React.FC<Props> = ({value, onChange, error}) => {
+const RadioFieldInput: React.FC<Props> = ({value, onChange, error: _error}) => {
+  const error = React.useMemo(() => {
+    if (!_error) return null;
+
+    const [index, message] = _error.message.split("|");
+
+    return {
+      type: _error.type,
+      index: Number(index),
+      message,
+    };
+  }, [_error]);
+
   function handleChange(subindex, prop, newValue) {
     onChange(
       produce(value, (value) => {
@@ -50,56 +66,60 @@ const RadioFieldInput: React.FC<Props> = ({value, onChange, error}) => {
           </FormLabel>
         )}
         <Stack spacing={2}>
-          {value.options.map((option, subindex) => (
-            <Stack key={option.id} isInline alignItems="flex-start" spacing={0}>
-              <FormControl
-                error={error === "radioOptionsTitle" && !option.title && "Este campo es requerido"}
-                width="100%"
-              >
-                <Input
-                  placeholder="Efectivo"
-                  roundedRight={0}
-                  value={option.title}
-                  onChange={(event) => handleChange(subindex, "title", event.target.value)}
-                />
-              </FormControl>
-              <Divider
-                borderColor="gray.400"
-                height={6}
-                marginX={0}
-                marginY={2}
-                orientation="vertical"
-                style={{marginLeft: "-1px"}}
-              />
-              <FormControl width="100%">
-                <Input
-                  maxLength={35}
-                  placeholder="Nota"
-                  rounded={0}
-                  value={option.note}
-                  onChange={(event) => handleChange(subindex, "note", event.target.value || "")}
-                />
-              </FormControl>
-              {value.options.length > 2 && (
-                <Flex backgroundColor="gray.100" roundedRight="md">
-                  <Divider
-                    borderColor="gray.400"
-                    height={6}
-                    marginX={0}
-                    marginY={2}
-                    orientation="vertical"
+          {value.options.map((option, subindex) => {
+            const optionError = error?.index === subindex ? error : null;
+
+            return (
+              <Stack key={option.id} isInline alignItems="flex-start" spacing={0}>
+                <FormControl
+                  error={optionError?.type === "radioOptionsTitle" && error.message}
+                  width="100%"
+                >
+                  <Input
+                    placeholder="Efectivo"
+                    roundedRight={0}
+                    value={option.title}
+                    onChange={(event) => handleChange(subindex, "title", event.target.value)}
                   />
-                  <CloseButton
-                    aria-label="Borrar sub opción"
-                    height={10}
-                    roundedLeft={0}
-                    width={10}
-                    onClick={() => handleRemove(subindex)}
+                </FormControl>
+                <Divider
+                  borderColor="gray.400"
+                  height={6}
+                  marginX={0}
+                  marginY={2}
+                  orientation="vertical"
+                  style={{marginLeft: "-1px"}}
+                />
+                <FormControl width="100%">
+                  <Input
+                    maxLength={35}
+                    placeholder="Nota"
+                    rounded={0}
+                    value={option.note}
+                    onChange={(event) => handleChange(subindex, "note", event.target.value || "")}
                   />
-                </Flex>
-              )}
-            </Stack>
-          ))}
+                </FormControl>
+                {value.options.length > 2 && (
+                  <Flex backgroundColor="gray.100" roundedRight="md">
+                    <Divider
+                      borderColor="gray.400"
+                      height={6}
+                      marginX={0}
+                      marginY={2}
+                      orientation="vertical"
+                    />
+                    <CloseButton
+                      aria-label="Borrar sub opción"
+                      height={10}
+                      roundedLeft={0}
+                      width={10}
+                      onClick={() => handleRemove(subindex)}
+                    />
+                  </Flex>
+                )}
+              </Stack>
+            );
+          })}
         </Stack>
         <FormHelperText>La nota tiene un máximo de 35 caracteres</FormHelperText>
       </Stack>

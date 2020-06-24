@@ -7,7 +7,11 @@ import TextField from "./TextField";
 
 interface Props {
   index: number;
-  error?: string;
+  error?: {
+    index: number;
+    type: string;
+    message: string;
+  };
   value: Partial<Field>;
   onChange: (field: Partial<Field>) => void;
 }

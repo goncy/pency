@@ -41,6 +41,7 @@ export const CATEGORIES = [
   {label: "Carpintería", value: "carpentry"},
   {label: "Centro de salud", value: "health-center"},
   {label: "Cerrajería", value: "locksmith"},
+  {label: "Cervecería", value: "breweries"},
   {label: "Chocolatería", value: "chocolate-shop"},
   {label: "Comida rápida", value: "fast-food"},
   {label: "Concesionaria", value: "dealership"},

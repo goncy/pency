@@ -9,7 +9,13 @@ export const empty = () => <ProductVariantsInput value={[]} onChange={action("ch
 export const full = () => (
   <ProductVariantsInput value={[productMock.variant]} onChange={action("change")} />
 );
-export const unlimitedVariants = () => (
+export const multipleVariants = () => (
+  <ProductVariantsInput
+    value={[productMock.variant, productMock.variant]}
+    onChange={action("change")}
+  />
+);
+export const unlimitedOptions = () => (
   <ProductVariantsInput value={[{...productMock.variant, count: 0}]} onChange={action("change")} />
 );
 

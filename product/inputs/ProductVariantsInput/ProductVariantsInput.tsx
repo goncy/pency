@@ -1,6 +1,7 @@
 import React from "react";
 import {Stack} from "@chakra-ui/core";
 import produce from "immer";
+import {FieldError} from "react-hook-form";
 
 import {Variant} from "../../types";
 
@@ -13,14 +14,25 @@ import IconButton from "~/ui/controls/IconButton";
 import ClearableTextField from "~/ui/inputs/ClearableTextField";
 import PlusIcon from "~/ui/icons/Plus";
 import SwitchInput from "~/ui/inputs/Switch";
+import EditIcon from "~/ui/icons/Edit";
+import MenuIcon from "~/ui/icons/Menu";
 
 interface Props {
   value?: Partial<Variant[]>;
-  error?: string;
+  error?: FieldError;
   onChange: (options: Variant[]) => void;
 }
 
-const ProductVariantsInput: React.FC<Props> = ({value = [], error, onChange}) => {
+const ProductVariantsInput: React.FC<Props> = ({value = [], error: _error, onChange}) => {
+  const [active, setActive] = React.useState(null);
+  const error = React.useMemo(() => {
+    if (!_error) return null;
+
+    const [index, type, ...message] = (_error.message as string).split("|");
+
+    return {index: Number(index), type, message: message.join("|")};
+  }, [_error]);
+
   function handleCountChange(count, index) {
     onChange(
       produce(value, (value) => {
@@ -35,6 +47,7 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error, onChange}) =>
         value.push(getVariant());
       }),
     );
+    setActive(value.length);
   }
 
   function handleRemove(index) {
@@ -43,6 +56,7 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error, onChange}) =>
         value.splice(index, 1);
       }),
     );
+    setActive(null);
   }
 
   function handleChange(index, option) {
@@ -71,52 +85,72 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error, onChange}) =>
 
   return (
     <Stack spacing={3}>
-      {value?.map((option, index) => (
-        <Stack
-          key={option.id}
-          shouldWrapChildren
-          borderBottomWidth={1}
-          borderColor="gray.200"
-          paddingBottom={3}
-          spacing={3}
-        >
-          <FormControl
-            isRequired
-            error={error === "title" && !value[index].title && "Este campo es requerido"}
-            help="Utilizá solo 1 palabra. Se mostrará: Eligir color"
+      {value?.map((option, index) => {
+        const variantError = error?.index === index ? error : null;
+
+        return index === active ? (
+          <Stack
+            key={option.id}
+            shouldWrapChildren
+            borderBottomWidth={1}
+            borderColor="gray.200"
+            paddingBottom={3}
+            spacing={3}
           >
-            <ClearableTextField
-              placeholder="Adicionales"
-              value={option.title}
-              onChange={(event) => handleTitleChange(index, event.target.value)}
-              onClear={() => handleRemove(index)}
-            />
-          </FormControl>
-          <FormControl
-            help="Al activarlo, el usuario deberá indicar su elección antes de continuar."
-            name="required"
-          >
-            <SwitchInput
-              checked={option.required}
-              label="Obligatorio"
+            <Stack isInline spacing={2} width="100%">
+              <FormControl
+                isRequired
+                error={variantError?.type === "title" && error.message}
+                flex={1}
+                help="Utilizá solo 1 palabra. Se mostrará: Eligir color"
+              >
+                <ClearableTextField
+                  placeholder="Adicionales"
+                  value={option.title}
+                  onChange={(event) => handleTitleChange(index, event.target.value)}
+                  onClear={() => handleRemove(index)}
+                />
+              </FormControl>
+              <IconButton leftIcon={MenuIcon} onClick={() => setActive(null)} />
+            </Stack>
+            <FormControl
+              help="Al activarlo, el usuario deberá indicar su elección antes de continuar."
               name="required"
-              onChange={(checked) => handleRequiredChange(index, checked)}
+            >
+              <SwitchInput
+                checked={option.required}
+                label="Obligatorio"
+                name="required"
+                onChange={(checked) => handleRequiredChange(index, checked)}
+              />
+            </FormControl>
+            <FormControl isRequired label="Cuantas opciones podrá elegir?">
+              <CountInput
+                value={option.count}
+                onChange={(count) => handleCountChange(count, index)}
+              />
+            </FormControl>
+            <OptionInput
+              error={variantError}
+              index={index}
+              value={option}
+              onChange={(value) => handleChange(index, value)}
             />
-          </FormControl>
-          <FormControl isRequired label="Cuantas opciones podrá elegir?">
-            <CountInput
-              value={option.count}
-              onChange={(count) => handleCountChange(count, index)}
-            />
-          </FormControl>
-          <OptionInput
-            error={error}
-            index={index}
-            value={option}
-            onChange={(value) => handleChange(index, value)}
-          />
-        </Stack>
-      ))}
+          </Stack>
+        ) : (
+          <IconButton
+            key={option.id}
+            borderColor={variantError ? "red.500" : "transparent"}
+            borderWidth={variantError ? 2 : 0}
+            fontWeight="normal"
+            justifyContent="flex-start"
+            leftIcon={EditIcon}
+            onClick={() => setActive(index)}
+          >
+            {option.title || "[sin título]"}
+          </IconButton>
+        );
+      })}
       <IconButton
         fontWeight="normal"
         justifyContent="flex-start"
