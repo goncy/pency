@@ -20,6 +20,26 @@
     "item": "Item",
     "item_plural": "Items"
   },
+  "app":{
+    "landing": {
+      "streamlineBusinessManagment":{
+        "title":"Agilizá la gestión de tu negocio",
+        "description":"Optimizamos tus recursos simplificando la forma de recibir los pedidos."
+      },
+      "endAbusiveCommissions":{
+        "title":"Poné fin a las comisiones abusivas",
+        "description":"Olvidate de los intermediarios y las comisiones por venta. Ofrecé un mejor precio con tu tienda independiente."
+      },
+      "talkClientWithoutIntermediaries":{
+        "title":"Hablá con tus clientes sin intermediarios.",
+        "description":"Brindá un mejor servicio y atención gracias a la comunicación directa."
+      },
+      "avoidCrowdsPremises":{
+        "title":"Evitá aglomeraciones en tu local",
+        "descrition":"Reducí los tiempos de espera y librate de las filas innecesarias vendiendo online."
+      }
+    }
+  },
   "form": {
     "required": "Este campo es requerido",
     "invalidEmail": "No es un email válido"

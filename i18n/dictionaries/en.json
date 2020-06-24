@@ -20,6 +20,26 @@
     "item": "Item",
     "item_plural": "Items"
   },
+  "app":{
+    "landing": {
+      "streamlineBusinessManagment":{
+        "title":"Streamline your business management",
+        "description":"We optimize your resources by simplifying the way you receive orders."
+      },
+      "endAbusiveCommissions":{
+        "title":"End abusive commissions",
+        "description":"Forget about intermediaries and sales commissions. You will be able to offer a better price with your independent store."
+      },
+      "talkClientWithoutIntermediaries":{
+        "title":"Talk to your clients without intermediaries.",
+        "description":"Provide better service and attention thanks to direct communication."
+      },
+      "avoidCrowdsPremises":{
+        "title":"Avoid crowds in your premises",
+        "description":"Reduce waiting times and get rid of unnecessary lines by selling online."
+      }
+    }
+  },
   "form": {
     "required": "This field is required",
     "invalidEmail": "Invalid email"
