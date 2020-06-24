@@ -14,6 +14,7 @@ const Shout = () => (
   >
     <Flex direction="column">
       <Text
+        as="h2"
         fontSize={{base: "3xl", md: "4xl", lg: "5xl", xl: "6xl"}}
         fontWeight={500}
         lineHeight={"130%"}

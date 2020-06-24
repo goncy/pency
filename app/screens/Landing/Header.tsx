@@ -10,6 +10,7 @@ const Header: React.FC = () => (
     <Content alignItems="center" display="flex" flexDirection={{base: "column", md: "row"}}>
       <Box maxWidth={{base: "auto", sm: 500, lg: 580, xl: 640}}>
         <Text
+          as="h1"
           fontSize={{base: "2xl", md: "4xl", lg: "5xl", xl: "6xl"}}
           fontWeight={500}
           lineHeight={"130%"}
@@ -18,7 +19,7 @@ const Header: React.FC = () => (
           Ahorrá tiempo y dinero con tu tienda Pency
         </Text>
         <Text
-          as="h3"
+          as="h2"
           color="teal.50"
           fontSize={{base: "lg", sm: "lg", md: "xl", lg: "2xl", xl: "3xl"}}
         >

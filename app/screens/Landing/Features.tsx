@@ -29,7 +29,10 @@ const Features: React.FC = () => {
         <Feature icon={MoneyShieldIcon} title={t("app.landing.endAbusiveCommissions.title")}>
           {t("app.landing.endAbusiveCommissions.description")}
         </Feature>
-        <Feature icon={UsersChatIcon} title={t("app.landing.talkClientWithoutIntermediaries.title")}>
+        <Feature
+          icon={UsersChatIcon}
+          title={t("app.landing.talkClientWithoutIntermediaries.title")}
+        >
           {t("app.landing.talkClientWithoutIntermediaries.description")}
         </Feature>
         <Feature icon={UserDistanceIcon} title={t("app.landing.avoidCrowdsPremises.title")}>
@@ -37,8 +40,7 @@ const Features: React.FC = () => {
         </Feature>
       </Grid>
     </Content>
-  )
+  );
 };
-
 
 export default Features;

@@ -27,7 +27,7 @@ const FAQ = () => (
     <Content>
       <Stack spacing={12}>
         <Text
-          as="h3"
+          as="h2"
           color="gray.900"
           fontSize={{base: "2xl", sm: "3xl", lg: "4xl", xl: "5xl"}}
           fontWeight={500}
