@@ -1,5 +1,5 @@
 import {Product} from "../types";
-import {parseProduct, formatProduct} from "../selectors";
+import {serverToClient, clientToServer} from "../selectors";
 import cache from "../cache";
 
 import {database} from "~/firebase/admin";
@@ -16,7 +16,7 @@ export default {
         .get()
         .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
         .then((products) => {
-          const parsed = products.map(parseProduct);
+          const parsed = products.map(serverToClient);
 
           cache.set(tenant, parsed);
 
@@ -24,19 +24,22 @@ export default {
         })
     );
   },
-  create: (tenant: ClientTenant["id"], product: Product) =>
-    database
+  create: (tenant: ClientTenant["id"], product: Product) => {
+    const formated = clientToServer(product);
+
+    return database
       .collection("tenants")
       .doc(tenant)
       .collection("products")
-      .add(formatProduct(product))
+      .add(formated)
       .then((snapshot) => {
-        const parsed: Product = {...product, id: snapshot.id};
+        const parsed: Product = {...formated, id: snapshot.id};
 
         cache.add(tenant, parsed);
 
         return parsed;
-      }),
+      });
+  },
   remove: (tenant: ClientTenant["id"], product: Product["id"]) =>
     database
       .collection("tenants")
@@ -46,7 +49,7 @@ export default {
       .delete()
       .then(() => cache.pluck(tenant, product)),
   update: (tenant: ClientTenant["id"], {id, ...product}: Product) => {
-    const formated = formatProduct(product);
+    const formated = clientToServer(product);
 
     return database
       .collection("tenants")

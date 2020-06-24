@@ -1,10 +1,12 @@
 import React from "react";
 import {Stack, Box, PseudoBox, Flex, useDisclosure} from "@chakra-ui/core";
 
-import ProductCard from "../components/ProductCard";
-import {useFilteredProducts} from "../hooks";
-import ProductsGrid from "../components/ProductsGrid";
-import ProductsCarousel from "../components/ProductsCarousel";
+import ProductCard from "../../components/ProductCard";
+import {useFilteredProducts} from "../../hooks";
+import ProductsGrid from "../../components/ProductsGrid";
+import ProductsCarousel from "../../components/ProductsCarousel";
+
+import Onboarding from "./Onboarding";
 
 import {useCart} from "~/cart/hooks";
 import {groupBy} from "~/selectors/group";
@@ -18,10 +20,10 @@ import Content from "~/ui/structure/Content";
 import SummaryButton from "~/cart/components/SummaryButton";
 
 const ProductsScreen: React.FC = () => {
-  const {add, remove, items, checkout} = useCart();
+  const {add, increase, decrease, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
-  const {products, filters} = useFilteredProducts({available: true});
+  const {products, filters} = useFilteredProducts();
   const {highlight, fields, ...tenant} = useTenant();
 
   const featuredProducts = filterBy(products, {featured: true});
@@ -141,8 +143,10 @@ const ProductsScreen: React.FC = () => {
         items={items}
         onCheckout={checkout}
         onClose={closeCart}
-        onRemove={remove}
+        onDecrease={decrease}
+        onIncrease={increase}
       />
+      <Onboarding />
     </>
   );
 };

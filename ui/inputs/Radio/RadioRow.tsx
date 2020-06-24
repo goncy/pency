@@ -18,7 +18,8 @@ const RadioRow: React.FC<Props> = ({children, note = null, ...props}) => (
   <StyledRadio
     isFullWidth
     borderBottomWidth={1}
-    height={12}
+    height="auto"
+    minHeight={12}
     paddingBottom={4}
     paddingX={0}
     paddingY={2}

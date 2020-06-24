@@ -52,9 +52,10 @@
     "empty": "No se encontraron productos"
   },
   "cart": {
-    "yourOrder": "Tu orden",
+    "yourOrder": "Tu pedido",
     "completeOrder": "Completá tu pedido",
-    "completeOnWhatsApp": "Completar pedido en WhatsApp"
+    "completeOnWhatsApp": "Completar pedido en WhatsApp",
+    "estimatedTotal": "Total estimado"
   },
   "products": {
     "empty": "No se encontraron productos",

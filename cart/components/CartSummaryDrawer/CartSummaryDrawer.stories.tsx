@@ -11,14 +11,15 @@ export const open = () => (
   <CartSummaryDrawer
     isOpen
     fields={tenantMock.client.full.fields}
-    items={mock.items}
+    items={[mock.item]}
     onCheckout={() => {
       action("checkout");
 
       return Promise.resolve();
     }}
     onClose={action("close")}
-    onRemove={action("remove")}
+    onDecrease={action("decrease")}
+    onIncrease={action("increase")}
   />
 );
 
@@ -27,12 +28,12 @@ export const manyItems = () => (
     isOpen
     fields={tenantMock.client.full.fields}
     items={[
-      ...mock.items,
-      ...mock.items,
-      ...mock.items,
-      ...mock.items,
-      ...mock.items,
-      ...mock.items,
+      ...[mock.item, mock.item],
+      ...[mock.item, mock.item],
+      ...[mock.item, mock.item],
+      ...[mock.item, mock.item],
+      ...[mock.item, mock.item],
+      ...[mock.item, mock.item],
     ]}
     onCheckout={() => {
       action("checkout");
@@ -40,7 +41,8 @@ export const manyItems = () => (
       return Promise.resolve();
     }}
     onClose={action("close")}
-    onRemove={action("remove")}
+    onDecrease={action("decrease")}
+    onIncrease={action("increase")}
   />
 );
 

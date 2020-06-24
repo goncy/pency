@@ -6,10 +6,10 @@ import Navbar from "./Navbar";
 import Features from "./Features";
 import Previews from "./Previews";
 import Testimonial from "./Testimonial";
-import Steps from "./Steps";
 import Shout from "./Shout";
 import CallToAction from "./CallToAction";
 import Footer from "./Footer";
+import FAQ from "./FAQ";
 
 const Landing = () => (
   <Stack minHeight="100vh" spacing={0}>
@@ -18,8 +18,8 @@ const Landing = () => (
     <Features />
     <Previews />
     <Testimonial />
-    <Steps />
     <Shout />
+    <FAQ />
     <CallToAction />
     <Footer />
   </Stack>

@@ -12,7 +12,7 @@
     "help": "Help",
     "home": "Home",
     "exit": "Exit",
-    "count": "Count",
+    "count": "Quantity",
     "products": "Products",
     "shop": "Shop",
     "options": "Options",
@@ -54,7 +54,8 @@
   "cart": {
     "yourOrder": "Your order",
     "completeOrder": "Complete your order",
-    "completeOnWhatsApp": "Complete order on WhatsApp"
+    "completeOnWhatsApp": "Complete order on WhatsApp",
+    "estimatedTotal": "Estimated total"
   },
   "products": {
     "empty": "No products found",

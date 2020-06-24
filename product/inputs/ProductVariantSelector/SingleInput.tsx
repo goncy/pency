@@ -16,7 +16,7 @@ const SingleInput: React.FC<Props> = ({value, onChange}) => {
   }
 
   return (
-    <RadioGroup value={value.value[0]?.id} onChange={handleChange}>
+    <RadioGroup value={value.value?.[0]?.id} onChange={handleChange}>
       {value.options.map((option) => (
         <RadioRow
           key={option.id}

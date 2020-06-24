@@ -8,9 +8,12 @@ const cache = new Map<ClientTenant["id"], Product[]>();
 
 function update(id: ClientTenant["id"], product: Product["id"], value: Partial<Product>) {
   const cached: Product[] = cache.get(id);
-  const index = R.findIndex((item) => item.id === product, cached);
 
-  cache.set(id, R.over(R.lensIndex(index), R.mergeLeft(value), cached));
+  if (cached) {
+    const index = R.findIndex((item) => item.id === product, cached);
+
+    cache.set(id, R.over(R.lensIndex(index), R.mergeLeft(value), cached));
+  }
 }
 
 function set(id: ClientTenant["id"], value: Product[]) {
@@ -20,14 +23,19 @@ function set(id: ClientTenant["id"], value: Product[]) {
 function add(id: ClientTenant["id"], value: Product) {
   const cached: Product[] = cache.get(id);
 
-  cache.set(id, cached.concat(value));
+  if (cached) {
+    cache.set(id, cached.concat(value));
+  }
 }
 
 function pluck(id: ClientTenant["id"], product: Product["id"]) {
   const cached: Product[] = cache.get(id);
-  const index = R.findIndex((item) => item.id === product, cached);
 
-  cache.set(id, R.remove(index, 1, cached));
+  if (cached) {
+    const index = R.findIndex((item) => item.id === product, cached);
+
+    cache.set(id, R.remove(index, 1, cached));
+  }
 }
 
 function remove(id: ClientTenant["id"]) {
