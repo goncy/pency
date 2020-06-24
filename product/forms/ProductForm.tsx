@@ -1,5 +1,5 @@
 import React from "react";
-import {useForm, Controller, FormContext} from "react-hook-form";
+import {useForm, Controller, FormContext, FieldError} from "react-hook-form";
 import {Flex, Stack, Text, Divider} from "@chakra-ui/core";
 
 import {Product} from "../types";
@@ -164,7 +164,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
               <Controller
                 as={ProductVariantsInput}
                 control={control}
-                error={errors.options as any}
+                error={(errors.options as unknown) as FieldError}
                 name="options"
                 rules={{
                   validate: ProductVariantsInputValidator,

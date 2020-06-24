@@ -1,5 +1,5 @@
 import React from "react";
-import {useForm, Controller} from "react-hook-form";
+import {useForm, Controller, FieldError} from "react-hook-form";
 import {Stack, Text, Divider} from "@chakra-ui/core";
 
 import {ClientTenant} from "../types";
@@ -244,7 +244,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               <Controller
                 as={FieldsInput}
                 control={control}
-                error={(errors.fields as any)?.type}
+                error={(errors.fields as unknown) as FieldError}
                 name="fields"
                 rules={{validate: FieldsInputValidator}}
               />

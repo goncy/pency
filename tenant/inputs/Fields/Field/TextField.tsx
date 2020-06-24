@@ -9,7 +9,11 @@ import Input from "~/ui/inputs/Input";
 interface Props {
   value: Partial<TextField>;
   onChange: (value: Partial<TextField>) => void;
-  error?: string;
+  error?: {
+    index: number;
+    type: string;
+    message: string;
+  };
 }
 
 const TextFieldInput: React.FC<Props> = ({value, onChange}) => {

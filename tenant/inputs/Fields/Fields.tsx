@@ -1,6 +1,7 @@
 import React from "react";
 import {Stack} from "@chakra-ui/core";
 import produce from "immer";
+import {FieldError} from "react-hook-form";
 
 import {Field} from "../../types";
 
@@ -13,14 +14,25 @@ import IconButton from "~/ui/controls/IconButton";
 import ClearableTextField from "~/ui/inputs/ClearableTextField";
 import PlusIcon from "~/ui/icons/Plus";
 import SwitchInput from "~/ui/inputs/Switch";
+import EditIcon from "~/ui/icons/Edit";
+import MenuIcon from "~/ui/icons/Menu";
 
 interface Props {
   value?: Partial<Field[]>;
-  error?: string;
+  error?: FieldError;
   onChange: (options: Field[]) => void;
 }
 
-const FieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
+const FieldsInput: React.FC<Props> = ({value = [], error: _error, onChange}) => {
+  const [active, setActive] = React.useState(null);
+  const error = React.useMemo(() => {
+    if (!_error) return null;
+
+    const [index, type, ...message] = (_error.message as string).split("|");
+
+    return {index: Number(index), type, message: message.join("|")};
+  }, [_error]);
+
   function handleTypeChange(type, index) {
     onChange(
       produce(value, (value) => {
@@ -41,6 +53,7 @@ const FieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
         value.push(getTextField());
       }),
     );
+    setActive(value.length);
   }
 
   function handleRemove(index) {
@@ -49,6 +62,7 @@ const FieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
         value.splice(index, 1);
       }),
     );
+    setActive(null);
   }
 
   function handleChange(index, option) {
@@ -78,7 +92,9 @@ const FieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
   return (
     <Stack spacing={3}>
       {value?.map((option, index) => {
-        return (
+        const fieldError = error?.index === index ? error : null;
+
+        return index === active ? (
           <Stack
             key={option.id}
             shouldWrapChildren
@@ -87,18 +103,22 @@ const FieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
             paddingBottom={3}
             spacing={3}
           >
-            <FormControl
-              isRequired
-              error={error === "title" && !value[index].title && "Este campo es requerido"}
-            >
-              <ClearableTextField
-                backgroundColor="inherit"
-                placeholder="Forma de pago"
-                value={option.title}
-                onChange={(event) => handleTitleChange(index, event.target.value)}
-                onClear={() => handleRemove(index)}
-              />
-            </FormControl>
+            <Stack isInline spacing={2} width="100%">
+              <FormControl
+                isRequired
+                error={fieldError?.type === "title" && error.message}
+                flex={1}
+              >
+                <ClearableTextField
+                  backgroundColor="inherit"
+                  placeholder="Forma de pago"
+                  value={option.title}
+                  onChange={(event) => handleTitleChange(index, event.target.value)}
+                  onClear={() => handleRemove(index)}
+                />
+              </FormControl>
+              <IconButton leftIcon={MenuIcon} onClick={() => setActive(null)} />
+            </Stack>
             <FormControl name="required">
               <SwitchInput
                 checked={option.required}
@@ -111,12 +131,24 @@ const FieldsInput: React.FC<Props> = ({value = [], error, onChange}) => {
               <TypeInput value={option.type} onChange={(type) => handleTypeChange(type, index)} />
             </FormControl>
             <FieldInput
-              error={error}
+              error={fieldError}
               index={index}
               value={option}
               onChange={(value) => handleChange(index, value)}
             />
           </Stack>
+        ) : (
+          <IconButton
+            key={option.id}
+            borderColor={fieldError ? "red.500" : "transparent"}
+            borderWidth={fieldError ? 2 : 0}
+            fontWeight="normal"
+            justifyContent="flex-start"
+            leftIcon={EditIcon}
+            onClick={() => setActive(index)}
+          >
+            {option.title || "[sin título]"}
+          </IconButton>
         );
       })}
       <IconButton
