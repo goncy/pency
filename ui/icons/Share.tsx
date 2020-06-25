@@ -5,7 +5,7 @@ interface Props extends Omit<BoxProps, "size"> {
   size?: number;
 }
 
-const ShareIcon: React.FC<Props> = ({size, ...props}) => {
+const ShareIcon: React.FC<Props> = ({size = 24, ...props}) => {
   return (
     <Box {...props}>
       <svg fill="none" height={size} viewBox="0 0 40 40" width={size}>

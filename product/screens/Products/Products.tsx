@@ -22,13 +22,12 @@ import SummaryButton from "~/cart/components/SummaryButton";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 import {Product, Variant} from "~/product/types";
 
-interface Props {
-  product?: Product;
-}
-
-const ProductsScreen: React.FC<Props> = ({product}) => {
-  const [selected, setSelected] = React.useState(product);
-  const router = useRouter();
+const ProductsScreen: React.FC = () => {
+  const [selected, setSelected] = React.useState(null);
+  const {
+    query: {product},
+    push,
+  } = useRouter();
   const {add, increase, decrease, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
@@ -40,19 +39,16 @@ const ProductsScreen: React.FC<Props> = ({product}) => {
 
   function handleAdd(product: Product, options: Variant[], count: number) {
     add(product, options, count);
-    setSelected(null);
+
+    push(`/[slug]`, `/${tenant.slug}`);
   }
 
   function handleCloseSelected() {
-    setSelected(null);
-
-    router.replace(`/[slug]`, window.location.pathname);
+    push(`/[slug]`, `/${tenant.slug}`);
   }
 
   function handleSelect(product: Product) {
-    setSelected(product);
-
-    router.replace(
+    push(
       {
         pathname: `/[slug]`,
         query: {
@@ -60,13 +56,17 @@ const ProductsScreen: React.FC<Props> = ({product}) => {
         },
       },
       {
-        pathname: window.location.pathname,
+        pathname: `/${tenant.slug}`,
         query: {
           product: product.id,
         },
       },
     );
   }
+
+  React.useEffect(() => {
+    setSelected(products.find((_product) => _product.id === product));
+  }, [product, products]);
 
   return (
     <>

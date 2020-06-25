@@ -25,7 +25,7 @@ const SlugIndexRoute: React.FC<Props> = ({tenant, product, products}) => {
           <CartProvider>
             <StoreLayout product={product} tenant={tenant}>
               <I18nProvider>
-                <ProductsScreen product={product} />
+                <ProductsScreen />
               </I18nProvider>
             </StoreLayout>
           </CartProvider>
