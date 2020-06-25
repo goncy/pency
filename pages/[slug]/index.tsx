@@ -1,4 +1,5 @@
 import React from "react";
+import {GetServerSideProps} from "next";
 
 import fetch from "~/utils/fetch";
 import ProductsScreen from "~/product/screens/Products";
@@ -13,15 +14,16 @@ import {Provider as TenantProvider} from "~/tenant/context";
 interface Props {
   tenant: ClientTenant;
   products: Product[];
+  product: Product;
 }
 
-const SlugIndexRoute: React.FC<Props> = ({tenant, products}) => {
+const SlugIndexRoute: React.FC<Props> = ({tenant, product, products}) => {
   return (
     <TenantProvider initialValue={tenant}>
       <ProductProvider initialValues={products}>
         <AnalyticsProvider>
           <CartProvider>
-            <StoreLayout tenant={tenant}>
+            <StoreLayout product={product} tenant={tenant}>
               <I18nProvider>
                 <ProductsScreen />
               </I18nProvider>
@@ -33,23 +35,25 @@ const SlugIndexRoute: React.FC<Props> = ({tenant, products}) => {
   );
 };
 
-export async function getServerSideProps({
+export const getServerSideProps: GetServerSideProps = async ({
   req: {
     headers: {host},
   },
   params: {slug},
+  query,
   res,
-}) {
+}) => {
   try {
     const BASE_URL = `http://${host}/api`;
 
     const tenant = await fetch("GET", `${BASE_URL}/tenant/${slug}`);
     const products = await fetch("GET", `${BASE_URL}/product?tenant=${tenant.id}`);
+    const product = query.product ? products.find((product) => product.id === query.product) : null;
 
-    return {props: {tenant, products}};
+    return {props: {tenant, products, product}};
   } catch (err) {
     return {props: {statusCode: err?.status || res?.statusCode || 404}};
   }
-}
+};
 
 export default SlugIndexRoute;
