@@ -46,13 +46,13 @@ const ProductsScreen: React.FC<Props> = ({product}) => {
   function handleCloseSelected() {
     setSelected(null);
 
-    router.push(`/[slug]`, window.location.pathname);
+    router.replace(`/[slug]`, window.location.pathname);
   }
 
   function handleSelect(product: Product) {
     setSelected(product);
 
-    router.push(
+    router.replace(
       {
         pathname: `/[slug]`,
         query: {
