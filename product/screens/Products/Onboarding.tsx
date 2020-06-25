@@ -25,7 +25,7 @@ const Onboarding = () => {
 
   return (
     <Modal isCentered isOpen onClose={handleClose}>
-      <ModalOverlay backgroundColor="rgba(255,255,255,0.5)" />
+      <ModalOverlay backgroundColor="rgba(255,255,255,0.5)" zIndex={1400} />
       <ModalContent
         backgroundColor="transparent"
         bottom={{base: 0, sm: "auto"}}

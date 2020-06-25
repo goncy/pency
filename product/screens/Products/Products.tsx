@@ -1,5 +1,6 @@
 import React from "react";
 import {Stack, Box, PseudoBox, Flex, useDisclosure} from "@chakra-ui/core";
+import {useRouter} from "next/router";
 
 import ProductCard from "../../components/ProductCard";
 import {useFilteredProducts} from "../../hooks";
@@ -18,8 +19,16 @@ import TenantHeader from "~/tenant/components/TenantHeader";
 import NoResults from "~/ui/feedback/NoResults";
 import Content from "~/ui/structure/Content";
 import SummaryButton from "~/cart/components/SummaryButton";
+import CartItemDrawer from "~/cart/components/CartItemDrawer";
+import {Product, Variant} from "~/product/types";
 
-const ProductsScreen: React.FC = () => {
+interface Props {
+  product?: Product;
+}
+
+const ProductsScreen: React.FC<Props> = ({product}) => {
+  const [selected, setSelected] = React.useState(product);
+  const router = useRouter();
   const {add, increase, decrease, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
@@ -28,6 +37,36 @@ const ProductsScreen: React.FC = () => {
 
   const featuredProducts = filterBy(products, {featured: true});
   const productsByCategory = groupBy(products, (product) => product.category);
+
+  function handleAdd(product: Product, options: Variant[], count: number) {
+    add(product, options, count);
+    setSelected(null);
+  }
+
+  function handleCloseSelected() {
+    setSelected(null);
+
+    router.push(`/[slug]`, window.location.pathname);
+  }
+
+  function handleSelect(product: Product) {
+    setSelected(product);
+
+    router.push(
+      {
+        pathname: `/[slug]`,
+        query: {
+          product: product.id,
+        },
+      },
+      {
+        pathname: window.location.pathname,
+        query: {
+          product: product.id,
+        },
+      },
+    );
+  }
 
   return (
     <>
@@ -81,9 +120,9 @@ const ProductsScreen: React.FC = () => {
                             <ProductCard
                               key={product.id}
                               isRaised
-                              add={add}
                               minWidth={280}
                               product={product}
+                              onClick={() => handleSelect(product)}
                             />
                           ))}
                         </ProductsCarousel>
@@ -98,7 +137,11 @@ const ProductsScreen: React.FC = () => {
                           >
                             <ProductsGrid data-test-id="category" title={category}>
                               {products.map((product) => (
-                                <ProductCard key={product.id} add={add} product={product} />
+                                <ProductCard
+                                  key={product.id}
+                                  product={product}
+                                  onClick={() => handleSelect(product)}
+                                />
                               ))}
                             </ProductsGrid>
                           </PseudoBox>
@@ -146,6 +189,14 @@ const ProductsScreen: React.FC = () => {
         onDecrease={decrease}
         onIncrease={increase}
       />
+      {selected && (
+        <CartItemDrawer
+          isOpen
+          product={selected}
+          onClose={handleCloseSelected}
+          onSubmit={handleAdd}
+        />
+      )}
       <Onboarding />
     </>
   );
