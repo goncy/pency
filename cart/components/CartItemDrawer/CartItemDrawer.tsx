@@ -40,11 +40,22 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
 
   function handleShare() {
     if (canShare.prompt) {
-      navigator.share({
-        title: product.title,
-        text: product.description,
-        url: window.location.href,
-      });
+      navigator
+        .share({
+          title: product.title,
+          text: product.description,
+          url: window.location.href,
+        })
+        .then(() => {
+          toast({
+            status: "success",
+            title: "Bien!",
+            description: "El enlace fue compartido correctamente",
+          });
+        })
+        .catch(() => {
+          console.log("El dialogo de share fue cerrado");
+        });
     } else if (canShare.clipboard) {
       navigator.clipboard
         .writeText(window.location.href)
