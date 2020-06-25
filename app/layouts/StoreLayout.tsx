@@ -55,12 +55,18 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
       <meta content={tenant.description || META.description} name="description" />
       <meta content={tenant.keywords || META.keywords} name="keywords" />
       <meta content={META.author} name="author" />
+      <meta content={META.author} property="og:site_name" />
       <meta content={META.fbapp} property="fb:app_id" />
       <meta content="summary_large_image" name="twitter:card" />
       <meta content={META.twitter} name="twitter:site" />
       <meta content={META.twitter} name="twitter:creator" />
       {product ? (
         <>
+          <meta content={product.title} name="twitter:title" />
+          <meta content={product.description} name="twitter:description" />
+          <meta content={product.image || META.banner?.url} property="tiwtter:image" />
+          <meta content={`$${product.price}`} name="twitter:data1" />
+          <meta content="Precio" name="twitter:label1" />
           <meta content={`${META.url}/${tenant.slug}?product=${product.id}`} property="og:url" />
           <meta content="article" property="og:type" />
           <meta content={product.title} property="og:title" />
@@ -70,9 +76,20 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           <meta content={product.image} property="og:image:url" />
           <meta content="image/jpeg" property="og:image:type" />
           <meta content={product.title} property="og:image:alt" />
+          <meta content={String(product.price)} property="og:price:amount" />
+          <meta content="ARS" property="og:price:currency" />
+          <meta content={String(product.price)} property="product:price:amount" />
+          <meta content="ARS" property="product:price:currency" />
+          <meta content={product.category} property="article:section" />
+          <meta content={product.title} itemProp="name" />
+          <meta content={product.description} itemProp="description" />
+          <meta content={product.image} itemProp="image" />
         </>
       ) : (
         <>
+          <meta content={tenant.title || META.title} name="twitter:title" />
+          <meta content={tenant.description || META.description} name="twitter:description" />
+          <meta content={META.banner?.url} property="twitter:image" />
           <meta content={`${META.url}/${tenant.slug}`} property="og:url" />
           <meta content="website" property="og:type" />
           <meta content={tenant.title || META.title} property="og:title" />

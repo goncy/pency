@@ -31,6 +31,10 @@ const LandingLayout: React.FC = ({children}) => (
       <meta content="summary_large_image" name="twitter:card" />
       <meta content={META.twitter} name="twitter:site" />
       <meta content={META.twitter} name="twitter:creator" />
+      <meta content={META.title} name="twitter:title" />
+      <meta content={META.description} name="twitter:description" />
+      <meta content={META.banner?.url} property="twitter:image" />
+      <meta content={META.author} property="og:site_name" />
       <meta content={META.url} property="og:url" />
       <meta content="website" property="og:type" />
       <meta content={META.title} property="og:title" />

@@ -64,7 +64,7 @@ const ProductsScreen: React.FC = () => {
     );
   }
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     setSelected(products.find((_product) => _product.id === product));
   }, [product, products]);
 
