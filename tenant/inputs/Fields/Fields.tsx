@@ -14,8 +14,8 @@ import IconButton from "~/ui/controls/IconButton";
 import ClearableTextField from "~/ui/inputs/ClearableTextField";
 import PlusIcon from "~/ui/icons/Plus";
 import SwitchInput from "~/ui/inputs/Switch";
-import EditIcon from "~/ui/icons/Edit";
-import MenuIcon from "~/ui/icons/Menu";
+import ChevronDownIcon from "~/ui/icons/ChevronDown";
+import ChevronUpIcon from "~/ui/icons/ChevronUp";
 
 interface Props {
   value?: Partial<Field[]>;
@@ -117,7 +117,7 @@ const FieldsInput: React.FC<Props> = ({value = [], error: _error, onChange}) => 
                   onClear={() => handleRemove(index)}
                 />
               </FormControl>
-              <IconButton leftIcon={MenuIcon} onClick={() => setActive(null)} />
+              <IconButton rightIcon={ChevronUpIcon} onClick={() => setActive(null)} />
             </Stack>
             <FormControl name="required">
               <SwitchInput
@@ -143,8 +143,8 @@ const FieldsInput: React.FC<Props> = ({value = [], error: _error, onChange}) => 
             borderColor={fieldError ? "red.500" : "transparent"}
             borderWidth={fieldError ? 2 : 0}
             fontWeight="normal"
-            justifyContent="flex-start"
-            leftIcon={EditIcon}
+            justifyContent="space-between"
+            rightIcon={ChevronDownIcon}
             onClick={() => setActive(index)}
           >
             {option.title || "[sin título]"}
@@ -153,8 +153,8 @@ const FieldsInput: React.FC<Props> = ({value = [], error: _error, onChange}) => 
       })}
       <IconButton
         fontWeight="normal"
-        justifyContent="flex-start"
-        leftIcon={PlusIcon}
+        justifyContent="space-between"
+        rightIcon={PlusIcon}
         onClick={handleAddField}
       >
         Agregar campo

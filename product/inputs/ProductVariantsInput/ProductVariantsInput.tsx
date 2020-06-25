@@ -14,8 +14,8 @@ import IconButton from "~/ui/controls/IconButton";
 import ClearableTextField from "~/ui/inputs/ClearableTextField";
 import PlusIcon from "~/ui/icons/Plus";
 import SwitchInput from "~/ui/inputs/Switch";
-import EditIcon from "~/ui/icons/Edit";
-import MenuIcon from "~/ui/icons/Menu";
+import ChevronUpIcon from "~/ui/icons/ChevronUp";
+import ChevronDownIcon from "~/ui/icons/ChevronDown";
 
 interface Props {
   value?: Partial<Variant[]>;
@@ -111,7 +111,7 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error: _error, onCha
                   onClear={() => handleRemove(index)}
                 />
               </FormControl>
-              <IconButton leftIcon={MenuIcon} onClick={() => setActive(null)} />
+              <IconButton leftIcon={ChevronUpIcon} onClick={() => setActive(null)} />
             </Stack>
             <FormControl
               help="Al activarlo, el usuario deberá indicar su elección antes de continuar."
@@ -143,8 +143,8 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error: _error, onCha
             borderColor={variantError ? "red.500" : "transparent"}
             borderWidth={variantError ? 2 : 0}
             fontWeight="normal"
-            justifyContent="flex-start"
-            leftIcon={EditIcon}
+            justifyContent="space-between"
+            rightIcon={ChevronDownIcon}
             onClick={() => setActive(index)}
           >
             {option.title || "[sin título]"}
@@ -153,8 +153,8 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error: _error, onCha
       })}
       <IconButton
         fontWeight="normal"
-        justifyContent="flex-start"
-        leftIcon={PlusIcon}
+        justifyContent="space-between"
+        rightIcon={PlusIcon}
         onClick={handleAddVariant}
       >
         Agregar variante
