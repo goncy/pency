@@ -11,14 +11,19 @@ export default {
   decorators: [(storyFn) => <Box maxWidth="240px">{storyFn()}</Box>],
 };
 
-export const full = () => <ProductCard add={action("add")} product={productMock.full} />;
+export const full = () => <ProductCard product={productMock.full} onClick={action("onClick")} />;
 
-export const raised = () => <ProductCard isRaised add={action("add")} product={productMock.full} />;
+export const raised = () => (
+  <ProductCard isRaised product={productMock.full} onClick={action("onClick")} />
+);
 
 export const noVariants = () => (
-  <ProductCard add={action("add")} product={productMock.withoutVariants} />
+  <ProductCard product={productMock.withoutVariants} onClick={action("onClick")} />
 );
 
 export const noStock = () => (
-  <ProductCard add={action("add")} product={{...productMock.withoutVariants, available: false}} />
+  <ProductCard
+    product={{...productMock.withoutVariants, available: false}}
+    onClick={action("onClick")}
+  />
 );

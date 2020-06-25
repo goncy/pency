@@ -1,5 +1,6 @@
 import React from "react";
 import {Stack, Box, PseudoBox, Flex, useDisclosure} from "@chakra-ui/core";
+import {useRouter} from "next/router";
 
 import ProductCard from "../../components/ProductCard";
 import {useFilteredProducts} from "../../hooks";
@@ -27,6 +28,7 @@ interface Props {
 
 const ProductsScreen: React.FC<Props> = ({product}) => {
   const [selected, setSelected] = React.useState(product);
+  const router = useRouter();
   const {add, increase, decrease, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
@@ -43,10 +45,27 @@ const ProductsScreen: React.FC<Props> = ({product}) => {
 
   function handleCloseSelected() {
     setSelected(null);
+
+    router.push(`/[slug]`, window.location.pathname);
   }
 
   function handleSelect(product: Product) {
     setSelected(product);
+
+    router.push(
+      {
+        pathname: `/[slug]`,
+        query: {
+          product: product.id,
+        },
+      },
+      {
+        pathname: window.location.pathname,
+        query: {
+          product: product.id,
+        },
+      },
+    );
   }
 
   return (
