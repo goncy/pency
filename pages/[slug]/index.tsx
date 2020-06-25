@@ -25,7 +25,7 @@ const SlugIndexRoute: React.FC<Props> = ({tenant, product, products}) => {
           <CartProvider>
             <StoreLayout product={product} tenant={tenant}>
               <I18nProvider>
-                <ProductsScreen />
+                <ProductsScreen product={product} />
               </I18nProvider>
             </StoreLayout>
           </CartProvider>
@@ -48,7 +48,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     const tenant = await fetch("GET", `${BASE_URL}/tenant/${slug}`);
     const products = await fetch("GET", `${BASE_URL}/product?tenant=${tenant.id}`);
-    const product = query.product ? products.find((product) => product.id === query.product) : null;
+    const product = query.product
+      ? products.find((product) => product.id === query.product) || null
+      : null;
 
     return {props: {tenant, products, product}};
   } catch (err) {
