@@ -40,11 +40,11 @@ const ProductsScreen: React.FC = () => {
   function handleAdd(product: Product, options: Variant[], count: number) {
     add(product, options, count);
 
-    push(`/[slug]`, `/${tenant.slug}`);
+    push(`/[slug]`, `/${tenant.slug}`, {shallow: true});
   }
 
   function handleCloseSelected() {
-    push(`/[slug]`, `/${tenant.slug}`);
+    push(`/[slug]`, `/${tenant.slug}`, {shallow: true});
   }
 
   function handleSelect(product: Product) {
@@ -61,6 +61,7 @@ const ProductsScreen: React.FC = () => {
           product: product.id,
         },
       },
+      {shallow: true},
     );
   }
 
