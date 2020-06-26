@@ -3,7 +3,7 @@ import {Stack} from "@chakra-ui/core";
 
 import Input from "../Input";
 
-import api from "~/places/api";
+import api from "~/places/api/client";
 import {useDebounce} from "~/hooks/time";
 import {useToast} from "~/hooks/toast";
 import {Place} from "~/places/types";
@@ -38,7 +38,7 @@ const PlaceInput: React.FC<Props> = ({value, onChange}) => {
     setPlaces([]);
 
     api
-      .search(query, "AR")
+      .search(query)
       .then((places) => {
         setPlaces(places || []);
         setLoading(false);

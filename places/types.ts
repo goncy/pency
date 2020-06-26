@@ -1,19 +1,6 @@
-export interface Candidate {
-  formatted_address: string;
-  geometry: {
-    location: {
-      lat: number;
-      lng: number;
-    };
-  };
-}
+import {Place as PlaceData} from "@googlemaps/google-maps-services-js";
 
 export interface Place {
-  coordinates: Candidate["geometry"]["location"];
-  address: Candidate["formatted_address"];
-}
-
-export interface Search {
-  candidates: Candidate[];
-  status: string;
+  coordinates: PlaceData["geometry"]["location"];
+  address: PlaceData["formatted_address"];
 }
