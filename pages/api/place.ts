@@ -6,7 +6,9 @@ interface GetRequest extends NextApiRequest {
   // Get request query
   query: {
     // String to search
-    q: string;
+    query: string;
+    // Region
+    region: string;
   };
 }
 
@@ -16,12 +18,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     case "GET": {
       const {
         // We get the query from the query
-        query: {q},
+        query: {query, region},
       } = req as GetRequest;
 
       try {
         // Get the results from the api
-        const results = await api.search(q);
+        const results = await api.search(query, region);
 
         // If everything is fine, return the results
         return res.status(200).json(results);

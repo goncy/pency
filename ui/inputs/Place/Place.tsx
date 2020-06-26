@@ -12,9 +12,10 @@ import Button from "~/ui/controls/Button";
 interface Props {
   value?: Place;
   onChange: (value: Props["value"]) => void;
+  country: string;
 }
 
-const PlaceInput: React.FC<Props> = ({value, onChange}) => {
+const PlaceInput: React.FC<Props> = ({value, onChange, country}) => {
   const [query, setQuery] = React.useState(value?.address || "");
   const [isLoading, setLoading] = React.useState(false);
   const [places, setPlaces] = React.useState<Place[]>([]);
@@ -38,7 +39,7 @@ const PlaceInput: React.FC<Props> = ({value, onChange}) => {
     setPlaces([]);
 
     api
-      .search(query)
+      .search(query, country)
       .then((places) => {
         setPlaces(places || []);
         setLoading(false);

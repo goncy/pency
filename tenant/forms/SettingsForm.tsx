@@ -147,7 +147,12 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               label="Dirección"
               name="location"
             >
-              <Controller as={PlaceInput} control={control} name="location" />
+              <Controller
+                as={PlaceInput}
+                control={control}
+                country={defaultValues.country}
+                name="location"
+              />
             </FormControl>
           </Stack>
           <Divider />
