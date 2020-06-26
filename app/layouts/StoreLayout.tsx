@@ -104,9 +104,6 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
         </>
       )}
       <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-      {process.env.NODE_ENV === "production" && (
-        <script async src="https://www.googletagmanager.com/gtag/js" />
-      )}
     </Head>
     {children}
   </>

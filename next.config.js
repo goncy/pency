@@ -2,7 +2,6 @@ const withSourceMaps = require('@zeit/next-source-maps')
 
 module.exports = withSourceMaps({
   env: {
-      FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
       FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
       FIREBASE_DATABASE_URL: process.env.FIREBASE_DATABASE_URL,
       FIREBASE_PROJECT_ID: process.env.FIREBASE_PROJECT_ID,
@@ -10,6 +9,7 @@ module.exports = withSourceMaps({
       FIREBASE_MESSAGING_SENDER_ID: process.env.FIREBASE_MESSAGING_SENDER_ID,
       FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
       FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
+      GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
       CLOUDINARY_CLOUD: process.env.CLOUDINARY_CLOUD,
       CLOUDINARY_PRESET_LOW: process.env.CLOUDINARY_PRESET_LOW,
       CLOUDINARY_PRESET_HIGH: process.env.CLOUDINARY_PRESET_HIGH,
