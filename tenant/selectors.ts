@@ -24,6 +24,7 @@ export function serverToClient(tenant: Partial<ServerTenant>): Partial<ClientTen
       "mercadopago",
       "country",
       "address",
+      "hook",
     ]),
     R.evolve({
       mercadopago: (mercadopago) => Boolean(mercadopago.token),

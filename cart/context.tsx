@@ -5,13 +5,15 @@ import produce from "immer";
 import {Product, Variant} from "../product/types";
 
 import {CartItem, Context, State, Actions, Cart} from "./types";
-import {getSummary, getMessage} from "./selectors";
+import {getSummary} from "./selectors";
+import api from "./api";
 
 import {useAnalytics} from "~/analytics/hooks";
 import paymentApi from "~/payment/api/client";
 import {useTenant} from "~/tenant/hooks";
 import {Field} from "~/tenant/types";
 import {isMercadoPagoSelected} from "~/tenant/selectors";
+import fetch from "~/utils/fetch";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -21,7 +23,7 @@ const CartContext = React.createContext({} as Context);
 
 const CartProvider = ({children}: Props) => {
   const log = useAnalytics();
-  const {phone, slug, mercadopago} = useTenant();
+  const {phone, slug, mercadopago, hook} = useTenant();
   const [cart, setCart] = React.useState<Cart>({});
   const items = React.useMemo(() => [].concat(...Object.values(cart)), [cart]);
 
@@ -97,20 +99,26 @@ const CartProvider = ({children}: Props) => {
         // Create a preference for this items
         const preference = await paymentApi.create(slug, items, orderId);
 
+        // If a webhook is configured, do a post to it
+        if (hook) {
+          fetch("POST", hook, {items, orderId, fields, preference});
+        }
+
         // Redirect the new tab to the corresponding url
-        tab.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(
-          getMessage(items, orderId, fields, preference),
-        )}`;
+        tab.location.href = api.checkout({phone, items, orderId, fields, preference});
       } catch (e) {
         // If we had an error log it to the console
         console.log("Error generando preferencia de MercadoPago: ", e);
       }
     }
 
+    // If a webhook is configured, do a post to it
+    if (hook) {
+      api.hook(hook, {items, orderId, fields});
+    }
+
     // If we don't have mercadopago configured and selected, redirect the user to whatsapp
-    window.open(
-      `https://wa.me/${phone}?text=${encodeURIComponent(getMessage(items, orderId, fields))}`,
-    );
+    window.open(api.checkout({phone, items, orderId, fields}));
   }
 
   const state: State = {items, cart};

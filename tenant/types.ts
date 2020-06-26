@@ -22,6 +22,7 @@ interface Tenant {
   highlight?: string;
   fields?: Field[];
   flags?: string[];
+  hook?: string;
   mercadopago?: {
     token: string;
     refresh: string;

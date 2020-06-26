@@ -254,7 +254,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
           {defaultValues.flags?.includes("mercadopago") && (
             <>
               <Divider />
-              <Stack spacing={4}>
+              <Stack marginY={8} spacing={4}>
                 <Stack spacing={1}>
                   <Text fontSize="2xl" fontWeight={500} id="mercadopago">
                     Mercado Pago
@@ -271,6 +271,29 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                     id={defaultValues.id}
                     name="mercadopago"
                     slug={defaultValues.slug}
+                  />
+                </FormControl>
+              </Stack>
+            </>
+          )}
+          {defaultValues.flags?.includes("advanced") && (
+            <>
+              <Divider />
+              <Stack marginTop={8} spacing={4}>
+                <Stack spacing={1}>
+                  <Text fontSize="2xl" fontWeight={500} id="advanced">
+                    Opciones avanzadas
+                  </Text>
+                  <Text color="gray.600">
+                    Conectá tu servicio de facturación o aplicación con Pency mediante webhooks o
+                    más
+                  </Text>
+                </Stack>
+                <FormControl help="Vamos a hacer un POST a esta url" name="hook">
+                  <Input
+                    ref={register({required: true})}
+                    name="hook"
+                    placeholder="https://tuwebhook.com"
                   />
                 </FormControl>
               </Stack>
