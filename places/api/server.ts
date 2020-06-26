@@ -15,7 +15,7 @@ export default {
         },
       })
       .then((results) =>
-        results.data.results.map((result) => ({
+        results.data.results.slice(0, 5).map((result) => ({
           coordinates: result.geometry.location,
           address: result.formatted_address,
         })),

@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack} from "@chakra-ui/core";
+import {Stack, Text, PseudoBox} from "@chakra-ui/core";
 
 import Input from "../Input";
 
@@ -7,7 +7,6 @@ import api from "~/places/api/client";
 import {useDebounce} from "~/hooks/time";
 import {useToast} from "~/hooks/toast";
 import {Place} from "~/places/types";
-import Button from "~/ui/controls/Button";
 
 interface Props {
   value?: Place;
@@ -67,25 +66,38 @@ const PlaceInput: React.FC<Props> = ({value, onChange, country}) => {
       {Boolean(places?.length) && (
         <Stack
           backgroundColor="white"
+          borderRadius="md"
           boxShadow="xl"
           left={0}
-          maxHeight="200px"
-          padding={2}
+          maxHeight="250px"
+          overflowX="hidden"
+          overflowY="auto"
           position="absolute"
+          spacing={0}
           top={10}
           width="100%"
+          zIndex={3}
         >
           {places.map((place, index) => (
-            <Button
+            <PseudoBox
               key={index}
-              alignItems="center"
-              justifyContent="flex-start"
-              paddingY={1}
-              variant="link"
-              onClick={() => handleChange(place)}
+              _hover={{backgroundColor: "gray.50"}}
+              _notLast={{borderBottomWidth: 1}}
+              paddingY={2}
             >
-              {place.address}
-            </Button>
+              <Text
+                alignItems="center"
+                color="gray.700"
+                cursor="pointer"
+                fontSize="sm"
+                fontWeight={500}
+                justifyContent="flex-start"
+                paddingX={3}
+                onClick={() => handleChange(place)}
+              >
+                {place.address}
+              </Text>
+            </PseudoBox>
           ))}
         </Stack>
       )}
