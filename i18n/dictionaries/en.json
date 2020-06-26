@@ -37,6 +37,24 @@
       "avoidCrowdsPremises":{
         "title":"Avoid crowds in your premises",
         "description":"Reduce waiting times and get rid of unnecessary lines by selling online."
+      },
+      "footerTwitter": {
+        "title":"Seguinos en Twitter"
+      },
+      "footerFacebook": {
+        "title": "Seguinos en Facebook"
+      },
+      "footerInstragram": {
+        "title":"Seguinos en Instagram"
+      },
+      "footerWhatsapp": {
+          "title":"Seguinos en Whatsapp"
+      },
+      "termsConditions": {
+        "title":"Términos y condiciones"
+      },
+      "privacyPolicies": {
+        "title": "Privacy policies"
       }
     }
   },

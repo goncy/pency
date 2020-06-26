@@ -37,6 +37,24 @@
       "avoidCrowdsPremises": {
         "title":"Evitá aglomeraciones en tu local",
         "description":"Reducí los tiempos de espera y librate de las filas innecesarias vendiendo online."
+      },
+      "footerTwitter": {
+        "title":"Seguinos en Twitter"
+      },
+      "footerFacebook": {
+        "title": "Seguinos en Facebook"
+      },
+      "footerInstragram": {
+        "title":"Seguinos en Instagram"
+      },
+      "footerWhatsapp": {
+        "title":"Seguinos en Whatsapp"
+      },
+      "termsConditions": {
+        "title":"Términos y condiciones"
+      },
+      "privacyPolicies": {
+        "title": "Privacy policies"
       }
     }
   },
