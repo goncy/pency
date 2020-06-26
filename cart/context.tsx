@@ -13,7 +13,6 @@ import paymentApi from "~/payment/api/client";
 import {useTenant} from "~/tenant/hooks";
 import {Field} from "~/tenant/types";
 import {isMercadoPagoSelected} from "~/tenant/selectors";
-import fetch from "~/utils/fetch";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -101,7 +100,7 @@ const CartProvider = ({children}: Props) => {
 
         // If a webhook is configured, do a post to it
         if (hook) {
-          fetch("POST", hook, {items, orderId, fields, preference});
+          api.hook(hook, {items, orderId, fields, preference});
         }
 
         // Redirect the new tab to the corresponding url
