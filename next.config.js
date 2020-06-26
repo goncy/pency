@@ -18,6 +18,7 @@ module.exports = withSourceMaps({
       MERCADOPAGO_CLIENT_SECRET: process.env.MERCADOPAGO_CLIENT_SECRET,
       APP_URL: process.env.APP_URL,
       SECRET: process.env.SECRET,
+      ENV: process.env.ENV,
       SENTRY_DSN: process.env.SENTRY_DSN,
       MANTAINER_EMAIL: process.env.MANTAINER_EMAIL,
       MANTAINER_PHONE: process.env.MANTAINER_PHONE,

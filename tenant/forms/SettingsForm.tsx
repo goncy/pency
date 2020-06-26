@@ -13,6 +13,7 @@ import ColorRadio from "~/ui/inputs/ColorRadio";
 import ImageInput from "~/ui/inputs/Image";
 import FormControl from "~/ui/form/FormControl";
 import MPConnect from "~/payment/inputs/MPConnect";
+import PlaceInput from "~/ui/inputs/Place";
 
 interface Props {
   defaultValues: Partial<ClientTenant>;
@@ -144,9 +145,9 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             <FormControl
               help="Ayudá a tus clientes a encontrar tu local"
               label="Dirección"
-              name="address"
+              name="location"
             >
-              <Input ref={register} name="address" placeholder="Av. Eduardo Madero 470, CABA" />
+              <Controller as={PlaceInput} control={control} name="location" />
             </FormControl>
           </Stack>
           <Divider />

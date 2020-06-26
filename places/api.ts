@@ -5,7 +5,7 @@ import fetch from "~/utils/fetch";
 
 export default {
   search: (query: string, country: string): Promise<Place[] | void> => {
-    return (process.env.ENV === "development"
+    return (process.env.NODE_ENV === "development"
       ? Promise.resolve(mock.search(query))
       : fetch(
           "GET",
