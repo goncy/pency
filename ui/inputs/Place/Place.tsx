@@ -52,7 +52,7 @@ const PlaceInput: React.FC<Props> = ({value, onChange, country}) => {
         });
         setLoading(false);
       });
-  }, [query, toast, address]);
+  }, [query, toast, address, country]);
 
   useDebounce(getPlaces, 1000, query);
 
