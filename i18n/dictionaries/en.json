@@ -55,6 +55,18 @@
       },
       "privacyPolicies": {
         "title": "Privacy policies"
+      },
+      "saveTimeMoney": {
+        "description": "Ahorrá tiempo y dinero con tu tienda pency"
+      },
+      "publishCatalogOnline":{
+        "description":"Publicá tu catálogo online y recibí por Whatsapp los pedidos de tus clientes ¡GRATIS!"
+      },
+      "createStore": {
+        "description":"Crear tienda"
+      },
+      "seeTestShop":{
+        "description":"Ver tienda de prueba"
       }
     }
   },
