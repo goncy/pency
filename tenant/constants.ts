@@ -112,18 +112,3 @@ export const CATEGORIES = [
   {label: "Vivero / Florería", value: "flower-shop"},
   {label: "Otro", value: "other"},
 ];
-
-export const COUNTRIES = [
-  {name: "Argentina", code: "AR"},
-  {name: "Brazil", code: "BR"},
-  {name: "Colombia", code: "CO"},
-  {name: "Cuba", code: "CU"},
-  {name: "Ecuador", code: "EC"},
-  {name: "México", code: "MX"},
-  {name: "Paraguay", code: "PY"},
-  {name: "Perú", code: "PE"},
-  {name: "España", code: "ES"},
-  {name: "United States", code: "US"},
-  {name: "Uruguay", code: "UY"},
-  {name: "Venezuela", code: "VE"},
-];

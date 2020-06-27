@@ -3,7 +3,7 @@ import {useForm, Controller, FieldError} from "react-hook-form";
 import {Stack, Text, Divider} from "@chakra-ui/core";
 
 import {ClientTenant} from "../types";
-import {CATEGORIES, COUNTRIES} from "../constants";
+import {CATEGORIES} from "../constants";
 import FieldsInput, {validator as FieldsInputValidator} from "../inputs/Fields";
 
 import Select from "~/ui/inputs/Select";
@@ -14,6 +14,7 @@ import ImageInput from "~/ui/inputs/Image";
 import FormControl from "~/ui/form/FormControl";
 import MPConnect from "~/payment/inputs/MPConnect";
 import PlaceInput from "~/ui/inputs/Place";
+import {COUNTRIES} from "~/i18n/constants";
 
 interface Props {
   defaultValues: Partial<ClientTenant>;
@@ -135,7 +136,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 name="country"
                 placeholder="Seleccioná un país"
               >
-                {COUNTRIES.map(({code, name}) => (
+                {Object.entries(COUNTRIES).map(([code, name]) => (
                   <option key={code} value={code}>
                     {name}
                   </option>

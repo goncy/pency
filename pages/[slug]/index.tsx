@@ -17,14 +17,14 @@ interface Props {
   product: Product;
 }
 
-const SlugIndexRoute: React.FC<Props> = ({tenant, product, products}) => {
+const StoreRoute: React.FC<Props> = ({tenant, product, products}) => {
   return (
     <TenantProvider initialValue={tenant}>
       <ProductProvider initialValues={products}>
         <AnalyticsProvider>
           <CartProvider>
             <StoreLayout product={product} tenant={tenant}>
-              <I18nProvider>
+              <I18nProvider country={tenant.country}>
                 <ProductsScreen />
               </I18nProvider>
             </StoreLayout>
@@ -58,4 +58,4 @@ export const getServerSideProps: GetServerSideProps = async ({
   }
 };
 
-export default SlugIndexRoute;
+export default StoreRoute;

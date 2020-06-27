@@ -6,6 +6,7 @@ import {META} from "../constants";
 
 import {ClientTenant} from "~/tenant/types";
 import {Product} from "~/product/types";
+import {CURRENCIES} from "~/i18n/constants";
 
 interface Props {
   tenant: ClientTenant;
@@ -65,8 +66,6 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           <meta content={product.title} name="twitter:title" />
           <meta content={product.description} name="twitter:description" />
           <meta content={product.image || META.banner?.url} property="tiwtter:image" />
-          <meta content={`$${product.price}`} name="twitter:data1" />
-          <meta content="Precio" name="twitter:label1" />
           <meta content={`${META.url}/${tenant.slug}?product=${product.id}`} property="og:url" />
           <meta content="article" property="og:type" />
           <meta content={product.title} property="og:title" />
@@ -77,9 +76,9 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           <meta content="image/jpeg" property="og:image:type" />
           <meta content={product.title} property="og:image:alt" />
           <meta content={String(product.price)} property="og:price:amount" />
-          <meta content="ARS" property="og:price:currency" />
+          <meta content={CURRENCIES[tenant.country]} property="og:price:currency" />
           <meta content={String(product.price)} property="product:price:amount" />
-          <meta content="ARS" property="product:price:currency" />
+          <meta content={CURRENCIES[tenant.country]} property="product:price:currency" />
           <meta content={product.category} property="article:section" />
           <meta content={product.title} itemProp="name" />
           <meta content={product.description} itemProp="description" />
