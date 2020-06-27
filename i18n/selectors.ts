@@ -11,9 +11,9 @@ export function formatPrice(price: number, _country?: string) {
     if (!locale) {
       country = DEFAULT_COUNTRY;
     } else {
-      const [foundCountry] = Object.entries(LOCALES).find(([, _locale]) => locale === _locale);
+      const result = Object.entries(LOCALES).find(([, _locale]) => locale === _locale);
 
-      country = foundCountry || DEFAULT_COUNTRY;
+      country = result?.[0] || DEFAULT_COUNTRY;
     }
   }
 
