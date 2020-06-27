@@ -70,6 +70,10 @@
       },
       "supportByWhatsapp":{
         "description":"Soporte"
+      },
+      "versatileForAllBusinesses":{
+        "title": "Versátil, para todo tipo de negocios",
+        "description":"Independientemente del rubro, tu tienda Pency se ajusta a vos y tus productos, además de ofrecer una experiencia de compra simple y agradable a tus clientes."
       }
     }
   },
