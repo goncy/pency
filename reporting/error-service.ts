@@ -3,7 +3,7 @@ import ErrorProvider, {ErrorInfo} from "./provider";
 export * from "./providers";
 export type {ErrorInfo};
 
-export default class ErrorService<T extends ErrorProvider = ErrorProvider> {
+export class ErrorService<T extends ErrorProvider = ErrorProvider> {
   private readonly provider: T;
 
   constructor(provider: new () => T) {

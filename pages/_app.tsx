@@ -2,7 +2,7 @@ import React from "react";
 import App from "next/app";
 import {Flex, ThemeProvider, CSSReset} from "@chakra-ui/core";
 
-import ErrorService, {ErrorInfo, SentryErrorProvider} from "../errors";
+import {ErrorService, ErrorInfo, SentryErrorProvider} from "../reporting";
 
 import ErrorScreen from "./_error";
 
