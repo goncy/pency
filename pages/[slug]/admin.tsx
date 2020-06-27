@@ -17,15 +17,17 @@ interface Props {
 const AdminRoute: React.FC<Props> = ({tenant, products}) => {
   return (
     <TenantProvider initialValue={tenant}>
-      <ProductProvider initialValues={products}>
-        <AdminLayout>
-          <I18nProvider>
-            <SessionProvider>
-              <AdminScreen tenant={tenant} />
-            </SessionProvider>
-          </I18nProvider>
-        </AdminLayout>
-      </ProductProvider>
+      {(tenant) => (
+        <ProductProvider initialValues={products}>
+          <AdminLayout>
+            <I18nProvider country={tenant.country}>
+              <SessionProvider>
+                <AdminScreen />
+              </SessionProvider>
+            </I18nProvider>
+          </AdminLayout>
+        </ProductProvider>
+      )}
     </TenantProvider>
   );
 };

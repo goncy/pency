@@ -1,5 +1,7 @@
 import {VariantColor} from "@chakra-ui/core";
 
+import {Place} from "~/places/types";
+
 interface Tenant {
   id: string;
   slug: string;
@@ -15,10 +17,11 @@ interface Tenant {
   banner?: string;
   description?: string;
   country?: string;
-  address?: string;
+  location?: Place;
   highlight?: string;
   fields?: Field[];
   flags?: string[];
+  hook?: string;
   mercadopago?: {
     token: string;
     refresh: string;

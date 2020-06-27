@@ -1731,6 +1731,16 @@
     through2 "^3.0.0"
     xdg-basedir "^4.0.0"
 
+"@googlemaps/google-maps-services-js@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@googlemaps/google-maps-services-js/-/google-maps-services-js-3.1.2.tgz#6d5edf816f3a9c165e828cea34bf7959a7aedfae"
+  integrity sha512-RmCyqs9L0KiqTHmmx31NLwtZ3dqjX1w/zD/NuHHah+gCVEj427ZuyVFxgcXUm38ttUukpBLtLlxT036JYek1jA==
+  dependencies:
+    agentkeepalive "^4.1.0"
+    axios "^0.19.0"
+    query-string "^6.11.0"
+    retry-axios "^2.2.1"
+
 "@grpc/grpc-js@0.8.1":
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-0.8.1.tgz#3003a422577da39e7113566f2fdd4872f31e6090"
@@ -3592,6 +3602,15 @@ agent-base@6:
   dependencies:
     debug "4"
 
+agentkeepalive@^4.1.0:
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/agentkeepalive/-/agentkeepalive-4.1.3.tgz#360a09d743a1f4fde749f9ba07caa6575d08259a"
+  integrity sha512-wn8fw19xKZwdGPO47jivonaHRTd+nGOMP1z11sgGeQzDy2xd5FG0R67dIMcKHDE2cJ5y+YXV30XVGUBPRSY7Hg==
+  dependencies:
+    debug "^4.1.0"
+    depd "^1.1.2"
+    humanize-ms "^1.2.1"
+
 aggregate-error@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/aggregate-error/-/aggregate-error-3.0.1.tgz#db2fe7246e536f40d9b5442a39e117d7dd6a24e0"
@@ -4011,6 +4030,13 @@ axe-core@^3.3.2:
   version "3.5.5"
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-3.5.5.tgz#84315073b53fa3c0c51676c588d59da09a192227"
   integrity sha512-5P0QZ6J5xGikH780pghEdbEKijCTrruK9KxtPZCFWUpef0f6GipO+xEZ5GKCb020mmqgbiNO6TcA55CriL784Q==
+
+axios@^0.19.0:
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
+  integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
+  dependencies:
+    follow-redirects "1.5.10"
 
 axobject-query@^2.0.2:
   version "2.1.2"
@@ -5785,6 +5811,13 @@ debug@4, debug@4.1.1, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
   dependencies:
     ms "^2.1.1"
 
+debug@=3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  integrity sha512-OX8XqP7/1a9cqkxYw2yXss15f26NKWBpDXQd0/uK/KPqdQhxbPa994hnzjcE2VqQpDslf55723cKPUOGSmMY3g==
+  dependencies:
+    ms "2.0.0"
+
 debug@^3.0.0, debug@^3.1.0, debug@^3.2.5:
   version "3.2.6"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
@@ -5898,7 +5931,7 @@ delegates@^1.0.0:
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
   integrity sha1-hMbhWbgZBP3KWaDvRM2HDTElD5o=
 
-depd@~1.1.2:
+depd@^1.1.2, depd@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
   integrity sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
@@ -7143,6 +7176,13 @@ focus-lock@^0.6.7:
   resolved "https://registry.yarnpkg.com/focus-lock/-/focus-lock-0.6.8.tgz#61985fadfa92f02f2ee1d90bc738efaf7f3c9f46"
   integrity sha512-vkHTluRCoq9FcsrldC0ulQHiyBYgVJB2CX53I8r0nTC6KnEij7Of0jpBspjt3/CuNb6fyoj3aOh9J2HgQUM0og==
 
+follow-redirects@1.5.10:
+  version "1.5.10"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
+  integrity sha512-0V5l4Cizzvqt5D44aTXbFZz+FtyXV1vrDN6qrelxtfYQKW0KO0W2T/hkE8xvGa/540LkZlkaUjO4ailYTFtHVQ==
+  dependencies:
+    debug "=3.1.0"
+
 for-in@^0.1.3:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/for-in/-/for-in-0.1.8.tgz#d8773908e31256109952b1fdb9b3fa867d2775e1"
@@ -7932,10 +7972,17 @@ human-signals@^1.1.1:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-1.1.1.tgz#c5b1cd14f50aeae09ab6c59fe63ba3395fe4dfa3"
   integrity sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==
 
-i18next-browser-languagedetector@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-4.2.0.tgz#82e35d31f88a1d7c2b6d5913bf8c8481cd40aafb"
-  integrity sha512-qRSCBWgDUSqVQb3sTxkDC+ImYLhF+wB387Y1RpOcJvyex+V3abi+W83n4Awy+dx719AOBbKTy97FjrUGrAhbyw==
+humanize-ms@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/humanize-ms/-/humanize-ms-1.2.1.tgz#c46e3159a293f6b896da29316d8b6fe8bb79bbed"
+  integrity sha1-xG4xWaKT9riW2ikxbYtv6Lt5u+0=
+  dependencies:
+    ms "^2.0.0"
+
+i18next-browser-languagedetector@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-5.0.0.tgz#9e946ed2ea5514a636913fe020a32455e82946e3"
+  integrity sha512-ekeKbRvTOsSOABSEPHFqyb6Q37JagZXjkISgQKHP84t/VZRW/B3FMVz+tBNQDVdZLsEaOe8fuJpeZsw2TvWeVQ==
   dependencies:
     "@babel/runtime" "^7.5.5"
 
@@ -11511,6 +11558,15 @@ query-string@^4.1.0:
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
 
+query-string@^6.11.0:
+  version "6.13.1"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.13.1.tgz#d913ccfce3b4b3a713989fe6d39466d92e71ccad"
+  integrity sha512-RfoButmcK+yCta1+FuU8REvisx1oEzhMKwhLUNcepQTPGcNMp1sIqjnfCtfnvGSQZQEhaBHvccujtWoUV3TTbA==
+  dependencies:
+    decode-uri-component "^0.2.0"
+    split-on-first "^1.0.0"
+    strict-uri-encode "^2.0.0"
+
 querystring-es3@^0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/querystring-es3/-/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
@@ -11779,11 +11835,11 @@ react-redux@^7.0.2:
     loose-envify "^1.4.0"
     prop-types "^15.7.2"
     react-is "^16.9.0"
+
 react-refresh@0.8.3:
   version "0.8.3"
   resolved "https://registry.yarnpkg.com/react-refresh/-/react-refresh-0.8.3.tgz#721d4657672d400c5e3c75d063c4a85fb2d5d68f"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
-
 
 react-select@^3.0.8:
   version "3.1.0"
@@ -12240,6 +12296,11 @@ ret@~0.1.10:
   version "0.1.15"
   resolved "https://registry.yarnpkg.com/ret/-/ret-0.1.15.tgz#b8a4825d5bdb1fc3f6f53c2bc33f81388681c7bc"
   integrity sha512-TTlYpa+OL+vMMNG24xSlQGEJ3B/RzEfUlLct7b5G/ytav+wPrplCpVMFuwzXbkecJrb6IYo1iFb0S9v37754mg==
+
+retry-axios@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/retry-axios/-/retry-axios-2.2.1.tgz#da3cb93436fa2f931332d4e6a9927bd6cfa618c8"
+  integrity sha512-vSZzu29W48+/mVPOq+gwKe+qYWcppiKODXi4FN9q0iN+4s2z10/l1LDS4Ju4vReTyuvKOoqmHqY0rOAmuFjI/Q==
 
 retry-request@^4.0.0:
   version "4.1.1"
@@ -12805,6 +12866,11 @@ spdx-license-ids@^3.0.0:
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.5.tgz#3694b5804567a458d3c8045842a6358632f62654"
   integrity sha512-J+FWzZoynJEXGphVIS+XEh3kFSjZX/1i9gFBaWQcB+/tmpe2qUsSBABpcxqxnAxFdiUFEgAX1bjYGQvIZmoz9Q==
 
+split-on-first@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/split-on-first/-/split-on-first-1.1.0.tgz#f610afeee3b12bce1d0c30425e76398b78249a5f"
+  integrity sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw==
+
 split-string@^3.0.1, split-string@^3.0.2:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/split-string/-/split-string-3.1.0.tgz#7cb09dda3a86585705c64b39a6466038682e8fe2"
@@ -12937,6 +13003,11 @@ strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
   integrity sha1-J5siXfHVgrH1TmWt3UNS4Y+qBxM=
+
+strict-uri-encode@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-2.0.0.tgz#b9c7330c7042862f6b142dc274bbcc5866ce3546"
+  integrity sha1-ucczDHBChi9rFC3CdLvMWGbONUY=
 
 string-hash@1.1.3:
   version "1.1.3"

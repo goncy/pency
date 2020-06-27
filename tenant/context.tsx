@@ -11,6 +11,7 @@ import getTheme from "~/theme";
 
 interface Props {
   initialValue: ClientTenant;
+  children: (tenant: ClientTenant) => React.ReactElement;
 }
 
 const TenantContext = React.createContext({} as Context);
@@ -49,7 +50,7 @@ const TenantProvider: React.FC<Props> = ({children, initialValue}) => {
 
   return (
     <ThemeProvider theme={getTheme(tenant.color)}>
-      <TenantContext.Provider value={{state, actions}}>{children}</TenantContext.Provider>
+      <TenantContext.Provider value={{state, actions}}>{children(tenant)}</TenantContext.Provider>
     </ThemeProvider>
   );
 };

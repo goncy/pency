@@ -5,7 +5,7 @@ import mock from "../mock";
 import TenantHeader from "./TenantHeader";
 
 export const full = () => <TenantHeader tenant={mock.client.full} />;
-export const withoutAddress = () => <TenantHeader tenant={{...mock.client.full, address: null}} />;
+export const withoutAddress = () => <TenantHeader tenant={{...mock.client.full, location: null}} />;
 export const withoutLogo = () => <TenantHeader tenant={{...mock.client.full, logo: ""}} />;
 export const withoutBanner = () => <TenantHeader tenant={{...mock.client.full, banner: ""}} />;
 export const withoutLogoAndBanner = () => (

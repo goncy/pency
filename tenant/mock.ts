@@ -19,7 +19,13 @@ const mock = {
         phone: faker.phone.phoneNumber("##########"),
         category: faker.commerce.department(),
         highlight: faker.lorem.words(10),
-        address: `${faker.address.streetAddress()}, ${faker.address.city()}`,
+        location: {
+          address: `${faker.address.streetAddress()}, ${faker.address.city()}`,
+          coordinates: {
+            lat: 0,
+            lng: 0,
+          },
+        },
         keywords: `${faker.commerce.department()}, ${faker.commerce.department()}`,
         fields: [
           {

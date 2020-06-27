@@ -3,7 +3,7 @@ import {useForm, Controller, FieldError} from "react-hook-form";
 import {Stack, Text, Divider} from "@chakra-ui/core";
 
 import {ClientTenant} from "../types";
-import {CATEGORIES, COUNTRIES} from "../constants";
+import {CATEGORIES} from "../constants";
 import FieldsInput, {validator as FieldsInputValidator} from "../inputs/Fields";
 
 import Select from "~/ui/inputs/Select";
@@ -13,6 +13,8 @@ import ColorRadio from "~/ui/inputs/ColorRadio";
 import ImageInput from "~/ui/inputs/Image";
 import FormControl from "~/ui/form/FormControl";
 import MPConnect from "~/payment/inputs/MPConnect";
+import PlaceInput from "~/ui/inputs/Place";
+import {COUNTRIES} from "~/i18n/constants";
 
 interface Props {
   defaultValues: Partial<ClientTenant>;
@@ -134,7 +136,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 name="country"
                 placeholder="Seleccioná un país"
               >
-                {COUNTRIES.map(({code, name}) => (
+                {Object.entries(COUNTRIES).map(([code, name]) => (
                   <option key={code} value={code}>
                     {name}
                   </option>
@@ -144,9 +146,14 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             <FormControl
               help="Ayudá a tus clientes a encontrar tu local"
               label="Dirección"
-              name="address"
+              name="location"
             >
-              <Input ref={register} name="address" placeholder="Av. Eduardo Madero 470, CABA" />
+              <Controller
+                as={PlaceInput}
+                control={control}
+                country={defaultValues.country}
+                name="location"
+              />
             </FormControl>
           </Stack>
           <Divider />
@@ -253,7 +260,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
           {defaultValues.flags?.includes("mercadopago") && (
             <>
               <Divider />
-              <Stack spacing={4}>
+              <Stack marginY={8} spacing={4}>
                 <Stack spacing={1}>
                   <Text fontSize="2xl" fontWeight={500} id="mercadopago">
                     Mercado Pago
@@ -270,6 +277,29 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                     id={defaultValues.id}
                     name="mercadopago"
                     slug={defaultValues.slug}
+                  />
+                </FormControl>
+              </Stack>
+            </>
+          )}
+          {defaultValues.flags?.includes("advanced") && (
+            <>
+              <Divider />
+              <Stack marginTop={8} spacing={4}>
+                <Stack spacing={1}>
+                  <Text fontSize="2xl" fontWeight={500} id="advanced">
+                    Opciones avanzadas
+                  </Text>
+                  <Text color="gray.600">
+                    Conectá tu servicio de facturación o aplicación con Pency mediante webhooks o
+                    más
+                  </Text>
+                </Stack>
+                <FormControl help="Vamos a hacer un POST a esta url" name="hook">
+                  <Input
+                    ref={register({required: true})}
+                    name="hook"
+                    placeholder="https://tuwebhook.com"
                   />
                 </FormControl>
               </Stack>

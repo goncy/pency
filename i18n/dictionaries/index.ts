@@ -1,13 +1,13 @@
-import en from "./en.json";
-import es from "./es.json";
+import en_US from "./en-US.json";
+import es_AR from "./es-AR.json";
 
 export default {
-  en: {
+  "en-US": {
     name: "English",
-    translation: en,
+    translation: en_US,
   },
-  es: {
+  "es-AR": {
     name: "Español de argentina",
-    translation: es,
+    translation: es_AR,
   },
 };

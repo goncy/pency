@@ -12,7 +12,7 @@ import {
 
 const Onboarding = () => {
   const [isShown, setShown] = React.useState(
-    !Boolean(window.localStorage.getItem("onboarding:Products")),
+    process.browser ? !Boolean(window.localStorage.getItem("onboarding:Products")) : false,
   );
 
   function handleClose() {
