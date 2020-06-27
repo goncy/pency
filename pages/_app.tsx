@@ -6,7 +6,7 @@ import ErrorService, {ErrorInfo, SentryErrorProvider} from "../errors";
 
 import ErrorScreen from "./_error";
 
-const errorService = new ErrorService(new SentryErrorProvider());
+const errorService = new ErrorService(SentryErrorProvider);
 
 export default class Pency extends App {
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
