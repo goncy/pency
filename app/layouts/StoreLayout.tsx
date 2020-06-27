@@ -88,14 +88,14 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
         <>
           <meta content={tenant.title || META.title} name="twitter:title" />
           <meta content={tenant.description || META.description} name="twitter:description" />
-          <meta content={META.banner?.url} property="twitter:image" />
+          <meta content={tenant.banner || META.banner?.url} property="twitter:image" />
           <meta content={`${META.url}/${tenant.slug}`} property="og:url" />
           <meta content="website" property="og:type" />
           <meta content={tenant.title || META.title} property="og:title" />
           <meta content={tenant.description || META.description} property="og:description" />
-          <meta content={META.banner?.url} property="og:image" />
-          <meta content={META.banner?.url} property="og:image:secure" />
-          <meta content={META.banner?.url} property="og:image:url" />
+          <meta content={tenant.banner || META.banner?.url} property="og:image" />
+          <meta content={tenant.banner || META.banner?.url} property="og:image:secure" />
+          <meta content={tenant.banner || META.banner?.url} property="og:image:url" />
           <meta content={META.banner?.format} property="og:image:type" />
           <meta content={META.banner?.width} property="og:image:width" />
           <meta content={META.banner?.height} property="og:image:height" />

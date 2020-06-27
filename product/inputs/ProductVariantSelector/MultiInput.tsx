@@ -5,6 +5,7 @@ import produce from "immer";
 import {Option, Variant} from "../../types";
 
 import Stepper from "~/ui/inputs/Stepper";
+import {usePrice} from "~/i18n/hooks";
 
 interface Props {
   value?: Variant;
@@ -14,6 +15,7 @@ interface Props {
 
 const MultiInput: React.FC<Props> = ({limit, onChange, value, ...props}) => {
   const isFull = limit ? value.value?.length >= limit : false;
+  const p = usePrice();
 
   function handleDecrease(option: Option) {
     const index = value.value.findIndex((selected) => selected.id === option.id);
@@ -74,7 +76,7 @@ const MultiInput: React.FC<Props> = ({limit, onChange, value, ...props}) => {
             </Stack>
             {Boolean(option.price) && (
               <Text color="gray.400" fontSize={{base: "15px", sm: "sm"}} fontWeight={500}>
-                + ${option.price}
+                + {p(option.price)}
               </Text>
             )}
           </Stack>

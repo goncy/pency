@@ -20,17 +20,19 @@ interface Props {
 const StoreRoute: React.FC<Props> = ({tenant, product, products}) => {
   return (
     <TenantProvider initialValue={tenant}>
-      <ProductProvider initialValues={products}>
-        <AnalyticsProvider>
-          <CartProvider>
-            <StoreLayout product={product} tenant={tenant}>
-              <I18nProvider country={tenant.country}>
-                <ProductsScreen />
-              </I18nProvider>
-            </StoreLayout>
-          </CartProvider>
-        </AnalyticsProvider>
-      </ProductProvider>
+      {(tenant) => (
+        <ProductProvider initialValues={products}>
+          <AnalyticsProvider>
+            <CartProvider>
+              <StoreLayout product={product} tenant={tenant}>
+                <I18nProvider country={tenant.country}>
+                  <ProductsScreen />
+                </I18nProvider>
+              </StoreLayout>
+            </CartProvider>
+          </AnalyticsProvider>
+        </ProductProvider>
+      )}
     </TenantProvider>
   );
 };
