@@ -1,5 +1,4 @@
-import i18n from "i18next";
-
+import i18n from "./instance";
 import {CURRENCIES, LOCALES, DEFAULT_COUNTRY} from "./constants";
 
 export function formatPrice(price: number, _country?: string) {
