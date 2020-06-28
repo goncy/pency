@@ -75,6 +75,70 @@ describe("schemas", () => {
         expect(schemas.server.update.cast(actual)).toEqual(expected);
       });
 
+      it("should normalize any to server tenant casting text fields", () => {
+        const actual = {
+          fields: [
+            {
+              id: "some-id",
+              title: "some-title",
+              type: "text",
+              required: "false",
+            },
+          ],
+        };
+        const expected = {
+          fields: [
+            {
+              id: "some-id",
+              title: "some-title",
+              type: "text",
+              note: "",
+              required: false,
+            },
+          ],
+        };
+
+        expect(schemas.server.update.cast(actual)).toEqual(expected);
+      });
+
+      it("should normalize any to server tenant casting radio fields", () => {
+        const actual = {
+          fields: [
+            {
+              id: "some-id",
+              title: "some-title",
+              type: "radio",
+              required: "false",
+              options: [
+                {
+                  id: "some-sub-id",
+                  title: "some-title",
+                },
+              ],
+            },
+          ],
+        };
+        const expected = {
+          fields: [
+            {
+              id: "some-id",
+              title: "some-title",
+              type: "radio",
+              options: [
+                {
+                  id: "some-sub-id",
+                  title: "some-title",
+                  note: "",
+                },
+              ],
+              required: false,
+            },
+          ],
+        };
+
+        expect(schemas.server.update.cast(actual)).toEqual(expected);
+      });
+
       it("should normalize any to server removing mercadopago", () => {
         const actual = {
           mercadopago: {

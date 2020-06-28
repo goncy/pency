@@ -22,6 +22,33 @@ const mercadopago = {
   }),
   lazy: yup.lazy((value) => (value ? mercadopago.schema : yup.mixed())),
 };
+const field = {
+  schema: {
+    text: yup.object({
+      id: yup.string().required(),
+      title: yup.string().required(),
+      note: yup.string().default(""),
+      required: yup.boolean().required().default(false),
+      value: yup.string(),
+    }),
+    radio: yup.object({
+      id: yup.string().required(),
+      title: yup.string().required(),
+      options: yup.array(
+        yup.object({
+          id: yup.string().required(),
+          title: yup.string().required(),
+          note: yup.string().default(""),
+        }),
+      ),
+      required: yup.boolean().required().default(false),
+      value: yup.string(),
+    }),
+  },
+  lazy: yup.lazy((value: Field) =>
+    value.type === "radio" ? field.schema.radio : field.schema.text,
+  ),
+};
 const color = yup
   .string()
   .oneOf<ServerTenant["color"]>([
@@ -36,7 +63,7 @@ const color = yup
     "pink",
   ]);
 const flags = yup.array(yup.string());
-const fields = yup.array<Field>();
+const fields = yup.array<Field>(field.lazy);
 
 export default {
   server: {
