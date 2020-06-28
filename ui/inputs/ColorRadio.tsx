@@ -20,7 +20,7 @@ const ColorRadio: React.FC<Props> = (props) => {
       gridTemplateColumns="repeat(auto-fit, minmax(40px,1fr));"
       justifyContent="center"
     >
-      {COLORS.map(({value: color}) => {
+      {Object.keys(COLORS).map((color) => {
         const isSelected = value === color;
 
         return (

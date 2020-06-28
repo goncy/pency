@@ -6,8 +6,8 @@ import {AuthState} from "../../types";
 import tenantApi from "~/tenant/api/server";
 import sessionApi from "~/session/api/server";
 import {ClientTenant} from "~/tenant/types";
-import {DEFAULT_SERVER_TENANT} from "~/tenant/constants";
 import {getExpirationDate} from "~/payment/selectors";
+import schemas from "~/tenant/schemas";
 
 interface GetRequest extends NextApiRequest {
   query: {
@@ -47,13 +47,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           if (session.uid === state.id) {
             try {
               // Update the tenant with the credentials
-              await tenantApi.update(state.id, state.slug, {
-                mercadopago: {
-                  token: credentials.access_token,
-                  refresh: credentials.refresh_token,
-                  expiration: getExpirationDate(credentials.expires_in),
-                },
-              });
+              await tenantApi.update(
+                state.id,
+                state.slug,
+                schemas.server.mercadopago.cast({
+                  mercadopago: {
+                    token: credentials.access_token,
+                    refresh: credentials.refresh_token,
+                    expiration: getExpirationDate(credentials.expires_in),
+                  },
+                }),
+              );
 
               // Redirect the user to the admin panel again
               return res.writeHead(302, {Location: `/${state.slug}/admin`}).end();
@@ -93,9 +97,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       if (session.uid === id) {
         try {
           // Remove the old credentials from the tenant
-          await tenantApi.update(id, slug, {
-            mercadopago: DEFAULT_SERVER_TENANT.mercadopago,
-          });
+          await tenantApi.update(
+            id,
+            slug,
+            schemas.server.mercadopago.cast({
+              mercadopago: null,
+            }),
+          );
 
           // Return a 200
           return res.status(200).json({success: true});

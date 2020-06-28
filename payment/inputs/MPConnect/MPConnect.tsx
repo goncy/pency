@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "@chakra-ui/core";
+import {Link, ButtonProps} from "@chakra-ui/core";
 
 import api from "../../api/server";
 
@@ -8,14 +8,15 @@ import {useToast} from "~/hooks/toast";
 import IconButton from "~/ui/controls/IconButton";
 import ZapIcon from "~/ui/icons/Zap";
 
-interface Props {
+interface Props extends Omit<ButtonProps, "onChange" | "leftIcon" | "rightIcon" | "children"> {
   id: ClientTenant["id"];
   slug: ClientTenant["slug"];
   checked?: boolean;
+  defaultChecked?: boolean;
   onChange: (value: boolean) => void;
 }
 
-const MPConnect: React.FC<Props> = ({id, checked, onChange, slug}) => {
+const MPConnect: React.FC<Props> = ({id, checked, onChange, slug, ...props}) => {
   const [isLoading, toggleLoading] = React.useState(false);
   const toast = useToast();
 
@@ -56,7 +57,9 @@ const MPConnect: React.FC<Props> = ({id, checked, onChange, slug}) => {
       isLoading={isLoading}
       justifyContent="flex-start"
       leftIcon={ZapIcon}
+      loadingText="Desconectando"
       onClick={handleDisconnect}
+      {...props}
     >
       Desconectar de Mercado Pago
     </IconButton>
@@ -77,6 +80,8 @@ const MPConnect: React.FC<Props> = ({id, checked, onChange, slug}) => {
         isLoading={isLoading}
         justifyContent="flex-start"
         leftIcon={ZapIcon}
+        loadingText="Conectando"
+        {...props}
       >
         Conectar de Mercado Pago
       </IconButton>

@@ -16,6 +16,7 @@ interface Props {
 
 const PlaceInput: React.FC<Props> = ({value, onChange, country}) => {
   const [query, setQuery] = React.useState(value?.address || "");
+  const ref = React.useRef<HTMLInputElement>();
   const [isLoading, setLoading] = React.useState(false);
   const [places, setPlaces] = React.useState<Place[]>([]);
   const toast = useToast();
@@ -27,12 +28,16 @@ const PlaceInput: React.FC<Props> = ({value, onChange, country}) => {
 
   function handleChange(place: Place) {
     onChange(place);
-    setPlaces([]);
     setQuery(place.address);
+    setPlaces([]);
+  }
+
+  function handleBlur() {
+    setPlaces([]);
   }
 
   const getPlaces = React.useCallback(() => {
-    if (query === address) return;
+    if (!address || !query || query === address) return;
 
     setLoading(true);
     setPlaces([]);
@@ -42,6 +47,7 @@ const PlaceInput: React.FC<Props> = ({value, onChange, country}) => {
       .then((places) => {
         setPlaces(places || []);
         setLoading(false);
+        ref.current.focus();
       })
       .catch(() => {
         toast({
@@ -55,12 +61,18 @@ const PlaceInput: React.FC<Props> = ({value, onChange, country}) => {
 
   useDebounce(getPlaces, 1000, query);
 
+  React.useEffect(() => {
+    if (address) setQuery(address);
+  }, [address]);
+
   return (
     <Stack position="relative">
       <Input
+        ref={ref}
         isDisabled={isLoading}
         style={{marginBottom: 0}}
         value={query}
+        onBlur={handleBlur}
         onChange={handleQueryChange}
       />
       {Boolean(places?.length) && (
@@ -93,7 +105,7 @@ const PlaceInput: React.FC<Props> = ({value, onChange, country}) => {
                 fontWeight={500}
                 justifyContent="flex-start"
                 paddingX={3}
-                onClick={() => handleChange(place)}
+                onMouseDown={() => handleChange(place)}
               >
                 {place.address}
               </Text>

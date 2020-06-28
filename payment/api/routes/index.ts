@@ -6,7 +6,7 @@ import {ClientTenant} from "~/tenant/types";
 import tenantApi from "~/tenant/api/server";
 import {CartItem} from "~/cart/types";
 import {getExpirationDate} from "~/payment/selectors";
-import {DEFAULT_SERVER_TENANT} from "~/tenant/constants";
+import schemas from "~/tenant/schemas";
 
 interface PostRequest extends NextApiRequest {
   body: {
@@ -38,13 +38,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             const credentials = await paymentsApi.refresh(tenant.mercadopago.refresh);
 
             // Update the tenant with the new credentials
-            await tenantApi.update(tenant.id, tenant.slug, {
-              mercadopago: {
-                token: credentials.access_token,
-                refresh: credentials.refresh_token,
-                expiration: getExpirationDate(credentials.expires_in),
-              },
-            });
+            await tenantApi.update(
+              tenant.id,
+              tenant.slug,
+              schemas.server.mercadopago.cast({
+                mercadopago: {
+                  token: credentials.access_token,
+                  refresh: credentials.refresh_token,
+                  expiration: getExpirationDate(credentials.expires_in),
+                },
+              }),
+            );
 
             // Create the preference with new credentials
             const preference = await paymentsApi.create(
@@ -59,9 +63,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           } catch (error) {
             try {
               // If we failed at refreshing, we reset mercadopago for this shop
-              await tenantApi.update(tenant.id, tenant.slug, {
-                mercadopago: DEFAULT_SERVER_TENANT.mercadopago,
-              });
+              await tenantApi.update(
+                tenant.id,
+                tenant.slug,
+                schemas.server.mercadopago.cast({
+                  mercadopago: null,
+                }),
+              );
 
               // We return a 400 for that
               return res.status(400).end("Se desconectó la tienda de mercado pago");

@@ -1,4 +1,4 @@
-import * as R from "ramda";
+import produce from "immer";
 
 import {Product} from "./types";
 
@@ -10,9 +10,17 @@ function update(id: ClientTenant["id"], product: Product["id"], value: Partial<P
   const cached: Product[] = cache.get(id);
 
   if (cached) {
-    const index = R.findIndex((item) => item.id === product, cached);
+    const index = cached.findIndex((item) => item.id === product, cached);
 
-    cache.set(id, R.over(R.lensIndex(index), R.mergeLeft(value), cached));
+    cache.set(
+      id,
+      produce(cached, (cached) => {
+        cached[index] = {
+          ...cached[index],
+          ...value,
+        };
+      }),
+    );
   }
 }
 
@@ -32,9 +40,14 @@ function pluck(id: ClientTenant["id"], product: Product["id"]) {
   const cached: Product[] = cache.get(id);
 
   if (cached) {
-    const index = R.findIndex((item) => item.id === product, cached);
+    const index = cached.findIndex((item) => item.id === product, cached);
 
-    cache.set(id, R.remove(index, 1, cached));
+    cache.set(
+      id,
+      produce(cached, (cached) => {
+        delete cached[index];
+      }),
+    );
   }
 }
 
