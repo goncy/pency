@@ -1,31 +1,3 @@
-import {ClientTenant, ServerTenant} from "./types";
-
-export const DEFAULT_CLIENT_TENANT: Omit<ClientTenant, "id" | "slug"> = {
-  phone: "5491173694572",
-  color: "cyan",
-  title: "Pency - Tu tienda online fácil",
-  description: "Armá tu tienda y recibí los pedidos via WhatsApp",
-  instagram: "",
-  facebook: "",
-  twitter: "",
-  logo: "",
-  banner: "",
-  category: "",
-  highlight: "",
-  fields: [],
-  keywords: "pency, tienda, online, whatsapp, delivery, pedidos",
-  mercadopago: false,
-};
-
-export const DEFAULT_SERVER_TENANT: Omit<ServerTenant, "id" | "slug"> = {
-  ...DEFAULT_CLIENT_TENANT,
-  mercadopago: {
-    token: "",
-    refresh: "",
-    expiration: null,
-  },
-};
-
 export const CATEGORIES = [
   {label: "Accesorios para vehículos", value: "vehicle-accessories"},
   {label: "Almacén / Kiosco", value: "warehouse-kiosc"},
@@ -111,19 +83,4 @@ export const CATEGORIES = [
   {label: "Vinoteca", value: "wines"},
   {label: "Vivero / Florería", value: "flower-shop"},
   {label: "Otro", value: "other"},
-];
-
-export const COUNTRIES = [
-  {name: "Argentina", code: "AR"},
-  {name: "Brazil", code: "BR"},
-  {name: "Colombia", code: "CO"},
-  {name: "Cuba", code: "CU"},
-  {name: "Ecuador", code: "EC"},
-  {name: "México", code: "MX"},
-  {name: "Paraguay", code: "PY"},
-  {name: "Perú", code: "PE"},
-  {name: "España", code: "ES"},
-  {name: "United States", code: "US"},
-  {name: "Uruguay", code: "UY"},
-  {name: "Venezuela", code: "VE"},
 ];

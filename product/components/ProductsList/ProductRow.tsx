@@ -7,6 +7,7 @@ import {useToast} from "~/hooks/toast";
 import TrashIcon from "~/ui/icons/Trash";
 import DuplicateIcon from "~/ui/icons/Duplicate";
 import Image from "~/ui/feedback/Image";
+import {usePrice} from "~/i18n/hooks";
 
 interface Props extends Product {
   onEdit: (product: Product) => void;
@@ -16,6 +17,7 @@ interface Props extends Product {
 const ProductRow: React.FC<Props> = ({onEdit, onRemove, ...product}) => {
   const [status, setStatus] = React.useState("init");
   const toast = useToast();
+  const p = usePrice();
 
   async function handleRemove(product: Product["id"]) {
     setStatus("pending");
@@ -52,7 +54,7 @@ const ProductRow: React.FC<Props> = ({onEdit, onRemove, ...product}) => {
       </Box>
       <Box as="td" display={{base: "none", md: "table-cell"}} width="100px">
         <Text fontWeight="500" marginRight={{base: 4, md: 12}} textAlign="left">
-          ${product.price}
+          {p(product.price)}
         </Text>
       </Box>
       <Box as="td" display={{base: "none", md: "table-cell"}} width="200px">

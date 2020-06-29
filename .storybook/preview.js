@@ -19,17 +19,19 @@ addDecorator(storyFn => (
     <ThemeProvider>
       <CSSReset />
       <TenantProvider initialValue={TENANT}>
-        <ProductProvider initialValues={PRODUCTS}>
-          <AnalyticsProvider>
-            <CartProvider>
-              <I18nProvider>
-                <Box padding={4}>
-                  {storyFn()}
-                </Box>
-              </I18nProvider>
-            </CartProvider>
-          </AnalyticsProvider>
-        </ProductProvider>
+        {() => (
+          <ProductProvider initialValues={PRODUCTS}>
+            <AnalyticsProvider>
+              <CartProvider>
+                <I18nProvider>
+                  <Box padding={4}>
+                    {storyFn()}
+                  </Box>
+                </I18nProvider>
+              </CartProvider>
+            </AnalyticsProvider>
+          </ProductProvider>
+        )}
       </TenantProvider>
     </ThemeProvider>
 ));

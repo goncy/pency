@@ -1,10 +1,15 @@
 import {VariantColor} from "@chakra-ui/core";
 
+import {Place} from "~/places/types";
+
 interface Tenant {
   id: string;
   slug: string;
   category?: string;
-  color: Exclude<VariantColor, "black" | "white">;
+  color: Extract<
+    VariantColor,
+    "yellow" | "blue" | "cyan" | "gray" | "orange" | "purple" | "red" | "pink" | "teal" | "green"
+  >;
   phone: string;
   logo?: string;
   title?: string;
@@ -15,10 +20,11 @@ interface Tenant {
   banner?: string;
   description?: string;
   country?: string;
-  address?: string;
+  location?: Place;
   highlight?: string;
   fields?: Field[];
   flags?: string[];
+  hook?: string;
   mercadopago?: {
     token: string;
     refresh: string;

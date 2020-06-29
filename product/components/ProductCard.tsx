@@ -3,6 +3,7 @@ import {Box, Text, Flex, FlexProps, Stack} from "@chakra-ui/core";
 
 import Image from "~/ui/feedback/Image";
 import {Product} from "~/product/types";
+import {usePrice} from "~/i18n/hooks";
 
 interface Props extends Omit<FlexProps, "onClick"> {
   product: Product;
@@ -11,6 +12,7 @@ interface Props extends Omit<FlexProps, "onClick"> {
 }
 
 const ProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...props}) => {
+  const p = usePrice();
   const {image, title, price, available} = product;
 
   function handleClick() {
@@ -66,7 +68,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...pr
             fontWeight={500}
             lineHeight={1}
           >
-            {available ? `$${price}` : `Sin stock`}
+            {available ? p(price) : `Sin stock`}
           </Text>
         </Flex>
       </Box>

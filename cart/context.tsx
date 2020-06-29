@@ -5,7 +5,7 @@ import produce from "immer";
 import {Product, Variant} from "../product/types";
 
 import {CartItem, Context, State, Actions, Cart} from "./types";
-import {getSummary, getMessage} from "./selectors";
+import api from "./api";
 
 import {useAnalytics} from "~/analytics/hooks";
 import paymentApi from "~/payment/api/client";
@@ -21,16 +21,12 @@ const CartContext = React.createContext({} as Context);
 
 const CartProvider = ({children}: Props) => {
   const log = useAnalytics();
-  const {phone, slug, mercadopago} = useTenant();
+  const {phone, slug, mercadopago, hook} = useTenant();
   const [cart, setCart] = React.useState<Cart>({});
   const items = React.useMemo(() => [].concat(...Object.values(cart)), [cart]);
 
   function add(product: Product, variants: Variant[], count: number = 1) {
-    log("product_add", {
-      content_type: "product",
-      description: `[${product.category}] ${product.title}`,
-      value: product.price,
-    });
+    log.addToCart(product, variants, count);
 
     return setCart(
       produce((cart) => {
@@ -48,6 +44,8 @@ const CartProvider = ({children}: Props) => {
 
   function remove(id: CartItem["id"]) {
     if (!cart[id]) return;
+
+    log.removeFromCart(cart[id].product, cart[id].variants, cart[id].count + 1);
 
     return setCart(
       produce((cart) => {
@@ -81,14 +79,11 @@ const CartProvider = ({children}: Props) => {
   }
 
   async function checkout(fields?: Field[]) {
-    log("cart_checkout", {
-      content_type: "cart",
-      description: getSummary(items),
-      items,
-    });
-
     // We generate an order id
     const orderId = shortid.generate();
+
+    // Log to analytics
+    log.checkout(orderId, items);
 
     if (mercadopago && isMercadoPagoSelected(fields)) {
       try {
@@ -97,20 +92,26 @@ const CartProvider = ({children}: Props) => {
         // Create a preference for this items
         const preference = await paymentApi.create(slug, items, orderId);
 
+        // If a webhook is configured, do a post to it
+        if (hook) {
+          api.hook(hook, {items, orderId, fields, preference});
+        }
+
         // Redirect the new tab to the corresponding url
-        tab.location.href = `https://wa.me/${phone}?text=${encodeURIComponent(
-          getMessage(items, orderId, fields, preference),
-        )}`;
+        tab.location.href = api.checkout({phone, items, orderId, fields, preference});
       } catch (e) {
         // If we had an error log it to the console
-        console.log("Error generando preferencia de MercadoPago: ", e);
+        console.warn("Error generando preferencia de MercadoPago: ", e);
       }
     }
 
+    // If a webhook is configured, do a post to it
+    if (hook) {
+      api.hook(hook, {items, orderId, fields});
+    }
+
     // If we don't have mercadopago configured and selected, redirect the user to whatsapp
-    window.open(
-      `https://wa.me/${phone}?text=${encodeURIComponent(getMessage(items, orderId, fields))}`,
-    );
+    window.open(api.checkout({phone, items, orderId, fields}));
   }
 
   const state: State = {items, cart};

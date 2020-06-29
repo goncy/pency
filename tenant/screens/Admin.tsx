@@ -72,6 +72,18 @@ const AdminScreen: React.FC = () => {
                 Mercado Pago
               </Link>
             )}
+            {tenant.flags?.includes("advanced") && (
+              <Link
+                _hover={{color: "primary.500"}}
+                color="gray.600"
+                fontWeight={500}
+                href="#advanced"
+                role="button"
+                whiteSpace="nowrap"
+              >
+                Opciones avanzadas
+              </Link>
+            )}
           </Stack>
         </Content>
       </Box>

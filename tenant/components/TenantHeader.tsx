@@ -20,12 +20,12 @@ interface Props extends BoxProps {
     | "title"
     | "description"
     | "phone"
-    | "address"
+    | "location"
   >;
 }
 
 const TenantHeader: React.FC<Props> = ({
-  tenant: {banner, facebook, instagram, twitter, logo, title, description, phone, address},
+  tenant: {banner, facebook, instagram, twitter, logo, title, description, phone, location},
   ...props
 }) => (
   <Box {...props}>
@@ -66,12 +66,15 @@ const TenantHeader: React.FC<Props> = ({
           <Text color="gray.500" fontSize={{base: "sm", sm: "md"}} lineHeight="tall">
             {description}
           </Text>
-          {address && (
+          {location && (
             <Stack isInline alignItems="center" color="primary.500" marginTop={1} spacing={1}>
               <MarkerIcon size={4} />
-              <Link isExternal href={`https://www.google.com.ar/maps/place/${address}`}>
+              <Link
+                isExternal
+                href={`https://www.google.com.ar/maps/place/${location.address}/@${location.coordinates.lat},${location.coordinates.lng}`}
+              >
                 <Text fontSize={{base: "sm", sm: "md"}} lineHeight="tall">
-                  {address}
+                  {location.address}
                 </Text>
               </Link>
             </Stack>

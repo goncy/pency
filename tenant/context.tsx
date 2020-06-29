@@ -5,22 +5,19 @@ import {useToast} from "../hooks/toast";
 
 import {ClientTenant, Context, State, Actions} from "./types";
 import api from "./api/client";
-import {DEFAULT_CLIENT_TENANT} from "./constants";
 
 import getTheme from "~/theme";
 
 interface Props {
   initialValue: ClientTenant;
+  children: (tenant: ClientTenant) => React.ReactElement;
 }
 
 const TenantContext = React.createContext({} as Context);
 
 const TenantProvider: React.FC<Props> = ({children, initialValue}) => {
   const toast = useToast();
-  const [tenant, setTenant] = React.useState<ClientTenant>({
-    ...DEFAULT_CLIENT_TENANT,
-    ...initialValue,
-  });
+  const [tenant, setTenant] = React.useState<ClientTenant>(initialValue);
 
   function update(tenant: ClientTenant) {
     return api
@@ -49,7 +46,7 @@ const TenantProvider: React.FC<Props> = ({children, initialValue}) => {
 
   return (
     <ThemeProvider theme={getTheme(tenant.color)}>
-      <TenantContext.Provider value={{state, actions}}>{children}</TenantContext.Provider>
+      <TenantContext.Provider value={{state, actions}}>{children(tenant)}</TenantContext.Provider>
     </ThemeProvider>
   );
 };

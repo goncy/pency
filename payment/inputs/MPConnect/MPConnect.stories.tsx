@@ -13,4 +13,31 @@ export const connected = () => (
   />
 );
 
+export const disconnected = () => (
+  <MPConnect
+    id={faker.random.uuid()}
+    slug={faker.internet.userName()}
+    onChange={action("changed")}
+  />
+);
+
+export const connecting = () => (
+  <MPConnect
+    isLoading
+    id={faker.random.uuid()}
+    slug={faker.internet.userName()}
+    onChange={action("changed")}
+  />
+);
+
+export const disconnecting = () => (
+  <MPConnect
+    checked
+    isLoading
+    id={faker.random.uuid()}
+    slug={faker.internet.userName()}
+    onChange={action("changed")}
+  />
+);
+
 export default {title: "Payment/Inputs/MPConnect"};

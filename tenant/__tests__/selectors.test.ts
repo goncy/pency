@@ -1,54 +1,61 @@
-import * as R from "ramda";
+import produce from "immer";
 
-import {clientToServer, serverToClient} from "../selectors";
+import {isMercadoPagoSelected} from "../selectors";
 import mock from "../mock";
+import {RadioField} from "../types";
 
 describe("selectors", () => {
-  describe("clientToServer", () => {
-    it("should remove mercadopago property", () => {
-      const base = mock.client.full;
-      const actual = clientToServer(base);
+  describe("isMercadoPagoSelected", () => {
+    it("should return true when Mercado Pago its selected", () => {
+      const base = mock.client.full.fields;
+      const actual = produce(base, (actual: RadioField[]) => {
+        actual[0].value = "Mercado Pago";
+      });
 
-      expect(actual).not.toHaveProperty("mercadopago");
+      expect(isMercadoPagoSelected(actual)).toBe(true);
     });
 
-    it("should remove id property", () => {
-      const base = mock.client.full;
-      const actual = clientToServer(base);
+    it("should return true when MercadoPago its selected", () => {
+      const base = mock.client.full.fields;
+      const actual = produce(base, (actual: RadioField[]) => {
+        actual[0].value = "MercadoPago";
+      });
 
-      expect(actual).not.toHaveProperty("id");
+      expect(isMercadoPagoSelected(actual)).toBe(true);
     });
 
-    it("should remove slug property", () => {
-      const base = mock.client.full;
-      const actual = clientToServer(base);
+    it("should return true when mercadopago its selected", () => {
+      const base = mock.client.full.fields;
+      const actual = produce(base, (actual: RadioField[]) => {
+        actual[0].value = "mercadopago";
+      });
 
-      expect(actual).not.toHaveProperty("slug");
-    });
-  });
-
-  describe("serverToClient", () => {
-    it("should map to truthy mercadopago correctly", () => {
-      const base = mock.server.full;
-      const actual = serverToClient(base);
-      const expected = R.assoc("mercadopago", true, base);
-
-      expect(actual).toMatchObject(expected);
+      expect(isMercadoPagoSelected(actual)).toBe(true);
     });
 
-    it("should map to falsy mercadopago correctly", () => {
-      const base = R.assoc(
-        "mercadopago",
-        {
-          token: "",
-          refresh: "",
-        },
-        mock.server.full,
-      );
-      const actual = serverToClient(base);
-      const expected = R.assoc("mercadopago", false, base);
+    it("should return true when MERCADOPAGO its selected", () => {
+      const base = mock.client.full.fields;
+      const actual = produce(base, (actual: RadioField[]) => {
+        actual[0].value = "MERCADOPAGO";
+      });
 
-      expect(actual).toMatchObject(expected);
+      expect(isMercadoPagoSelected(actual)).toBe(true);
+    });
+
+    it("should return true when MERCADO PAGO its selected", () => {
+      const base = mock.client.full.fields;
+      const actual = produce(base, (actual: RadioField[]) => {
+        actual[0].value = "MERCADO PAGO";
+      });
+
+      expect(isMercadoPagoSelected(actual)).toBe(true);
+    });
+
+    it("should return false when not selected", () => {
+      const base = mock.client.full.fields;
+      const actual = isMercadoPagoSelected(base);
+
+      expect(actual).toBe(false);
     });
   });
 });

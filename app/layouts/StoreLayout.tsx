@@ -6,6 +6,7 @@ import {META} from "../constants";
 
 import {ClientTenant} from "~/tenant/types";
 import {Product} from "~/product/types";
+import {CURRENCIES} from "~/i18n/constants";
 
 interface Props {
   tenant: ClientTenant;
@@ -65,8 +66,6 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           <meta content={product.title} name="twitter:title" />
           <meta content={product.description} name="twitter:description" />
           <meta content={product.image || META.banner?.url} property="tiwtter:image" />
-          <meta content={`$${product.price}`} name="twitter:data1" />
-          <meta content="Precio" name="twitter:label1" />
           <meta content={`${META.url}/${tenant.slug}?product=${product.id}`} property="og:url" />
           <meta content="article" property="og:type" />
           <meta content={product.title} property="og:title" />
@@ -77,9 +76,9 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           <meta content="image/jpeg" property="og:image:type" />
           <meta content={product.title} property="og:image:alt" />
           <meta content={String(product.price)} property="og:price:amount" />
-          <meta content="ARS" property="og:price:currency" />
+          <meta content={CURRENCIES[tenant.country]} property="og:price:currency" />
           <meta content={String(product.price)} property="product:price:amount" />
-          <meta content="ARS" property="product:price:currency" />
+          <meta content={CURRENCIES[tenant.country]} property="product:price:currency" />
           <meta content={product.category} property="article:section" />
           <meta content={product.title} itemProp="name" />
           <meta content={product.description} itemProp="description" />
@@ -89,14 +88,23 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
         <>
           <meta content={tenant.title || META.title} name="twitter:title" />
           <meta content={tenant.description || META.description} name="twitter:description" />
-          <meta content={META.banner?.url} property="twitter:image" />
+          <meta
+            content={tenant.banner || tenant.logo || META.banner?.url}
+            property="twitter:image"
+          />
           <meta content={`${META.url}/${tenant.slug}`} property="og:url" />
           <meta content="website" property="og:type" />
           <meta content={tenant.title || META.title} property="og:title" />
           <meta content={tenant.description || META.description} property="og:description" />
-          <meta content={META.banner?.url} property="og:image" />
-          <meta content={META.banner?.url} property="og:image:secure" />
-          <meta content={META.banner?.url} property="og:image:url" />
+          <meta content={tenant.banner || tenant.logo || META.banner?.url} property="og:image" />
+          <meta
+            content={tenant.banner || tenant.logo || META.banner?.url}
+            property="og:image:secure"
+          />
+          <meta
+            content={tenant.banner || tenant.logo || META.banner?.url}
+            property="og:image:url"
+          />
           <meta content={META.banner?.format} property="og:image:type" />
           <meta content={META.banner?.width} property="og:image:width" />
           <meta content={META.banner?.height} property="og:image:height" />
@@ -104,9 +112,6 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
         </>
       )}
       <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-      {process.env.NODE_ENV === "production" && (
-        <script async src="https://www.googletagmanager.com/gtag/js" />
-      )}
     </Head>
     {children}
   </>

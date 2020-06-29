@@ -3,7 +3,7 @@ import {useForm, Controller, FieldError} from "react-hook-form";
 import {Stack, Text, Divider} from "@chakra-ui/core";
 
 import {ClientTenant} from "../types";
-import {CATEGORIES, COUNTRIES} from "../constants";
+import {CATEGORIES} from "../constants";
 import FieldsInput, {validator as FieldsInputValidator} from "../inputs/Fields";
 
 import Select from "~/ui/inputs/Select";
@@ -13,6 +13,8 @@ import ColorRadio from "~/ui/inputs/ColorRadio";
 import ImageInput from "~/ui/inputs/Image";
 import FormControl from "~/ui/form/FormControl";
 import MPConnect from "~/payment/inputs/MPConnect";
+import PlaceInput from "~/ui/inputs/Place";
+import {COUNTRIES} from "~/i18n/constants";
 
 interface Props {
   defaultValues: Partial<ClientTenant>;
@@ -54,6 +56,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             >
               <Input
                 ref={register({required: true, maxLength: 70})}
+                defaultValue=""
                 maxLength={70}
                 name="title"
                 placeholder="Pastelerías Pency"
@@ -66,6 +69,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             >
               <Textarea
                 ref={register({maxLength: 140})}
+                defaultValue=""
                 maxLength={140}
                 name="description"
                 placeholder="Somos una tienda de venta de pastelería, pedidos de lunes a viernes de 9 a 18"
@@ -79,6 +83,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             >
               <Input
                 ref={register({maxLength: 140})}
+                defaultValue=""
                 maxLength={140}
                 name="highlight"
                 placeholder="Solo se despacharán pedidos hechos de lunes a viernes entre las 9 y las 18 horas"
@@ -94,6 +99,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             >
               <Input
                 ref={register({required: true, pattern: /^[0-9]+$/})}
+                defaultValue=""
                 min={0}
                 name="phone"
                 placeholder="5491144444444"
@@ -109,6 +115,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             >
               <Select
                 ref={register({required: true})}
+                defaultValue=""
                 name="category"
                 placeholder="Seleccioná un rubro"
               >
@@ -120,7 +127,12 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               </Select>
             </FormControl>
             <FormControl help="Separadas por comas" label="Palabras clave" name="keywords">
-              <Input ref={register} name="keywords" placeholder="delivery, pasteleria, cupcakes" />
+              <Input
+                ref={register}
+                defaultValue=""
+                name="keywords"
+                placeholder="delivery, pasteleria, cupcakes"
+              />
             </FormControl>
             <FormControl
               isRequired
@@ -131,10 +143,11 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             >
               <Select
                 ref={register({required: true})}
+                defaultValue=""
                 name="country"
                 placeholder="Seleccioná un país"
               >
-                {COUNTRIES.map(({code, name}) => (
+                {Object.entries(COUNTRIES).map(([code, name]) => (
                   <option key={code} value={code}>
                     {name}
                   </option>
@@ -144,9 +157,15 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             <FormControl
               help="Ayudá a tus clientes a encontrar tu local"
               label="Dirección"
-              name="address"
+              name="location"
             >
-              <Input ref={register} name="address" placeholder="Av. Eduardo Madero 470, CABA" />
+              <Controller
+                as={PlaceInput}
+                control={control}
+                country={defaultValues.country}
+                defaultValue={null}
+                name="location"
+              />
             </FormControl>
           </Stack>
           <Divider />
@@ -182,7 +201,13 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               error={errors.color && "Este campo es inválido"}
               label="Color principal"
             >
-              <Controller as={ColorRadio} control={control} name="color" rules={{required: true}} />
+              <Controller
+                as={ColorRadio}
+                control={control}
+                defaultValue="teal"
+                name="color"
+                rules={{required: true}}
+              />
             </FormControl>
           </Stack>
           <Divider />
@@ -200,6 +225,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                   validate: (value) =>
                     value.includes("instagram.com") ? "Solo el usuario, no el link completo" : true,
                 })}
+                defaultValue=""
                 name="instagram"
                 placeholder="pencyapp"
               />
@@ -214,6 +240,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                   validate: (value) =>
                     value.includes("facebook.com") ? "Solo el usuario, no el link completo" : true,
                 })}
+                defaultValue=""
                 name="facebook"
                 placeholder="pencyapp"
               />
@@ -224,6 +251,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                   validate: (value) =>
                     value.includes("twitter.com") ? "Solo el usuario, no el link completo" : true,
                 })}
+                defaultValue=""
                 name="twitter"
                 placeholder="pencyapp"
               />
@@ -244,6 +272,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               <Controller
                 as={FieldsInput}
                 control={control}
+                defaultValue={[]}
                 error={(errors.fields as unknown) as FieldError}
                 name="fields"
                 rules={{validate: FieldsInputValidator}}
@@ -253,7 +282,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
           {defaultValues.flags?.includes("mercadopago") && (
             <>
               <Divider />
-              <Stack spacing={4}>
+              <Stack marginY={8} spacing={4}>
                 <Stack spacing={1}>
                   <Text fontSize="2xl" fontWeight={500} id="mercadopago">
                     Mercado Pago
@@ -267,9 +296,34 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                   <Controller
                     as={MPConnect}
                     control={control}
+                    defaultChecked={false}
                     id={defaultValues.id}
                     name="mercadopago"
                     slug={defaultValues.slug}
+                  />
+                </FormControl>
+              </Stack>
+            </>
+          )}
+          {defaultValues.flags?.includes("advanced") && (
+            <>
+              <Divider />
+              <Stack marginTop={8} spacing={4}>
+                <Stack spacing={1}>
+                  <Text fontSize="2xl" fontWeight={500} id="advanced">
+                    Opciones avanzadas
+                  </Text>
+                  <Text color="gray.600">
+                    Conectá tu servicio de facturación o aplicación con Pency mediante webhooks o
+                    más
+                  </Text>
+                </Stack>
+                <FormControl help="Vamos a hacer un POST a esta url" name="hook">
+                  <Input
+                    ref={register({required: true})}
+                    defaultValue=""
+                    name="hook"
+                    placeholder="https://tuwebhook.com"
                   />
                 </FormControl>
               </Stack>

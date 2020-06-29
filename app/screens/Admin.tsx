@@ -18,7 +18,6 @@ import HomeAdminScreen from "./Home";
 
 import ProductsAdminScreen from "~/product/screens/Admin";
 import TenantAdminScreen from "~/tenant/screens/Admin";
-import {ClientTenant} from "~/tenant/types";
 import BoxIcon from "~/ui/icons/Box";
 import SlidersIcon from "~/ui/icons/Sliders";
 import HelpCircleIcon from "~/ui/icons/HelpCircle";
@@ -28,13 +27,11 @@ import {useSession} from "~/session/hooks";
 import Content from "~/ui/structure/Content";
 import {useTranslation} from "~/i18n/hooks";
 import HomeIcon from "~/ui/icons/Home";
+import {useTenant} from "~/tenant/hooks";
 
-interface Props {
-  tenant: ClientTenant;
-}
-
-const AdminScreen: React.FC<Props> = ({tenant}) => {
+const AdminScreen: React.FC = () => {
   const {signOut} = useSession();
+  const tenant = useTenant();
   const t = useTranslation();
 
   return (

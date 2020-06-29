@@ -1,39 +1,4 @@
-import * as R from "ramda";
-
-import {ClientTenant, ServerTenant, Field} from "./types";
-
-export function serverToClient(tenant: Partial<ServerTenant>): Partial<ClientTenant> {
-  return R.pipe(
-    R.pick([
-      "id",
-      "slug",
-      "category",
-      "color",
-      "phone",
-      "logo",
-      "title",
-      "instagram",
-      "facebook",
-      "twitter",
-      "keywords",
-      "banner",
-      "description",
-      "highlight",
-      "fields",
-      "flags",
-      "mercadopago",
-      "country",
-      "address",
-    ]),
-    R.evolve({
-      mercadopago: (mercadopago) => Boolean(mercadopago.token),
-    }),
-  )(tenant);
-}
-
-export function clientToServer(tenant: Partial<ClientTenant>): Partial<ServerTenant> {
-  return R.omit(["id", "mercadopago", "slug"], tenant);
-}
+import {Field} from "./types";
 
 export function isMercadoPagoSelected(fields?: Field[]): boolean {
   if (!Boolean(fields?.length)) return false;
