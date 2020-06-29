@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-import {ClientTenant, ServerTenant, Field} from "./types";
+import {ClientTenant, ServerTenant, Field, RadioField, TextField} from "./types";
 
 import {Place} from "~/places/types";
 
@@ -12,7 +12,7 @@ const location = {
       lng: yup.number().default(0),
     }),
   }),
-  lazy: yup.lazy((value) => (value ? location.schema : yup.mixed())),
+  lazy: yup.lazy((value) => (value ? location.schema : yup.mixed().oneOf([null]))),
 };
 const mercadopago = {
   schema: yup.object<ServerTenant["mercadopago"]>({
@@ -20,19 +20,21 @@ const mercadopago = {
     refresh: yup.string().default(""),
     expiration: yup.number().default(0),
   }),
-  lazy: yup.lazy((value) => (value ? mercadopago.schema : yup.mixed())),
+  lazy: yup.lazy((value) => (value ? mercadopago.schema : yup.mixed().oneOf([null]))),
 };
 const field = {
   schema: {
-    text: yup.object({
+    text: yup.object<TextField>({
       id: yup.string().required(),
+      type: yup.string().oneOf(["text"]),
       title: yup.string().required(),
       note: yup.string().default(""),
       required: yup.boolean().required().default(false),
       value: yup.string(),
     }),
-    radio: yup.object({
+    radio: yup.object<RadioField>({
       id: yup.string().required(),
+      type: yup.string().oneOf(["radio"]),
       title: yup.string().required(),
       options: yup.array(
         yup.object({

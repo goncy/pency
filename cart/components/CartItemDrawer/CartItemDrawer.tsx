@@ -14,6 +14,8 @@ import ToggleableImage from "~/ui/feedback/ToggleableImage";
 import {useTranslation} from "~/i18n/hooks";
 import {useToast} from "~/hooks/toast";
 import ShareIcon from "~/ui/icons/Share";
+import {useAnalytics} from "~/analytics/hooks";
+
 interface Props extends Omit<IDrawer, "children"> {
   onSubmit: (product: Product, options: Variant[], count: number) => void;
   product: Product;
@@ -22,6 +24,7 @@ interface Props extends Omit<IDrawer, "children"> {
 const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props}) => {
   const [count, setCount] = React.useState(1);
   const t = useTranslation();
+  const log = useAnalytics();
   const toast = useToast();
   const canShare = {
     prompt: Boolean(navigator?.share),
@@ -46,6 +49,8 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
             title: "Bien!",
             description: "El enlace fue compartido correctamente",
           });
+
+          log.share(product, "mobile");
         })
         .catch(() => {
           console.log("El dialogo de share fue cerrado");
@@ -59,6 +64,8 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
             title: "Link copiado",
             description: "El link se copió al portapapeles",
           });
+
+          log.share(product, "desktop");
         })
         .catch(() => {
           toast({
@@ -69,6 +76,12 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
         });
     }
   }
+
+  React.useLayoutEffect(() => {
+    if (product) {
+      log.viewProduct(product);
+    }
+  }, [product, log]);
 
   return (
     <Drawer id="cart-item" placement="right" size="md" onClose={onClose} {...props}>

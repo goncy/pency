@@ -23,7 +23,6 @@ import CartItemDrawer from "~/cart/components/CartItemDrawer";
 import {Product, Variant} from "~/product/types";
 
 const ProductsScreen: React.FC = () => {
-  const [selected, setSelected] = React.useState(null);
   const {
     query: {product},
     push,
@@ -33,6 +32,10 @@ const ProductsScreen: React.FC = () => {
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts();
   const {highlight, fields, ...tenant} = useTenant();
+  const selected = React.useMemo(() => products.find((_product) => _product.id === product), [
+    products,
+    product,
+  ]);
 
   const featuredProducts = filterBy(products, {featured: true});
   const productsByCategory = groupBy(products, (product) => product.category);
@@ -64,10 +67,6 @@ const ProductsScreen: React.FC = () => {
       {shallow: true},
     );
   }
-
-  React.useLayoutEffect(() => {
-    setSelected(products.find((_product) => _product.id === product));
-  }, [product, products]);
 
   return (
     <>
