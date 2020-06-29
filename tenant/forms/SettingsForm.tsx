@@ -56,6 +56,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             >
               <Input
                 ref={register({required: true, maxLength: 70})}
+                defaultValue=""
                 maxLength={70}
                 name="title"
                 placeholder="Pastelerías Pency"
@@ -68,6 +69,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             >
               <Textarea
                 ref={register({maxLength: 140})}
+                defaultValue=""
                 maxLength={140}
                 name="description"
                 placeholder="Somos una tienda de venta de pastelería, pedidos de lunes a viernes de 9 a 18"
@@ -81,6 +83,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             >
               <Input
                 ref={register({maxLength: 140})}
+                defaultValue=""
                 maxLength={140}
                 name="highlight"
                 placeholder="Solo se despacharán pedidos hechos de lunes a viernes entre las 9 y las 18 horas"
@@ -96,6 +99,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             >
               <Input
                 ref={register({required: true, pattern: /^[0-9]+$/})}
+                defaultValue=""
                 min={0}
                 name="phone"
                 placeholder="5491144444444"
@@ -111,6 +115,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             >
               <Select
                 ref={register({required: true})}
+                defaultValue=""
                 name="category"
                 placeholder="Seleccioná un rubro"
               >
@@ -122,7 +127,12 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               </Select>
             </FormControl>
             <FormControl help="Separadas por comas" label="Palabras clave" name="keywords">
-              <Input ref={register} name="keywords" placeholder="delivery, pasteleria, cupcakes" />
+              <Input
+                ref={register}
+                defaultValue=""
+                name="keywords"
+                placeholder="delivery, pasteleria, cupcakes"
+              />
             </FormControl>
             <FormControl
               isRequired
@@ -133,6 +143,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             >
               <Select
                 ref={register({required: true})}
+                defaultValue=""
                 name="country"
                 placeholder="Seleccioná un país"
               >
@@ -152,6 +163,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 as={PlaceInput}
                 control={control}
                 country={defaultValues.country}
+                defaultValue={null}
                 name="location"
               />
             </FormControl>
@@ -189,7 +201,13 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               error={errors.color && "Este campo es inválido"}
               label="Color principal"
             >
-              <Controller as={ColorRadio} control={control} name="color" rules={{required: true}} />
+              <Controller
+                as={ColorRadio}
+                control={control}
+                defaultValue="teal"
+                name="color"
+                rules={{required: true}}
+              />
             </FormControl>
           </Stack>
           <Divider />
@@ -207,6 +225,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                   validate: (value) =>
                     value.includes("instagram.com") ? "Solo el usuario, no el link completo" : true,
                 })}
+                defaultValue=""
                 name="instagram"
                 placeholder="pencyapp"
               />
@@ -221,6 +240,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                   validate: (value) =>
                     value.includes("facebook.com") ? "Solo el usuario, no el link completo" : true,
                 })}
+                defaultValue=""
                 name="facebook"
                 placeholder="pencyapp"
               />
@@ -231,6 +251,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                   validate: (value) =>
                     value.includes("twitter.com") ? "Solo el usuario, no el link completo" : true,
                 })}
+                defaultValue=""
                 name="twitter"
                 placeholder="pencyapp"
               />
@@ -251,6 +272,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               <Controller
                 as={FieldsInput}
                 control={control}
+                defaultValue={[]}
                 error={(errors.fields as unknown) as FieldError}
                 name="fields"
                 rules={{validate: FieldsInputValidator}}
@@ -274,6 +296,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                   <Controller
                     as={MPConnect}
                     control={control}
+                    defaultChecked={false}
                     id={defaultValues.id}
                     name="mercadopago"
                     slug={defaultValues.slug}
@@ -298,6 +321,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 <FormControl help="Vamos a hacer un POST a esta url" name="hook">
                   <Input
                     ref={register({required: true})}
+                    defaultValue=""
                     name="hook"
                     placeholder="https://tuwebhook.com"
                   />

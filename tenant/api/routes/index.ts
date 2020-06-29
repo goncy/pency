@@ -1,13 +1,13 @@
 import {NextApiResponse, NextApiRequest} from "next";
 
 import api from "~/tenant/api/server";
-import {serverToClient} from "~/tenant/selectors";
+import schemas from "~/tenant/schemas";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     return api
       .list()
-      .then((tenants) => res.status(200).json(tenants.map(serverToClient)))
+      .then((tenants) => res.status(200).json(tenants.map(schemas.client.fetch.cast)))
       .catch(({status, statusText}) => res.status(status).end(statusText));
   }
 

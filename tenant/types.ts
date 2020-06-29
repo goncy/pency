@@ -6,7 +6,10 @@ interface Tenant {
   id: string;
   slug: string;
   category?: string;
-  color: Exclude<VariantColor, "black" | "white">;
+  color: Extract<
+    VariantColor,
+    "yellow" | "blue" | "cyan" | "gray" | "orange" | "purple" | "red" | "pink" | "teal" | "green"
+  >;
   phone: string;
   logo?: string;
   title?: string;

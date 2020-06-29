@@ -21,18 +21,23 @@ import Content from "~/ui/structure/Content";
 import SummaryButton from "~/cart/components/SummaryButton";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 import {Product, Variant} from "~/product/types";
+import {useAnalytics} from "~/analytics/hooks";
 
 const ProductsScreen: React.FC = () => {
-  const [selected, setSelected] = React.useState(null);
   const {
     query: {product},
     push,
   } = useRouter();
+  const log = useAnalytics();
   const {add, increase, decrease, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts();
   const {highlight, fields, ...tenant} = useTenant();
+  const selected = React.useMemo(() => products.find((_product) => _product.id === product), [
+    products,
+    product,
+  ]);
 
   const featuredProducts = filterBy(products, {featured: true});
   const productsByCategory = groupBy(products, (product) => product.category);
@@ -41,6 +46,12 @@ const ProductsScreen: React.FC = () => {
     add(product, options, count);
 
     push(`/[slug]`, `/${tenant.slug}`, {shallow: true});
+  }
+
+  function handleOpenCart() {
+    openCart();
+
+    log.viewCart(items);
   }
 
   function handleCloseSelected() {
@@ -64,10 +75,6 @@ const ProductsScreen: React.FC = () => {
       {shallow: true},
     );
   }
-
-  React.useLayoutEffect(() => {
-    setSelected(products.find((_product) => _product.id === product));
-  }, [product, products]);
 
   return (
     <>
@@ -169,7 +176,7 @@ const ProductsScreen: React.FC = () => {
                         rounded={4}
                         width={{base: "100%", sm: "auto"}}
                       >
-                        <SummaryButton items={items} onClick={openCart}>
+                        <SummaryButton items={items} onClick={handleOpenCart}>
                           {t("products.review")}
                         </SummaryButton>
                       </Box>

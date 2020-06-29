@@ -12,7 +12,7 @@ const CheckoutButton: React.FC<Props> = ({onClick, ...props}) => {
 
   return (
     <Button
-      backgroundColor="green.400"
+      backgroundColor="whatsapp.500"
       boxShadow="lg"
       color="white"
       size="lg"

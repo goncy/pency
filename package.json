@@ -24,13 +24,13 @@
     "immer": "^6.0.3",
     "isomorphic-unfetch": "^3.0.0",
     "next": "canary",
-    "ramda": "^0.27.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-hook-form": "^5.5.3",
     "react-i18next": "^11.5.0",
     "shortid": "^2.2.15",
-    "viewport-units-buggyfill": "^0.6.2"
+    "viewport-units-buggyfill": "^0.6.2",
+    "yup": "^0.29.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -45,10 +45,10 @@
     "@types/faker": "^4.1.12",
     "@types/jest": "^25.2.3",
     "@types/node": "^13.13.1",
-    "@types/ramda": "^0.27.6",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.0",
     "@types/shortid": "^0.0.29",
+    "@types/yup": "^0.29.3",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
     "@zeit/next-source-maps": "^0.0.3",

@@ -1,15 +1,13 @@
 import {NextApiRequest, NextApiResponse} from "next";
 
 import {ClientTenant, ServerTenant} from "~/tenant/types";
-import {serverToClient, clientToServer} from "~/tenant/selectors";
+import schemas from "~/tenant/schemas";
 import api from "~/tenant/api/server";
 import sessionApi from "~/session/api/server";
-import {DEFAULT_SERVER_TENANT} from "~/tenant/constants";
 
 interface PatchRequest extends NextApiRequest {
   headers: {
     authorization?: string;
-    secret?: string;
   };
   body: {
     tenant: ClientTenant | ServerTenant;
@@ -28,7 +26,7 @@ export default async (slug: ClientTenant["slug"], req: NextApiRequest, res: Next
   if (req.method === "GET") {
     return api
       .fetch(slug)
-      .then((tenant) => res.status(200).json(serverToClient(tenant)))
+      .then((tenant) => res.status(200).json(schemas.client.fetch.cast(tenant)))
       .catch(({status, statusText}) => res.status(status).end(statusText));
   }
 
@@ -41,10 +39,7 @@ export default async (slug: ClientTenant["slug"], req: NextApiRequest, res: Next
       return res.status(304).end();
 
     return api
-      .create(email, password, {
-        ...DEFAULT_SERVER_TENANT,
-        slug,
-      })
+      .create(email, password, schemas.server.create.cast({slug}))
       .then(() => res.status(200).json({success: true}))
       .catch(({status, statusText}) => res.status(status).end(statusText));
   }
@@ -52,19 +47,12 @@ export default async (slug: ClientTenant["slug"], req: NextApiRequest, res: Next
   if (req.method === "PATCH") {
     const {
       body: {tenant},
-      headers: {authorization: token, secret},
+      headers: {authorization: token},
     } = req as PatchRequest;
 
     if (!tenant || !tenant?.id || !tenant?.slug) return res.status(304).end();
 
     const {id, slug, ...rest} = tenant;
-
-    if (secret === process.env.SECRET) {
-      return api
-        .update(id, slug, rest as ServerTenant)
-        .then(() => res.status(200).json(tenant))
-        .catch(() => res.status(400).end("Hubo un error actualizando la tienda"));
-    }
 
     return sessionApi
       .verify(token)
@@ -72,7 +60,7 @@ export default async (slug: ClientTenant["slug"], req: NextApiRequest, res: Next
         if (uid !== id) return res.status(403).end();
 
         return api
-          .update(id, slug, clientToServer(rest as ClientTenant))
+          .update(id, slug, schemas.server.update.cast(rest))
           .then(() => res.status(200).json(tenant))
           .catch(() => res.status(400).end("Hubo un error actualizando la tienda"));
       })

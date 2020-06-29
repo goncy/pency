@@ -1,6 +1,7 @@
 import faker from "faker";
 
 import {ClientTenant, ServerTenant} from "./types";
+import {CATEGORIES} from "./constants";
 
 const mock = {
   client: {
@@ -17,8 +18,11 @@ const mock = {
         title: faker.company.companyName(),
         description: faker.lorem.lines(2),
         phone: faker.phone.phoneNumber("##########"),
-        category: faker.commerce.department(),
+        category: CATEGORIES[faker.random.number(CATEGORIES.length - 1)].value,
         highlight: faker.lorem.words(10),
+        hook: "http://some.url",
+        country: "AR",
+        flags: [],
         location: {
           address: `${faker.address.streetAddress()}, ${faker.address.city()}`,
           coordinates: {

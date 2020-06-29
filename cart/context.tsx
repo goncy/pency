@@ -5,7 +5,6 @@ import produce from "immer";
 import {Product, Variant} from "../product/types";
 
 import {CartItem, Context, State, Actions, Cart} from "./types";
-import {getSummary} from "./selectors";
 import api from "./api";
 
 import {useAnalytics} from "~/analytics/hooks";
@@ -27,11 +26,7 @@ const CartProvider = ({children}: Props) => {
   const items = React.useMemo(() => [].concat(...Object.values(cart)), [cart]);
 
   function add(product: Product, variants: Variant[], count: number = 1) {
-    log("product_add", {
-      content_type: "product",
-      description: `[${product.category}] ${product.title}`,
-      value: product.price,
-    });
+    log.addToCart(product, variants, count);
 
     return setCart(
       produce((cart) => {
@@ -49,6 +44,8 @@ const CartProvider = ({children}: Props) => {
 
   function remove(id: CartItem["id"]) {
     if (!cart[id]) return;
+
+    log.removeFromCart(cart[id].product, cart[id].variants, cart[id].count + 1);
 
     return setCart(
       produce((cart) => {
@@ -82,14 +79,11 @@ const CartProvider = ({children}: Props) => {
   }
 
   async function checkout(fields?: Field[]) {
-    log("cart_checkout", {
-      content_type: "cart",
-      description: getSummary(items),
-      items,
-    });
-
     // We generate an order id
     const orderId = shortid.generate();
+
+    // Log to analytics
+    log.checkout(orderId, items);
 
     if (mercadopago && isMercadoPagoSelected(fields)) {
       try {

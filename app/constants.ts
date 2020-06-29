@@ -17,15 +17,15 @@ export const META = {
   },
 };
 
-export const COLORS = [
-  {label: "Amarillo", value: "yellow"},
-  {label: "Azul", value: "blue"},
-  {label: "Cyan", value: "cyan"},
-  {label: "Gris", value: "gray"},
-  {label: "Naranja", value: "orange"},
-  {label: "Purpura", value: "purple"},
-  {label: "Rojo", value: "red"},
-  {label: "Rosa", value: "pink"},
-  {label: "Turquesa", value: "teal"},
-  {label: "Verde", value: "green"},
-];
+export const COLORS = {
+  yellow: "Amarillo",
+  blue: "Azul",
+  cyan: "Cyan",
+  gray: "Gris",
+  orange: "Naranja",
+  purple: "Purpura",
+  red: "Rojo",
+  pink: "Rosa",
+  teal: "Turquesa",
+  green: "Verde",
+};

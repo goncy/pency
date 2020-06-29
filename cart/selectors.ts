@@ -15,10 +15,6 @@ export function getCount(items: CartItem[]): number {
   return items.reduce((total, item) => total + item.count, 0);
 }
 
-export function getSummary(items: CartItem[]): string {
-  return `[${getTotal(items)}] ${items.map(({product}) => product.title).join(", ")}`;
-}
-
 function _getFields(fields: Field[]) {
   if (!fields) return "";
 
