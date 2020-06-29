@@ -32,7 +32,7 @@ const Navbar: React.FC = () => {
         >
           <Stack isInline>
             <WhatsappIcon width={6} />
-            <Text>{t("app.landing.supportByWhatsapp.description")}</Text>
+            <Text>{t("landing.navBar.supportByWhatsapp")}</Text>
           </Stack>
         </Link>
         <Link
@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
           href="https://docs.google.com/forms/d/1P1o0HVHDluk-VMHHRLFVPn_TDKkqg_JhlMBmclcd6Co"
         >
           <Button d={{base: "none", sm: "block"}} variantColor="teal">
-            {t("app.landing.createStore.description")}
+            {t("landing.navBar.createStore")}
           </Button>
         </Link>
       </Grid>

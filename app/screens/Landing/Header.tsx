@@ -20,14 +20,14 @@ const Header: React.FC = () => {
             lineHeight={"130%"}
             marginBottom={2}
           >
-            {t("app.landing.saveTimeMoney.description")}
+            {t("landing.header.saveTimeMoney")}
           </Text>
           <Text
             as="h2"
             color="teal.50"
             fontSize={{base: "lg", sm: "lg", md: "xl", lg: "2xl", xl: "3xl"}}
           >
-            {t("app.landing.publishCatalogOnline.description")}
+            {t("landing.header.publishCatalogOnline")}
           </Text>
           <Box display={{base: "none", sm: "block"}} marginTop={10}>
             <Link
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
                 color="black"
                 size="lg"
               >
-                {t("app.landing.createStore.description")}
+                {t("landing.header.createStore")}
               </Button>
             </Link>
             <Link isExternal href="https://pency.app/demo">
@@ -58,7 +58,7 @@ const Header: React.FC = () => {
                 size="lg"
                 variant="outline"
               >
-                {t("app.landing.seeTestShop.description")}
+                {t("landing.header.seeTestShop")}
               </Button>
             </Link>
           </Box>

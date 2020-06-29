@@ -27,7 +27,7 @@ const Previews: React.FC = () => {
               fontWeight={500}
               marginBottom={{base: 4, sm: 0}}
             >
-              {t("app.landing.versatileForAllBusinesses.title")}
+              {t("landing.previews.versatileForAllBusinesses.title")}
             </Text>
             <Text
               as="h4"
@@ -36,7 +36,7 @@ const Previews: React.FC = () => {
               maxWidth={{base: "auto", sm: "3xl"}}
               textAlign={{base: "left", sm: "center"}}
             >
-              {t("app.landing.versatileForAllBusinesses.description")}
+              {t("landing.previews.versatileForAllBusinesses.description")}
             </Text>
           </Stack>
           <Stack

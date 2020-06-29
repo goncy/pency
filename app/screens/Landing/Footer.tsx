@@ -60,13 +60,13 @@ const Footer: React.FC = () => {
               isExternal
               href="https://drive.google.com/file/d/1F99m25wjRq1QGDrE4Wpf3LmKavN6eg-3/view?usp=sharing"
             >
-              {t("app.landing.termsConditions.title")}
+              {t("landing.footer.termsConditions")}
             </ChakraLink>
             <ChakraLink
               isExternal
               href="https://drive.google.com/file/d/1OWsa_Axqpj3ZtOvby_SbkT2ViCMoXwmx/view?usp=sharing"
             >
-              {t("app.landing.privacyPolicies.title")}
+              {t("landing.footer.privacyPolicies.title")}
             </ChakraLink>
           </Grid>
         </Grid>
