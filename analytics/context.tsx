@@ -14,6 +14,7 @@ interface Context {
     log: {
       addToCart: (product: Product, variants: Variant[], count: number) => void;
       removeFromCart: (product: Product, variants: Variant[], count: number) => void;
+      viewCart: (items: CartItem[]) => void;
       checkout: (orderId: string, items: CartItem[]) => void;
       share: (product: Product, method: string) => void;
       viewProduct: (product: Product) => void;
@@ -62,6 +63,14 @@ const AnalyticsProvider: React.FC = ({children}) => {
     });
   }
 
+  function viewCart(items: CartItem[]) {
+    api.log("begin_checkout", {
+      value: getTotal(items),
+      currency: CURRENCIES[tenant.country],
+      items,
+    });
+  }
+
   function checkout(orderId: string, items: CartItem[]) {
     api.log("purchase", {
       transaction_id: orderId,
@@ -88,6 +97,7 @@ const AnalyticsProvider: React.FC = ({children}) => {
 
   const actions: Context["actions"] = {
     log: {
+      viewCart,
       addToCart,
       removeFromCart,
       checkout,
