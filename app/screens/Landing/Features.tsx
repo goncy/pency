@@ -23,20 +23,23 @@ const Features: React.FC = () => {
         paddingTop={{base: 20, sm: 32}}
         templateColumns="repeat(auto-fit, minmax(276px,1fr))"
       >
-        <Feature icon={PhoneClockIcon} title={t("app.landing.streamlineBusinessManagment.title")}>
-          {t("app.landing.streamlineBusinessManagment.description")}
+        <Feature
+          icon={PhoneClockIcon}
+          title={t("landing.features.streamlineBusinessManagment.title")}
+        >
+          {t("landing.features.streamlineBusinessManagment.description")}
         </Feature>
-        <Feature icon={MoneyShieldIcon} title={t("app.landing.endAbusiveCommissions.title")}>
-          {t("app.landing.endAbusiveCommissions.description")}
+        <Feature icon={MoneyShieldIcon} title={t("landing.features.endAbusiveCommissions.title")}>
+          {t("landing.features.endAbusiveCommissions.description")}
         </Feature>
         <Feature
           icon={UsersChatIcon}
-          title={t("app.landing.talkClientWithoutIntermediaries.title")}
+          title={t("landing.features.talkClientWithoutIntermediaries.title")}
         >
-          {t("app.landing.talkClientWithoutIntermediaries.description")}
+          {t("landing.features.talkClientWithoutIntermediaries.description")}
         </Feature>
-        <Feature icon={UserDistanceIcon} title={t("app.landing.avoidCrowdsPremises.title")}>
-          {t("app.landing.avoidCrowdsPremises.description")}
+        <Feature icon={UserDistanceIcon} title={t("landing.features.avoidCrowdsPremises.title")}>
+          {t("landing.features.avoidCrowdsPremises.description")}
         </Feature>
       </Grid>
     </Content>

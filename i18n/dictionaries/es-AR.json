@@ -20,24 +20,53 @@
     "item": "Item",
     "item_plural": "Items"
   },
-  "app":{
-    "landing": {
-      "streamlineBusinessManagment": {
-        "title":"Agilizá la gestión de tu negocio",
-        "description":"Optimizamos tus recursos simplificando la forma de recibir los pedidos."
+  "landing": {
+    "features": {
+      "streamlineBusinessManagment":{
+        "title": "Agilizá la gestión de tu negocio",
+        "description": "Optimizamos tus recursos simplificando la forma de recibir los pedidos."
       },
-      "endAbusiveCommissions": {
-        "title":"Poné fin a las comisiones abusivas",
-        "description":"Olvidate de los intermediarios y las comisiones por venta. Ofrecé un mejor precio con tu tienda independiente."
+      "endAbusiveCommissions":{
+        "title": "Poné fin a las comisiones abusivas",
+        "description": "Olvidate de los intermediarios y las comisiones por venta. Ofrecé un mejor precio con tu tienda independiente."
       },
       "talkClientWithoutIntermediaries": {
-        "title":"Hablá con tus clientes sin intermediarios.",
-        "description":"Brindá un mejor servicio y atención gracias a la comunicación directa."
+        "title": "Hablá con tus clientes sin intermediarios.",
+        "description": "Brindá un mejor servicio y atención gracias a la comunicación directa."
       },
-      "avoidCrowdsPremises": {
-        "title":"Evitá aglomeraciones en tu local",
-        "description":"Reducí los tiempos de espera y librate de las filas innecesarias vendiendo online."
+      "avoidCrowdsPremises":{
+        "title": "Evitá aglomeraciones en tu local",
+        "description": "Reducí los tiempos de espera y librate de las filas innecesarias vendiendo online."
       }
+    },
+    "footer": {
+      "twitter": "Seguinos en Twitter",
+      "facebook": "Seguinos en Facebook",
+      "instagram": "Seguinos en Instagram",
+      "whatsapp": "Seguinos en Whatsapp",
+      "termsConditions": "Términos y condiciones",
+      "privacyPolicies": "Políticas de privacidad"
+    },
+    "header": {
+      "saveTimeMoney":"Ahorrá tiempo y dinero con tu tienda pency",
+      "publishCatalogOnline": "Publicá tu catálogo online y recibí por Whatsapp los pedidos de tus clientes ¡GRATIS!",
+      "createStore": "Crear tienda",
+      "seeTestShop": "Ver tienda de prueba"
+    },
+    "navBar": {
+      "supportByWhatsapp": "Soporte",
+      "createStore": "Crear tienda"
+    },
+    "previews": {
+      "versatileForAllBusinesses": {
+        "title": "Versátil, para todo tipo de negocios",
+        "description":"Independientemente del rubro, tu tienda Pency se ajusta a vos y tus productos, además de ofrecer una experiencia de compra simple y agradable a tus clientes."
+      }
+    },
+    "shout": {
+      "createOnlineStore": "Creá ahora tu tienda online y potenciá la gestión de tu negocio",
+      "createStore": "Crear tienda",
+      "seeTestShop": "Ver tienda de prueba"
     }
   },
   "form": {
