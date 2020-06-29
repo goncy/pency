@@ -53,7 +53,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
           log.share(product, "mobile");
         })
         .catch(() => {
-          console.log("El dialogo de share fue cerrado");
+          console.info("El dialogo de share fue cerrado");
         });
     } else if (canShare.clipboard) {
       navigator.clipboard

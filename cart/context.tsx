@@ -101,7 +101,7 @@ const CartProvider = ({children}: Props) => {
         tab.location.href = api.checkout({phone, items, orderId, fields, preference});
       } catch (e) {
         // If we had an error log it to the console
-        console.log("Error generando preferencia de MercadoPago: ", e);
+        console.warn("Error generando preferencia de MercadoPago: ", e);
       }
     }
 
