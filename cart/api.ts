@@ -9,6 +9,6 @@ export default {
     )}`,
   hook: (hook, params) =>
     fetch("POST", hook, params)
-      .then(() => console.log("Hook sent correctly"))
-      .catch(() => console.log("Hook failed")),
+      .then(() => console.info("Hook sent correctly"))
+      .catch(() => console.warn("Hook failed")),
 };
