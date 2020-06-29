@@ -1,24 +1,15 @@
 import React from "react";
-import * as Sentry from "@sentry/browser";
 import Document, {Html, Head, Main, NextScript} from "next/document";
 
-if (process.env.NODE_ENV === "production" && process.env.SENTRY_DSN) {
-  process.on("unhandledRejection", (err) => {
-    Sentry.withScope((scope) => {
-      scope.setTag("origin", "SSR - unhandledRejection");
-      scope.setExtra("error", JSON.stringify(err));
+import reporter from "~/reporting";
 
-      Sentry.captureException(err);
-    });
+if (process.env.NODE_ENV === "production" && process.env.SENTRY_DSN) {
+  process.on("unhandledRejection", (error: Error) => {
+    reporter.report(error, {origin: "server | unhandledRejection"});
   });
 
-  process.on("uncaughtException", (err) => {
-    Sentry.withScope((scope) => {
-      scope.setTag("origin", "SSR - uncaughtException");
-      scope.setExtra("error", JSON.stringify(err));
-
-      Sentry.captureException(err);
-    });
+  process.on("uncaughtException", (error: Error) => {
+    reporter.report(error, {origin: "server | uncaughtException"});
   });
 }
 

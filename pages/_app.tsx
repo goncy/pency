@@ -2,15 +2,14 @@ import React from "react";
 import App from "next/app";
 import {Flex, ThemeProvider, CSSReset} from "@chakra-ui/core";
 
-import {ErrorService, ErrorInfo, SentryErrorProvider} from "../reporting";
-
 import ErrorScreen from "./_error";
 
-const errorService = new ErrorService(SentryErrorProvider);
+import reporter from "~/reporting";
 
 export default class Pency extends App {
-  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    errorService.reportError(error, errorInfo);
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    reporter.report(error, {extras: errorInfo, origin: "client"});
+
     super.componentDidCatch(error, errorInfo);
   }
 
