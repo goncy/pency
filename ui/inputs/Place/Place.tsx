@@ -23,7 +23,14 @@ const PlaceInput: React.FC<Props> = ({value, onChange, country}) => {
   const address = value?.address;
 
   function handleQueryChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setQuery(event.target.value);
+    const value = event.target.value;
+
+    if (!value) {
+      setQuery("");
+      onChange(null);
+    } else {
+      setQuery(value);
+    }
   }
 
   function handleChange(place: Place) {
@@ -37,7 +44,7 @@ const PlaceInput: React.FC<Props> = ({value, onChange, country}) => {
   }
 
   const getPlaces = React.useCallback(() => {
-    if (!address || !query || query === address) return;
+    if (!query || query === address) return;
 
     setLoading(true);
     setPlaces([]);
