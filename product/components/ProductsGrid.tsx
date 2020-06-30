@@ -21,7 +21,7 @@ const ProductsGrid: React.FC<Props> = ({children, title, layout, ...props}) => (
     {layout === "landscape" && (
       <Grid
         autoRows="auto"
-        gridGap={{base: 4, sm: 8}}
+        gridGap={{base: 0, sm: 8}}
         templateColumns={{
           base: "repeat(auto-fill, minmax(200px,1fr))",
           sm: "repeat(auto-fill, minmax(280px,1fr))",
