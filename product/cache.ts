@@ -48,7 +48,7 @@ function pluck(id: ClientTenant["id"], product: Product["id"]) {
       cache.set(
         id,
         produce(cached, (cached) => {
-          delete cached[index];
+          cached.splice(index, 1);
         }),
       );
     }

@@ -68,6 +68,16 @@ describe("Tenant cache", () => {
 
       expect(cache.get("tenant")).toEqual(products);
     });
+
+    it("should return the same list when id is not found", () => {
+      const base = mock.full;
+      const products = [mock.full, base, mock.full];
+
+      cache.set("tenant", products);
+      cache.pluck("tenant", "non-existent-id");
+
+      expect(cache.get("tenant")).toEqual(products);
+    });
   });
 
   describe("update", () => {
@@ -98,6 +108,18 @@ describe("Tenant cache", () => {
       cache.update("tenant", "inexistent-id", partial);
 
       expect(cache.get("tenant")[1]).toEqual(expected);
+    });
+
+    it("should not update when cache is empty", () => {
+      const base = mock.full;
+      const partial = {
+        title: "some modified title",
+      };
+      const expected = undefined;
+
+      cache.update("tenant", base.id, partial);
+
+      expect(cache.get("tenant")).toEqual(expected);
     });
   });
 
