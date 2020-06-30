@@ -66,6 +66,7 @@ const AnalyticsProvider: React.FC = ({children}) => {
 
   function viewCart(items: CartItem[]) {
     api.log("begin_checkout", {
+      checkout_option: "overview",
       value: getTotal(items),
       currency: CURRENCIES[tenant.country],
       items,
@@ -74,6 +75,7 @@ const AnalyticsProvider: React.FC = ({children}) => {
 
   function viewFields(items: CartItem[]) {
     api.log("checkout_progress", {
+      checkout_option: "fields",
       value: getTotal(items),
       currency: CURRENCIES[tenant.country],
       items,
