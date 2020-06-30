@@ -36,6 +36,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
         isInline
         alignItems="flex-start"
         data-test-id="product"
+        height="100%"
         justifyContent="space-between"
         position="relative"
         spacing={2}
