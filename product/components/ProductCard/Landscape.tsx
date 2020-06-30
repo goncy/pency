@@ -48,7 +48,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
           flexDirection="column"
           height="100%"
           justifyContent="space-between"
-          minHeight={{base: 20, sm: 32}}
+          minHeight={{base: 24, sm: 32}}
           padding={{base: 0, sm: 4}}
           paddingTop={0}
           width="100%"
@@ -81,12 +81,12 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
           </Flex>
         </Box>
         <Image
-          height={{base: 20, sm: "auto"}}
-          minHeight={{base: 20, sm: 32}}
+          height={{base: 24, sm: "auto"}}
+          minHeight={{base: 24, sm: 32}}
           roundedLeft={{base: "md", sm: "none"}}
           roundedRight="md"
           src={image || "/assets/fallback.jpg"}
-          width={{base: 20, sm: 32}}
+          width={{base: 24, sm: 32}}
         />
       </Stack>
     </PseudoBox>
