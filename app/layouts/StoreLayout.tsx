@@ -65,7 +65,7 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
         <>
           <meta content={product.title} name="twitter:title" />
           <meta content={product.description} name="twitter:description" />
-          <meta content={product.image || META.banner?.url} property="tiwtter:image" />
+          <meta content={product.image || META.banner?.url} property="twitter:image" />
           <meta content={`${META.url}/${tenant.slug}?product=${product.id}`} property="og:url" />
           <meta content="article" property="og:type" />
           <meta content={product.title} property="og:title" />

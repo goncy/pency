@@ -8,6 +8,7 @@ import Fields from "./Fields";
 
 import Drawer, {DrawerHeader} from "~/ui/controls/Drawer";
 import {ClientTenant, Field} from "~/tenant/types";
+import {useAnalytics} from "~/analytics/hooks";
 
 interface Props {
   isOpen: boolean;
@@ -30,6 +31,7 @@ const CartSummaryDrawer: React.FC<Props> = ({
 }) => {
   const [step, setStep] = React.useState("overview");
   const count = getCount(items);
+  const log = useAnalytics();
   const hasNextStep = Boolean(fields?.length);
 
   const handleClose = React.useCallback(() => {
@@ -46,6 +48,8 @@ const CartSummaryDrawer: React.FC<Props> = ({
   }
 
   async function handleNext() {
+    log.viewFields(items);
+
     return setStep("fields");
   }
 
