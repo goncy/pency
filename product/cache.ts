@@ -10,17 +10,19 @@ function update(id: ClientTenant["id"], product: Product["id"], value: Partial<P
   const cached: Product[] = cache.get(id);
 
   if (cached) {
-    const index = cached.findIndex((item) => item.id === product, cached);
+    const index = cached.findIndex((item) => item.id === product);
 
-    cache.set(
-      id,
-      produce(cached, (cached) => {
-        cached[index] = {
-          ...cached[index],
-          ...value,
-        };
-      }),
-    );
+    if (index >= 0) {
+      cache.set(
+        id,
+        produce(cached, (cached) => {
+          cached[index] = {
+            ...cached[index],
+            ...value,
+          };
+        }),
+      );
+    }
   }
 }
 
@@ -40,14 +42,16 @@ function pluck(id: ClientTenant["id"], product: Product["id"]) {
   const cached: Product[] = cache.get(id);
 
   if (cached) {
-    const index = cached.findIndex((item) => item.id === product, cached);
+    const index = cached.findIndex((item) => item.id === product);
 
-    cache.set(
-      id,
-      produce(cached, (cached) => {
-        delete cached[index];
-      }),
-    );
+    if (index >= 0) {
+      cache.set(
+        id,
+        produce(cached, (cached) => {
+          delete cached[index];
+        }),
+      );
+    }
   }
 }
 

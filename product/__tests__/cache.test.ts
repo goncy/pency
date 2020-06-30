@@ -49,7 +49,7 @@ describe("Tenant cache", () => {
   });
 
   describe("pluck", () => {
-    it("should remove a list of products", () => {
+    it("should remove a product", () => {
       const base = mock.full;
       const products = [mock.full, base, mock.full];
 
@@ -57,6 +57,16 @@ describe("Tenant cache", () => {
       cache.pluck("tenant", base.id);
 
       expect(cache.get("tenant")).not.toContain(base);
+    });
+
+    it("should return the same list when id is not found", () => {
+      const base = mock.full;
+      const products = [mock.full, base, mock.full];
+
+      cache.set("tenant", products);
+      cache.pluck("tenant", "non-existent-id");
+
+      expect(cache.get("tenant")).toEqual(products);
     });
   });
 
@@ -73,6 +83,19 @@ describe("Tenant cache", () => {
 
       cache.set("tenant", [mock.full, base, mock.full]);
       cache.update("tenant", base.id, partial);
+
+      expect(cache.get("tenant")[1]).toEqual(expected);
+    });
+
+    it("should return the same list when id is not found", () => {
+      const base = mock.full;
+      const partial = {
+        title: "some modified title",
+      };
+      const expected = base;
+
+      cache.set("tenant", [mock.full, base, mock.full]);
+      cache.update("tenant", "inexistent-id", partial);
 
       expect(cache.get("tenant")[1]).toEqual(expected);
     });
