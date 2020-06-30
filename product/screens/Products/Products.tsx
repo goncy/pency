@@ -33,7 +33,7 @@ const ProductsScreen: React.FC = () => {
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts();
-  const {highlight, fields, ...tenant} = useTenant();
+  const {highlight, fields, layout, ...tenant} = useTenant();
   const selected = React.useMemo(() => products.find((_product) => _product.id === product), [
     products,
     product,
@@ -128,6 +128,7 @@ const ProductsScreen: React.FC = () => {
                             <ProductCard
                               key={product.id}
                               isRaised
+                              layout="portrait"
                               minWidth={280}
                               product={product}
                               onClick={() => handleSelect(product)}
@@ -143,10 +144,11 @@ const ProductsScreen: React.FC = () => {
                             as="section"
                             id={category}
                           >
-                            <ProductsGrid data-test-id="category" title={category}>
+                            <ProductsGrid data-test-id="category" layout={layout} title={category}>
                               {products.map((product) => (
                                 <ProductCard
                                   key={product.id}
+                                  layout={layout}
                                   product={product}
                                   onClick={() => handleSelect(product)}
                                 />

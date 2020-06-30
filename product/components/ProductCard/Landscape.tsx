@@ -11,7 +11,7 @@ interface Props extends Omit<FlexProps, "onClick"> {
   isRaised?: boolean;
 }
 
-const ProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...props}) => {
+const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...props}) => {
   const p = usePrice();
   const {image, title, price, available} = product;
 
@@ -21,11 +21,11 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...pr
 
   return (
     <Flex
-      alignItems="flex-end"
+      alignItems="flex-start"
       boxShadow={isRaised ? "lg" : "none"}
       cursor={available ? "pointer" : "not-allowed"}
       data-test-id="product"
-      direction="column"
+      direction="row-reverse"
       justifyContent="space-between"
       opacity={available ? 1 : 0.5}
       position="relative"
@@ -35,10 +35,10 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...pr
       {...props}
     >
       <Image
-        height={{base: 48, sm: 56}}
+        height={{base: 12, sm: 16}}
         rounded="md"
         src={image || "/assets/fallback.jpg"}
-        width="100%"
+        width={{base: 12, sm: 16}}
       />
       <Box
         display="flex"
@@ -47,7 +47,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...pr
         height="100%"
         justifyContent="space-between"
         padding={isRaised ? {base: 2, sm: 4} : 0}
-        paddingTop={2}
+        paddingTop={0}
         width="100%"
       >
         <Stack marginBottom={2} spacing={{base: 1, sm: 2}}>
@@ -64,7 +64,7 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...pr
           <Text
             color={available ? "green.500" : "yellow.500"}
             flex={1}
-            fontSize={{base: "sm", sm: "md"}}
+            fontSize={{base: "xs", sm: "sm"}}
             fontWeight={500}
             lineHeight={1}
           >
@@ -76,4 +76,4 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...pr
   );
 };
 
-export default ProductCard;
+export default LandscapeProductCard;
