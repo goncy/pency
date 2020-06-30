@@ -17,7 +17,7 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
   const tenant = useTenant();
   const toast = useToast();
   const [products, setProducts] = React.useState<Product[]>(
-    sortBy(initialValues, (item) => item.title),
+    sortBy(initialValues, (item) => item?.title),
   );
 
   function create(product: Product) {
