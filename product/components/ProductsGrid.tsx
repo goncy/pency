@@ -3,9 +3,10 @@ import {Grid, Stack, Text, StackProps} from "@chakra-ui/core";
 
 interface Props extends StackProps {
   title?: string;
+  layout: "landscape" | "portrait";
 }
 
-const ProductsGrid: React.FC<Props> = ({children, title, ...props}) => (
+const ProductsGrid: React.FC<Props> = ({children, title, layout, ...props}) => (
   <Stack spacing={{base: 4, sm: 5}} {...props}>
     {title && (
       <Text
@@ -17,16 +18,30 @@ const ProductsGrid: React.FC<Props> = ({children, title, ...props}) => (
         {title}
       </Text>
     )}
-    <Grid
-      autoRows="auto"
-      gridGap={{base: 4, sm: 8}}
-      templateColumns={{
-        base: "repeat(auto-fill, minmax(140px,1fr))",
-        sm: "repeat(auto-fill, minmax(200px,1fr))",
-      }}
-    >
-      {children}
-    </Grid>
+    {layout === "landscape" && (
+      <Grid
+        autoRows="auto"
+        gridGap={{base: 0, sm: 8}}
+        templateColumns={{
+          base: "repeat(auto-fill, minmax(200px,1fr))",
+          sm: "repeat(auto-fill, minmax(280px,1fr))",
+        }}
+      >
+        {children}
+      </Grid>
+    )}
+    {layout === "portrait" && (
+      <Grid
+        autoRows="auto"
+        gridGap={{base: 4, sm: 8}}
+        templateColumns={{
+          base: "repeat(auto-fill, minmax(140px,1fr))",
+          sm: "repeat(auto-fill, minmax(200px,1fr))",
+        }}
+      >
+        {children}
+      </Grid>
+    )}
   </Stack>
 );
 

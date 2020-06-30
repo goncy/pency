@@ -209,6 +209,27 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 rules={{required: true}}
               />
             </FormControl>
+            <FormControl
+              isRequired
+              error={errors.layout && "Este campo es requerido"}
+              help="El diseño horizontal es recomendado cuando tenés muchos productos"
+              label="Diseño"
+              name="layout"
+            >
+              <Select
+                ref={register({required: true})}
+                defaultValue="portrait"
+                name="layout"
+                placeholder="Seleccioná una vista"
+              >
+                <option key="portrait" value="portrait">
+                  Vertical
+                </option>
+                <option key="landscape" value="landscape">
+                  Horizontal
+                </option>
+              </Select>
+            </FormControl>
           </Stack>
           <Divider />
           <Stack spacing={4}>

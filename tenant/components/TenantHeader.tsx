@@ -68,13 +68,15 @@ const TenantHeader: React.FC<Props> = ({
           </Text>
           {location && (
             <Stack isInline alignItems="center" color="primary.500" marginTop={1} spacing={1}>
-              <MarkerIcon size={4} />
+              <MarkerIcon minWidth={4} size={4} />
               <Link
                 isExternal
                 href={`https://www.google.com.ar/maps/place/${location.address}/@${location.coordinates.lat},${location.coordinates.lng}`}
               >
                 <Text fontSize={{base: "sm", sm: "md"}} lineHeight="tall">
-                  {location.address}
+                  {location.address.length > 50
+                    ? location.address.slice(0, 47).concat("...")
+                    : location.address}
                 </Text>
               </Link>
             </Stack>

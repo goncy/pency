@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Text, Flex, FlexProps, Stack} from "@chakra-ui/core";
+import {Box, Text, Flex, FlexProps} from "@chakra-ui/core";
 
 import Image from "~/ui/feedback/Image";
 import {Product} from "~/product/types";
@@ -11,7 +11,7 @@ interface Props extends Omit<FlexProps, "onClick"> {
   isRaised?: boolean;
 }
 
-const ProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...props}) => {
+const PortraitProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...props}) => {
   const p = usePrice();
   const {image, title, price, available} = product;
 
@@ -50,16 +50,9 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...pr
         paddingTop={2}
         width="100%"
       >
-        <Stack marginBottom={2} spacing={{base: 1, sm: 2}}>
-          <Text
-            display="block"
-            fontSize={{base: "md", sm: "md"}}
-            fontWeight={500}
-            lineHeight="normal"
-          >
-            {title}
-          </Text>
-        </Stack>
+        <Text display="block" fontSize="md" fontWeight={500} lineHeight="normal" marginBottom={2}>
+          {title}
+        </Text>
         <Flex alignItems="center">
           <Text
             color={available ? "green.500" : "yellow.500"}
@@ -76,4 +69,4 @@ const ProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...pr
   );
 };
 
-export default ProductCard;
+export default PortraitProductCard;

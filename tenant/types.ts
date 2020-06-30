@@ -25,6 +25,7 @@ interface Tenant {
   fields?: Field[];
   flags?: string[];
   hook?: string;
+  layout?: "landscape" | "portrait";
   mercadopago?: {
     token: string;
     refresh: string;

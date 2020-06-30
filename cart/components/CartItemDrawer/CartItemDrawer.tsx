@@ -9,7 +9,7 @@ import ProductVariantForm from "~/product/forms/ProductVariantForm";
 import ArrowLeftIcon from "~/ui/icons/ArrowLeft";
 import Stepper from "~/ui/inputs/Stepper";
 import FormLabel from "~/ui/form/FormLabel";
-import TruncatedText from "~/ui/feedback/TruncatedText";
+import TruncatedText from "~/ui/feedback/ToggleableText";
 import ToggleableImage from "~/ui/feedback/ToggleableImage";
 import {useTranslation} from "~/i18n/hooks";
 import {useToast} from "~/hooks/toast";

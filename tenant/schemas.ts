@@ -66,6 +66,7 @@ const color = yup
   ]);
 const flags = yup.array(yup.string());
 const fields = yup.array<Field>(field.lazy);
+const layout = yup.string().oneOf(["portrait", "landscape"]);
 
 export default {
   server: {
@@ -76,7 +77,7 @@ export default {
       color: color.required(),
       phone: yup.string().required(),
       logo: yup.string(),
-      title: yup.string(),
+      title: yup.string().required(),
       instagram: yup.string(),
       facebook: yup.string(),
       twitter: yup.string(),
@@ -88,6 +89,7 @@ export default {
       highlight: yup.string(),
       fields,
       flags,
+      layout,
       hook: yup.string(),
       mercadopago: mercadopago.lazy,
     }),
@@ -110,6 +112,7 @@ export default {
       highlight: yup.string(),
       fields,
       flags,
+      layout,
       hook: yup.string(),
       mercadopago: mercadopago.schema.nullable().strip(true),
     }),
@@ -131,6 +134,7 @@ export default {
       location: location.schema.default(null),
       highlight: yup.string(),
       fields,
+      layout: layout.default("portrait"),
       flags: flags.default([]),
       hook: yup.string(),
       mercadopago: mercadopago.schema.default(null),
@@ -157,6 +161,7 @@ export default {
       country: yup.string().default("AR").nullable(),
       location: location.schema.default(null).nullable(),
       highlight: yup.string().default("").nullable(),
+      layout: layout.default("portrait").nullable(),
       fields: fields.default([]).nullable(),
       flags: flags.default([]).nullable(),
       hook: yup.string().default("").nullable(),
