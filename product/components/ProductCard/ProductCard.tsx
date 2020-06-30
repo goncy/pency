@@ -1,10 +1,10 @@
 import React from "react";
 import {FlexProps} from "@chakra-ui/core";
 
+import {Product} from "../../types";
+
 import LandscapeProductCard from "./Landscape";
 import PortraitProductCard from "./Portrait";
-
-import {Product} from "~/product/types";
 
 interface Props extends Omit<FlexProps, "onClick"> {
   product: Product;
