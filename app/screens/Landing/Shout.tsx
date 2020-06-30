@@ -54,7 +54,7 @@ const Shout: React.FC = () => {
               variantColor="teal"
               width="100%"
             >
-              {t("seeTestShop")}
+              {t("landing.shout.seeTestShop")}
             </Button>
           </Link>
         </Stack>
