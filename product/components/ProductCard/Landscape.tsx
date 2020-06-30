@@ -60,9 +60,22 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
             >
               {title}
             </Text>
-            <Text color="gray.500" display="block" fontSize="sm" lineHeight="normal">
-              {description?.length > 30 ? description.slice(0, 27).concat("...") : description}
-            </Text>
+            {description && (
+              <Text
+                color="gray.500"
+                display="block"
+                fontSize="sm"
+                lineHeight="normal"
+                overflow="hidden"
+                style={{
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                }}
+              >
+                {description}
+              </Text>
+            )}
           </Stack>
           <Flex alignItems="center">
             <Text
