@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Text, Flex, FlexProps, Stack} from "@chakra-ui/core";
+import {Box, Text, Flex, FlexProps} from "@chakra-ui/core";
 
 import Image from "~/ui/feedback/Image";
 import {Product} from "~/product/types";
@@ -50,16 +50,15 @@ const PortraitProductCard: React.FC<Props> = ({isRaised = false, product, onClic
         paddingTop={2}
         width="100%"
       >
-        <Stack marginBottom={2} spacing={{base: 1, sm: 2}}>
-          <Text
-            display="block"
-            fontSize={{base: "md", sm: "md"}}
-            fontWeight={500}
-            lineHeight="normal"
-          >
-            {title}
-          </Text>
-        </Stack>
+        <Text
+          display="block"
+          fontSize={{base: "md", sm: "md"}}
+          fontWeight={500}
+          lineHeight="normal"
+          marginBottom={2}
+        >
+          {title}
+        </Text>
         <Flex alignItems="center">
           <Text
             color={available ? "green.500" : "yellow.500"}

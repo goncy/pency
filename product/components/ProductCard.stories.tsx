@@ -13,6 +13,10 @@ export default {
 
 export const full = () => <ProductCard product={productMock.full} onClick={action("onClick")} />;
 
+export const landscape = () => (
+  <ProductCard layout="landscape" product={productMock.full} onClick={action("onClick")} />
+);
+
 export const raised = () => (
   <ProductCard isRaised product={productMock.full} onClick={action("onClick")} />
 );

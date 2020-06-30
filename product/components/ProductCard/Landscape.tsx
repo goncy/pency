@@ -13,7 +13,7 @@ interface Props extends Omit<FlexProps, "onClick"> {
 
 const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...props}) => {
   const p = usePrice();
-  const {image, title, price, available} = product;
+  const {image, title, price, available, description} = product;
 
   function handleClick() {
     available && onClick(product);
@@ -35,10 +35,10 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
       {...props}
     >
       <Image
-        height={{base: 12, sm: 16}}
+        height={{base: 16, sm: 20}}
         rounded="md"
         src={image || "/assets/fallback.jpg"}
-        width={{base: 12, sm: 16}}
+        width={{base: 16, sm: 20}}
       />
       <Box
         display="flex"
@@ -58,6 +58,9 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
             lineHeight="normal"
           >
             {title}
+          </Text>
+          <Text color="gray.500" display="block" fontSize="sm" lineHeight="normal">
+            {description?.length > 30 ? description.slice(0, 27).concat("...") : description}
           </Text>
         </Stack>
         <Flex alignItems="center">
