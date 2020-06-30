@@ -48,6 +48,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
           flexDirection="column"
           height="100%"
           justifyContent="space-between"
+          minHeight={{base: 16, sm: 24}}
           paddingTop={0}
           width="100%"
         >
