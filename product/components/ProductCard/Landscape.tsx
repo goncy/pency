@@ -22,6 +22,11 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
 
   return (
     <PseudoBox
+      _hover={{
+        boxShadow: "md",
+        backgroundColor: "gray.50",
+      }}
+      backgroundColor="white"
       borderBottomWidth={{base: 1, sm: 0}}
       borderWidth={{sm: 1}}
       boxShadow={isRaised ? "lg" : "none"}
@@ -29,7 +34,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
       opacity={available ? 1 : 0.5}
       paddingY={{base: 4, sm: 0}}
       rounded={{base: "none", sm: "md"}}
-      transition="transform 0.2s"
+      transition="all 0.2s"
     >
       <Stack
         isInline
