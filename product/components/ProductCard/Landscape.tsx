@@ -48,14 +48,14 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
           flexDirection="column"
           height="100%"
           justifyContent="space-between"
-          minHeight={{base: 24, sm: 32}}
+          minHeight={{base: 24, sm: "9rem"}}
           padding={{base: 0, sm: 4}}
           paddingTop={0}
           width="100%"
         >
           <Stack marginBottom={2} spacing={1}>
             <TruncatedText
-              fontSize={{base: "md", sm: "md"}}
+              fontSize={{base: "md", sm: "lg"}}
               fontWeight={500}
               lineHeight="normal"
               lines={2}
@@ -63,7 +63,12 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
               {title}
             </TruncatedText>
             {description && (
-              <TruncatedText color="gray.500" display="block" fontSize="sm" lines={2}>
+              <TruncatedText
+                color="gray.500"
+                display="block"
+                fontSize={{base: "sm", sm: "md"}}
+                lines={2}
+              >
                 {description}
               </TruncatedText>
             )}
@@ -72,7 +77,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
             <Text
               color={available ? "green.500" : "yellow.500"}
               flex={1}
-              fontSize="sm"
+              fontSize={{base: "sm", sm: "md"}}
               fontWeight={500}
               lineHeight={1}
             >
@@ -83,11 +88,11 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
         {image && (
           <Image
             height={{base: 24, sm: "auto"}}
-            minHeight={{base: 24, sm: 32}}
+            minHeight={{base: 24, sm: "9rem"}}
             roundedLeft={{base: "md", sm: "none"}}
             roundedRight="md"
             src={image || "/assets/fallback.jpg"}
-            width={{base: 24, sm: 32}}
+            width={{base: 24, sm: "9rem"}}
           />
         )}
       </Stack>
