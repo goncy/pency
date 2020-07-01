@@ -54,21 +54,11 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
           width="100%"
         >
           <Stack marginBottom={2} spacing={1}>
-            <TruncatedText
-              fontSize={{base: "md", sm: "lg"}}
-              fontWeight={500}
-              lineHeight="normal"
-              lines={2}
-            >
+            <TruncatedText fontWeight={500} lineHeight="normal" lines={2}>
               {title}
             </TruncatedText>
             {description && (
-              <TruncatedText
-                color="gray.500"
-                display="block"
-                fontSize={{base: "sm", sm: "md"}}
-                lines={2}
-              >
+              <TruncatedText color="gray.500" display="block" fontSize="sm" lines={2}>
                 {description}
               </TruncatedText>
             )}
@@ -77,7 +67,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
             <Text
               color={available ? "green.500" : "yellow.500"}
               flex={1}
-              fontSize={{base: "sm", sm: "md"}}
+              fontSize="sm"
               fontWeight={500}
               lineHeight={1}
             >
