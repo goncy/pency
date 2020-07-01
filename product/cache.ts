@@ -34,7 +34,12 @@ function add(id: ClientTenant["id"], value: Product) {
   const cached: Product[] = cache.get(id);
 
   if (cached) {
-    cache.set(id, cached.concat(value));
+    cache.set(
+      id,
+      produce(cached, (cached) => {
+        cached.push(value);
+      }),
+    );
   }
 }
 

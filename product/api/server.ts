@@ -47,7 +47,11 @@ export default {
       .collection("products")
       .doc(product)
       .delete()
-      .then(() => cache.pluck(tenant, product)),
+      .then(() => {
+        cache.pluck(tenant, product);
+
+        return product;
+      }),
   update: (tenant: ClientTenant["id"], {id, ...product}: Product) => {
     const formated = clientToServer(product);
 
@@ -57,6 +61,10 @@ export default {
       .collection("products")
       .doc(id)
       .update(formated)
-      .then(() => cache.update(tenant, id, formated));
+      .then(() => {
+        cache.update(tenant, id, formated);
+
+        return formated;
+      });
   },
 };
