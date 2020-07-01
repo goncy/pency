@@ -5,6 +5,7 @@ import {Stack, Text, Divider} from "@chakra-ui/core";
 import {ClientTenant} from "../types";
 import {CATEGORIES} from "../constants";
 import FieldsInput, {validator as FieldsInputValidator} from "../inputs/Fields";
+import LayoutInput from "../inputs/Layout";
 
 import Select from "~/ui/inputs/Select";
 import Input from "~/ui/inputs/Input";
@@ -216,19 +217,12 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               label="Diseño"
               name="layout"
             >
-              <Select
-                ref={register({required: true})}
+              <Controller
+                as={LayoutInput}
+                control={control}
                 defaultValue="portrait"
                 name="layout"
-                placeholder="Seleccioná una vista"
-              >
-                <option key="portrait" value="portrait">
-                  Vertical
-                </option>
-                <option key="landscape" value="landscape">
-                  Horizontal
-                </option>
-              </Select>
+              />
             </FormControl>
           </Stack>
           <Divider />
