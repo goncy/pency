@@ -53,7 +53,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
           paddingTop={0}
           width="100%"
         >
-          <Stack marginBottom={2} spacing={{base: 1, sm: 2}}>
+          <Stack marginBottom={2} spacing={1}>
             <TruncatedText
               fontSize={{base: "md", sm: "md"}}
               fontWeight={500}
@@ -72,7 +72,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
             <Text
               color={available ? "green.500" : "yellow.500"}
               flex={1}
-              fontSize={{base: "sm", sm: "md"}}
+              fontSize="sm"
               fontWeight={500}
               lineHeight={1}
             >
@@ -80,14 +80,16 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
             </Text>
           </Flex>
         </Box>
-        <Image
-          height={{base: 24, sm: "auto"}}
-          minHeight={{base: 24, sm: 32}}
-          roundedLeft={{base: "md", sm: "none"}}
-          roundedRight="md"
-          src={image || "/assets/fallback.jpg"}
-          width={{base: 24, sm: 32}}
-        />
+        {image && (
+          <Image
+            height={{base: 24, sm: "auto"}}
+            minHeight={{base: 24, sm: 32}}
+            roundedLeft={{base: "md", sm: "none"}}
+            roundedRight="md"
+            src={image || "/assets/fallback.jpg"}
+            width={{base: 24, sm: 32}}
+          />
+        )}
       </Stack>
     </PseudoBox>
   );
