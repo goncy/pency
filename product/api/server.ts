@@ -67,4 +67,30 @@ export default {
         return formated;
       });
   },
+  bulk: {
+    update: (tenant: ClientTenant["id"], products: Product[]) => {
+      const batch = database.batch();
+
+      const commited = products.map(({id, ...product}) => {
+        const formatted = clientToServer(product);
+
+        batch.update(
+          database.collection("tenants").doc(tenant).collection("products").doc(id),
+          formatted,
+        );
+
+        return {id, ...formatted};
+      });
+
+      return batch.commit().then(() => {
+        const products = commited.map(({id, ...product}) => {
+          cache.update(tenant, id, product);
+
+          return product;
+        });
+
+        return products;
+      });
+    },
+  },
 };
