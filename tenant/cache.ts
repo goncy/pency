@@ -1,4 +1,5 @@
 import {ServerTenant} from "./types";
+import schemas from "./schemas";
 
 const cache = new Map<ServerTenant["slug"], ServerTenant>();
 
@@ -19,7 +20,13 @@ function remove(slug: ServerTenant["slug"]) {
 }
 
 function get(slug: ServerTenant["slug"]) {
-  return cache.get(slug);
+  const cached = cache.get(slug);
+
+  if (schemas.server.fetch.isValidSync(cached)) {
+    return cached;
+  } else {
+    return undefined;
+  }
 }
 
 function clear(): number {

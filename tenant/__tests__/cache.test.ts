@@ -55,6 +55,38 @@ describe("Tenant cache", () => {
 
       expect(cache.get(tenant.slug)).toEqual(tenant);
     });
+
+    it("should get undefined if tenant is not valid", () => {
+      const tenant = mock.server.full;
+
+      cache.set(tenant.slug, {title: tenant.title} as any);
+
+      expect(cache.get(tenant.slug)).toEqual(undefined);
+    });
+
+    it("should get undefined if tenant is partial", () => {
+      const {title, slug, phone} = mock.server.full;
+
+      cache.set(slug, {title, slug, phone} as any);
+
+      expect(cache.get(slug)).toEqual(undefined);
+    });
+
+    it("should get undefined if tenant is partial with id", () => {
+      const {title, slug, phone, id} = mock.server.full;
+
+      cache.set(slug, {title, slug, phone, id} as any);
+
+      expect(cache.get(slug)).toEqual(undefined);
+    });
+
+    it("should return tenant if required fields are present", () => {
+      const {title, color, slug, phone, id} = mock.server.full;
+
+      cache.set(slug, {title, slug, color, phone, id});
+
+      expect(cache.get(slug)).toEqual({title, color, slug, phone, id});
+    });
   });
 
   describe("clear", () => {
