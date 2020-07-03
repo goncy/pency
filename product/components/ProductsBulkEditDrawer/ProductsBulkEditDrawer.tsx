@@ -15,7 +15,13 @@ interface Props {
 
 const ProductsBulkEditDrawer: React.FC<Props> = ({isOpen, defaultValues, onClose, onSubmit}) => {
   return (
-    <Drawer closeOnOverlayClick={false} id="bulk-products" isOpen={isOpen} onClose={onClose}>
+    <Drawer
+      closeOnOverlayClick={false}
+      id="bulk-products"
+      isOpen={isOpen}
+      size="full"
+      onClose={onClose}
+    >
       <DrawerHeader onClose={onClose} />
       <ProductsForm defaultValues={defaultValues} onSubmit={onSubmit}>
         {({form, submit, isLoading}) => (

@@ -38,6 +38,8 @@ const AdminScreen: React.FC = () => {
 
   async function handleBulkSubmit(products: Product[]) {
     await bulk.update(products);
+
+    onBulkClose();
   }
 
   function onCreate() {
