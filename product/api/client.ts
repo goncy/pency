@@ -11,4 +11,8 @@ export default {
     fetch("DELETE", `/api/product?tenant=${tenant}&product=${product}`),
   update: (tenant: ClientTenant["id"], product: Product) =>
     fetch("PATCH", `/api/product?tenant=${tenant}`, {product}),
+  bulk: {
+    update: (tenant: ClientTenant["id"], products: Product[]) =>
+      fetch("PUT", `/api/product?tenant=${tenant}`, {products}),
+  },
 };

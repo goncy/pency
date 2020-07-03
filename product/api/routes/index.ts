@@ -36,6 +36,18 @@ interface PatchRequest extends NextApiRequest {
   };
 }
 
+interface PutRequest extends NextApiRequest {
+  headers: {
+    authorization: string;
+  };
+  query: {
+    tenant: ClientTenant["id"];
+  };
+  body: {
+    products: Product[];
+  };
+}
+
 interface DeleteRequest extends NextApiRequest {
   headers: {
     authorization: string;
@@ -100,6 +112,28 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           .update(tenant, product)
           .then(() => res.status(200).json(product))
           .catch(() => res.status(400).end("Hubo un error actualizando el producto"));
+      })
+      .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
+  }
+
+  if (req.method === "PUT") {
+    const {
+      query: {tenant},
+      body: {products},
+      headers: {authorization: token},
+    } = req as PutRequest;
+
+    if (!tenant) return res.status(304).end();
+
+    return sessionApi
+      .verify(token)
+      .then(({uid}) => {
+        if (uid !== tenant) return res.status(403).end();
+
+        return api.bulk
+          .update(tenant, products)
+          .then(() => res.status(200).json(products))
+          .catch(() => res.status(400).end("Hubo un error actualizando los productos"));
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
   }

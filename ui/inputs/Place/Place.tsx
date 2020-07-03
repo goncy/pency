@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Text, PseudoBox} from "@chakra-ui/core";
+import {Stack, Text, PseudoBox, InputProps} from "@chakra-ui/core";
 
 import Input from "../Input";
 
@@ -8,13 +8,13 @@ import {useDebounce} from "~/hooks/time";
 import {useToast} from "~/hooks/toast";
 import {Place} from "~/places/types";
 
-interface Props {
+interface Props extends Omit<InputProps, "onChange" | "value"> {
   value?: Place;
   onChange: (value: Props["value"]) => void;
   country: string;
 }
 
-const PlaceInput: React.FC<Props> = ({value, onChange, country}) => {
+const PlaceInput: React.FC<Props> = ({value, onChange, country, ...props}) => {
   const [query, setQuery] = React.useState(value?.address || "");
   const ref = React.useRef<HTMLInputElement>();
   const [isLoading, setLoading] = React.useState(false);
@@ -81,6 +81,7 @@ const PlaceInput: React.FC<Props> = ({value, onChange, country}) => {
         value={query}
         onBlur={handleBlur}
         onChange={handleQueryChange}
+        {...props}
       />
       {Boolean(places?.length) && (
         <Stack

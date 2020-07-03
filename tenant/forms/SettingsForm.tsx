@@ -166,6 +166,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 country={defaultValues.country}
                 defaultValue={null}
                 name="location"
+                placeholder="Av. Eduardo Madero 470"
               />
             </FormControl>
           </Stack>

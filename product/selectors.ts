@@ -98,3 +98,46 @@ export function clientToServer(product: any): Omit<Product, "id"> {
     featured: product.featured || DEFAULT_PRODUCT.featured,
   };
 }
+
+export function hasPriceChanged(changed: Product, base: Product) {
+  // And its price has changed return true
+  if (base.price !== changed.price) return true;
+
+  // If base product has variants
+  if (base.options?.length) {
+    // Iterate over its variants
+    for (let variantIndex = 0; variantIndex < base.options?.length; variantIndex++) {
+      // And its variant options
+      for (
+        let optionIndex = 0;
+        optionIndex < base.options[variantIndex]?.options.length;
+        optionIndex++
+      ) {
+        // And if the variant price has changed
+        if (
+          base.options[variantIndex].options[optionIndex].price !==
+          changed.options[variantIndex].options[optionIndex].price
+        ) {
+          // Return true
+          return true;
+        }
+      }
+    }
+  }
+}
+
+export function filterByPriceChanged(changed: Product[], base: Product[]) {
+  // Filter changed products
+  return changed.filter((changedProduct) => {
+    // Find the base product that matches
+    const baseProduct = base.find((product) => product.id === changedProduct.id);
+
+    // If we have a base product
+    if (baseProduct) {
+      return hasPriceChanged(changedProduct, baseProduct);
+    }
+
+    // Otherwise return false for clarity
+    return false;
+  });
+}

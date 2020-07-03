@@ -9,10 +9,11 @@ interface Props extends Omit<InputGroupProps, "children" | "onChange"> {
   variant?: InputProps["variant"];
   value?: InputProps["value"];
   onChange?: InputProps["onChange"];
+  inputProps?: InputProps;
 }
 
 const Price: React.FC<Props> = React.forwardRef(
-  ({name, value, placeholder, onChange, rounded, ...props}, ref) => (
+  ({name, value, placeholder, onChange, rounded, inputProps = {}, ...props}, ref) => (
     <InputGroup {...props}>
       <InputLeftElement
         children="$"
@@ -23,6 +24,7 @@ const Price: React.FC<Props> = React.forwardRef(
       />
       <Input
         ref={ref}
+        inputMode="numeric"
         name={name}
         placeholder={placeholder}
         rounded={rounded}
@@ -31,6 +33,7 @@ const Price: React.FC<Props> = React.forwardRef(
         value={value}
         variant="filled"
         onChange={(event) => onChange && onChange(event)}
+        {...inputProps}
       />
     </InputGroup>
   ),
