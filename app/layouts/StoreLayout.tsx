@@ -94,7 +94,10 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           />
           <meta content={`${META.url}/${tenant.slug}`} property="og:url" />
           <meta content="website" property="og:type" />
-          <meta content={tenant.title || META.title} property="og:title" />
+          <meta
+            content={tenant.title ? `Pency | ${tenant.title}` : META.title}
+            property="og:title"
+          />
           <meta content={tenant.description || META.description} property="og:description" />
           <meta content={tenant.banner || tenant.logo || META.banner?.url} property="og:image" />
           <meta
