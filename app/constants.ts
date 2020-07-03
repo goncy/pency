@@ -7,7 +7,7 @@ export const META = {
   appleicon: "/logo192.jpg",
   keywords: "tienda, online, fácil, delivery, compra, venta",
   author: "Pency",
-  twitter: "pencyapp",
+  twitter: "@pencyapp",
   url: "https://pency.app",
   banner: {
     url: "/og-image.jpg",

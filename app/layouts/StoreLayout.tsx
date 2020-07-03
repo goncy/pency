@@ -59,8 +59,8 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
       <meta content={META.author} property="og:site_name" />
       <meta content={META.fbapp} property="fb:app_id" />
       <meta content="summary_large_image" name="twitter:card" />
+      <meta content={tenant.twitter ? `@${tenant.twitter}` : META.twitter} name="twitter:creator" />
       <meta content={META.twitter} name="twitter:site" />
-      <meta content={META.twitter} name="twitter:creator" />
       {product ? (
         <>
           <meta content={product.title} name="twitter:title" />
