@@ -1,7 +1,7 @@
 import cache from "../cache";
 import mock from "../mock";
 
-describe("Tenant cache", () => {
+describe("Product cache", () => {
   afterEach(() => {
     cache.clear();
   });
@@ -19,7 +19,7 @@ describe("Tenant cache", () => {
   });
 
   describe("get", () => {
-    it("should get a tenant", () => {
+    it("should get a list of products for a tenant", () => {
       const products = [mock.full, mock.full];
 
       cache.set("tenant", products);
