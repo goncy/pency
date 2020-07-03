@@ -5,21 +5,15 @@ const cache = new Map<ServerTenant["slug"], ServerTenant>();
 
 function update(slug: ServerTenant["slug"], value: Partial<ServerTenant>) {
   // We get the cached tenant
-  const cached: ServerTenant = cache.get(slug);
+  const cached: ServerTenant = get(slug);
 
   // If we have any
-  if (cached) {
-    // We get the temporary result
-    const result = {...cached, ...value};
-
-    // If that temp value is valid
-    if (schemas.server.fetch.isValidSync(result)) {
-      // We store it on cache
-      cache.set(slug, {...cached, ...value});
-    } else {
-      // Otherwise clean cache for that slug
-      remove(slug);
-    }
+  if (cached && value) {
+    // We set it on cache
+    set(slug, {...cached, ...value});
+  } else {
+    // Otherwise remove cache
+    remove(slug);
   }
 }
 
@@ -28,10 +22,14 @@ function set(slug: ServerTenant["slug"], value: ServerTenant) {
   if (value && schemas.server.fetch.isValidSync(value)) {
     // Set it on cache
     cache.set(slug, value);
+  } else {
+    // Otherwise remove cache
+    remove(slug);
   }
 }
 
 function remove(slug: ServerTenant["slug"]) {
+  // Remove cache for slug
   cache.delete(slug);
 }
 
@@ -41,24 +39,10 @@ function get(slug: ServerTenant["slug"]) {
 
   // If we have any
   if (cached) {
-    // And its valid
-    if (schemas.server.fetch.isValidSync(cached)) {
-      // Returh the cached value
-      console.log(`Returning ${slug} from cache`);
-      return cached;
-    } else {
-      console.log(`Removing cache for ${slug}`);
-
-      // Otherwise remove cache for that slug
-      remove(slug);
-
-      // And return undefined
-      return undefined;
-    }
+    // Return it
+    return cached;
   } else {
-    console.log(`No cache found for ${slug}`);
-
-    // If we don't have any valid cache, return undefined
+    // And return undefined
     return undefined;
   }
 }
