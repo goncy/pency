@@ -22,7 +22,11 @@ const Preview: React.FC<Props> = ({image, store}) => {
         transition="all .25s"
         width={{base: "60vw", sm: "100%"}}
       >
-        <Image borderRadius="lg" src={image} />
+        <Image
+          alt={`Previsualización de la tienda Pency llamada ${store}`}
+          borderRadius="lg"
+          src={image}
+        />
       </PseudoBox>
     </Link>
   );

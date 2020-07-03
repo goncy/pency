@@ -75,6 +75,7 @@ const Header: React.FC = () => {
           marginTop={{base: 10, sm: 0}}
         >
           <Image
+            alt="Celular mostrando el funcionamiento de Pency"
             marginBottom={{base: -20, sm: -24}}
             maxWidth={{base: "80vw", sm: "xs", lg: "md"}}
             paddingTop={{base: 2, sm: 0}}
