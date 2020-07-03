@@ -10,6 +10,7 @@ const ProductsGrid: React.FC<Props> = ({children, title, layout, ...props}) => (
   <Stack spacing={{base: 4, sm: 5}} {...props}>
     {title && (
       <Text
+        as="h2"
         data-test-id="title"
         fontSize={{base: "lg", sm: "2xl"}}
         fontWeight={500}

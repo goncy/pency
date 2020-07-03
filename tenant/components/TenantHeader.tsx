@@ -60,7 +60,7 @@ const TenantHeader: React.FC<Props> = ({
           title={title}
         />
         <Stack gridArea="information" marginTop={{base: 1, sm: 4}} spacing={{base: 0, sm: 1}}>
-          <Text fontSize={{base: "xl", sm: "3xl"}} fontWeight="bold" lineHeight="normal">
+          <Text as="h1" fontSize={{base: "xl", sm: "3xl"}} fontWeight="bold" lineHeight="normal">
             {title}
           </Text>
           <Text color="gray.500" fontSize={{base: "sm", sm: "md"}} lineHeight="tall">
