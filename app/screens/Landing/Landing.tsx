@@ -16,17 +16,16 @@ import {ClientTenant} from "~/tenant/types";
 
 interface Props {
   tenants: ClientTenant[];
-  count: number;
 }
 
-const Landing: React.FC<Props> = ({tenants, count}) => {
+const Landing: React.FC<Props> = ({tenants}) => {
   return (
     <Stack minHeight="100vh" spacing={0}>
       <Navbar />
       <Header />
       <Features />
       <Previews />
-      <Directory count={count} tenants={tenants} />
+      <Directory tenants={tenants} />
       <Testimonial />
       <Shout />
       <FAQ />

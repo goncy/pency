@@ -58,9 +58,17 @@
       "createStore": "Create store"
     },
     "directory": {
-      "title": "Find stores near you",
+      "title": {
+        "withLocation": "Find stores near you",
+        "withoutLocation": "There is a Pency store that has what you are looking for"
+      },
+      "subtitle": "¡We are more than 500 stores!",
       "noResults": "No results found",
-      "subtitle": "We are {{count}} stores!"
+      "footer": {
+        "withLocation": "Showing results withing 5KM of your location. ",
+        "withoutLocation": "Showing all relevant stores.",
+        "seeAll": "See all"
+      }
     },
     "previews": {
       "versatileForAllBusinesses": {

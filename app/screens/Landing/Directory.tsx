@@ -8,18 +8,34 @@ import Image from "~/ui/feedback/Image";
 import {useTranslation} from "~/i18n/hooks";
 import {ClientTenant} from "~/tenant/types";
 import ClearableTextField from "~/ui/inputs/ClearableTextField";
+import {getDistance} from "~/utils/coordinates";
 
 interface Props {
   tenants: ClientTenant[];
-  count: number;
 }
 
-const Directory: React.FC<Props> = ({tenants, count}) => {
+const Directory: React.FC<Props> = ({tenants}) => {
   const t = useTranslation();
+  const [coordinates, setCoordinates] = React.useState(null);
   const [query, setQuery] = React.useState("");
   const filtered = React.useMemo(
     () =>
       tenants
+        .filter(({location}) => {
+          // If we don't have user coordinates, return everything
+          if (!coordinates) {
+            return true;
+          }
+
+          // If we have coordinates for this tenant
+          if (location?.coordinates) {
+            // Return true if the distance is below 5 KM
+            return getDistance(coordinates, location.coordinates) <= 5;
+          }
+
+          // Otherwise return false
+          return false;
+        })
         .filter(({slug, title, category, location}) => {
           // If no query return all
           if (!query) {
@@ -37,7 +53,11 @@ const Directory: React.FC<Props> = ({tenants, count}) => {
           }
 
           // Match category
-          if (category.toLocaleLowerCase().includes(query.toLocaleLowerCase())) {
+          if (
+            t(`catalogs.categories.${category}`)
+              .toLocaleLowerCase()
+              .includes(query.toLocaleLowerCase())
+          ) {
             return true;
           }
 
@@ -50,9 +70,8 @@ const Directory: React.FC<Props> = ({tenants, count}) => {
           }
 
           return false;
-        })
-        .slice(0, 100),
-    [query, tenants],
+        }),
+    [query, tenants, t, coordinates],
   );
 
   function handleQueryChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -62,6 +81,24 @@ const Directory: React.FC<Props> = ({tenants, count}) => {
   function handleQueryClear() {
     setQuery("");
   }
+
+  function handleRemoveCoordinates() {
+    setCoordinates(null);
+  }
+
+  React.useEffect(() => {
+    // Check if browser has geolocation compatibility
+    if ("geolocation" in window.navigator) {
+      // Get user current position
+      navigator.geolocation.getCurrentPosition((position) => {
+        // Store in on coordinates
+        setCoordinates({lat: position.coords.latitude, lng: position.coords.longitude});
+      });
+    } else {
+      // Show a log when geolocation is not available
+      console.info("Geolocation is not available for this browser");
+    }
+  }, []);
 
   return (
     <Content
@@ -80,7 +117,9 @@ const Directory: React.FC<Props> = ({tenants, count}) => {
             marginX="auto"
             maxWidth={{base: "auto", sm: "3xl", xl: "5xl"}}
           >
-            {t("landing.directory.title")}
+            {coordinates
+              ? t("landing.directory.title.withLocation")
+              : t("landing.directory.title.withoutLocation")}
           </Text>
           <Text
             as="h4"
@@ -90,7 +129,7 @@ const Directory: React.FC<Props> = ({tenants, count}) => {
             marginX="auto"
             maxWidth={{base: "auto", sm: "3xl", xl: "5xl"}}
           >
-            {t("landing.directory.subtitle", {count})}
+            {t("landing.directory.subtitle")}
           </Text>
         </Stack>
         <Stack
@@ -105,7 +144,7 @@ const Directory: React.FC<Props> = ({tenants, count}) => {
         >
           <ClearableTextField
             focusBorderColor="teal.100"
-            placeholder="Buscar..."
+            placeholder={t("filters.search")}
             roundedBottom="none"
             value={query}
             variant="flushed"
@@ -144,6 +183,19 @@ const Directory: React.FC<Props> = ({tenants, count}) => {
             </Stack>
           )}
         </Stack>
+        {coordinates ? (
+          <Text color="gray.400" fontSize="sm">
+            {t("landing.directory.footer.withLocation")}
+            <Link color="teal.400" fontSize="sm" onClick={handleRemoveCoordinates}>
+              {t("landing.directory.footer.seeAll")}
+            </Link>
+            .
+          </Text>
+        ) : (
+          <Text color="gray.400" fontSize="sm">
+            {t("landing.directory.footer.withoutLocation")}
+          </Text>
+        )}
       </Stack>
     </Content>
   );
