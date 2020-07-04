@@ -13,12 +13,13 @@ import {filterByRelevant} from "~/tenant/selectors";
 
 interface Props {
   tenants: ClientTenant[];
+  count: number;
 }
 
-const LandingRoute: React.FC<Props> = ({tenants}) => (
+const LandingRoute: React.FC<Props> = ({tenants, count}) => (
   <LandingLayout>
     <I18nProvider detect>
-      <LandingScreen tenants={tenants} />
+      <LandingScreen count={count} tenants={tenants} />
     </I18nProvider>
   </LandingLayout>
 );
@@ -36,6 +37,7 @@ export const getStaticProps: GetStaticProps = async () => {
   // Return stores so we can build a directory
   return {
     props: {
+      count: tenants.length,
       tenants: filtered,
     },
   };

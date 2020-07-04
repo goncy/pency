@@ -18,7 +18,7 @@ const mock = {
         title: faker.company.companyName(),
         description: faker.lorem.lines(2),
         phone: faker.phone.phoneNumber("##########"),
-        category: CATEGORIES[faker.random.number(CATEGORIES.length - 1)].value,
+        category: CATEGORIES[faker.random.number(CATEGORIES.length - 1)],
         highlight: faker.lorem.words(10),
         hook: "http://some.url",
         country: "AR",

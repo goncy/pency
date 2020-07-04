@@ -23,8 +23,8 @@
   "landing": {
     "features": {
       "streamlineBusinessManagment":{
-        "title": "Agilizá la gestión de tu negocio",
-        "description": "Optimizamos tus recursos simplificando la forma de recibir los pedidos."
+        "title": "Improve your bussiness",
+        "description": "We optimize resources simplifying how you receive orders."
       },
       "endAbusiveCommissions":{
         "title": "Poné fin a las comisiones abusivas",
@@ -40,28 +40,38 @@
       }
     },
     "footer": {
-      "twitter": "Seguinos en Twitter",
-      "facebook": "Seguinos en Facebook",
-      "instagram": "Seguinos en Instagram",
-      "whatsapp": "Seguinos en Whatsapp",
-      "termsConditions": "Términos y condiciones",
-      "privacyPolicies": "Políticas de privacidad"
+      "twitter": "Follow us on Twitter",
+      "facebook": "Follow us on Facebook",
+      "instagram": "Follow us on Instagram",
+      "whatsapp": "Contact us on Whatsapp",
+      "termsConditions": "Terms and conditions",
+      "privacyPolicies": "Privacy policies"
     },
     "header": {
-      "saveTimeMoney":"Ahorrá tiempo y dinero con tu tienda pency",
-      "publishCatalogOnline": "Publicá tu catálogo online y recibí por Whatsapp los pedidos de tus clientes ¡GRATIS!",
-      "createStore": "Crear tienda",
-      "seeTestShop": "Ver tienda de prueba"
+      "saveTimeMoney":"Save time and mony with your Pency store",
+      "publishCatalogOnline": "Publish your online store and receive orders on WhatsApp, FREE!",
+      "createStore": "Create store",
+      "seeTestShop": "View demo"
     },
     "navBar": {
-      "supportByWhatsapp": "Soporte",
-      "createStore": "Crear tienda"
+      "supportByWhatsapp": "Support",
+      "createStore": "Create store"
+    },
+    "directory": {
+      "title": "Find stores near you",
+      "noResults": "No results found",
+      "subtitle": "We are {{count}} stores!"
     },
     "previews": {
       "versatileForAllBusinesses": {
         "title": "Versátil, para todo tipo de negocios",
         "description":"Independientemente del rubro, tu tienda Pency se ajusta a vos y tus productos, además de ofrecer una experiencia de compra simple y agradable a tus clientes."
       }
+    },
+    "shout": {
+      "createOnlineStore": "Creá ahora tu tienda online y potenciá la gestión de tu negocio",
+      "createStore": "Crear tienda",
+      "seeTestShop": "Ver tienda de prueba"
     }
   },
   "form": {
@@ -106,6 +116,91 @@
       "signInError": "We couldn't sign in verify your credentials",
       "recoverPassword": "Reset password",
       "signIn": "Sign in"
+    }
+  },
+  "catalogs": {
+    "categories": {
+        "vehicle-accessories": "Accesorios para vehículos",
+        "warehouse-kiosc": "Almacén / Kiosco",
+        "art-handicrafts": "Arte / Artesanías",
+        "baby-articles": "Artículos para bebés",
+        "pet-articles": "Artículos para mascotas",
+        "self-service-market": "Autoservicio / Minimercado",
+        "bar": "Bar",
+        "beauty-self-care": "Belleza y cuidado personal",
+        "bike-shop": "Bicicletería y Motos",
+        "foot-wear": "Calzado",
+        "butcher-shop": "Carnicería",
+        "carpentry": "Carpintería",
+        "health-center": "Centro de salud",
+        "locksmith": "Cerrajería",
+        "breweries": "Cervecería",
+        "chocolate-shop": "Chocolatería",
+        "fast-food": "Comida rápida",
+        "dealership": "Concesionaria",
+        "cooperative": "Cooperativa",
+        "cotillon": "Cotillón",
+        "delivery": "Delivery",
+        "dietetics": "Dietética",
+        "home-appliances": "Electrodomésticos",
+        "learn-center": "Establecimiento educativo",
+        "parking-log": "Estacionamiento",
+        "pasta-factory": "Fábrica de pastas",
+        "hardware-store": "Ferretería",
+        "freight": "Flete",
+        "mechanical-workshop": "Gomería / Taller mecánico",
+        "ice-cream-shop": "Heladería",
+        "construction": "Herramientas y construcción",
+        "blacksmithing-carpentry": "Herrería y carpintería",
+        "hypermarket-wholesale": "Hipermercado / Mayorista",
+        "home-decoration": "Hogar y decoración",
+        "illumination": "Iluminación",
+        "printing": "Imprenta",
+        "computing": "Informática",
+        "real-state": "Inmobiliaria",
+        "musical-instruments": "Instrumentos musicales",
+        "gardening": "Jardinería",
+        "jewelry-watches": "Joyería y relojería",
+        "toys": "Juegos y juguetes",
+        "car-laundry": "Lavadero de autos",
+        "bookshop": "Librería",
+        "lubrication-center": "Lubricentro",
+        "vending-machines": "Máquinas expendedoras",
+        "leather-goods": "Marroquinería, cueros y pieles",
+        "furniture": "Mueblería",
+        "optic": "Óptica",
+        "event-organization": "Organización de eventos",
+        "ong": "Organización sin fines de lucro",
+        "bakery": "Panadería",
+        "hairdressing": "Peluquería",
+        "perfumery": "Perfumería",
+        "fishing-camping": "Pesca y camping",
+        "fish-shop": "Pescadería",
+        "paint-shop": "Pinturería",
+        "restaurant": "Restaurante",
+        "clothes-accessories": "Ropa y accesorios",
+        "health-pharmacy": "Salud / Farmacia",
+        "design-advertising-service": "Servicio de diseño y publicidad",
+        "photography": "Servicio de fotografía",
+        "electronic-repair": "Servicio de reparación de articulos electrónicos",
+        "computing-service": "Servicio informático",
+        "courier-service": "Servicios de mensajerías",
+        "health-service": "Servicios de salud",
+        "home-service": "Servicios para el hogar",
+        "professional-service": "Servicios profesionales",
+        "supermarket": "Supermercado",
+        "theater": "Teatro",
+        "phone-electronic": "Telefonía y electrónica",
+        "dry-cleaner": "Tintorerías y lavadero",
+        "passenger-transport": "Transporte de pasajeros",
+        "auto-parts": "Venta de autopartes y talleres",
+        "farm-products": "Venta de productos de granja",
+        "greengrocery": "Verdulería",
+        "vet": "Veterinaria",
+        "travel-tourism": "Viajes y turismo",
+        "wines": "Vinoteca",
+        "flower-shop": "Vivero / Florería",
+        "other": "Otro"
     }
   }
 }
