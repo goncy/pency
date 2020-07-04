@@ -11,18 +11,28 @@ import CallToAction from "./CallToAction";
 import Footer from "./Footer";
 import FAQ from "./FAQ";
 
-const Landing = () => (
-  <Stack minHeight="100vh" spacing={0}>
-    <Navbar />
-    <Header />
-    <Features />
-    <Previews />
-    <Testimonial />
-    <Shout />
-    <FAQ />
-    <CallToAction />
-    <Footer />
-  </Stack>
-);
+import {ClientTenant} from "~/tenant/types";
+
+interface Props {
+  tenants: ClientTenant[];
+}
+
+const Landing: React.FC<Props> = ({tenants}) => {
+  console.log({tenants});
+
+  return (
+    <Stack minHeight="100vh" spacing={0}>
+      <Navbar />
+      <Header />
+      <Features />
+      <Previews />
+      <Testimonial />
+      <Shout />
+      <FAQ />
+      <CallToAction />
+      <Footer />
+    </Stack>
+  );
+};
 
 export default Landing;
