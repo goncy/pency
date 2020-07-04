@@ -10,6 +10,7 @@ import Shout from "./Shout";
 import CallToAction from "./CallToAction";
 import Footer from "./Footer";
 import FAQ from "./FAQ";
+import Directory from "./Directory";
 
 import {ClientTenant} from "~/tenant/types";
 
@@ -18,14 +19,13 @@ interface Props {
 }
 
 const Landing: React.FC<Props> = ({tenants}) => {
-  console.log({tenants});
-
   return (
     <Stack minHeight="100vh" spacing={0}>
       <Navbar />
       <Header />
       <Features />
       <Previews />
+      <Directory tenants={tenants} />
       <Testimonial />
       <Shout />
       <FAQ />

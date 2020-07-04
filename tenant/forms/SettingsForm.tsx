@@ -16,6 +16,7 @@ import FormControl from "~/ui/form/FormControl";
 import MPConnect from "~/payment/inputs/MPConnect";
 import PlaceInput from "~/ui/inputs/Place";
 import {COUNTRIES} from "~/i18n/constants";
+import {useTranslation} from "~/i18n/hooks";
 
 interface Props {
   defaultValues: Partial<ClientTenant>;
@@ -31,6 +32,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
   const {handleSubmit: submit, errors, register, control, formState} = useForm<ClientTenant>({
     defaultValues,
   });
+  const t = useTranslation();
 
   function handleSubmit(values: ClientTenant) {
     const tenant = {...defaultValues, ...values};
@@ -120,9 +122,9 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 name="category"
                 placeholder="Seleccioná un rubro"
               >
-                {CATEGORIES.map(({label, value}) => (
+                {CATEGORIES.map((value) => (
                   <option key={value} value={value}>
-                    {label}
+                    {t(`catalogs.categories.${value}`)}
                   </option>
                 ))}
               </Select>

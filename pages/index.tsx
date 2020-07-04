@@ -24,6 +24,15 @@ const LandingRoute: React.FC<Props> = ({tenants}) => (
 );
 
 export const getStaticProps: GetStaticProps = async () => {
+  // We don't want to generate static assets for testing
+  if (process.env.ENV === "test") {
+    return {
+      props: {
+        tenants: [],
+      },
+    };
+  }
+
   // Get stores from api
   const tenants: ClientTenant[] = await fetch("GET", `${process.env.APP_URL}/api/tenant`);
 
