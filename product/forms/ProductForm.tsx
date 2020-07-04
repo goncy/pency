@@ -28,7 +28,8 @@ interface Props {
 
 const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, categories}) => {
   const form = useForm<Partial<Product>>({defaultValues});
-  const {handleSubmit: submit, errors, register, formState, setValue, control} = form;
+  const {handleSubmit: submit, watch, errors, register, formState, setValue, control} = form;
+  const values = watch();
 
   function handleSubmit(values: Partial<Product>) {
     const product = {...defaultValues, ...values};
@@ -163,6 +164,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
             <FormControl name="options">
               <Controller
                 as={ProductVariantsInput}
+                base={values?.price}
                 control={control}
                 error={(errors.options as unknown) as FieldError}
                 name="options"

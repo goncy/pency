@@ -14,6 +14,7 @@ import Price from "~/ui/inputs/Price";
 
 interface Props {
   index: number;
+  base: number;
   error?: {
     index: number;
     type: string;
@@ -23,7 +24,7 @@ interface Props {
   onChange: (option: Partial<Variant>) => void;
 }
 
-const OptionInput: React.FC<Props> = ({error: _error, value, onChange}) => {
+const OptionInput: React.FC<Props> = ({error: _error, value, onChange, base = 0}) => {
   const error = React.useMemo(() => {
     if (!_error) return null;
 
@@ -73,70 +74,79 @@ const OptionInput: React.FC<Props> = ({error: _error, value, onChange}) => {
             const optionError = error?.index === subindex ? error : null;
 
             return (
-              <Stack key={option.id} isInline alignItems="flex-start" spacing={0}>
-                <FormControl
-                  error={optionError?.type === "optionsTitle" && optionError.message}
-                  width="100%"
-                >
-                  <Input
-                    placeholder="Queso cheddar"
-                    roundedRight={0}
-                    value={option.title}
-                    onChange={(event) => handleChange(subindex, "title", event.target.value)}
-                  />
-                </FormControl>
-                <Divider
-                  borderColor="gray.400"
-                  height={6}
-                  marginX={0}
-                  marginY={2}
-                  orientation="vertical"
-                  style={{marginLeft: "-1px"}}
-                />
-                <FormControl
-                  error={optionError?.type === "optionsPrice" && optionError.message}
-                  flexShrink={2}
-                  width="100%"
-                >
-                  <Price
-                    placeholder="Precio"
-                    rounded={0}
-                    value={option.price}
-                    onChange={(event) =>
-                      handleChange(
-                        subindex,
-                        "price",
-                        event.target.value ? Number(event.target.value) : "",
-                      )
-                    }
-                  />
-                </FormControl>
-                {value.options.length > 2 && value.options.length > value.count && (
-                  <Flex backgroundColor="gray.100" roundedRight="md">
-                    <Divider
-                      borderColor="gray.400"
-                      height={6}
-                      marginX={0}
-                      marginY={2}
-                      orientation="vertical"
-                      style={{marginLeft: "-1px"}}
+              <Stack spacing={0}>
+                <Stack key={option.id} isInline alignItems="flex-start" spacing={0}>
+                  <FormControl
+                    error={optionError?.type === "optionsTitle" && optionError.message}
+                    width="100%"
+                  >
+                    <Input
+                      placeholder="Queso cheddar"
+                      roundedRight={0}
+                      value={option.title}
+                      onChange={(event) => handleChange(subindex, "title", event.target.value)}
                     />
-                    <CloseButton
-                      aria-label="Borrar sub opción"
-                      height={10}
-                      roundedLeft={0}
-                      width={10}
-                      onClick={() => handleRemove(subindex)}
+                  </FormControl>
+                  <Divider
+                    borderColor="gray.400"
+                    height={6}
+                    marginX={0}
+                    marginY={2}
+                    orientation="vertical"
+                    style={{marginLeft: "-1px"}}
+                  />
+                  <FormControl
+                    error={optionError?.type === "optionsPrice" && optionError.message}
+                    flexShrink={2}
+                    width="100%"
+                  >
+                    <Price
+                      placeholder="Precio"
+                      rounded={0}
+                      value={option.price}
+                      onChange={(event) =>
+                        handleChange(
+                          subindex,
+                          "price",
+                          event.target.value ? Number(event.target.value) : "",
+                        )
+                      }
                     />
-                  </Flex>
+                  </FormControl>
+                  {value.options.length > 2 && value.options.length > value.count && (
+                    <Flex backgroundColor="gray.100" roundedRight="md">
+                      <Divider
+                        borderColor="gray.400"
+                        height={6}
+                        marginX={0}
+                        marginY={2}
+                        orientation="vertical"
+                        style={{marginLeft: "-1px"}}
+                      />
+                      <CloseButton
+                        aria-label="Borrar sub opción"
+                        height={10}
+                        roundedLeft={0}
+                        width={10}
+                        onClick={() => handleRemove(subindex)}
+                      />
+                    </Flex>
+                  )}
+                </Stack>
+                {value.count === 1 && (
+                  <FormHelperText>
+                    Precio por selección ${Number(option.price) + Number(base)}
+                  </FormHelperText>
                 )}
               </Stack>
             );
           })}
         </Stack>
-        <FormHelperText>
-          El precio que ingreses a la opción se sumará al valor base del producto.
-        </FormHelperText>
+        {value.count !== 1 && (
+          <FormHelperText>
+            El precio que ingreses a la opción se sumará al valor base del producto.
+          </FormHelperText>
+        )}
       </Stack>
       <IconButton
         _hover={{
