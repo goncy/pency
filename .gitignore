@@ -33,3 +33,5 @@ yarn-error.log*
 
 # unused icons
 /icons
+
+/public/sitemap.xml
