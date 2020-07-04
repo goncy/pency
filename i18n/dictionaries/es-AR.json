@@ -59,10 +59,10 @@
     },
     "directory": {
       "title": {
-        "withLocation": "Encontrá tiendas cerca tuyo",
-        "withoutLocation": "Hay una tienda Pency que tiene lo que buscás"
+        "withLocation": "Conocé la comunidad de tiendas Pency cerca tuyo",
+        "withoutLocation": "Conocé la comunidad de tiendas Pency"
       },
-      "subtitle": "¡Somos más de 500 tiendas!",
+      "subtitle": "¡Somos más de 500 tiendas abiertas!",
       "noResults": "No se encontraron resultados",
       "footer": {
         "withLocation": "Se muestran resultados dentro de los 25 KM de tu ubicación.",

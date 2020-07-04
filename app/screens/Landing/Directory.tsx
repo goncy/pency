@@ -99,7 +99,7 @@ const Directory: React.FC<Props> = ({tenants}) => {
     <Content
       paddingBottom={{base: 12, sm: 4}}
       paddingTop={{base: 12, sm: 20}}
-      textAlign={{base: "left", sm: "center"}}
+      textAlign="center"
       width="100%"
     >
       <Stack alignItems="center" spacing={{base: 4, sm: 6}}>

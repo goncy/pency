@@ -59,8 +59,8 @@
     },
     "directory": {
       "title": {
-        "withLocation": "Find stores near you",
-        "withoutLocation": "There is a Pency store that has what you are looking for"
+        "withLocation": "Get to know the Pency stores community near you",
+        "withoutLocation": "Get to know the Pency stores community"
       },
       "subtitle": "¡We are more than 500 stores!",
       "noResults": "No results found",

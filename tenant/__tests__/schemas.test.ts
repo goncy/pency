@@ -473,10 +473,7 @@ describe("schemas", () => {
           category: "some-category",
           color: "teal",
           phone: "1144444444",
-          location: {
-            address: "something",
-            coordinates: {lat: 1, lng: 1},
-          },
+          logo: "some-logo",
           description: "some description",
           title: "some title",
         };
@@ -485,7 +482,7 @@ describe("schemas", () => {
         expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
       });
 
-      it("should not match when location is not provided", () => {
+      it("should not match when logo is not provided", () => {
         const actual = {
           id: "some-id",
           slug: "some-slug",
@@ -507,10 +504,7 @@ describe("schemas", () => {
           category: "some-category",
           color: "teal",
           phone: "5491173694572",
-          location: {
-            address: "something",
-            coordinates: {lat: 1, lng: 1},
-          },
+          logo: "some-logo",
           description: "some description",
           title: "some title",
         };
@@ -526,10 +520,7 @@ describe("schemas", () => {
           category: "some-category",
           color: "teal",
           phone: "5491144444444",
-          location: {
-            address: "something",
-            coordinates: {lat: 1, lng: 1},
-          },
+          logo: "some-logo",
           description: "Armá tu tienda y recibí los pedidos via WhatsApp",
           title: "some title",
         };
@@ -545,10 +536,7 @@ describe("schemas", () => {
           category: "some-category",
           color: "teal",
           phone: "5491144444444",
-          location: {
-            address: "something",
-            coordinates: {lat: 1, lng: 1},
-          },
+          logo: "some-logo",
           description: "description",
           title: "Pency - Tu tienda online fácil",
         };

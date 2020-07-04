@@ -171,16 +171,8 @@ export default {
       id: yup.string().required(),
       slug: yup.string().required(),
       category: yup.string().required(),
+      logo: yup.string().required(),
       color: color.required(),
-      location: yup.object<Place>({
-        address: yup.string().required(),
-        coordinates: yup
-          .object({
-            lat: yup.number(),
-            lng: yup.number(),
-          })
-          .required(),
-      }),
       phone: yup.string().required().notOneOf(["5491173694572"]),
       description: yup.string().notOneOf(["Armá tu tienda y recibí los pedidos via WhatsApp"]),
       title: yup.string().notOneOf(["Pency - Tu tienda online fácil"]).required(),
