@@ -1,5 +1,6 @@
 import React from "react";
 import {Text, Stack, PseudoBox} from "@chakra-ui/core";
+import styled from "@emotion/styled";
 
 import Content from "./Content";
 
@@ -9,6 +10,12 @@ import {useTranslation} from "~/i18n/hooks";
 import {ClientTenant} from "~/tenant/types";
 import ClearableTextField from "~/ui/inputs/ClearableTextField";
 import {getDistance} from "~/utils/coordinates";
+
+const EllipsisText = styled(Text)`
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+`;
 
 interface Props {
   tenants: ClientTenant[];
@@ -99,7 +106,7 @@ const Directory: React.FC<Props> = ({tenants}) => {
     <Content
       paddingBottom={{base: 12, sm: 4}}
       paddingTop={{base: 12, sm: 20}}
-      textAlign="center"
+      textAlign={{base: "left", sm: "center"}}
       width="100%"
     >
       <Stack alignItems="center" spacing={{base: 4, sm: 6}}>
@@ -109,7 +116,6 @@ const Directory: React.FC<Props> = ({tenants}) => {
             fontSize={{base: "2xl", md: "3xl", lg: "4xl", xl: "5xl"}}
             fontWeight={500}
             lineHeight={"130%"}
-            marginX="auto"
             maxWidth={{base: "auto", sm: "3xl", xl: "5xl"}}
           >
             {coordinates
@@ -121,7 +127,6 @@ const Directory: React.FC<Props> = ({tenants}) => {
             color="gray.400"
             fontSize={{md: "lg", lg: "xl", xl: "2xl"}}
             lineHeight={"130%"}
-            marginX="auto"
             maxWidth={{base: "auto", sm: "3xl", xl: "5xl"}}
           >
             {t("landing.directory.subtitle")}
@@ -131,7 +136,7 @@ const Directory: React.FC<Props> = ({tenants}) => {
           borderColor="gray.100"
           borderWidth={1}
           boxShadow="xl"
-          maxWidth={{base: 300, sm: 480}}
+          maxWidth={{base: "100%", sm: 480}}
           spacing={0}
           width="100%"
         >
@@ -144,28 +149,29 @@ const Directory: React.FC<Props> = ({tenants}) => {
             onChange={handleQueryChange}
             onClear={handleQueryClear}
           />
-          <Stack maxHeight={480} overflowY="auto" spacing={0} textAlign="left">
+          <Stack maxHeight={480} overflowX="hidden" overflowY="auto" spacing={0} textAlign="left">
             {filtered.length ? (
               filtered.map(({title, logo, slug, category}) => (
-                <Link key={slug} isExternal href={`/${slug}`}>
-                  <PseudoBox
-                    _hover={{backgroundColor: "gray.50"}}
-                    _notLast={{borderBottomWidth: 1}}
-                    padding={4}
-                    transition="background-color 0.25s"
-                  >
+                <Link
+                  key={slug}
+                  isExternal
+                  _hover={{backgroundColor: "gray.50"}}
+                  _notLast={{borderBottomWidth: 1}}
+                  href={`/${slug}`}
+                >
+                  <PseudoBox padding={4} transition="background-color 0.25s">
                     <Stack isInline alignItems="center" spacing={2}>
                       <Image borderWidth={1} height={16} rounded="full" src={logo} width={16} />
-                      <Stack spacing={0}>
-                        <Text fontSize="lg" fontWeight={500} lineHeight="normal">
+                      <Stack overflow="hidden" spacing={0}>
+                        <EllipsisText fontSize="lg" fontWeight={500} lineHeight="normal">
                           {title}
-                        </Text>
-                        <Text color="gray.500" textAlign="left">
+                        </EllipsisText>
+                        <EllipsisText color="gray.500" textAlign="left">
                           /{slug}
-                        </Text>
-                        <Text color="teal.500" fontSize="sm" textAlign="left">
+                        </EllipsisText>
+                        <EllipsisText color="teal.500" fontSize="sm" textAlign="left">
                           {t(`catalogs.categories.${category}`)}
-                        </Text>
+                        </EllipsisText>
                       </Stack>
                     </Stack>
                   </PseudoBox>

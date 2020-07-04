@@ -189,7 +189,11 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 quality="low"
               />
             </FormControl>
-            <FormControl label="Imágen de cabecera" name="banner">
+            <FormControl
+              help="Tamaño recomendado 1200 x 630"
+              label="Imágen de cabecera"
+              name="banner"
+            >
               <Controller
                 as={ImageInput}
                 control={control}
@@ -241,7 +245,11 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               <Input
                 ref={register({
                   validate: (value) =>
-                    value.includes("instagram.com") ? "Solo el usuario, no el link completo" : true,
+                    value.includes("instagram.com")
+                      ? "Solo el usuario, no el link completo"
+                      : value.includes("@")
+                      ? "No debe contener el arroba, solo el usuario"
+                      : true,
                 })}
                 defaultValue=""
                 name="instagram"
@@ -267,7 +275,11 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               <Input
                 ref={register({
                   validate: (value) =>
-                    value.includes("twitter.com") ? "Solo el usuario, no el link completo" : true,
+                    value.includes("twitter.com")
+                      ? "Solo el usuario, no el link completo"
+                      : value.includes("@")
+                      ? "No debe contener el arroba, solo el usuario"
+                      : true,
                 })}
                 defaultValue=""
                 name="twitter"

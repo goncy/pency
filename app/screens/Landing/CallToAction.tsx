@@ -11,7 +11,7 @@ const CallToAction = () => (
     justifyContent="center"
     position="sticky"
     spacing={0}
-    zIndex={1}
+    zIndex={3}
   >
     <Link
       isExternal
