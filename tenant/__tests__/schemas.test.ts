@@ -464,5 +464,98 @@ describe("schemas", () => {
         expect(schemas.client.fetch.cast(actual)).toEqual(expected);
       });
     });
+
+    describe("relevant", () => {
+      it("should match when relevant fields are required", () => {
+        const actual = {
+          id: "some-id",
+          slug: "some-slug",
+          category: "some-category",
+          color: "teal",
+          phone: "1144444444",
+          location: {
+            address: "something",
+            coordinates: {lat: 1, lng: 1},
+          },
+          description: "some description",
+          title: "some title",
+        };
+        const expected = true;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("should not match when location is not provided", () => {
+        const actual = {
+          id: "some-id",
+          slug: "some-slug",
+          category: "some-category",
+          color: "teal",
+          phone: "1144444444",
+          description: "some description",
+          title: "some title",
+        };
+        const expected = false;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("should not match when number is 5491173694572", () => {
+        const actual = {
+          id: "some-id",
+          slug: "some-slug",
+          category: "some-category",
+          color: "teal",
+          phone: "5491173694572",
+          location: {
+            address: "something",
+            coordinates: {lat: 1, lng: 1},
+          },
+          description: "some description",
+          title: "some title",
+        };
+        const expected = false;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("should not match when description is Armá tu tienda y recibí los pedidos via WhatsApp", () => {
+        const actual = {
+          id: "some-id",
+          slug: "some-slug",
+          category: "some-category",
+          color: "teal",
+          phone: "5491144444444",
+          location: {
+            address: "something",
+            coordinates: {lat: 1, lng: 1},
+          },
+          description: "Armá tu tienda y recibí los pedidos via WhatsApp",
+          title: "some title",
+        };
+        const expected = false;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("should not match when title is Pency - Tu tienda online fácil", () => {
+        const actual = {
+          id: "some-id",
+          slug: "some-slug",
+          category: "some-category",
+          color: "teal",
+          phone: "5491144444444",
+          location: {
+            address: "something",
+            coordinates: {lat: 1, lng: 1},
+          },
+          description: "description",
+          title: "Pency - Tu tienda online fácil",
+        };
+        const expected = false;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+      });
+    });
   });
 });

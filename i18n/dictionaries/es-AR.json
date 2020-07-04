@@ -65,9 +65,10 @@
       "subtitle": "¡Somos más de 500 tiendas!",
       "noResults": "No se encontraron resultados",
       "footer": {
-        "withLocation": "Se muestran resultados dentro de los 5 KM de tu ubicación. ",
+        "withLocation": "Se muestran resultados dentro de los 25 KM de tu ubicación.",
         "withoutLocation": "Se muestran todas las tiendas que posean la información relevante cargada.",
-        "seeAll": "Ver todas"
+        "seeAll": "Ver todas.",
+        "seeNear": "Ver cercanas."
       }
     },
     "previews": {

@@ -65,9 +65,10 @@
       "subtitle": "¡We are more than 500 stores!",
       "noResults": "No results found",
       "footer": {
-        "withLocation": "Showing results withing 5KM of your location. ",
+        "withLocation": "Showing results withing 25 KM of your location.",
         "withoutLocation": "Showing all relevant stores.",
-        "seeAll": "See all"
+        "seeAll": "See all.",
+        "seeNear": "See near."
       }
     },
     "previews": {

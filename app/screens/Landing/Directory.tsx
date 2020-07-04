@@ -18,6 +18,7 @@ const Directory: React.FC<Props> = ({tenants}) => {
   const t = useTranslation();
   const [coordinates, setCoordinates] = React.useState(null);
   const [query, setQuery] = React.useState("");
+  const isGeolocationEnabled = "geolocation" in window.navigator;
   const filtered = React.useMemo(
     () =>
       tenants
@@ -29,8 +30,8 @@ const Directory: React.FC<Props> = ({tenants}) => {
 
           // If we have coordinates for this tenant
           if (location?.coordinates) {
-            // Return true if the distance is below 5 KM
-            return getDistance(coordinates, location.coordinates) <= 5;
+            // Return true if the distance is below 25 KM
+            return getDistance(coordinates, location.coordinates) <= 25;
           }
 
           // Otherwise return false
@@ -86,19 +87,13 @@ const Directory: React.FC<Props> = ({tenants}) => {
     setCoordinates(null);
   }
 
-  React.useEffect(() => {
-    // Check if browser has geolocation compatibility
-    if ("geolocation" in window.navigator) {
-      // Get user current position
-      navigator.geolocation.getCurrentPosition((position) => {
-        // Store in on coordinates
-        setCoordinates({lat: position.coords.latitude, lng: position.coords.longitude});
-      });
-    } else {
-      // Show a log when geolocation is not available
-      console.info("Geolocation is not available for this browser");
-    }
-  }, []);
+  function handleGetCoordinates() {
+    // Get user current position
+    navigator.geolocation.getCurrentPosition((position) => {
+      // Store in on coordinates
+      setCoordinates({lat: position.coords.latitude, lng: position.coords.longitude});
+    });
+  }
 
   return (
     <Content
@@ -186,14 +181,18 @@ const Directory: React.FC<Props> = ({tenants}) => {
         {coordinates ? (
           <Text color="gray.400" fontSize="sm">
             {t("landing.directory.footer.withLocation")}
-            <Link color="teal.400" fontSize="sm" onClick={handleRemoveCoordinates}>
+            <Link color="teal.400" fontSize="sm" marginLeft={1} onClick={handleRemoveCoordinates}>
               {t("landing.directory.footer.seeAll")}
             </Link>
-            .
           </Text>
         ) : (
           <Text color="gray.400" fontSize="sm">
             {t("landing.directory.footer.withoutLocation")}
+            {isGeolocationEnabled && (
+              <Link color="teal.400" fontSize="sm" marginLeft={1} onClick={handleGetCoordinates}>
+                {t("landing.directory.footer.seeNear")}
+              </Link>
+            )}
           </Text>
         )}
       </Stack>
