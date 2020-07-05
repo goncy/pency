@@ -27,6 +27,9 @@ export default function fetch(
           path,
           body,
           headers,
+          message: error?.message,
+          status: error?.status,
+          statusText: error?.statusText,
         },
       });
 
