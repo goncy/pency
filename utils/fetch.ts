@@ -19,19 +19,22 @@ export default function fetch(
   })
     .then((res) => (res.ok ? res.json() : Promise.reject(res)))
     .catch((error) => {
-      // Report fetch failure
-      reporter.report(error, {
-        origin: `fetch_util`,
-        extras: {
-          method,
-          path,
-          body,
-          headers,
-          message: error?.message,
-          status: error?.status,
-          statusText: error?.statusText,
-        },
-      });
+      // Omit 401 errors as we don't want to report those
+      if (![401].includes(error?.status)) {
+        // Report fetch failure
+        reporter.report(error, {
+          origin: `fetch_util`,
+          extras: {
+            method,
+            path,
+            body,
+            headers,
+            message: error?.message,
+            status: error?.status,
+            statusText: error?.statusText,
+          },
+        });
+      }
 
       // Rethrow promise
       return Promise.reject(error);
