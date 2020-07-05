@@ -19,6 +19,9 @@ interface Props {
 }
 
 const DemoRoute: React.FC<Props> = ({tenant, product, products}) => {
+  // Avoid breaking on not ready environments
+  if (!tenant || !products?.length) return null;
+
   return (
     <TenantProvider initialValue={tenant}>
       {(tenant) => (
