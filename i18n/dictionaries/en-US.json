@@ -92,6 +92,23 @@
       }
     }
   },
+  "cartItemDrawer":{
+    "toastSharePrompt":{
+      "status": "success",
+      "title": "Bien!",
+      "description": "El enlace fue compartido correctamente"
+    },
+    "toastShareClipboard":{
+      "status": "success",
+      "title": "Link copiado",
+      "description": "El link se copió al portapapeles"
+    },
+    "toastShareError":{
+      "status": "warning",
+      "title": "No se pudo copiar el link",
+      "description": "No se tienen permisos para acceder al portapapeles en este navegador"
+    }
+  },
   "form": {
     "required": "This field is required",
     "invalidEmail": "Invalid email"

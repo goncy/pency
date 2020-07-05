@@ -45,9 +45,9 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
         })
         .then(() => {
           toast({
-            status: "success",
-            title: "Bien!",
-            description: "El enlace fue compartido correctamente",
+            status: t("cartItemDrawer.toastSharePrompt.status"),
+            title: t("cartItemDrawer.toastSharePrompt.title"),
+            description: t("cartItemDrawer.toastSharePrompt.description"),
           });
 
           log.share(product, "mobile");
@@ -60,18 +60,18 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
         .writeText(window.location.href)
         .then(() => {
           toast({
-            status: "success",
-            title: "Link copiado",
-            description: "El link se copió al portapapeles",
+            status: t("cartItemDrawer.toastShareClipboard.status"),
+            title: t("cartItemDrawer.toastShareClipboard.title"),
+            description: t("cartItemDrawer.toastShareClipboard.description"),
           });
 
           log.share(product, "desktop");
         })
         .catch(() => {
           toast({
-            status: "warning",
-            title: "No se pudo copiar el link",
-            description: "No se tienen permisos para acceder al portapapeles en este navegador",
+            status: t("cartItemDrawer.toastShareError.status"),
+            title: t("cartItemDrawer.toastShareError.title"),
+            description: t("cartItemDrawer.toastShareError.description"),
           });
         });
     }
