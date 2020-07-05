@@ -9,6 +9,7 @@ import AdminLayout from "~/app/layouts/AdminLayout";
 import {Provider as I18nProvider} from "~/i18n/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
+
 interface Props {
   tenant: ClientTenant;
   products: Product[];

@@ -36,7 +36,7 @@ jobs:
 
       MANTAINER_EMAIL: ${{ secrets.MANTAINER_EMAIL }}
       MANTAINER_PHONE: ${{ secrets.MANTAINER_PHONE }}
-      MANTAINER_URL: ${{ secrets.MANTAINER_URL }}
+      APP_URL: ${{ secrets.APP_URL }}
 
       ENCRYPTION_IV: ${{ secrets.ENCRYPTION_IV }}
       ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}

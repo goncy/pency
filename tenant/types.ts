@@ -12,7 +12,7 @@ interface Tenant {
   >;
   phone: string;
   logo?: string;
-  title?: string;
+  title: string;
   instagram?: string;
   facebook?: string;
   twitter?: string;

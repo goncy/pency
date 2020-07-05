@@ -1,8 +1,9 @@
 import {CloudinaryResponse, Quality} from "./types";
 
-export default {
-  upload: (file: File, quality: Quality, subFolder: string = '') => {
+import reporter from "~/reporting";
 
+export default {
+  upload: (file: File, quality: Quality, subFolder: string = "") => {
     return fetch(
       `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD}/image/upload?upload_preset=${
         quality === "high" ? process.env.CLOUDINARY_PRESET_HIGH : process.env.CLOUDINARY_PRESET_LOW
@@ -12,7 +13,14 @@ export default {
         body: file,
       },
     )
-      .then((response) => response.json())
-      .then(({secure_url}: CloudinaryResponse) => secure_url);
+      .then((res) => (res.ok ? res.json() : Promise.reject(res)))
+      .then(({secure_url}: CloudinaryResponse) => secure_url)
+      .catch((error) => {
+        // Report image upload failed to sentry
+        reporter.report(error, {origin: "image_upload"});
+
+        // Rethrow promise
+        return Promise.reject(error);
+      });
   },
 };

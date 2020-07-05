@@ -31,22 +31,42 @@ const ImageInput: React.FC<Props> = ({
   const toast = useToast();
   const {slug: tenant} = useTenant();
 
-  async function upload(file?: File) {
+  async function handleUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    // Perist event so we can reset on fail
+    event.persist();
+
+    // Store file
+    const file = event.target.files?.[0];
+
+    // Return if closed without selecting a file
     if (!file) return;
 
     try {
+      // Toggle loading
       setLoading(true);
 
+      // Get uploaded image url
       const url = await storage.upload(file, quality, tenant);
 
+      // Return it to parent
       onChange(url);
+
+      // Reset loading
       setLoading(false);
     } catch (e) {
+      // Reset loading
+      setLoading(false);
+
+      // Show toast to user
       toast({
         title: "Error",
-        description: "Hubo un error subiendo la imágen, intentá de nuevo mas tarde",
+        description:
+          "Hubo un error subiendo la imágen, intentá de nuevo mas tarde o probá cargando otra imágen",
         status: "error",
       });
+
+      // Reset input
+      event.target.value = "";
     }
   }
 
@@ -124,9 +144,7 @@ const ImageInput: React.FC<Props> = ({
             top={0}
             type="file"
             width="100%"
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              upload(event.target.files?.[0])
-            }
+            onChange={handleUpload}
           />
           <Stack alignItems="center" justifyContent="center" spacing={0}>
             <PlusIcon />
