@@ -44,7 +44,8 @@ const ImageInput: React.FC<Props> = ({
     } catch (e) {
       toast({
         title: "Error",
-        description: "Hubo un error subiendo la imágen, intentá de nuevo mas tarde",
+        description:
+          "Hubo un error subiendo la imágen, intentá de nuevo mas tarde o probá cargando otra imágen",
         status: "error",
       });
     }
