@@ -74,8 +74,8 @@ const OptionInput: React.FC<Props> = ({error: _error, value, onChange, base = 0}
             const optionError = error?.index === subindex ? error : null;
 
             return (
-              <Stack spacing={0}>
-                <Stack key={option.id} isInline alignItems="flex-start" spacing={0}>
+              <Stack key={option.id} spacing={0}>
+                <Stack isInline alignItems="flex-start" spacing={0}>
                   <FormControl
                     error={optionError?.type === "optionsTitle" && optionError.message}
                     width="100%"
@@ -133,20 +133,16 @@ const OptionInput: React.FC<Props> = ({error: _error, value, onChange, base = 0}
                     </Flex>
                   )}
                 </Stack>
-                {value.count === 1 && (
+                {value.count === 1 && option.price && (
                   <FormHelperText>
-                    Precio total ${Number(option.price) + Number(base)}
+                    Precio del producto + opción = ${Number(option.price) + Number(base)}
                   </FormHelperText>
                 )}
               </Stack>
             );
           })}
         </Stack>
-        {value.count !== 1 && (
-          <FormHelperText>
-            El precio que ingreses a la opción se sumará al valor base del producto.
-          </FormHelperText>
-        )}
+        <FormHelperText>El precio de la opción se le sumará al valor del producto.</FormHelperText>
       </Stack>
       <IconButton
         _hover={{
