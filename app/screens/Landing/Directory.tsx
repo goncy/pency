@@ -115,7 +115,7 @@ const Directory: React.FC<Props> = ({tenants}) => {
             as="h3"
             fontSize={{base: "2xl", md: "3xl", lg: "4xl", xl: "5xl"}}
             fontWeight={500}
-            lineHeight={"130%"}
+            lineHeight="130%"
             maxWidth={{base: "auto", sm: "3xl", xl: "5xl"}}
           >
             {coordinates
@@ -166,10 +166,15 @@ const Directory: React.FC<Props> = ({tenants}) => {
                         <EllipsisText fontSize="lg" fontWeight={500} lineHeight="normal">
                           {title}
                         </EllipsisText>
-                        <EllipsisText color="gray.500" textAlign="left">
+                        <EllipsisText color="gray.500" lineHeight="normal" textAlign="left">
                           /{slug}
                         </EllipsisText>
-                        <EllipsisText color="teal.500" fontSize="sm" textAlign="left">
+                        <EllipsisText
+                          color="teal.500"
+                          fontSize="sm"
+                          lineHeight="normal"
+                          textAlign="left"
+                        >
                           {t(`catalogs.categories.${category}`)}
                         </EllipsisText>
                       </Stack>

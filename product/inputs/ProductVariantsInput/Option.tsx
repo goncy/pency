@@ -135,7 +135,7 @@ const OptionInput: React.FC<Props> = ({error: _error, value, onChange, base = 0}
                 </Stack>
                 {value.count === 1 && (
                   <FormHelperText>
-                    Precio total al selecciónar ${Number(option.price) + Number(base)}
+                    Precio total ${Number(option.price) + Number(base)}
                   </FormHelperText>
                 )}
               </Stack>
