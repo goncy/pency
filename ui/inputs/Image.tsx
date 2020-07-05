@@ -42,6 +42,8 @@ const ImageInput: React.FC<Props> = ({
       onChange(url);
       setLoading(false);
     } catch (e) {
+      setLoading(false);
+
       toast({
         title: "Error",
         description:
