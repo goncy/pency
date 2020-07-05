@@ -109,7 +109,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
             </FormControl>
             <FormControl
               isRequired
-              error={errors.category?.message && "Este campo es requerido"}
+              error={errors.category && "Este campo es requerido"}
               help="Ayudá a tus clientes a encontrar más rápido tus productos."
               label="Categoría"
               name="category"
