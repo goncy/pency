@@ -51,7 +51,7 @@
       "saveTimeMoney":"Save time and mony with your Pency store",
       "publishCatalogOnline": "Publish your online store and receive orders on WhatsApp, FREE!",
       "createStore": "Create store",
-      "seeTestShop": "View demo"
+      "seeDemo": "View demo"
     },
     "navBar": {
       "supportByWhatsapp": "Support",
@@ -80,7 +80,11 @@
     "shout": {
       "createOnlineStore": "Creá ahora tu tienda online y potenciá la gestión de tu negocio",
       "createStore": "Crear tienda",
-      "seeTestShop": "Ver tienda de prueba"
+      "seeDemo": "Ver tienda de prueba"
+    },
+    "callToAction": {
+      "createStore": "Crear tienda",
+      "seeDemo": "Ver demo"
     }
   },
   "form": {

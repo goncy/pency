@@ -58,7 +58,7 @@ const Header: React.FC = () => {
                 size="lg"
                 variant="outline"
               >
-                {t("landing.header.seeTestShop")}
+                {t("landing.header.seeDemo")}
               </Button>
             </Link>
           </Box>

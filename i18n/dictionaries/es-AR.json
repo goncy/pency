@@ -51,7 +51,7 @@
       "saveTimeMoney":"Ahorrá tiempo y dinero con tu tienda pency",
       "publishCatalogOnline": "Publicá tu catálogo online y recibí por Whatsapp los pedidos de tus clientes ¡GRATIS!",
       "createStore": "Crear tienda",
-      "seeTestShop": "Ver tienda de prueba"
+      "seeDemo": "Ver tienda de prueba"
     },
     "navBar": {
       "supportByWhatsapp": "Soporte",
@@ -80,7 +80,11 @@
     "shout": {
       "createOnlineStore": "Creá ahora tu tienda online y potenciá la gestión de tu negocio",
       "createStore": "Crear tienda",
-      "seeTestShop": "Ver tienda de prueba"
+      "seeDemo": "Ver demo"
+    },
+    "callToAction": {
+      "createStore": "Crear tienda",
+      "seeDemo": "Ver demo"
     }
   },
   "form": {
