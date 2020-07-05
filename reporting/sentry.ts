@@ -50,6 +50,12 @@ export default class SentryErrorProvider {
       return;
     }
 
+    // If we have an error but it doesn't have a name
+    if (error && !error.name) {
+      // Set an error named based on extras or origin
+      error.name = options?.extras?.message || options?.origin || "Unknown error";
+    }
+
     // Set scopes
     Sentry.withScope((scope) => {
       // Set origin tag
