@@ -42,8 +42,8 @@ const ProductsScreen: React.FC = () => {
   const featuredProducts = filterBy(products, {featured: true});
   const productsByCategory = groupBy(products, (product) => product.category);
 
-  function handleAdd(product: Product, options: Variant[], count: number) {
-    add(product, options, count);
+  function handleAdd(product: Product, options: Variant[], count: number, note: string) {
+    add(product, options, count, note);
 
     push(`/[slug]`, `/${tenant.slug}`, {shallow: true});
   }

@@ -15,14 +15,17 @@ import {useTranslation} from "~/i18n/hooks";
 import {useToast} from "~/hooks/toast";
 import ShareIcon from "~/ui/icons/Share";
 import {useAnalytics} from "~/analytics/hooks";
+import Textarea from "~/ui/inputs/Textarea";
+import FormControl from "~/ui/form/FormControl";
 
 interface Props extends Omit<IDrawer, "children"> {
-  onSubmit: (product: Product, options: Variant[], count: number) => void;
+  onSubmit: (product: Product, options: Variant[], count: number, note: string) => void;
   product: Product;
 }
 
 const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props}) => {
   const [count, setCount] = React.useState(1);
+  const [note, setNote] = React.useState("");
   const t = useTranslation();
   const log = useAnalytics();
   const toast = useToast();
@@ -32,7 +35,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
   };
 
   function handleSubmit(options: Variant[]) {
-    onSubmit(product, options, count);
+    onSubmit(product, options, count, note);
   }
 
   function handleShare() {
@@ -75,6 +78,10 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
           });
         });
     }
+  }
+
+  function handleNoteChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setNote(event.target.value);
   }
 
   React.useLayoutEffect(() => {
@@ -140,9 +147,17 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                   </Stack>
                   {form}
                   <Flex alignItems="center" justifyContent="space-between">
-                    <FormLabel>{t("common.count")}</FormLabel>
+                    <FormLabel padding={0}>{t("common.count")}</FormLabel>
                     <Stepper min={1} value={count} onChange={setCount} />
                   </Flex>
+                  <FormControl help="Máximo 140 caracteres" label="Comentarios">
+                    <Textarea
+                      max={140}
+                      placeholder="Notas adicionales"
+                      value={note}
+                      onChange={handleNoteChange}
+                    />
+                  </FormControl>
                 </Stack>
               </DrawerBody>
               <DrawerFooter>
