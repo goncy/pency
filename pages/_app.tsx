@@ -8,7 +8,7 @@ import reporter from "~/reporting";
 
 export default class Pency extends App {
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    reporter.report(error, {extras: errorInfo, origin: "client"});
+    reporter.exception(error, {extras: errorInfo, origin: "client"});
 
     super.componentDidCatch(error, errorInfo);
   }

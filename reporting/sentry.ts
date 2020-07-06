@@ -40,7 +40,7 @@ export default class SentryErrorProvider {
     }
   }
 
-  report(error: Error, options: Options) {
+  exception(error: Error, options: Options) {
     // Check if sentry is initialized
     if (!this.initialized) {
       // Log the error
@@ -75,6 +75,35 @@ export default class SentryErrorProvider {
 
       // Capture the exception
       Sentry.captureException(error);
+    });
+  }
+
+  message(message: string, options: Options) {
+    // Check if sentry is initialized
+    if (!this.initialized) {
+      // Log the error
+      console.warn(`Tried to report a message but Sentry was not initialized`, message, options);
+
+      // Early return
+      return;
+    }
+
+    // Set scopes
+    Sentry.withScope((scope) => {
+      // Set origin tag
+      scope.setTag("origin", options?.origin || "unknown");
+
+      // If we have extras
+      if (options?.extras) {
+        // Iterate over the extras
+        Object.keys(options.extras).forEach((key) => {
+          // Set the extra
+          scope.setExtra(key, options.extras[key]);
+        });
+      }
+
+      // Capture the message
+      Sentry.captureMessage(message, Sentry.Severity.Warning);
     });
   }
 }
