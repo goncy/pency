@@ -125,19 +125,3 @@ export function hasPriceChanged(changed: Product, base: Product) {
     }
   }
 }
-
-export function filterByPriceChanged(changed: Product[], base: Product[]) {
-  // Filter changed products
-  return changed.filter((changedProduct) => {
-    // Find the base product that matches
-    const baseProduct = base.find((product) => product.id === changedProduct.id);
-
-    // If we have a base product
-    if (baseProduct) {
-      return hasPriceChanged(changedProduct, baseProduct);
-    }
-
-    // Otherwise return false for clarity
-    return false;
-  });
-}

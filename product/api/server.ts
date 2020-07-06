@@ -1,6 +1,9 @@
+import shortid from "shortid";
+
 import {Product} from "../types";
 import {serverToClient, clientToServer} from "../selectors";
 import cache from "../cache";
+import schemas from "../schemas";
 
 import {database} from "~/firebase/admin";
 import {ClientTenant} from "~/tenant/types";
@@ -67,12 +70,12 @@ export default {
         return formated;
       });
   },
-  bulk: {
-    update: (tenant: ClientTenant["id"], products: Product[]) => {
-      const batch = database.batch();
+  upsert: (tenant: ClientTenant["id"], products: Product[]) => {
+    const batch = database.batch();
 
-      const commited = products.map(({id, ...product}) => {
-        const formatted = clientToServer(product);
+    const commited = products.map((product) => {
+      if (product.id) {
+        const {id, ...formatted} = schemas.update.cast(product);
 
         batch.update(
           database.collection("tenants").doc(tenant).collection("products").doc(id),
@@ -80,17 +83,27 @@ export default {
         );
 
         return {id, ...formatted};
+      } else {
+        const formatted = schemas.create.cast(product);
+        const docId = shortid.generate();
+
+        batch.create(
+          database.collection("tenants").doc(tenant).collection("products").doc(docId),
+          formatted,
+        );
+
+        return {id: docId, ...formatted};
+      }
+    });
+
+    return batch.commit().then(() => {
+      const products = commited.map(({id, ...product}) => {
+        cache.update(tenant, id, product);
+
+        return {id, ...product};
       });
 
-      return batch.commit().then(() => {
-        const products = commited.map(({id, ...product}) => {
-          cache.update(tenant, id, product);
-
-          return product;
-        });
-
-        return products;
-      });
-    },
+      return products;
+    });
   },
 };

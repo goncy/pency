@@ -21,10 +21,10 @@ export function useProducts() {
 
 export function useProductActions() {
   const {
-    actions: {create, update, remove, bulk},
+    actions: {create, update, remove, upsert},
   } = React.useContext(ProductContext);
 
-  return {create, update, remove, bulk};
+  return {create, update, remove, upsert};
 }
 
 export function useProductCategories() {

@@ -13,14 +13,14 @@ import Content from "~/ui/structure/Content";
 import NoResults from "~/ui/feedback/NoResults";
 import {useTranslation} from "~/i18n/hooks";
 import EditIcon from "~/ui/icons/Edit";
-import ProductsBulkEditDrawer from "~/product/components/ProductsBulkEditDrawer";
+import ProductsUpsertDrawer from "~/product/components/ProductsUpsertDrawer";
 import {useTenant} from "~/tenant/hooks";
 
 const AdminScreen: React.FC = () => {
   const [selected, setSelected] = React.useState<Partial<Product> | undefined>(undefined);
   const {flags} = useTenant();
   const {products, filters} = useFilteredProducts();
-  const {update, remove, create, bulk} = useProductActions();
+  const {update, remove, create, upsert} = useProductActions();
   const categories = useProductCategories();
   const productsByCategory = groupBy(products, (product) => product.category);
   const t = useTranslation();
@@ -37,7 +37,7 @@ const AdminScreen: React.FC = () => {
   }
 
   async function handleBulkSubmit(products: Product[]) {
-    await bulk.update(products);
+    await upsert(products);
 
     onBulkClose();
   }
@@ -122,7 +122,7 @@ const AdminScreen: React.FC = () => {
         onClose={closeProductDrawer}
         onSubmit={handleSubmit}
       />
-      <ProductsBulkEditDrawer
+      <ProductsUpsertDrawer
         defaultValues={products}
         isOpen={isBulkOpen}
         onClose={onBulkClose}

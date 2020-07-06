@@ -130,10 +130,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       .then(({uid}) => {
         if (uid !== tenant) return res.status(403).end();
 
-        return api.bulk
-          .update(tenant, products)
+        return api
+          .upsert(tenant, products)
           .then(() => res.status(200).json(products))
-          .catch(() => res.status(400).end("Hubo un error actualizando los productos"));
+          .catch((e) => {
+            console.log({e});
+            return res.status(400).end("Hubo un error actualizando los productos");
+          });
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
   }
