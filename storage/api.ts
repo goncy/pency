@@ -17,7 +17,16 @@ export default {
       .then(({secure_url}: CloudinaryResponse) => secure_url)
       .catch((error) => {
         // Report image upload failed to sentry
-        reporter.report(error, {origin: "image_upload"});
+        reporter.report(error, {
+          origin: "image_upload",
+          extras: {
+            quality,
+            slug: subFolder,
+            message: error?.message,
+            status: error?.status,
+            statusText: error?.statusText,
+          },
+        });
 
         // Rethrow promise
         return Promise.reject(error);
