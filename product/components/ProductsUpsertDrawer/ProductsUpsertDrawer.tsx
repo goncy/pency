@@ -94,17 +94,25 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
   }
 
   async function handleDownload() {
-    const csv = await toCSV(defaultValues, [
-      "id",
-      "title",
-      "description",
-      "price",
-      "category",
-      "available",
-      "featured",
-    ]);
+    try {
+      const csv = await toCSV<Product>(defaultValues, [
+        "id",
+        "title",
+        "description",
+        "price",
+        "category",
+        "available",
+        "featured",
+      ]);
 
-    download("pency.csv", csv);
+      download("pency.csv", csv);
+    } catch (e) {
+      toast({
+        status: "error",
+        title: "Error",
+        description: "No se pudo generar la planilla",
+      });
+    }
   }
 
   function handleReset() {

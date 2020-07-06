@@ -1,22 +1,22 @@
-import csv from "csvtojson";
-import {parse} from "json2csv";
-
-import {Product} from "~/product/types";
+import {parse, unparse} from "papaparse";
 
 // Convert from CSV string to JSON
-export function fromCSV(file: string): Promise<Partial<Product>[]> {
+export function fromCSV<T>(csv: File): Promise<T[]> {
   return new Promise((resolve, reject) => {
-    try {
-      const result = csv({delimiter: "auto"}).fromString(file);
-
-      resolve(result);
-    } catch (error) {
-      reject(error);
-    }
+    parse<T>(csv, {
+      header: true,
+      complete: ({errors, data}) => {
+        if (errors.length) {
+          return reject(errors);
+        } else {
+          return resolve(data);
+        }
+      },
+    });
   });
 }
 
 // Convert to CSV from JSON
-export function toCSV(rows: Record<string, any>[], fields: string[]) {
-  return parse(rows, {fields});
+export function toCSV<T>(rows: T[], columns: string[]) {
+  return Promise.resolve(unparse(rows, {columns}));
 }

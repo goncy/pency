@@ -18,7 +18,7 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
   // Get a toast instance
   const toast = useToast();
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  async function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     // Perist event so we can reset on fail
     event.persist();
 
@@ -28,81 +28,63 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
     // Return if closed without selecting a file
     if (!file) return;
 
+    // Toggle loading
+    setLoading(true);
+
     try {
-      // Toggle loading
-      setLoading(true);
+      // Parse file
+      const data = await fromCSV<Partial<Product>>(file);
 
-      // Create a reader
-      const reader = new FileReader();
-
-      reader.onload = async function () {
-        // Get buffer
-        const arrayBuffer = this.result as ArrayBuffer;
-
-        // Get array
-        const array = new Uint8Array(arrayBuffer);
-
-        // Convert it to string
-        const string = String.fromCharCode.apply(null, array);
-
-        // Parse it from CSV
-        const products = await fromCSV(string);
-
-        // Store summary
-        const summary = {
-          resolved: [],
-          rejected: [],
-        };
-
-        const value = products.map((product) => {
-          // Cast it
-          const casted = schemas.update.cast(product);
-
-          // If its valid
-          if (schemas.update.isValidSync(casted)) {
-            // Send it to resolved summary
-            summary.resolved.push(casted.title);
-
-            return casted;
-          } else {
-            // Otherwise send it to rejected summary
-            summary.rejected.push(product?.title);
-
-            return product;
-          }
-        });
-
-        // If we have rejected products
-        if (summary.rejected.length) {
-          // Reset loading
-          setLoading(false);
-
-          // Show toast to user
-          toast({
-            title: "Error",
-            description: `Hubo un error procesando los productos (${summary.rejected.join(", ")})`,
-            status: "error",
-          });
-
-          // Reset input
-          event.target.value = "";
-        } else {
-          // Reset loading
-          setLoading(false);
-
-          // Call on change with the value
-          onChange(value);
-
-          // Reset input
-          event.target.value = "";
-        }
+      // Store summary
+      const summary = {
+        resolved: [],
+        rejected: [],
       };
 
-      // Read as buffer
-      reader.readAsArrayBuffer(file);
-    } catch (e) {
-      console.log({e});
+      // Store products
+      const value = data.map((product) => {
+        // Cast it
+        const casted = schemas.update.cast(product);
 
+        // If its valid
+        if (schemas.update.isValidSync(casted)) {
+          // Send it to resolved summary
+          summary.resolved.push(casted.title);
+
+          return casted;
+        } else {
+          // Otherwise send it to rejected summary
+          summary.rejected.push(product?.title);
+
+          return product;
+        }
+      });
+
+      // If we have rejected products
+      if (summary.rejected.length) {
+        // Reset loading
+        setLoading(false);
+
+        // Show toast to user
+        toast({
+          title: "Error",
+          description: `Hubo un error procesando los productos (${summary.rejected.join(", ")})`,
+          status: "error",
+        });
+
+        // Reset input
+        event.target.value = "";
+      } else {
+        // Reset loading
+        setLoading(false);
+
+        // Call on change with the value
+        onChange(value);
+
+        // Reset input
+        event.target.value = "";
+      }
+    } catch (e) {
       // Reset loading
       setLoading(false);
 
