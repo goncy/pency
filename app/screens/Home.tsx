@@ -8,10 +8,12 @@ import {useProducts} from "~/product/hooks";
 import CircleIcon from "~/ui/icons/Circle";
 import CheckIcon from "~/ui/icons/Check";
 import WhatsappIcon from "~/ui/icons/WhatsApp";
+import {useTranslation} from "~/i18n/hooks";
 
 const HomeScreen: React.FC = () => {
   const tenant = useTenant();
   const products = useProducts();
+  const t = useTranslation();
 
   const hasBasicComplete = tenant.title && tenant.category && tenant.description && tenant.phone;
   const hasCustomizationComplete = tenant.logo && tenant.banner && tenant.color;
@@ -23,16 +25,15 @@ const HomeScreen: React.FC = () => {
         <Stack spacing={8}>
           <Stack spacing={1}>
             <Text fontSize="xl" fontWeight="bold">
-              Hola {tenant.title}
+              {t("landing.home.hello")} {tenant.title}
             </Text>
             <Text color="gray.500">
-              Comenzar a utilizar una nueva herramienta nunca es fácil, por eso lo hicimos bien
-              simple. Seguí estos pasos y en unos minutos tendrás tu tienda lista para compartir.
+              {t("landing.home.introduction")}
             </Text>
           </Stack>
           <Stack spacing={2}>
             <Text fontSize="md" fontWeight="500">
-              Si necesitas ayuda escribinos:
+              {t("landing.home.contactChannels")}
             </Text>
             <Stack backgroundColor="gray.100" padding={4} rounded="md" spacing={6}>
               <Stack isInline alignItems="center" spacing={2}>
@@ -62,33 +63,33 @@ const HomeScreen: React.FC = () => {
         </Stack>
         <Stack backgroundColor="primary.50" padding={4} rounded="md" spacing={8}>
           <Text fontSize="lg" fontWeight="bold">
-            Comenzá con estos desafíos:
+            {t("landing.home.startWithTheseChallenges")}
           </Text>
           <Stack spacing={8}>
             <Stack isInline opacity={hasBasicComplete ? 0.3 : 1}>
               {hasBasicComplete ? <CheckIcon /> : <CircleIcon />}
               <Stack spacing={0}>
-                <Text>Completá la info de tu negocio</Text>
+                <Text>{t("landing.home.firstChallenge.title")}</Text>
                 <Text color="gray.500" fontSize="sm">
-                  Nombre de tu negocio, rubro, una descripción y número de whatsapp.
+                  {t("landing.home.firstChallenge.description")}
                 </Text>
               </Stack>
             </Stack>
             <Stack isInline opacity={hasCustomizationComplete ? 0.3 : 1}>
               {hasCustomizationComplete ? <CheckIcon /> : <CircleIcon />}
               <Stack spacing={0}>
-                <Text>Personalizá tu tienda</Text>
+                <Text>{t("landing.home.secondChallenge.title")}</Text>
                 <Text color="gray.500" fontSize="sm">
-                  Subí tu logo, una imagen de cabecera y elegí el color de tu tienda.
+                  {t("landing.home.secondChallenge.description")}
                 </Text>
               </Stack>
             </Stack>
             <Stack isInline opacity={hasProducts ? 0.3 : 1}>
               {hasProducts ? <CheckIcon /> : <CircleIcon />}
               <Stack spacing={0}>
-                <Text>Cargá tus productos</Text>
+                <Text>{t("landing.home.thirdChallenge.title")}</Text>
                 <Text color="gray.500" fontSize="sm">
-                  Cargá tus productos y empezá a vender ya!
+                  {t("landing.home.thirdChallenge.description")}
                 </Text>
               </Stack>
             </Stack>

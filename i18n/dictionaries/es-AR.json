@@ -85,6 +85,46 @@
     "callToAction": {
       "createStore": "Crear tienda",
       "seeDemo": "Ver demo"
+    },
+    "testimonial": {
+      "userName":"Francisco Bellocchio",
+      "message": "\"Pency apareció en el momento justo como una herramienta para ayudar a nuestra marca a potenciar la venta on line y llegar a nuestros clientes de manera simple y segura.\"",
+      "ownerOf": "Dueño de Blondies"
+    },
+    "home":{
+      "hello": "Hola",
+      "introduction": "Comenzar a utilizar una nueva herramienta nunca es fácil, por eso lo hicimos bien simple. Seguí estos pasos y en unos minutos tendrás tu tienda lista para compartir.",
+      "contactChannels": "Si necesitas ayuda, escribinos:",
+      "startWithTheseChallenges": "Comenzá con estos desafíos:",
+      "firstChallenge": {
+        "title": "Completá la info de tu negocio",
+        "description": "Nombre de tu negocio, rubro, una descripción y número de whatsapp."
+      },
+      "secondChallenge": {
+        "title": "Personalizá tu tienda",
+        "description": "Subí tu logo, una imagen de cabecera y elegí el color de tu tienda."
+      },
+      "thirdChallenge": {
+        "title": "Cargá tus productos",
+        "description": "Cargá tus productos y empezá a vender ya!"
+      }
+    }
+  },
+  "cartItemDrawer":{
+    "toastSharePrompt":{
+      "status": "success",
+      "title": "Bien!",
+      "description": "El enlace fue compartido correctamente"
+    },
+    "toastShareClipboard":{
+      "status": "success",
+      "title": "Link copiado",
+      "description": "El link se copió al portapapeles"
+    },
+    "toastShareError":{
+      "status": "warning",
+      "title": "No se pudo copiar el link",
+      "description": "No se tienen permisos para acceder al portapapeles en este navegador"
     }
   },
   "form": {
