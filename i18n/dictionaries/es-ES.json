@@ -1,7 +1,7 @@
 {
   "common": {
     "error": "Error",
-    "email": "E-mail",
+    "email": "Email",
     "password": "Contraseña",
     "total": "Total",
     "featured": "Destacado",
@@ -23,35 +23,35 @@
   "landing": {
     "features": {
       "streamlineBusinessManagment":{
-        "title": "Agilizá la gestión de tu negocio",
-        "description": "Optimizamos tus recursos simplificando la forma de recibir los pedidos."
+        "title": "Agiliza la gestión de tu negocio",
+        "description": "Optimiza tus recursos simplificando la manera de recibir los pedidos."
       },
       "endAbusiveCommissions":{
-        "title": "Poné fin a las comisiones abusivas",
-        "description": "Olvidate de los intermediarios y las comisiones por venta. Ofrecé un mejor precio con tu tienda independiente."
+        "title": "No más comisiones abusivas",
+        "description": "Olvídate de los intermediarios y las comisiones por venta. Ofrece un mejor precio con tu tienda independiente."
       },
       "talkClientWithoutIntermediaries": {
-        "title": "Hablá con tus clientes sin intermediarios.",
-        "description": "Brindá un mejor servicio y atención gracias a la comunicación directa."
+        "title": "Habla con tus clientes sin intermediarios",
+        "description": "Brinda un mejor servicio y atención gracias a la comunicación directa."
       },
       "avoidCrowdsPremises":{
-        "title": "Evitá aglomeraciones en tu local",
-        "description": "Reducí los tiempos de espera y librate de las filas innecesarias vendiendo online."
+        "title": "Controla el aforo en tu tienda",
+        "description": "Reduce los tiempos de espera y líbrate de las filas innecesarias en tu tienda física tomando pedidos online."
       }
     },
     "footer": {
-      "twitter": "Seguinos en Twitter",
-      "facebook": "Seguinos en Facebook",
-      "instagram": "Seguinos en Instagram",
-      "whatsapp": "Seguinos en Whatsapp",
+      "twitter": "Siguenos en Twitter",
+      "facebook": "Siguenos en Facebook",
+      "instagram": "Siguenos en Instagram",
+      "whatsapp": "Escribenos en Whatsapp",
       "termsConditions": "Términos y condiciones",
       "privacyPolicies": "Políticas de privacidad"
     },
     "header": {
-      "saveTimeMoney":"Ahorrá tiempo y dinero con tu tienda pency",
-      "publishCatalogOnline": "Publicá tu catálogo online y recibí por Whatsapp los pedidos de tus clientes ¡GRATIS!",
+      "saveTimeMoney":"Tu tienda 100% gratis con Pency",
+      "publishCatalogOnline": "Publica tu catálogo online y recibe por Whatsapp los pedidos de tus clientes sin comisiones.",
       "createStore": "Crear tienda",
-      "seeDemo": "Ver tienda de prueba"
+      "seeDemo": "Ver demo"
     },
     "navBar": {
       "supportByWhatsapp": "Soporte",
@@ -59,8 +59,8 @@
     },
     "directory": {
       "title": {
-        "withLocation": "Conocé la comunidad de tiendas Pency cerca tuyo",
-        "withoutLocation": "Conocé la comunidad de tiendas Pency"
+        "withLocation": "Conoce la comunidad de tiendas Pency cerca tuyo",
+        "withoutLocation": "Conoce la comunidad de tiendas Pency"
       },
       "subtitle": "¡Somos más de 500 tiendas abiertas!",
       "noResults": "No se encontraron resultados",
@@ -73,14 +73,14 @@
     },
     "previews": {
       "versatileForAllBusinesses": {
-        "title": "Versátil, para todo tipo de negocios",
-        "description":"Independientemente del rubro, tu tienda Pency se ajusta a vos y tus productos, además de ofrecer una experiencia de compra simple y agradable a tus clientes."
+        "title": "Para todo tipo de negocios",
+        "description":"Independientemente del sector, tu tienda Pency se ajusta a ti y tus productos, además de ofrecer una experiencia de compra simple y agradable a tus clientes."
       }
     },
     "shout": {
-      "createOnlineStore": "Creá ahora tu tienda online y potenciá la gestión de tu negocio",
+      "createOnlineStore": "Crea ahora tu tienda online y potencia la gestión de tu negocio",
       "createStore": "Crear tienda",
-      "seeDemo": "Ver tienda de prueba"
+      "seeDemo": "Ver demo"
     },
     "callToAction": {
       "createStore": "Crear tienda",
@@ -100,7 +100,7 @@
   },
   "cart": {
     "yourOrder": "Tu pedido",
-    "completeOrder": "Completá tu pedido",
+    "completeOrder": "Completa tu pedido",
     "completeOnWhatsApp": "Completar pedido en WhatsApp",
     "estimatedTotal": "Total estimado"
   },
@@ -114,21 +114,21 @@
   },
   "auth": {
     "resetPasswordForm": {
-      "resetError": "Hubo un error al reiniciar la contraseña, intentá de nuevo mas tarde",
-      "title": "Restablecé tu contraseña",
-      "description": "Ingresá tu mail y te enviaremos intrucciones sobre como restrablecerla.",
+      "resetError": "Hubo un error al reiniciar la contraseña, intenta de nuevo mas tarde",
+      "title": "Restablece tu contraseña",
+      "description": "Ingresa tu mail y te enviaremos intrucciones sobre como restrablecerla.",
       "sendInstructions": "Enviar instrucciones"
     },
     "resetPasswordSuccess": {
       "title": "Listo! Te enviamos las instrucciones",
-      "description": "Te llegará un mail que tiene un link para restablecer tu contraseña. Si no aparece en algunos minutos, revisa la carpeta spam.",
+      "description": "Recibiras un mail que tiene un link para restablecer tu contraseña. Si no aparece en algunos minutos, revisa la carpeta spam.",
       "contactUsAt": "En caso que tengas algún problema en el proceso escribimos a",
       "emailTitle": "Consulta por Pency"
     },
     "login": {
-      "signInError": "Hubo un error al iniciar sesión, verificá las credenciales",
+      "signInError": "Hubo un error al iniciar sesión, verifica las credenciales",
       "recoverPassword": "Recuperar contraseña",
-      "signIn": "Ingresar"
+      "signIn": "Acceder"
     }
   },
   "catalogs": {
