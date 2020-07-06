@@ -132,7 +132,7 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
       <DrawerHeader onClose={onClose} />
       <DrawerBody marginBottom={4}>
         <Stack shouldWrapChildren spacing={4}>
-          <DrawerTitle>Edición en lote</DrawerTitle>
+          <DrawerTitle>Herramienta de importación / exportación</DrawerTitle>
           {products?.length ? (
             <Table as="table" boxShadow="sm">
               <thead>

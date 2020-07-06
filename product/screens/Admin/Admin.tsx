@@ -15,6 +15,7 @@ import {useTranslation} from "~/i18n/hooks";
 import EditIcon from "~/ui/icons/Edit";
 import ProductsUpsertDrawer from "~/product/components/ProductsUpsertDrawer";
 import {useTenant} from "~/tenant/hooks";
+import UploadIcon from "~/ui/icons/Upload";
 
 const AdminScreen: React.FC = () => {
   const [selected, setSelected] = React.useState<Partial<Product> | undefined>(undefined);
@@ -70,12 +71,12 @@ const AdminScreen: React.FC = () => {
                   {flags?.includes("bulk") && (
                     <IconButton
                       isCollapsable
-                      data-test-id="edit-product"
-                      leftIcon={EditIcon}
+                      data-test-id="bulk-button"
+                      leftIcon={UploadIcon}
                       size="md"
                       onClick={onBulkOpen}
                     >
-                      Editar en lote
+                      Importar
                     </IconButton>
                   )}
                   <IconButton
