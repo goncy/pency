@@ -463,6 +463,44 @@ describe("schemas", () => {
 
         expect(schemas.client.fetch.cast(actual)).toEqual(expected);
       });
+
+      it("should return false when mercadopago is not valid", () => {
+        const actual = {
+          id: "some-id",
+          slug: "some-slug",
+          color: "teal",
+          phone: 1144444444,
+          highlight: "Some highlight",
+          flags: [1, 2, 3],
+          mercadopago: {
+            expiration: null,
+            refresh: "",
+            token: "",
+          },
+        };
+        const expected = {
+          ...actual,
+          phone: "1144444444",
+          banner: "",
+          category: "",
+          country: "AR",
+          description: "",
+          facebook: "",
+          fields: [],
+          flags: ["1", "2", "3"],
+          hook: "",
+          instagram: "",
+          keywords: "",
+          location: null,
+          layout: "portrait",
+          logo: "",
+          mercadopago: false,
+          title: "",
+          twitter: "",
+        };
+
+        expect(schemas.client.fetch.cast(actual)).toEqual(expected);
+      });
     });
 
     describe("relevant", () => {

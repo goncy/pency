@@ -165,7 +165,10 @@ export default {
       fields: fields.default([]).nullable(),
       flags: flags.default([]).nullable(),
       hook: yup.string().default("").nullable(),
-      mercadopago: yup.boolean().transform(Boolean).default(false),
+      mercadopago: yup
+        .boolean()
+        .transform((mercadopago) => Boolean(mercadopago?.token))
+        .default(false),
     }),
     relevant: yup.object<Partial<ClientTenant>>({
       id: yup.string().required(),
