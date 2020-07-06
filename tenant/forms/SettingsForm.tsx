@@ -350,7 +350,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                 </Stack>
                 <FormControl help="Vamos a hacer un POST a esta url" name="hook">
                   <Input
-                    ref={register({required: true})}
+                    ref={register}
                     defaultValue=""
                     name="hook"
                     placeholder="https://tuwebhook.com"

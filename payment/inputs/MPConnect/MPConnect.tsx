@@ -61,7 +61,7 @@ const MPConnect: React.FC<Props> = ({id, checked, onChange, slug, ...props}) => 
       onClick={handleDisconnect}
       {...props}
     >
-      Desconectar de Mercado Pago
+      Desconectar Mercado Pago
     </IconButton>
   ) : (
     <Link
@@ -83,7 +83,7 @@ const MPConnect: React.FC<Props> = ({id, checked, onChange, slug, ...props}) => 
         loadingText="Conectando"
         {...props}
       >
-        Conectar de Mercado Pago
+        Conectar Mercado Pago
       </IconButton>
     </Link>
   );

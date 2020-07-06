@@ -31,7 +31,7 @@ const ClearableTextField: React.FC<Props> = React.forwardRef(
       onClear,
       isReadOnly,
       isDisabled,
-      variant,
+      variant = "filled",
       focusBorderColor,
       ...props
     },
