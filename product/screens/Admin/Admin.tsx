@@ -12,7 +12,6 @@ import IconButton from "~/ui/controls/IconButton";
 import Content from "~/ui/structure/Content";
 import NoResults from "~/ui/feedback/NoResults";
 import {useTranslation} from "~/i18n/hooks";
-import EditIcon from "~/ui/icons/Edit";
 import ProductsUpsertDrawer from "~/product/components/ProductsUpsertDrawer";
 import {useTenant} from "~/tenant/hooks";
 import UploadIcon from "~/ui/icons/Upload";
