@@ -47,6 +47,7 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
     <Head>
       <link href={META.favicon} rel="icon" />
       <link href={tenant.logo || META.appleicon} rel="apple-touch-icon" />
+      <link href={`${META.url}/${tenant.slug}`} rel="canonical" />
       <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap"
         rel="stylesheet"
