@@ -2,10 +2,10 @@ import {Product, Variant} from "./types";
 
 import {groupBy} from "~/selectors/group";
 
-export function getVariantsString(options: Variant[]): string {
-  if (!options?.length) return "";
+export function getVariantsString(variants: Variant[]): string {
+  if (!variants?.length) return "";
 
-  return options
+  return variants
     .map((option) => {
       const groups = groupBy(option.value, ({title}) => title);
 

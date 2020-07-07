@@ -76,7 +76,7 @@ export default {
           yup.object<Variant>({
             id: yup.string().required(),
             title: yup.string().default(DEFAULT_PRODUCT_VARIANT.title),
-            value: yup.array<Option>().strip(true),
+            value: yup.array<Option>().default([]),
             required: yup.boolean().default(DEFAULT_PRODUCT_VARIANT.required),
             count: yup.number().default(DEFAULT_PRODUCT_VARIANT.count),
             options: yup

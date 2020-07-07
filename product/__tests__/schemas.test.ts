@@ -258,6 +258,13 @@ describe("schemas", () => {
         expect(schemas.client.fetch.cast(actual)).toMatchObject(expected);
       });
 
+      it("should not remove value", () => {
+        const actual = mock.full;
+        const expected = actual;
+
+        expect(schemas.client.fetch.cast(actual)).toMatchObject(expected);
+      });
+
       it("should default product variant properties", () => {
         const base = mock.withoutVariantsValue;
         const actual = produce<Partial<Product>>(base, (actual) => {
