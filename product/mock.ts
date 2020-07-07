@@ -52,4 +52,13 @@ export default {
       ],
     };
   },
+  get withoutVariantsValue(): Product {
+    const product = this.full;
+
+    product.options.forEach((option) => {
+      delete option.value;
+    });
+
+    return product;
+  },
 };

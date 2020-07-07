@@ -1,7 +1,6 @@
 import shortid from "shortid";
 
 import {Product} from "../types";
-import {serverToClient, clientToServer} from "../selectors";
 import cache from "../cache";
 import schemas from "../schemas";
 
@@ -19,7 +18,7 @@ export default {
         .get()
         .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
         .then((products) => {
-          const parsed = products.map(serverToClient);
+          const parsed = products.map((product) => schemas.client.fetch.cast(product));
 
           cache.set(tenant, parsed);
 
@@ -28,19 +27,19 @@ export default {
     );
   },
   create: (tenant: ClientTenant["id"], product: Product) => {
-    const formated = clientToServer(product);
+    const casted = schemas.server.create.cast(product);
 
     return database
       .collection("tenants")
       .doc(tenant)
       .collection("products")
-      .add(formated)
+      .add(casted)
       .then((snapshot) => {
-        const parsed: Product = {...formated, id: snapshot.id};
+        const product: Product = {...casted, id: snapshot.id};
 
-        cache.add(tenant, parsed);
+        cache.add(tenant, product);
 
-        return parsed;
+        return product;
       });
   },
   remove: (tenant: ClientTenant["id"], product: Product["id"]) =>
@@ -56,18 +55,18 @@ export default {
         return product;
       }),
   update: (tenant: ClientTenant["id"], {id, ...product}: Product) => {
-    const formated = clientToServer(product);
+    const casted = schemas.server.update.cast(product);
 
     return database
       .collection("tenants")
       .doc(tenant)
       .collection("products")
       .doc(id)
-      .update(formated)
+      .update(casted)
       .then(() => {
-        cache.update(tenant, id, formated);
+        cache.update(tenant, id, casted);
 
-        return formated;
+        return casted;
       });
   },
   upsert: (tenant: ClientTenant["id"], products: Product[]) => {
@@ -75,7 +74,7 @@ export default {
 
     const commited = products.map((product) => {
       if (product.id) {
-        const {id, ...formatted} = schemas.update.cast(product);
+        const {id, ...formatted} = schemas.server.update.cast(product);
 
         batch.update(
           database.collection("tenants").doc(tenant).collection("products").doc(id),
@@ -84,7 +83,7 @@ export default {
 
         return {id, ...formatted};
       } else {
-        const formatted = schemas.create.cast(product);
+        const formatted = schemas.server.create.cast(product);
         const docId = shortid.generate();
 
         batch.create(

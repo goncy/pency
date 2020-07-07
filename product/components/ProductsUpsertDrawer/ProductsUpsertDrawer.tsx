@@ -49,10 +49,10 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
       // If an id is present
       if (product.id) {
         // Cast it as an update
-        return schemas.update.cast(product);
+        return schemas.client.update.cast(product);
       } else {
         // Otherwise cast it as a creation
-        return schemas.create.cast(product);
+        return schemas.client.create.cast(product);
       }
     });
 
