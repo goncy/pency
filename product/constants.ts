@@ -1,7 +1,7 @@
 import {Variant, Product, Option} from "./types";
 
 export const DEFAULT_PRODUCT: Omit<Product, "id"> = {
-  title: "-",
+  title: "",
   description: "",
   category: null,
   image: "",
@@ -12,7 +12,7 @@ export const DEFAULT_PRODUCT: Omit<Product, "id"> = {
 };
 
 export const DEFAULT_PRODUCT_VARIANT: Omit<Variant, "id"> = {
-  title: "-",
+  title: "",
   count: 1,
   options: [],
   value: [],
@@ -20,6 +20,6 @@ export const DEFAULT_PRODUCT_VARIANT: Omit<Variant, "id"> = {
 };
 
 export const DEFAULT_PRODUCT_OPTION: Omit<Option, "id"> = {
-  title: "-",
+  title: "",
   price: 0,
 };

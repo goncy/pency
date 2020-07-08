@@ -44,7 +44,7 @@ function set(id: ClientTenant["id"], value: Product[]) {
     value &&
     Array.isArray(value) &&
     value.length &&
-    value.every((product) => schemas.fetch.isValidSync(product))
+    value.every((product) => schemas.client.fetch.isValidSync(product))
   ) {
     // Set it on cache
     cache.set(id, value);

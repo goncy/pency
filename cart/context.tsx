@@ -25,7 +25,7 @@ const CartProvider = ({children}: Props) => {
   const [cart, setCart] = React.useState<Cart>({});
   const items = React.useMemo(() => [].concat(...Object.values(cart)), [cart]);
 
-  function add(product: Product, variants: Variant[], count: number = 1) {
+  function add(product: Product, variants: Variant[], count: number = 1, note: string = "") {
     log.addToCart(product, variants, count);
 
     return setCart(
@@ -37,6 +37,7 @@ const CartProvider = ({children}: Props) => {
           variants,
           count,
           product,
+          note,
         };
       }),
     );

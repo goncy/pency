@@ -2,7 +2,6 @@ import React from "react";
 
 import {Product} from "./types";
 import api from "./api/client";
-import {filterByPriceChanged} from "./selectors";
 
 import {useToast} from "~/hooks/toast";
 import {useTenant} from "~/tenant/hooks";
@@ -16,9 +15,7 @@ export interface Context {
     create: (product: Product) => Promise<void>;
     update: (product: Product) => Promise<void>;
     remove: (id: Product["id"]) => Promise<void>;
-    bulk: {
-      update: (products: Product[]) => Promise<void>;
-    };
+    upsert: (products: Product[]) => Promise<void>;
   };
 }
 interface Props {
@@ -79,25 +76,27 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
       });
   }
 
-  function bulkUpdate(changed: Product[]) {
-    const diff = filterByPriceChanged(changed, products);
+  function upsert(products: Product[]) {
+    return api
+      .upsert(tenant.id, products)
+      .then((products) => {
+        // Store changed ids
+        const ids = products.map((product) => product.id);
 
-    return api.bulk
-      .update(tenant.id, diff)
-      .then(() => {
-        diff.forEach((product) => {
-          setProducts((products) =>
-            products.map((_product) => (_product.id === product.id ? product : _product)),
-          );
-        });
+        // Remove all changed and concat new products
+        setProducts((_products) =>
+          _products.filter((_product) => !ids.includes(_product.id)).concat(products),
+        );
 
+        // Notify the user
         toast({
           title: "Productos actualizados",
-          description: `${diff.length} de tus productos fueron actualizados correctamente`,
+          description: `${products.length} de tus productos fueron actualizados correctamente`,
           status: "success",
         });
       })
       .catch(() => {
+        // If something failed, notify the user
         toast({
           title: "Error",
           description:
@@ -134,9 +133,7 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
     create,
     update,
     remove,
-    bulk: {
-      update: bulkUpdate,
-    },
+    upsert,
   };
 
   return <ProductContext.Provider value={{state, actions}}>{children}</ProductContext.Provider>;
