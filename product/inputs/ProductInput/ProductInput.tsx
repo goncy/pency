@@ -1,5 +1,5 @@
 import React from "react";
-import {StackProps, Stack, Text, Tooltip, Box} from "@chakra-ui/core";
+import {StackProps, Stack, Text, Tooltip} from "@chakra-ui/core";
 import produce from "immer";
 import {Message} from "react-hook-form";
 
