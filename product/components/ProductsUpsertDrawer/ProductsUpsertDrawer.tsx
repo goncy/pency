@@ -67,13 +67,7 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
   }
 
   return (
-    <Drawer
-      closeOnOverlayClick={false}
-      id="bulk-products"
-      isOpen={isOpen}
-      size="full"
-      onClose={onClose}
-    >
+    <Drawer closeOnOverlayClick={false} id="bulk-products" isOpen={isOpen} onClose={onClose}>
       <DrawerHeader onClose={onClose} />
       <ProductsForm defaultValues={defaultValues} onSubmit={handleSubmit}>
         {({form, submit}) => (
