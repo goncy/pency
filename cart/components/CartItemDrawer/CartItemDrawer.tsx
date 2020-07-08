@@ -17,6 +17,7 @@ import ShareIcon from "~/ui/icons/Share";
 import {useAnalytics} from "~/analytics/hooks";
 import Textarea from "~/ui/inputs/Textarea";
 import FormControl from "~/ui/form/FormControl";
+import {useTenant} from "~/tenant/hooks";
 
 interface Props extends Omit<IDrawer, "children"> {
   onSubmit: (product: Product, options: Variant[], count: number, note: string) => void;
@@ -29,6 +30,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
   const t = useTranslation();
   const log = useAnalytics();
   const toast = useToast();
+  const {flags} = useTenant();
   const canShare = {
     prompt: Boolean(navigator?.share),
     clipboard: Boolean(navigator?.clipboard),
@@ -150,14 +152,16 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                     <FormLabel padding={0}>{t("common.count")}</FormLabel>
                     <Stepper min={1} value={count} onChange={setCount} />
                   </Flex>
-                  <FormControl help="Máximo 140 caracteres" label="Comentarios">
-                    <Textarea
-                      max={140}
-                      placeholder="Notas adicionales"
-                      value={note}
-                      onChange={handleNoteChange}
-                    />
-                  </FormControl>
+                  {flags.includes("note") && (
+                    <FormControl help="Máximo 140 caracteres" label="Comentarios">
+                      <Textarea
+                        max={140}
+                        placeholder="Notas adicionales"
+                        value={note}
+                        onChange={handleNoteChange}
+                      />
+                    </FormControl>
+                  )}
                 </Stack>
               </DrawerBody>
               <DrawerFooter>
