@@ -5,7 +5,7 @@ export interface CartItem {
   id: string | Product["id"];
   product: Product;
   variants: Variant[];
-  note?: string;
+  note: string;
   count: number;
 }
 
@@ -17,7 +17,7 @@ export interface State {
 }
 
 export interface Actions {
-  add: (product: Product, variants: Variant[], count: number, note?: string) => void;
+  add: (product: Product, variants: Variant[], count: number, note: string) => void;
   increase: (id: CartItem["id"]) => void;
   decrease: (id: CartItem["id"]) => void;
   remove: (id: CartItem["id"]) => void;

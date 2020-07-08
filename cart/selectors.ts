@@ -36,11 +36,12 @@ ${preference}`;
 function _getItems(items: CartItem[]): string {
   return items
     .map(
-      ({product, count, variants}) =>
+      ({product, count, variants, note}) =>
         `— ${[
           count > 1 ? `*[ ${count} ]*` : "",
           product.title,
           variants ? `_${getVariantsString(variants)}_` : "",
+          note ? `(${note})` : "",
           `> *${formatPrice((product.price + getVariantsPrice(variants)) * count)}*`,
         ]
           .filter(Boolean)

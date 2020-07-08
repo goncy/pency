@@ -36,10 +36,13 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
   const toast = useToast();
 
   async function handleSubmit() {
+    // Toggle spinner
     toggleLoading(true);
 
+    // Submit products
     await onSubmit(products);
 
+    // Remove spinner
     toggleLoading(false);
   }
 
