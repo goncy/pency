@@ -25,6 +25,12 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
 
     // Store and merge changes
     const changed = products.reduce<Product[]>((products, changedProduct) => {
+      // If its a new product
+      if (!changedProduct.id) {
+        // Add it to the list
+        return products.concat(changedProduct);
+      }
+
       // Find base product
       const baseProduct = defaultValues.find((_product) => _product.id === changedProduct.id);
 
@@ -54,7 +60,7 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
     }
 
     // Submit products
-    await onSubmit(products);
+    await onSubmit(changed);
 
     // Remove spinner
     toggleLoading(false);
@@ -74,7 +80,7 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
           <>
             <DrawerBody marginBottom={4}>
               <Stack shouldWrapChildren spacing={4}>
-                <DrawerTitle>Herramienta de importación / exportación</DrawerTitle>
+                <DrawerTitle>Herramienta de importación / edición en lote</DrawerTitle>
                 {form}
               </Stack>
             </DrawerBody>

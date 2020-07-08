@@ -1,5 +1,5 @@
 import React from "react";
-import {StackProps, Stack, Text} from "@chakra-ui/core";
+import {StackProps, Stack, Text, Tooltip, Box} from "@chakra-ui/core";
 import produce from "immer";
 import {Message} from "react-hook-form";
 
@@ -9,6 +9,7 @@ import {Product, Variant} from "~/product/types";
 import Price from "~/ui/inputs/Price";
 import FormControl from "~/ui/form/FormControl";
 import SwitchInput from "~/ui/inputs/Switch";
+import HelpCircleIcon from "~/ui/icons/HelpCircle";
 
 interface Props extends Omit<StackProps, "onChange"> {
   value?: Product;
@@ -44,9 +45,21 @@ const ProductInput: React.FC<Props> = ({value: product, onChange, error, ...prop
   return (
     <FormControl error={error}>
       <Stack shouldWrapChildren spacing={3} {...props}>
-        <Text fontSize="lg" fontWeight={500} lineHeight="normal">
-          {product.title}
-        </Text>
+        <Stack isInline alignItems="center">
+          <Text fontSize="lg" fontWeight={500} lineHeight="normal">
+            {product.title}
+          </Text>
+          <Tooltip
+            hasArrow
+            shouldWrapChildren
+            aria-label="Descripción del producto"
+            label={`[${product.category}] - ${product.description || "Sin descripción"}`}
+            placement="top"
+            zIndex={1500}
+          >
+            <HelpCircleIcon size={16} />
+          </Tooltip>
+        </Stack>
         <Price
           inputProps={{isInvalid: false}}
           rounded="sm"

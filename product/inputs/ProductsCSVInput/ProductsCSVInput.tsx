@@ -1,18 +1,21 @@
 import React from "react";
-import {PseudoBox, Input} from "@chakra-ui/core";
-import {unflatten} from "flat";
+import {PseudoBox, Input, ButtonProps} from "@chakra-ui/core";
 
 import {fromCSV} from "~/utils/csv";
 import {useToast} from "~/hooks/toast";
 import {Product} from "~/product/types";
-import Button from "~/ui/controls/Button";
 import schemas from "~/product/schemas";
+import IconButton from "~/ui/controls/IconButton";
 
-interface Props {
+interface Props extends Omit<ButtonProps, "onChange" | "leftIcon" | "rightIcon" | "children"> {
   onChange?: (products: Partial<Product>[]) => void;
+  leftIcon?: React.ElementType;
+  rightIcon?: React.ElementType;
+  children?: React.ReactNode;
+  isCollapsable?: boolean;
 }
 
-const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
+const ProductsCSVInput: React.FC<Props> = ({onChange, children, ...props}) => {
   // Track loading state
   const [isLoading, setLoading] = React.useState(false);
 
@@ -35,22 +38,9 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
     try {
       // Parse file
       const rows = await fromCSV<Partial<Product>>(file);
-      const data: Product[] = rows
-        // Unflatten
-        .map((product) => unflatten<Partial<Product>, Product>(product))
-        // Remove empty options and variants
-        .map((product) => ({
-          ...product,
-          options: product.options
-            ? product.options
-                ?.filter((variant) => variant.id)
-                .map((variant) => ({
-                  ...variant,
-                  options: variant.options.filter((option) => option.id),
-                }))
-            : [],
-        }))
-        .map((product) => schemas.csv.cast(product));
+
+      // Cast data
+      const data: Product[] = rows.map((product) => schemas.csv.cast(product));
 
       // Store summary
       const summary = {
@@ -152,9 +142,9 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
         isDisabled={isLoading}
         left={0}
         name="image"
-        opacity={0}
         placeholder="Seleccionar archivo"
         position="absolute"
+        style={{opacity: 0}}
         title="Cargar CSV"
         top={0}
         type="file"
@@ -162,9 +152,9 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
         zIndex={1}
         onChange={handleChange}
       />
-      <Button isLoading={isLoading} variantColor="primary">
+      <IconButton isLoading={isLoading} {...props}>
         {children}
-      </Button>
+      </IconButton>
     </PseudoBox>
   );
 };

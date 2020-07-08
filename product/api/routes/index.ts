@@ -132,7 +132,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
         return api
           .upsert(tenant, products)
-          .then(() => res.status(200).json(products))
+          .then((products) => res.status(200).json(products))
           .catch(() => res.status(400).end("Hubo un error actualizando los productos"));
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));

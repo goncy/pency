@@ -46,7 +46,7 @@ const ProductsForm: React.FC<Props> = ({children, defaultValues, onSubmit}) => {
 
             return (
               <FormControl
-                key={product.id}
+                key={product.id || index}
                 borderBottomWidth={1}
                 name={`products[${index}]`}
                 paddingBottom={6}

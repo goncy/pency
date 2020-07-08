@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Box, Flex, useDisclosure} from "@chakra-ui/core";
+import {Stack, Box, Flex} from "@chakra-ui/core";
 
 import ProductDrawer from "../../components/ProductDrawer";
 import {useFilteredProducts, useProductActions, useProductCategories} from "../../hooks";
@@ -15,16 +15,18 @@ import {useTranslation} from "~/i18n/hooks";
 import ProductsUpsertDrawer from "~/product/components/ProductsUpsertDrawer";
 import {useTenant} from "~/tenant/hooks";
 import UploadIcon from "~/ui/icons/Upload";
+import ProductsCSVInput from "~/product/inputs/ProductsCSVInput";
+import EditIcon from "~/ui/icons/Edit";
 
 const AdminScreen: React.FC = () => {
   const [selected, setSelected] = React.useState<Partial<Product> | undefined>(undefined);
   const {flags} = useTenant();
   const {products, filters} = useFilteredProducts();
+  const [bulkProducts, setBulkProducts] = React.useState([]);
   const {update, remove, create, upsert} = useProductActions();
   const categories = useProductCategories();
   const productsByCategory = groupBy(products, (product) => product.category);
   const t = useTranslation();
-  const {isOpen: isBulkOpen, onOpen: onBulkOpen, onClose: onBulkClose} = useDisclosure();
 
   async function handleSubmit(product: Product) {
     if (product.id) {
@@ -39,7 +41,19 @@ const AdminScreen: React.FC = () => {
   async function handleBulkSubmit(products: Product[]) {
     await upsert(products);
 
-    onBulkClose();
+    setBulkProducts([]);
+  }
+
+  function handleImport(products: Product[]) {
+    setBulkProducts(products);
+  }
+
+  function handleBulkOpen() {
+    setBulkProducts(products);
+  }
+
+  function handleBulkClose() {
+    setBulkProducts([]);
   }
 
   function onCreate() {
@@ -66,16 +80,21 @@ const AdminScreen: React.FC = () => {
             <Content>
               <Flex alignItems="center" justifyContent="space-between" paddingX={4} width="100%">
                 {filters}
-                <Stack isInline marginLeft={4} spacing={2}>
+                <Stack isInline shouldWrapChildren marginLeft={4} spacing={2}>
+                  {flags?.includes("bulk") && (
+                    <ProductsCSVInput isCollapsable leftIcon={UploadIcon} onChange={handleImport}>
+                      Importar
+                    </ProductsCSVInput>
+                  )}
                   {flags?.includes("bulk") && (
                     <IconButton
                       isCollapsable
                       data-test-id="bulk-button"
-                      leftIcon={UploadIcon}
+                      leftIcon={EditIcon}
                       size="md"
-                      onClick={onBulkOpen}
+                      onClick={handleBulkOpen}
                     >
-                      Importar
+                      Edicion en lote
                     </IconButton>
                   )}
                   <IconButton
@@ -123,9 +142,9 @@ const AdminScreen: React.FC = () => {
         onSubmit={handleSubmit}
       />
       <ProductsUpsertDrawer
-        defaultValues={products}
-        isOpen={isBulkOpen}
-        onClose={onBulkClose}
+        defaultValues={bulkProducts}
+        isOpen={Boolean(bulkProducts?.length)}
+        onClose={handleBulkClose}
         onSubmit={handleBulkSubmit}
       />
     </>
