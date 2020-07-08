@@ -8,7 +8,7 @@ export default {
       getMessage(items, orderId, fields, preference),
     )}`,
   hook: (hook, params) =>
-    fetch("POST", hook, params)
+    fetch("POST", hook, params, {}, "no-cors")
       .then(() => console.info("Hook sent correctly"))
       .catch(() => console.warn("Hook failed")),
 };

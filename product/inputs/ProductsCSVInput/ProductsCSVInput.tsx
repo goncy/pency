@@ -1,5 +1,6 @@
 import React from "react";
 import {PseudoBox, Input} from "@chakra-ui/core";
+import {unflatten} from "flat";
 
 import {fromCSV} from "~/utils/csv";
 import {useToast} from "~/hooks/toast";
@@ -33,7 +34,23 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
 
     try {
       // Parse file
-      const data = await fromCSV<Partial<Product>>(file);
+      const rows = await fromCSV<Partial<Product>>(file);
+      const data: Product[] = rows
+        // Unflatten
+        .map((product) => unflatten<Partial<Product>, Product>(product))
+        // Remove empty options and variants
+        .map((product) => ({
+          ...product,
+          options: product.options
+            ? product.options
+                ?.filter((variant) => variant.id)
+                .map((variant) => ({
+                  ...variant,
+                  options: variant.options.filter((option) => option.id),
+                }))
+            : [],
+        }))
+        .map((product) => schemas.csv.cast(product));
 
       // Store summary
       const summary = {

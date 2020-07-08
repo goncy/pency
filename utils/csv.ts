@@ -5,6 +5,9 @@ export function fromCSV<T>(csv: File): Promise<T[]> {
   return new Promise((resolve, reject) => {
     parse<T>(csv, {
       header: true,
+      delimiter: ";",
+      dynamicTyping: true,
+      skipEmptyLines: true,
       complete: ({errors, data}) => {
         if (errors.length) {
           return reject(errors);
@@ -17,6 +20,6 @@ export function fromCSV<T>(csv: File): Promise<T[]> {
 }
 
 // Convert to CSV from JSON
-export function toCSV<T>(rows: T[], columns: string[]) {
-  return Promise.resolve(unparse(rows, {columns}));
+export function toCSV<T>(rows: T[]) {
+  return Promise.resolve(unparse(rows, {delimiter: ";"}));
 }

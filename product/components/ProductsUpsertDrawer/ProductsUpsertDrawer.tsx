@@ -1,6 +1,8 @@
 import React from "react";
 import {Button, Stack, Box} from "@chakra-ui/core";
 import styled from "@emotion/styled";
+import {flatten} from "flat";
+import isEqual from "lodash.isequal";
 
 import {Product} from "../../types";
 
@@ -9,6 +11,7 @@ import ProductsCSVInput from "~/product/inputs/ProductsCSVInput";
 import {useToast} from "~/hooks/toast";
 import {download} from "~/utils/download";
 import {toCSV} from "~/utils/csv";
+import schemas from "~/product/schemas";
 
 interface Props {
   isOpen: boolean;
@@ -46,18 +49,18 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
   }
 
   function handleChange(products: Product[]) {
+    // Cast base values to CSV schema
+    const baseValues = defaultValues.map((product) => schemas.csv.cast(product));
+
     // Store and merge changes
     const changed = products.reduce<Product[]>((products, changedProduct) => {
       // Find base product
-      const baseProduct = defaultValues.find((_product) => _product.id === changedProduct.id);
+      const baseProduct = baseValues.find((_product) => _product.id === changedProduct.id);
 
       // If we have a base product
       if (baseProduct) {
         // Check if changed
-        const changed = ["title", "description", "price", "category", "available", "featured"].some(
-          // Return if properties are equal
-          (property) => changedProduct[property] !== baseProduct[property],
-        );
+        const changed = !isEqual(baseProduct, changedProduct);
 
         // If it changed
         return changed
@@ -85,18 +88,18 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
 
   async function handleDownload() {
     try {
-      const csv = await toCSV<Product>(defaultValues, [
-        "id",
-        "title",
-        "description",
-        "price",
-        "category",
-        "available",
-        "featured",
-      ]);
+      // Cast and flatten default values
+      const baseValues = defaultValues
+        .map((product) => schemas.csv.cast(product))
+        .map((product) => flatten(product));
 
+      // Convert them to CSV
+      const csv = await toCSV(baseValues);
+
+      // Download the file
       download("pency.csv", csv);
     } catch (e) {
+      // Notify the user if something failed
       toast({
         status: "error",
         title: "Error",
