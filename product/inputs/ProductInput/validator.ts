@@ -5,10 +5,12 @@ import {Product, Variant, Option} from "~/product/types";
 interface Bulk {
   options: Pick<Variant, "options">[];
   price: Product["price"];
+  available: Product["available"];
 }
 
 const schema = yup.object<Bulk>({
-  price: yup.number().required("El precio es requerido"),
+  price: yup.number().typeError("El precio es requerido").required("El precio es requerido"),
+  available: yup.boolean().required("El stock es requerido"),
   options: yup
     .array(
       yup.object({

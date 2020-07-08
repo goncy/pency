@@ -1,17 +1,12 @@
 import React from "react";
-import {Button, Stack, Box} from "@chakra-ui/core";
-import styled from "@emotion/styled";
-import {flatten} from "flat";
+import {Button, Stack} from "@chakra-ui/core";
 import isEqual from "lodash.isequal";
 
 import {Product} from "../../types";
 
 import Drawer, {DrawerHeader, DrawerBody, DrawerTitle, DrawerFooter} from "~/ui/controls/Drawer";
-import ProductsCSVInput from "~/product/inputs/ProductsCSVInput";
 import {useToast} from "~/hooks/toast";
-import {download} from "~/utils/download";
-import {toCSV} from "~/utils/csv";
-import schemas from "~/product/schemas";
+import ProductsForm from "~/product/forms/ProductsForm";
 
 interface Props {
   isOpen: boolean;
@@ -20,42 +15,18 @@ interface Props {
   defaultValues?: Product[];
 }
 
-const Table = styled(Box)`
-  border-collapse: collapse;
-  border: 1px solid gainsboro;
-  text-align: left;
-
-  td,
-  th {
-    border: 1px solid gainsboro;
-    padding: 8px;
-  }
-`;
-
 const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues = [], onSubmit}) => {
   const [isLoading, toggleLoading] = React.useState(false);
-  const [products, setProducts] = React.useState<Product[]>([]);
   const toast = useToast();
 
-  async function handleSubmit() {
+  async function handleSubmit(products: Product[]) {
     // Toggle spinner
     toggleLoading(true);
-
-    // Submit products
-    await onSubmit(products);
-
-    // Remove spinner
-    toggleLoading(false);
-  }
-
-  function handleChange(products: Product[]) {
-    // Cast base values to CSV schema
-    const baseValues = defaultValues.map((product) => schemas.csv.cast(product));
 
     // Store and merge changes
     const changed = products.reduce<Product[]>((products, changedProduct) => {
       // Find base product
-      const baseProduct = baseValues.find((_product) => _product.id === changedProduct.id);
+      const baseProduct = defaultValues.find((_product) => _product.id === changedProduct.id);
 
       // If we have a base product
       if (baseProduct) {
@@ -82,34 +53,10 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
       });
     }
 
-    // Set products
-    setProducts(changed);
-  }
+    // Submit products
+    await onSubmit(products);
 
-  async function handleDownload() {
-    try {
-      // Cast and flatten default values
-      const baseValues = defaultValues
-        .map((product) => schemas.csv.cast(product))
-        .map((product) => flatten(product));
-
-      // Convert them to CSV
-      const csv = await toCSV(baseValues);
-
-      // Download the file
-      download("pency.csv", csv);
-    } catch (e) {
-      // Notify the user if something failed
-      toast({
-        status: "error",
-        title: "Error",
-        description: "No se pudo generar la planilla",
-      });
-    }
-  }
-
-  function handleReset() {
-    setProducts([]);
+    // Remove spinner
     toggleLoading(false);
   }
 
@@ -119,66 +66,39 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
       id="bulk-products"
       isOpen={isOpen}
       size="full"
-      onAnimationEnd={handleReset}
       onClose={onClose}
     >
       <DrawerHeader onClose={onClose} />
-      <DrawerBody marginBottom={4}>
-        <Stack shouldWrapChildren spacing={4}>
-          <DrawerTitle>Herramienta de importación / exportación</DrawerTitle>
-          {products?.length ? (
-            <Table as="table" boxShadow="sm">
-              <thead>
-                <tr>
-                  <th />
-                  <th>Titulo</th>
-                  <th>Descripcion</th>
-                  <th>Precio</th>
-                  <th>Categoria</th>
-                  <th>Disponible</th>
-                  <th>Destacado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((product, index) => (
-                  <tr key={index}>
-                    <td>{product.id ? "Existente" : "Nuevo"}</td>
-                    <td>{product.title}</td>
-                    <td>{product.description}</td>
-                    <td>{product.price}</td>
-                    <td>{product.category}</td>
-                    <td>{product.available ? "Si" : "No"}</td>
-                    <td>{product.featured ? "Si" : "No"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          ) : (
-            <Stack shouldWrapChildren spacing={2}>
-              <ProductsCSVInput onChange={handleChange}>Cargar planilla</ProductsCSVInput>
-              <Button variantColor="primary" onClick={handleDownload}>
-                Descargar planilla
+      <ProductsForm defaultValues={defaultValues} onSubmit={handleSubmit}>
+        {({form, submit}) => (
+          <>
+            <DrawerBody marginBottom={4}>
+              <Stack shouldWrapChildren spacing={4}>
+                <DrawerTitle>Herramienta de importación / exportación</DrawerTitle>
+                {form}
+              </Stack>
+            </DrawerBody>
+            <DrawerFooter>
+              <Button
+                backgroundColor="primary.500"
+                color="white"
+                data-test-id="submit-bulk-products"
+                isLoading={isLoading}
+                type="submit"
+                variantColor="primary"
+                width="100%"
+                onClick={(event) => {
+                  event.stopPropagation();
+
+                  submit();
+                }}
+              >
+                Guardar productos
               </Button>
-            </Stack>
-          )}
-        </Stack>
-      </DrawerBody>
-      {Boolean(products?.length) && (
-        <DrawerFooter>
-          <Button
-            backgroundColor="primary.500"
-            color="white"
-            data-test-id="submit-bulk-products"
-            isLoading={isLoading}
-            type="submit"
-            variantColor="primary"
-            width="100%"
-            onClick={handleSubmit}
-          >
-            Guardar productos
-          </Button>
-        </DrawerFooter>
-      )}
+            </DrawerFooter>
+          </>
+        )}
+      </ProductsForm>
     </Drawer>
   );
 };
