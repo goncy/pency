@@ -53,12 +53,13 @@ const Overview: React.FC<Props> = ({items, onIncrease, onDecrease, onSubmit, has
             {t("cart.yourOrder")} ({count})
           </DrawerTitle>
           <Stack shouldWrapChildren spacing={6}>
-            {items.map(({id, product, count, variants}) => (
+            {items.map(({id, product, count, variants, note}) => (
               <Flex key={id} alignItems="flex-start" justifyContent="space-between">
                 <Flex alignItems="center" mr={2}>
                   <Stack spacing={0}>
                     <Text fontWeight={500}>{product.title}</Text>
                     {variants && <Text color="gray.600">{getVariantsString(variants)}</Text>}
+                    {note && <Text color="gray.600">({note})</Text>}
                     <Stepper
                       marginTop={2}
                       value={count}

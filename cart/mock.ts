@@ -9,6 +9,7 @@ export default {
     return {
       id: faker.random.uuid(),
       count: 2,
+      note: "Some additional note",
       product: productMock.full,
       variants: [productMock.variant, productMock.variant],
     };

@@ -166,6 +166,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                   items={[
                     {
                       id: "temp",
+                      note: "",
                       product,
                       variants,
                       count,
