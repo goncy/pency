@@ -9,7 +9,10 @@ export default {
       id: yup.string().strip(true),
       available: yup.boolean().default(DEFAULT_PRODUCT.available),
       title: yup.string().default(DEFAULT_PRODUCT.title),
-      price: yup.number().default(DEFAULT_PRODUCT.price),
+      price: yup
+        .number()
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .default(DEFAULT_PRODUCT.price),
       options: yup
         .array(
           yup.object<Variant>({
@@ -21,7 +24,10 @@ export default {
             options: yup
               .array(
                 yup.object<Option>({
-                  price: yup.number().default(DEFAULT_PRODUCT_OPTION.price),
+                  price: yup
+                    .number()
+                    .transform((value) => (isNaN(value) ? undefined : value))
+                    .default(DEFAULT_PRODUCT_OPTION.price),
                   id: yup.string().required(),
                   title: yup.string().default(DEFAULT_PRODUCT_OPTION.title),
                 }),
@@ -30,7 +36,7 @@ export default {
           }),
         )
         .default([]),
-      category: yup.string().default(DEFAULT_PRODUCT.category),
+      category: yup.string().default(DEFAULT_PRODUCT.category).trim(),
       description: yup.string().default(DEFAULT_PRODUCT.description),
       featured: yup.boolean().default(DEFAULT_PRODUCT.featured),
       image: yup.string().default(DEFAULT_PRODUCT.image),
@@ -38,6 +44,7 @@ export default {
     update: yup.object({
       id: yup.string().required(),
       title: yup.string().nullable(),
+      category: yup.string().trim().nullable(),
       description: yup.string().nullable(),
       price: yup.number().nullable(),
       available: yup.boolean().nullable(),
@@ -53,7 +60,10 @@ export default {
             options: yup
               .array(
                 yup.object<Option>({
-                  price: yup.number().default(DEFAULT_PRODUCT_OPTION.price),
+                  price: yup
+                    .number()
+                    .transform((value) => (isNaN(value) ? undefined : value))
+                    .default(DEFAULT_PRODUCT_OPTION.price),
                   id: yup.string().required(),
                   title: yup.string().default(DEFAULT_PRODUCT_OPTION.title),
                 }),
@@ -70,7 +80,11 @@ export default {
       id: yup.string().required(),
       available: yup.boolean().default(false),
       title: yup.string().required().default(DEFAULT_PRODUCT.title),
-      price: yup.number().required().default(DEFAULT_PRODUCT.price),
+      price: yup
+        .number()
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .required()
+        .default(DEFAULT_PRODUCT.price),
       options: yup
         .array(
           yup.object<Variant>({
@@ -82,7 +96,10 @@ export default {
             options: yup
               .array(
                 yup.object<Option>({
-                  price: yup.number().default(DEFAULT_PRODUCT_OPTION.price),
+                  price: yup
+                    .number()
+                    .transform((value) => (isNaN(value) ? undefined : value))
+                    .default(DEFAULT_PRODUCT_OPTION.price),
                   id: yup.string().required(),
                   title: yup.string().default(DEFAULT_PRODUCT_OPTION.title),
                 }),
@@ -91,18 +108,18 @@ export default {
           }),
         )
         .default([]),
-      category: yup.string().default(DEFAULT_PRODUCT.title),
-      description: yup.string().default(DEFAULT_PRODUCT.title),
+      category: yup.string().default(DEFAULT_PRODUCT.category).trim(),
+      description: yup.string().default(DEFAULT_PRODUCT.description),
       featured: yup.boolean().default(DEFAULT_PRODUCT.featured),
-      image: yup.string().default(DEFAULT_PRODUCT.title),
+      image: yup.string().default(DEFAULT_PRODUCT.image),
     }),
     update: yup.object({
-      id: yup.string().required(),
-      title: yup.string().nullable(),
-      description: yup.string().nullable(),
-      price: yup.number().nullable(),
       available: yup.boolean().nullable(),
+      category: yup.string().trim().nullable(),
+      description: yup.string().nullable(),
       featured: yup.boolean().nullable(),
+      id: yup.string().required(),
+      image: yup.string().nullable(),
       options: yup
         .array(
           yup.object<Variant>({
@@ -114,7 +131,10 @@ export default {
             options: yup
               .array(
                 yup.object<Option>({
-                  price: yup.number().default(DEFAULT_PRODUCT_OPTION.price),
+                  price: yup
+                    .number()
+                    .transform((value) => (isNaN(value) ? undefined : value))
+                    .default(DEFAULT_PRODUCT_OPTION.price),
                   id: yup.string().required(),
                   title: yup.string().default(DEFAULT_PRODUCT_OPTION.title),
                 }),
@@ -123,13 +143,17 @@ export default {
           }),
         )
         .nullable(),
-      image: yup.string().nullable(),
+      price: yup.number().nullable(),
+      title: yup.string().nullable(),
     }),
     create: yup.object<Product>({
       id: yup.string().strip(true),
       available: yup.boolean().default(DEFAULT_PRODUCT.available),
       title: yup.string().default(DEFAULT_PRODUCT.title),
-      price: yup.number().default(DEFAULT_PRODUCT.price),
+      price: yup
+        .number()
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .default(DEFAULT_PRODUCT.price),
       options: yup
         .array(
           yup
@@ -142,7 +166,10 @@ export default {
               options: yup
                 .array(
                   yup.object<Option>({
-                    price: yup.number().default(DEFAULT_PRODUCT_OPTION.price),
+                    price: yup
+                      .number()
+                      .transform((value) => (isNaN(value) ? undefined : value))
+                      .default(DEFAULT_PRODUCT_OPTION.price),
                     id: yup.string().required(),
                     title: yup.string().default(DEFAULT_PRODUCT_OPTION.title),
                   }),
@@ -152,7 +179,7 @@ export default {
             .nullable(),
         )
         .default([]),
-      category: yup.string().default(DEFAULT_PRODUCT.category),
+      category: yup.string().default(DEFAULT_PRODUCT.category).trim(),
       description: yup.string().default(DEFAULT_PRODUCT.description),
       featured: yup.boolean().default(DEFAULT_PRODUCT.featured),
       image: yup.string().default(DEFAULT_PRODUCT.image),

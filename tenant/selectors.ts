@@ -1,5 +1,6 @@
+import * as yup from "yup";
+
 import {Field, ClientTenant} from "./types";
-import schemas from "./schemas";
 
 export function isMercadoPagoSelected(fields?: Field[]): boolean {
   if (!Boolean(fields?.length)) return false;
@@ -10,5 +11,15 @@ export function isMercadoPagoSelected(fields?: Field[]): boolean {
 }
 
 export function filterByRelevant(tenants: ClientTenant[]): ClientTenant[] {
-  return tenants.filter((tenant) => schemas.client.relevant.isValidSync(tenant));
+  const schema = yup.object<Partial<ClientTenant>>({
+    id: yup.string().required(),
+    slug: yup.string().required(),
+    category: yup.string().required(),
+    logo: yup.string().required(),
+    phone: yup.string().required().notOneOf(["5491173694572"]),
+    description: yup.string().notOneOf(["Armá tu tienda y recibí los pedidos via WhatsApp"]),
+    title: yup.string().notOneOf(["Pency - Tu tienda online fácil"]).required(),
+  });
+
+  return tenants.filter((tenant) => schema.isValidSync(tenant));
 }

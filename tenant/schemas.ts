@@ -170,15 +170,5 @@ export default {
         .transform((mercadopago) => Boolean(mercadopago?.token))
         .default(false),
     }),
-    relevant: yup.object<Partial<ClientTenant>>({
-      id: yup.string().required(),
-      slug: yup.string().required(),
-      category: yup.string().required(),
-      logo: yup.string().required(),
-      color: color.required(),
-      phone: yup.string().required().notOneOf(["5491173694572"]),
-      description: yup.string().notOneOf(["Armá tu tienda y recibí los pedidos via WhatsApp"]),
-      title: yup.string().notOneOf(["Pency - Tu tienda online fácil"]).required(),
-    }),
   },
 };

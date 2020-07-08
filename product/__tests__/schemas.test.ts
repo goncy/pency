@@ -236,8 +236,8 @@ describe("schemas", () => {
     });
 
     describe("fetch", () => {
-      it("should return base properties untouched", () => {
-        const base = mock.withoutVariantsValue;
+      it("should default base properties", () => {
+        const base = mock.full;
         const actual = produce<Partial<Product>>(base, (actual) => {
           delete actual.description;
           delete actual.category;
@@ -245,52 +245,63 @@ describe("schemas", () => {
           delete actual.featured;
         });
         const expected = produce(actual, (expected) => {
-          delete expected.id;
+          expected.description = DEFAULT_PRODUCT.description;
+          expected.category = DEFAULT_PRODUCT.category;
+          expected.image = DEFAULT_PRODUCT.image;
+          expected.featured = DEFAULT_PRODUCT.featured;
         });
 
-        expect(schemas.client.fetch.cast(actual)).toMatchObject(expected);
+        expect(schemas.client.fetch.cast(actual)).toEqual(expected);
       });
 
       it("should not remove id", () => {
-        const actual = mock.withoutVariantsValue;
+        const actual = mock.full;
         const expected = actual;
 
-        expect(schemas.client.fetch.cast(actual)).toMatchObject(expected);
+        expect(schemas.client.fetch.cast(actual)).toEqual(expected);
       });
 
       it("should not remove value", () => {
         const actual = mock.full;
         const expected = actual;
 
-        expect(schemas.client.fetch.cast(actual)).toMatchObject(expected);
+        expect(schemas.client.fetch.cast(actual)).toEqual(expected);
       });
 
       it("should default product variant properties", () => {
-        const base = mock.withoutVariantsValue;
+        const base = mock.full;
         const actual = produce<Partial<Product>>(base, (actual) => {
           delete actual.options[0].count;
         });
         const expected = produce(base, (expected) => {
-          delete expected.id;
-
           expected.options[0].count = DEFAULT_PRODUCT_VARIANT.count;
         });
 
-        expect(schemas.client.fetch.cast(actual)).toMatchObject(expected);
+        expect(schemas.client.fetch.cast(actual)).toEqual(expected);
       });
 
       it("should default product variant options properties", () => {
-        const base = mock.withoutVariantsValue;
+        const base = mock.full;
         const actual = produce<Partial<Product>>(base, (actual) => {
           delete actual.options[0].options[0].title;
         });
         const expected = produce(base, (expected) => {
-          delete expected.id;
-
           expected.options[0].options[0].title = DEFAULT_PRODUCT_OPTION.title;
         });
 
-        expect(schemas.client.fetch.cast(actual)).toMatchObject(expected);
+        expect(schemas.client.fetch.cast(actual)).toEqual(expected);
+      });
+
+      it("should cast product variant option price from string", () => {
+        const base = mock.full;
+        const actual = produce<Partial<Product>>(base, (actual) => {
+          actual.options[0].options[0].price = "" as any;
+        });
+        const expected = produce(base, (expected) => {
+          expected.options[0].options[0].price = 0;
+        });
+
+        expect(schemas.client.fetch.cast(actual)).toEqual(expected);
       });
     });
   });

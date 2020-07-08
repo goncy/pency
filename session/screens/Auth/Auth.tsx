@@ -19,6 +19,7 @@ const AuthScreen: React.FC<Props> = ({tenant}) => {
       backgroundColor={{base: "white", sm: "primary.50"}}
       flex={1}
       flexDirection="column"
+      height="100%"
       justifyContent="center"
       padding={{base: 0, sm: 8}}
     >

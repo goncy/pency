@@ -43,20 +43,41 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
 
       // Store products
       const value = data.map((product) => {
-        // Cast it
-        const casted = schemas.client.update.cast(product);
+        // If we have a product id
+        if (product.id) {
+          // Cast it
+          const casted = schemas.client.update.cast(product);
 
-        // If its valid
-        if (schemas.client.update.isValidSync(casted)) {
-          // Send it to resolved summary
-          summary.resolved.push(casted.title);
+          // If its valid
+          if (schemas.client.update.isValidSync(casted)) {
+            // Send it to resolved summary
+            summary.resolved.push(casted.title);
 
-          return casted;
+            return casted;
+          } else {
+            // Otherwise send it to rejected summary
+            summary.rejected.push(product?.title);
+
+            // Return product
+            return product;
+          }
         } else {
-          // Otherwise send it to rejected summary
-          summary.rejected.push(product?.title);
+          // Cast it
+          const casted = schemas.client.create.cast(product);
 
-          return product;
+          // If its valid
+          if (schemas.client.create.isValidSync(casted)) {
+            // Send it to resolved summary
+            summary.resolved.push(casted.title);
+
+            return casted;
+          } else {
+            // Otherwise send it to rejected summary
+            summary.rejected.push(product?.title);
+
+            // Return product
+            return product;
+          }
         }
       });
 

@@ -5,7 +5,10 @@ export default function validator(variants: Variant[] = []) {
     if (!variants[index]?.title) return `${index}|title|Requerido`;
 
     for (let subindex = 0; subindex < variants[index]?.options?.length; subindex++) {
-      if (isNaN(Number(variants[index]?.options?.[subindex]?.price))) {
+      if (
+        variants[index]?.options?.[subindex]?.price === ("" as any) ||
+        isNaN(Number(variants[index]?.options?.[subindex]?.price))
+      ) {
         return `${index}|optionsPrice|${subindex}|Requerido`;
       }
 

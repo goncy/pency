@@ -20,7 +20,7 @@ interface Props {
 
 const Landing: React.FC<Props> = ({tenants}) => {
   return (
-    <Stack minHeight="100vh" spacing={0}>
+    <Stack height="100%" minHeight="100vh" spacing={0}>
       <Navbar />
       <Header />
       <Features />

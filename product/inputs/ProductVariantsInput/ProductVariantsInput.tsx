@@ -125,7 +125,7 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error: _error, base 
                 onChange={(checked) => handleRequiredChange(index, checked)}
               />
             </FormControl>
-            <FormControl isRequired label="Cuantas opciones podrá elegir?">
+            <FormControl isRequired label="Cuantas opciones se podrá elegir?">
               <CountInput
                 value={option.count}
                 onChange={(count) => handleCountChange(count, index)}

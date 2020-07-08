@@ -6,7 +6,6 @@ import {Product} from "../../types";
 
 import Drawer, {DrawerHeader, DrawerBody, DrawerTitle, DrawerFooter} from "~/ui/controls/Drawer";
 import ProductsCSVInput from "~/product/inputs/ProductsCSVInput";
-import schemas from "~/product/schemas";
 import {useToast} from "~/hooks/toast";
 import {download} from "~/utils/download";
 import {toCSV} from "~/utils/csv";
@@ -46,21 +45,9 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
     toggleLoading(false);
   }
 
-  function handleChange(products: Partial<Product>[]) {
-    // Iterate all products
-    const casted: Partial<Product[]> = products.map((product) => {
-      // If an id is present
-      if (product.id) {
-        // Cast it as an update
-        return schemas.client.update.cast(product);
-      } else {
-        // Otherwise cast it as a creation
-        return schemas.client.create.cast(product);
-      }
-    });
-
+  function handleChange(products: Product[]) {
     // Store and merge changes
-    const changed = casted.reduce<Product[]>((products, changedProduct) => {
+    const changed = products.reduce<Product[]>((products, changedProduct) => {
       // Find base product
       const baseProduct = defaultValues.find((_product) => _product.id === changedProduct.id);
 

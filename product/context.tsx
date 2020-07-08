@@ -2,6 +2,7 @@ import React from "react";
 
 import {Product} from "./types";
 import api from "./api/client";
+import schemas from "./schemas";
 
 import {useToast} from "~/hooks/toast";
 import {useTenant} from "~/tenant/hooks";
@@ -32,8 +33,10 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
   );
 
   function create(product: Product) {
+    const casted = schemas.client.create.cast(product);
+
     return api
-      .create(tenant.id, product)
+      .create(tenant.id, casted)
       .then((product) => {
         setProducts(products.concat(product));
 
@@ -53,11 +56,13 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
   }
 
   function update(product: Product) {
+    const casted = schemas.client.update.cast(product);
+
     return api
-      .update(tenant.id, product)
+      .update(tenant.id, casted)
       .then(() => {
         setProducts((products) =>
-          products.map((_product) => (_product.id === product.id ? product : _product)),
+          products.map((_product) => (_product.id === casted.id ? casted : _product)),
         );
 
         toast({
@@ -77,8 +82,12 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
   }
 
   function upsert(products: Product[]) {
+    const casted = products.map((product) =>
+      product.id ? schemas.client.update.cast(product) : schemas.client.create.cast(product),
+    );
+
     return api
-      .upsert(tenant.id, products)
+      .upsert(tenant.id, casted)
       .then((products) => {
         // Store changed ids
         const ids = products.map((product) => product.id);

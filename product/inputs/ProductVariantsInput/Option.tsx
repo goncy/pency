@@ -142,7 +142,10 @@ const OptionInput: React.FC<Props> = ({error: _error, value, onChange, base = 0}
             );
           })}
         </Stack>
-        <FormHelperText>El precio de la opción se le sumará al valor del producto.</FormHelperText>
+        <FormHelperText>
+          El precio de la opción se le sumará al valor del producto, en caso de no modificar el
+          valor original, ingresá 0.
+        </FormHelperText>
       </Stack>
       <IconButton
         _hover={{

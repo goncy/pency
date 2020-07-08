@@ -106,8 +106,9 @@ const CartProvider = ({children}: Props) => {
       }
     }
 
-    // If a webhook is configured, do a post to it
+    // If a webhook is configured
     if (hook) {
+      // Do a post to it
       api.hook(hook, {items, orderId, fields});
     }
 
