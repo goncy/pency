@@ -28,7 +28,7 @@ Mandame un mail a gonzalo.pozzo4@gmail.com
 ## ¿Cómo puedo correr el proyecto?
 Completá todas las variables que aparecen en `.env.template` y guardalo como `.env.development.local`
 
-Todas las variables de firebase las encontramos en la configuración del proyecto de firebase.
+Todas las variables de firebase las encontramos en la configuración del proyecto de firebase, `GOOGLE_API_KEY` es la api key de firebase, pero como también necesitamos usarla para Google Places le cambié el nombre, tomá en cuenta que para que funcione el campo de `ubicación` necesitás tener la api de places habilitada en el proyecto y billing activado (o podés no usar el campo / deshabilitarlo, la app funciona sin eso).
 
 En `firebase/credentials.ts` están las credenciales de firebase admin para cada ambiente, necesitás obtener el json de una cuenta de servicio que podés encontrar en firebase yendo a `Configuración > Usuarios y permisos > Cuentas de servicio` y generando una nueva clave privada. Después andá a https://www.devglan.com/online-tools/aes-encryption-decryption y seleccioná tu archivo de credenciales, en `mode` seleccioná `CBC`, `Key Size in Bits` `128`, `Enter IV (Optional)` la misma clave iv que en tu archivo `.env.development.local`, `Enter Secret Key` la misma secret key que en tu archivo `.env.development.local`, `Output Text Format` en `Base64`, clickea `Encrypt` y pegá el contenido en `firebase/credentials.ts` en el ambiente que corresponda.
 
@@ -89,6 +89,9 @@ npm install && npm run dev
  - Hacemos click en `Send` y comprobamos si se creó la tienda entrando en: `http://localhost:3000/NOMBRE_DE_TU_TIENDA`
  -  Para acceder al panel de administración debemos entrar mediante el siguiente link: `http://localhost:3000/NOMBRE_DE_TU_TIENDA/admin`
  > Tomá en cuenta que ya que usamos el uid del usuario como id del documento, no podémos tener más de un usuario por tienda ni tampoco más de una tienda por usuario.
+
+## Primer deploy a Vercel
+Buildeamos la tienda de `/demo` y las tiendas de `/index` estáticamente, por lo que necesitamos que la app ya este deployada en Vercel. Claramente no es posible si querés deployarla la primera vez y va a fallar el build en Vercel. Así que recorda comentar / borrar el `getStaticProps` para `pages/index.tsx` y `pages/demo.tsx` antes de deployar la primera vez (después podés volver a habilitarlo si te sirven).
 
 ## ¿Qué puedo hacer con Pency?
 Podés leer la licencia [acá](./LICENSE.md). En resumen, podés usar Pency para lo que quieras mientras no lucres con eso y menciones la fuente original cuando lo uses 🥰.
