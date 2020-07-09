@@ -118,24 +118,38 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === "PUT") {
     const {
+      // Extract tenant id
       query: {tenant},
+      // Extract products to change
       body: {products},
+      // Extract token
       headers: {authorization: token},
     } = req as PutRequest;
 
+    // If we don't have a tenant, return 304
     if (!tenant) return res.status(304).end();
 
-    return sessionApi
-      .verify(token)
-      .then(({uid}) => {
-        if (uid !== tenant) return res.status(403).end();
+    // Verify that session es valid
+    return (
+      sessionApi
+        .verify(token)
+        .then(({uid}) => {
+          // If the user doesn't belong to the tenant, return a 403
+          if (uid !== tenant) return res.status(403).end();
 
-        return api
-          .upsert(tenant, products)
-          .then((products) => res.status(200).json(products))
-          .catch(() => res.status(400).end("Hubo un error actualizando los productos"));
-      })
-      .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
+          return (
+            api
+              // Upsert products
+              .upsert(tenant, products)
+              // As this is not just un update operation we have to return the products because it includes ids for created ones
+              .then((products) => res.status(200).json(products))
+              // If something failed, return a 400
+              .catch(() => res.status(400).end("Hubo un error actualizando los productos"))
+          );
+        })
+        // If the session is not valid, return a 401
+        .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"))
+    );
   }
 
   if (req.method === "DELETE") {

@@ -20,7 +20,9 @@ interface Props extends Omit<StackProps, "onChange"> {
 const ProductInput: React.FC<Props> = ({value: product, onChange, error, ...props}) => {
   function handlePriceChange(event: React.ChangeEvent<HTMLInputElement>) {
     onChange(
+      // Produce a new product based on the change
       produce(product, (product) => {
+        // Cast as unknown and then number so we can have an empty input, we then validate that with the schema
         product.price = (event.target.value as unknown) as number;
       }),
     );
@@ -28,6 +30,7 @@ const ProductInput: React.FC<Props> = ({value: product, onChange, error, ...prop
 
   function handleVariantsChange(variants: Variant[]) {
     onChange(
+      // Produce a new product based on the change
       produce(product, (product) => {
         product.options = variants;
       }),
@@ -36,6 +39,7 @@ const ProductInput: React.FC<Props> = ({value: product, onChange, error, ...prop
 
   function handleAvailableChange(available: boolean) {
     onChange(
+      // Produce a new product based on the change
       produce(product, (product) => {
         product.available = available;
       }),

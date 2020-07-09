@@ -51,7 +51,10 @@ const ProductVariantForm: React.FC<Props> = ({children, defaultValues, onSubmit}
                 isRequired={variant.required}
                 label={variant.title}
                 name={`options[${index}]`}
-                note={variant.count > 1 && `(Máx. ${variant.count})`}
+                note={
+                  variant.count > 1 &&
+                  `(${variant.required ? `Seleccioná` : `Máx.`} ${variant.count})`
+                }
               >
                 <Controller
                   as={ProductVariantSelector}

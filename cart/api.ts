@@ -7,10 +7,10 @@ export default {
     `https://wa.me/${phone}?text=${encodeURIComponent(
       getMessage(items, orderId, fields, preference),
     )}`,
-  hook: (hook, {phone, items, orderId, fields, preference = null}) =>
+  hook: (url, {phone, items, orderId, fields, preference = null}) =>
     fetch(
       "POST",
-      hook,
+      url,
       {
         phone,
         items,
