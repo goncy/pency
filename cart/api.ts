@@ -7,8 +7,21 @@ export default {
     `https://wa.me/${phone}?text=${encodeURIComponent(
       getMessage(items, orderId, fields, preference),
     )}`,
-  hook: (hook, params) =>
-    fetch("POST", hook, params, {}, "no-cors")
+  hook: (hook, {phone, items, orderId, fields, preference = null}) =>
+    fetch(
+      "POST",
+      hook,
+      {
+        phone,
+        items,
+        orderId,
+        fields,
+        preference,
+        message: getMessage(items, orderId, fields, preference),
+      },
+      {},
+      "no-cors",
+    )
       .then(() => console.info("Hook sent correctly"))
       .catch(() => console.warn("Hook failed")),
 };
