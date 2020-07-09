@@ -95,7 +95,7 @@ const CartProvider = ({children}: Props) => {
 
         // If a webhook is configured, do a post to it
         if (hook) {
-          api.hook(hook, {items, orderId, fields, preference});
+          api.hook(hook, {phone, items, orderId, fields, preference});
         }
 
         // Redirect the new tab to the corresponding url
@@ -109,7 +109,7 @@ const CartProvider = ({children}: Props) => {
     // If a webhook is configured
     if (hook) {
       // Do a post to it
-      api.hook(hook, {items, orderId, fields});
+      api.hook(hook, {phone, items, orderId, fields});
     }
 
     // If we don't have mercadopago configured and selected, redirect the user to whatsapp
