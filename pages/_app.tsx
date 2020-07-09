@@ -15,6 +15,15 @@ process.on("uncaughtException", (error: Error) => {
 });
 
 export default class Pency extends App {
+  componentDidMount() {
+    /**
+     * This help us fix a bug in embed browsers like
+     * the Instagram one where the bottom bar chops
+     * the review order button
+     */
+    require("viewport-units-buggyfill").init();
+  }
+
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     reporter.exception(error, {extras: errorInfo, origin: "client"});
 

@@ -31,10 +31,10 @@
     "react-hook-form": "^5.5.3",
     "react-i18next": "^11.5.0",
     "shortid": "^2.2.15",
+    "viewport-units-buggyfill": "^0.6.2",
     "yup": "^0.29.1"
   },
   "devDependencies": {
-    "@types/papaparse": "^5.0.4",
     "@babel/core": "^7.9.6",
     "@babel/plugin-syntax-typescript": "^7.8.3",
     "@storybook/addon-a11y": "^5.3.19",
@@ -47,6 +47,7 @@
     "@types/faker": "^4.1.12",
     "@types/jest": "^25.2.3",
     "@types/node": "^13.13.1",
+    "@types/papaparse": "^5.0.4",
     "@types/react": "^16.9.34",
     "@types/react-dom": "^16.9.0",
     "@types/shortid": "^0.0.29",
