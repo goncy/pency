@@ -8,6 +8,9 @@ import UploadIcon from "~/ui/icons/Upload";
 import IconButton from "~/ui/controls/IconButton";
 import EditIcon from "~/ui/icons/Edit";
 import {Product} from "~/product/types";
+import {download} from "~/utils/download";
+import {CSV_TEMPLATE} from "~/product/constants";
+import DownloadIcon from "~/ui/icons/Download";
 
 interface Props {
   products: Product[];
@@ -41,12 +44,26 @@ const ProductsUpsertButton: React.FC<Props> = ({products: base, onSubmit}) => {
     setProducts([]);
   }
 
+  function handleDownload() {
+    // Download the base CSV file
+    download("pency.csv", CSV_TEMPLATE);
+  }
+
   return (
     <>
       <Stack isInline spacing={2}>
         <ProductsCSVInput isCollapsable leftIcon={UploadIcon} onChange={handleImport}>
           Importar
         </ProductsCSVInput>
+        <IconButton
+          isCollapsable
+          data-test-id="bulk-button"
+          leftIcon={DownloadIcon}
+          size="md"
+          onClick={handleDownload}
+        >
+          Descargar planilla
+        </IconButton>
         <IconButton
           isCollapsable
           data-test-id="bulk-button"
