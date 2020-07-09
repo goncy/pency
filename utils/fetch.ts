@@ -7,9 +7,11 @@ export default function fetch(
   path: string,
   body: Record<string, any> = null,
   headers: Record<string, any> = {},
+  mode: RequestInit["mode"] = "cors",
 ) {
   return unfetch(path, {
     method: method,
+    mode,
     headers: {
       "content-type": "application/json",
       Authorization: process.browser ? window.localStorage.getItem("token") : null,

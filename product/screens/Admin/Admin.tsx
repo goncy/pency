@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Box, Flex, useDisclosure} from "@chakra-ui/core";
+import {Stack, Box, Flex} from "@chakra-ui/core";
 
 import ProductDrawer from "../../components/ProductDrawer";
 import {useFilteredProducts, useProductActions, useProductCategories} from "../../hooks";
@@ -12,9 +12,8 @@ import IconButton from "~/ui/controls/IconButton";
 import Content from "~/ui/structure/Content";
 import NoResults from "~/ui/feedback/NoResults";
 import {useTranslation} from "~/i18n/hooks";
-import ProductsUpsertDrawer from "~/product/components/ProductsUpsertDrawer";
 import {useTenant} from "~/tenant/hooks";
-import UploadIcon from "~/ui/icons/Upload";
+import ProductsUpsertButton from "~/product/components/ProductsUpsertButton";
 
 const AdminScreen: React.FC = () => {
   const [selected, setSelected] = React.useState<Partial<Product> | undefined>(undefined);
@@ -24,7 +23,6 @@ const AdminScreen: React.FC = () => {
   const categories = useProductCategories();
   const productsByCategory = groupBy(products, (product) => product.category);
   const t = useTranslation();
-  const {isOpen: isBulkOpen, onOpen: onBulkOpen, onClose: onBulkClose} = useDisclosure();
 
   async function handleSubmit(product: Product) {
     if (product.id) {
@@ -34,12 +32,6 @@ const AdminScreen: React.FC = () => {
     }
 
     closeProductDrawer();
-  }
-
-  async function handleBulkSubmit(products: Product[]) {
-    await upsert(products);
-
-    onBulkClose();
   }
 
   function onCreate() {
@@ -66,17 +58,9 @@ const AdminScreen: React.FC = () => {
             <Content>
               <Flex alignItems="center" justifyContent="space-between" paddingX={4} width="100%">
                 {filters}
-                <Stack isInline marginLeft={4} spacing={2}>
+                <Stack isInline shouldWrapChildren marginLeft={4} spacing={2}>
                   {flags?.includes("bulk") && (
-                    <IconButton
-                      isCollapsable
-                      data-test-id="bulk-button"
-                      leftIcon={UploadIcon}
-                      size="md"
-                      onClick={onBulkOpen}
-                    >
-                      Importar
-                    </IconButton>
+                    <ProductsUpsertButton products={products} onSubmit={upsert} />
                   )}
                   <IconButton
                     isCollapsable
@@ -121,12 +105,6 @@ const AdminScreen: React.FC = () => {
         isOpen={Boolean(selected)}
         onClose={closeProductDrawer}
         onSubmit={handleSubmit}
-      />
-      <ProductsUpsertDrawer
-        defaultValues={products}
-        isOpen={isBulkOpen}
-        onClose={onBulkClose}
-        onSubmit={handleBulkSubmit}
       />
     </>
   );

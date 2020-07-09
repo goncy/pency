@@ -185,4 +185,40 @@ export default {
       image: yup.string().default(DEFAULT_PRODUCT.image),
     }),
   },
+  csv: yup.object({
+    available: yup.boolean().nullable(),
+    category: yup.string().trim().nullable(),
+    description: yup
+      .string()
+      .transform((value) => value || "")
+      .nullable(),
+    featured: yup.boolean().nullable(),
+    id: yup.string().nullable(),
+    image: yup
+      .string()
+      .transform((value) => value || "")
+      .nullable(),
+    options: yup
+      .array(
+        yup.object<Variant>({
+          id: yup.string().required(),
+          title: yup.string().required().trim().default(DEFAULT_PRODUCT_VARIANT.title),
+          value: yup.array<Option>().strip(true),
+          required: yup.boolean().default(DEFAULT_PRODUCT_VARIANT.required),
+          count: yup.number().default(DEFAULT_PRODUCT_VARIANT.count),
+          options: yup
+            .array(
+              yup.object<Option>({
+                price: yup.number().default(DEFAULT_PRODUCT_OPTION.price),
+                id: yup.string().required(),
+                title: yup.string().trim().default(DEFAULT_PRODUCT_OPTION.title),
+              }),
+            )
+            .default([]),
+        }),
+      )
+      .nullable(),
+    price: yup.number().nullable(),
+    title: yup.string().nullable(),
+  }),
 };

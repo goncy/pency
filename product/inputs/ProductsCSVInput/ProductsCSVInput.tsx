@@ -1,17 +1,21 @@
 import React from "react";
-import {PseudoBox, Input} from "@chakra-ui/core";
+import {PseudoBox, Input, ButtonProps} from "@chakra-ui/core";
 
 import {fromCSV} from "~/utils/csv";
 import {useToast} from "~/hooks/toast";
 import {Product} from "~/product/types";
-import Button from "~/ui/controls/Button";
 import schemas from "~/product/schemas";
+import IconButton from "~/ui/controls/IconButton";
 
-interface Props {
+interface Props extends Omit<ButtonProps, "onChange" | "leftIcon" | "rightIcon" | "children"> {
   onChange?: (products: Partial<Product>[]) => void;
+  leftIcon?: React.ElementType;
+  rightIcon?: React.ElementType;
+  children?: React.ReactNode;
+  isCollapsable?: boolean;
 }
 
-const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
+const ProductsCSVInput: React.FC<Props> = ({onChange, children, ...props}) => {
   // Track loading state
   const [isLoading, setLoading] = React.useState(false);
 
@@ -33,7 +37,10 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
 
     try {
       // Parse file
-      const data = await fromCSV<Partial<Product>>(file);
+      const rows = await fromCSV<Partial<Product>>(file);
+
+      // Cast data
+      const data: Product[] = rows.map((product) => schemas.csv.cast(product));
 
       // Store summary
       const summary = {
@@ -43,41 +50,21 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
 
       // Store products
       const value = data.map((product) => {
-        // If we have a product id
-        if (product.id) {
-          // Cast it
-          const casted = schemas.client.update.cast(product);
+        // Cast it
+        const casted = schemas.client.create.cast(product);
 
-          // If its valid
-          if (schemas.client.update.isValidSync(casted)) {
-            // Send it to resolved summary
-            summary.resolved.push(casted.title);
+        // If its valid
+        if (schemas.client.create.isValidSync(casted)) {
+          // Send it to resolved summary
+          summary.resolved.push(casted.title);
 
-            return casted;
-          } else {
-            // Otherwise send it to rejected summary
-            summary.rejected.push(product?.title);
-
-            // Return product
-            return product;
-          }
+          return casted;
         } else {
-          // Cast it
-          const casted = schemas.client.create.cast(product);
+          // Otherwise send it to rejected summary
+          summary.rejected.push(product?.title);
 
-          // If its valid
-          if (schemas.client.create.isValidSync(casted)) {
-            // Send it to resolved summary
-            summary.resolved.push(casted.title);
-
-            return casted;
-          } else {
-            // Otherwise send it to rejected summary
-            summary.rejected.push(product?.title);
-
-            // Return product
-            return product;
-          }
+          // Return product
+          return product;
         }
       });
 
@@ -135,9 +122,9 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
         isDisabled={isLoading}
         left={0}
         name="image"
-        opacity={0}
         placeholder="Seleccionar archivo"
         position="absolute"
+        style={{opacity: 0}}
         title="Cargar CSV"
         top={0}
         type="file"
@@ -145,9 +132,9 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
         zIndex={1}
         onChange={handleChange}
       />
-      <Button isLoading={isLoading} variantColor="primary">
+      <IconButton isLoading={isLoading} {...props}>
         {children}
-      </Button>
+      </IconButton>
     </PseudoBox>
   );
 };

@@ -5,10 +5,13 @@ import {Product, Variant, Option} from "~/product/types";
 interface Bulk {
   options: Pick<Variant, "options">[];
   price: Product["price"];
+  available: Product["available"];
 }
 
 const schema = yup.object<Bulk>({
-  price: yup.number().required("El precio es requerido"),
+  // We catch typeError as we can have an empty field ("")
+  price: yup.number().typeError("El precio es requerido").required("El precio es requerido"),
+  available: yup.boolean().required("El stock es requerido"),
   options: yup
     .array(
       yup.object({
@@ -26,10 +29,13 @@ const schema = yup.object<Bulk>({
 
 export default function validator(product: Product) {
   try {
+    // Check if product is valid
     schema.validateSync(product);
 
+    // Return true if no errors were found
     return true;
-  } catch (e) {
-    return e.message;
+  } catch (error) {
+    // Validate sync will throw so we return the error message
+    return error.message;
   }
 }

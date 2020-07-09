@@ -152,7 +152,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                   color="primary"
                   control={control}
                   display="block"
-                  label="Disponible"
+                  label="En stock"
                   name="available"
                 />
               </FormControl>
