@@ -35,7 +35,7 @@ const AdminScreen: React.FC = () => {
   const t = useTranslation();
 
   return (
-    <Box as="main" backgroundColor="white" height="100%" overflowY="auto">
+    <Box as="main" backgroundColor="white" overflowY="auto">
       <Flex alignItems="center" boxShadow="sm" height={16} paddingY={2} position="relative">
         <Content paddingX={4}>
           <Flex alignItems="center" justifyContent="space-between" width="100%">

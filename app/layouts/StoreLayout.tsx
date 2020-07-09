@@ -17,18 +17,9 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
   <>
     <Global
       styles={css`
-        body {
-          min-height: 100vh;
-          min-height: -webkit-fill-available;
-          height: 100%;
-        }
-
-        html {
-          height: -webkit-fill-available;
-        }
-
         html,
         body {
+          height: 100%;
           width: 100%;
           max-width: 100vw;
           overscroll-behavior: contain;

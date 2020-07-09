@@ -1,6 +1,6 @@
 import React from "react";
 import App from "next/app";
-import {ThemeProvider, CSSReset} from "@chakra-ui/core";
+import {ThemeProvider, CSSReset, Flex} from "@chakra-ui/core";
 
 import ErrorScreen from "./_error";
 
@@ -37,7 +37,13 @@ export default class Pency extends App {
     return (
       <ThemeProvider>
         <CSSReset />
-        {error ? <ErrorScreen statusCode={error} /> : <Component {...pageProps} />}
+        {error ? (
+          <ErrorScreen statusCode={error} />
+        ) : (
+          <Flex direction="column" height="100%">
+            <Component {...pageProps} />
+          </Flex>
+        )}
       </ThemeProvider>
     );
   }
