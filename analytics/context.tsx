@@ -38,11 +38,11 @@ const AnalyticsProvider: React.FC = ({children}) => {
           item_id: product.id,
           item_variant: getVariantsString(variants),
           item_name: product.title,
-          price: (product.price + getVariantsPrice(variants)) * count,
+          price: ((product.promotionalPrice || product.price) + getVariantsPrice(variants)) * count,
         },
       ],
       currency: CURRENCIES[tenant.country],
-      value: product.price,
+      value: product.promotionalPrice || product.price,
     });
   }
 
@@ -56,11 +56,11 @@ const AnalyticsProvider: React.FC = ({children}) => {
           item_id: product.id,
           item_variant: getVariantsString(variants),
           item_name: product.title,
-          price: (product.price + getVariantsPrice(variants)) * count,
+          price: ((product.promotionalPrice || product.price) + getVariantsPrice(variants)) * count,
         },
       ],
       currency: CURRENCIES[tenant.country],
-      value: product.price,
+      value: product.promotionalPrice || product.price,
     });
   }
 

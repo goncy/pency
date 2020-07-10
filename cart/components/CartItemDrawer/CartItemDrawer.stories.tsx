@@ -23,4 +23,31 @@ export const base = () => (
   />
 );
 
+export const unavailable = () => (
+  <CartItemDrawer
+    isOpen
+    product={{...productMock.full, visibility: "unavailable"}}
+    onClose={action("close")}
+    onSubmit={action("submit")}
+  />
+);
+
+export const ask = () => (
+  <CartItemDrawer
+    isOpen
+    product={{...productMock.full, visibility: "ask"}}
+    onClose={action("close")}
+    onSubmit={action("submit")}
+  />
+);
+
+export const hidden = () => (
+  <CartItemDrawer
+    isOpen
+    product={{...productMock.full, visibility: "hidden"}}
+    onClose={action("close")}
+    onSubmit={action("submit")}
+  />
+);
+
 export default {title: "Cart/Components/CartItemDrawer"};
