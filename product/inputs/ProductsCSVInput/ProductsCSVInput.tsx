@@ -40,7 +40,7 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children, ...props}) => {
       const rows = await fromCSV<Partial<Product>>(file);
 
       // Cast data
-      const data: Product[] = rows.map((product) => schemas.csv.cast(product));
+      const data: Partial<Product>[] = rows.map((product) => schemas.csv.cast(product));
 
       // Store summary
       const summary = {

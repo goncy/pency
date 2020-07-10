@@ -62,7 +62,9 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
       .update(tenant.id, casted)
       .then(() => {
         setProducts((products) =>
-          products.map((_product) => (_product.id === casted.id ? casted : _product)),
+          products.map((_product) =>
+            _product.id === casted.id ? {..._product, ...casted} : _product,
+          ),
         );
 
         toast({
