@@ -25,10 +25,6 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           overscroll-behavior: contain;
         }
 
-        #__next {
-          /* height: 100%; */
-        }
-
         * {
           letter-spacing: -0.2px;
           touch-action: manipulation;
