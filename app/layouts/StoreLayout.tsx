@@ -22,7 +22,6 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           height: 100%;
           width: 100%;
           max-width: 100vw;
-          overscroll-behavior: contain;
         }
 
         * {
@@ -109,7 +108,7 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           <meta content={tenant.title || META.title} property="og:image:alt" />
         </>
       )}
-      <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+      <meta content="width=device-width, initial-scale=1.0, viewport-fit=contain" name="viewport" />
     </Head>
     {children}
   </>
