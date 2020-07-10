@@ -5,17 +5,17 @@ import {Product, Variant, Option} from "~/product/types";
 interface Bulk {
   options: Pick<Variant, "options">[];
   price: Product["price"];
-  promotionalPrice: Product["promotionalPrice"];
+  originalPrice: Product["originalPrice"];
   visibility: Product["visibility"];
 }
 
 const schema = yup.object<Bulk>({
   // We catch typeError as we can have an empty field ("")
   price: yup.number().typeError("El precio es requerido").required("El precio es requerido"),
-  promotionalPrice: yup
+  originalPrice: yup
     .number()
-    .typeError("El precio promocional es requerido, indicá 0 en caso de no corresponder")
-    .required("El precio promocional es requerido, indicá 0 en caso de no corresponder"),
+    .typeError("El precio original es requerido, indicá 0 en caso de no corresponder")
+    .required("El precio original es requerido, indicá 0 en caso de no corresponder"),
   visibility: yup
     .string()
     .oneOf(["available", "unavailable", "ask", "hidden"])

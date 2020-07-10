@@ -1,14 +1,14 @@
 import {Variant, Product, Option} from "./types";
 
 export const CSV_TEMPLATE =
-  "title;description;price;promotionalPrice;category;visibility;featured\n;-;-;-;TRUE;FALSE";
+  "title;description;price;originalPrice;category;visibility;featured\n;-;-;-;TRUE;FALSE";
 
 export const DEFAULT_PRODUCT: Omit<Product, "id"> = {
   title: "",
   description: "",
   category: null,
   image: "",
-  promotionalPrice: 0,
+  originalPrice: 0,
   price: 0,
   visibility: "available",
   featured: false,

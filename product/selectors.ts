@@ -30,7 +30,7 @@ export function getVariantsPrice(variants: Variant[]): number {
 }
 
 export function getPrice(product: Product): number {
-  const base = Number(product.promotionalPrice || product.price);
+  const base = Number(product.price);
 
   return product.options?.length
     ? product.options.reduce((total, option) => {

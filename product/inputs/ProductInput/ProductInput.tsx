@@ -28,12 +28,12 @@ const ProductInput: React.FC<Props> = ({value: product, onChange, error, ...prop
     );
   }
 
-  function handlePromotionalPriceChange(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleOriginalPriceChange(event: React.ChangeEvent<HTMLInputElement>) {
     onChange(
       // Produce a new product based on the change
       produce(product, (product) => {
         // Cast as unknown and then number so we can have an empty input, we then validate that with the schema
-        product.promotionalPrice = (event.target.value as unknown) as number;
+        product.originalPrice = (event.target.value as unknown) as number;
       }),
     );
   }
@@ -85,8 +85,8 @@ const ProductInput: React.FC<Props> = ({value: product, onChange, error, ...prop
         <Price
           inputProps={{isInvalid: false}}
           rounded="sm"
-          value={product.promotionalPrice}
-          onChange={handlePromotionalPriceChange}
+          value={product.originalPrice}
+          onChange={handleOriginalPriceChange}
         />
         <ProductVariantsInput value={product.options} onChange={handleVariantsChange} />
         <Select onChange={handleVisibilityChange}>

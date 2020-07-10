@@ -35,7 +35,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
     const product = {...defaultValues, ...values};
 
     product.price = values.visibility === "ask" ? 0 : Number(product.price);
-    product.promotionalPrice = values.visibility === "ask" ? 0 : Number(product.promotionalPrice);
+    product.originalPrice = values.visibility === "ask" ? 0 : Number(product.originalPrice);
 
     return onSubmit(product);
   }
@@ -109,15 +109,15 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                 />
               </FormControl>
               <FormControl
-                error={errors.promotionalPrice && "Este valor es inválido"}
+                error={errors.originalPrice && "Este valor es inválido"}
                 flex={1}
-                label="Precio promocional"
-                name="promotionalPrice"
+                label="Precio original"
+                name="originalPrice"
               >
                 <Price
                   ref={register({required: true})}
                   inputProps={{isDisabled: values.visibility === "ask"}}
-                  name="promotionalPrice"
+                  name="originalPrice"
                   placeholder="150"
                   rounded="md"
                 />
@@ -179,7 +179,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
             <FormControl name="options">
               <Controller
                 as={ProductVariantsInput}
-                base={values?.promotionalPrice || values?.price}
+                base={values?.price}
                 control={control}
                 defaultValue={[]}
                 error={(errors.options as unknown) as FieldError}

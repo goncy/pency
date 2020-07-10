@@ -72,11 +72,7 @@ const Overview: React.FC<Props> = ({items, onIncrease, onDecrease, onSubmit, has
                   <Text fontWeight={500}>
                     {product.visibility === "ask"
                       ? "A consultar"
-                      : p(
-                          ((product.promotionalPrice || product.price) +
-                            getVariantsPrice(variants)) *
-                            count,
-                        )}
+                      : p((product.price + getVariantsPrice(variants)) * count)}
                   </Text>
                 </Flex>
               </Flex>

@@ -54,9 +54,7 @@ const ProductRow: React.FC<Props> = ({onEdit, onRemove, ...product}) => {
       </Box>
       <Box as="td" display={{base: "none", md: "table-cell"}} width="160px">
         <Text fontWeight="500" marginRight={{base: 4, md: 12}} textAlign="left">
-          {product.visibility === "ask"
-            ? "A consultar"
-            : p(product.promotionalPrice || product.price)}
+          {product.visibility === "ask" ? "A consultar" : p(product.price)}
         </Text>
       </Box>
       <Box as="td" display={{base: "none", md: "table-cell"}} width="200px">

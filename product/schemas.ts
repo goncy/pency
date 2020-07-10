@@ -16,10 +16,10 @@ export default {
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
         .default(DEFAULT_PRODUCT.price),
-      promotionalPrice: yup
+      originalPrice: yup
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
-        .default(DEFAULT_PRODUCT.promotionalPrice),
+        .default(DEFAULT_PRODUCT.originalPrice),
       options: yup
         .array(
           yup.object<Variant>({
@@ -54,7 +54,7 @@ export default {
       category: yup.string().trim().nullable(),
       description: yup.string().nullable(),
       price: yup.number().nullable(),
-      promotionalPrice: yup.number().nullable(),
+      originalPrice: yup.number().nullable(),
       visibility: yup.string().oneOf(["available", "unavailable", "ask", "hidden"]).nullable(),
       featured: yup.boolean().nullable(),
       options: yup
@@ -96,11 +96,11 @@ export default {
         .transform((value) => (isNaN(value) ? undefined : value))
         .required()
         .default(DEFAULT_PRODUCT.price),
-      promotionalPrice: yup
+      originalPrice: yup
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
         .required()
-        .default(DEFAULT_PRODUCT.promotionalPrice),
+        .default(DEFAULT_PRODUCT.originalPrice),
       options: yup
         .array(
           yup.object<Variant>({
@@ -160,7 +160,7 @@ export default {
         )
         .nullable(),
       price: yup.number().nullable(),
-      promotionalPrice: yup.number().nullable(),
+      originalPrice: yup.number().nullable(),
       title: yup.string().nullable(),
     }),
     create: yup.object<Product>({
@@ -174,10 +174,10 @@ export default {
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
         .default(DEFAULT_PRODUCT.price),
-      promotionalPrice: yup
+      originalPrice: yup
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
-        .default(DEFAULT_PRODUCT.promotionalPrice),
+        .default(DEFAULT_PRODUCT.originalPrice),
       options: yup
         .array(
           yup
@@ -243,7 +243,7 @@ export default {
       )
       .nullable(),
     price: yup.number().nullable(),
-    promotionalPrice: yup.number().nullable(),
+    originalPrice: yup.number().nullable(),
     title: yup.string().nullable(),
   }),
 };

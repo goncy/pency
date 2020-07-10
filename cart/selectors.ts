@@ -6,10 +6,7 @@ import {formatPrice} from "~/i18n/selectors";
 
 export function getTotal(items: CartItem[]): number {
   return items.reduce(
-    (total, item) =>
-      total +
-      ((item.product.promotionalPrice || item.product.price) + getVariantsPrice(item.variants)) *
-        item.count,
+    (total, item) => total + (item.product.price + getVariantsPrice(item.variants)) * item.count,
     0,
   );
 }
@@ -45,9 +42,7 @@ function _getItems(items: CartItem[]): string {
           product.title,
           variants ? `_${getVariantsString(variants)}_` : "",
           note ? `(${note})` : "",
-          `> *${formatPrice(
-            ((product.promotionalPrice || product.price) + getVariantsPrice(variants)) * count,
-          )}*`,
+          `> *${formatPrice((product.price + getVariantsPrice(variants)) * count)}*`,
         ]
           .filter(Boolean)
           .join(" ")}`,

@@ -11,7 +11,7 @@ export default {
       description: faker.lorem.paragraph(),
       title: faker.commerce.productName(),
       price: Number(faker.commerce.price()),
-      promotionalPrice: Number(faker.commerce.price()),
+      originalPrice: Number(faker.commerce.price()),
       visibility: "available",
       featured: true,
       options: [],

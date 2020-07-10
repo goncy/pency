@@ -13,7 +13,7 @@ interface Props extends Omit<FlexProps, "onClick"> {
 
 const PortraitProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...props}) => {
   const p = usePrice();
-  const {image, title, price, promotionalPrice, visibility} = product;
+  const {image, title, price, originalPrice, visibility} = product;
 
   function handleClick() {
     onClick(product);
@@ -58,9 +58,9 @@ const PortraitProductCard: React.FC<Props> = ({isRaised = false, product, onClic
         {visibility === "available" && (
           <Stack isInline alignItems="center">
             <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
-              {p(promotionalPrice || price)}
+              {p(price)}
             </Text>
-            {promotionalPrice && (
+            {originalPrice && (
               <Text color="gray.500" fontSize="sm" lineHeight={1} textDecoration="line-through">
                 {p(price)}
               </Text>

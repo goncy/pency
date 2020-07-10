@@ -14,12 +14,12 @@ export default {
 export const base = () => (
   <ProductCard
     layout="portrait"
-    product={{...productMock.full, promotionalPrice: 0}}
+    product={{...productMock.full, originalPrice: 0}}
     onClick={action("onClick")}
   />
 );
 
-export const withPromotionalPrice = () => (
+export const withOriginalPrice = () => (
   <ProductCard layout="portrait" product={productMock.full} onClick={action("onClick")} />
 );
 

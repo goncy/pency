@@ -5,7 +5,7 @@ export interface Product {
   category?: string;
   image?: string | undefined;
   price: number;
-  promotionalPrice?: number;
+  originalPrice?: number;
   visibility: "available" | "unavailable" | "ask" | "hidden";
   options?: Variant[];
   featured?: boolean;

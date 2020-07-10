@@ -15,7 +15,7 @@ export default {
         category_id: product.category,
         quantity: count,
         currency_id: "ARS",
-        unit_price: (product.promotionalPrice || product.price) + getVariantsPrice(variants),
+        unit_price: product.price + getVariantsPrice(variants),
       })),
       external_reference: `Orden: ${orderId}`,
       back_urls: {
