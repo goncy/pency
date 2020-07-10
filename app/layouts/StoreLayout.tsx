@@ -23,12 +23,10 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           width: 100%;
           max-width: 100vw;
           overscroll-behavior: contain;
-          overflow: hidden;
-          position: fixed;
         }
 
         #__next {
-          height: 100%;
+          /* height: 100%; */
         }
 
         * {
