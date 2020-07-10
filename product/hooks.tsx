@@ -33,15 +33,16 @@ export function useProductCategories() {
   return sort(extractUniqueBy(products, (product) => product.category));
 }
 
-export function useFilteredProducts() {
+export function useFilteredProducts(selector?: (product: Product) => boolean) {
   const products = useProducts();
   const t = useTranslation();
   const [query, setQuery] = React.useState("");
-  const productsBySearch = React.useMemo(() => filterBy(products, {title: query}), [
+  const filtered = selector ? products.filter(selector) : products;
+  const productsBySearch = React.useMemo(() => filterBy(filtered, {title: query}), [
     query,
-    products,
+    filtered,
   ]);
-  const categories = groupBy(products, (product) => product.category).map(([category, products]): [
+  const categories = groupBy(filtered, (product) => product.category).map(([category, products]): [
     Product["category"],
     number,
   ] => [category, products.length]);

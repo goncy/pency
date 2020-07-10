@@ -32,7 +32,7 @@ const ProductsScreen: React.FC = () => {
   const {add, increase, decrease, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
-  const {products, filters} = useFilteredProducts();
+  const {products, filters} = useFilteredProducts((product) => product.visibility !== "hidden");
   const {highlight, fields, layout, ...tenant} = useTenant();
   const selected = React.useMemo(() => products.find((_product) => _product.id === product), [
     products,

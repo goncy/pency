@@ -70,10 +70,13 @@ const Overview: React.FC<Props> = ({items, onIncrease, onDecrease, onSubmit, has
                 </Flex>
                 <Flex alignItems="center">
                   <Text fontWeight={500}>
-                    {p(
-                      ((product.promotionalPrice || product.price) + getVariantsPrice(variants)) *
-                        count,
-                    )}
+                    {product.visibility === "ask"
+                      ? "A consultar"
+                      : p(
+                          ((product.promotionalPrice || product.price) +
+                            getVariantsPrice(variants)) *
+                            count,
+                        )}
                   </Text>
                 </Flex>
               </Flex>

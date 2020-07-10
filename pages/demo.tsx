@@ -52,6 +52,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   // Get store from api
   const tenant: ClientTenant = await fetch("GET", `${process.env.APP_URL}/api/tenant/demo`);
+
   // Get products from api
   const products: Product[] = await fetch(
     "GET",
