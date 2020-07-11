@@ -190,15 +190,17 @@ const ProductsScreen: React.FC = () => {
           </Content>
         </Flex>
       </Flex>
-      <CartSummaryDrawer
-        fields={fields}
-        isOpen={isCartOpen}
-        items={items}
-        onCheckout={checkout}
-        onClose={closeCart}
-        onDecrease={decrease}
-        onIncrease={increase}
-      />
+      {isCartOpen && (
+        <CartSummaryDrawer
+          fields={fields}
+          isOpen={isCartOpen}
+          items={items}
+          onCheckout={checkout}
+          onClose={closeCart}
+          onDecrease={decrease}
+          onIncrease={increase}
+        />
+      )}
       {selected && (
         <CartItemDrawer
           isOpen

@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import {Global, css} from "@emotion/core";
 
-import {META} from "../constants";
+import {META} from "../constants/config";
 
 const AdminLayout: React.FC = ({children}) => (
   <>
