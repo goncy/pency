@@ -30,7 +30,7 @@ function set(slug: ServerTenant["slug"], value: ServerTenant) {
 
     // Report it to sentry
     reporter.message(`Trying to save invalid cache for ${slug}`, {
-      origin: `fetch_util`,
+      origin: `tenant_cache`,
       extras: {
         value,
         cached: cache.get(slug),

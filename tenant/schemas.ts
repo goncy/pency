@@ -18,7 +18,10 @@ const mercadopago = {
   schema: yup.object<ServerTenant["mercadopago"]>({
     token: yup.string().default(""),
     refresh: yup.string().default(""),
-    expiration: yup.number().default(0),
+    expiration: yup
+      .number()
+      .transform((value) => (isNaN(value) ? undefined : value))
+      .default(0),
   }),
   lazy: yup.lazy((value) => (value ? mercadopago.schema : yup.mixed().oneOf([null]))),
 };

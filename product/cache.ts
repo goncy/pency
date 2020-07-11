@@ -35,7 +35,7 @@ function update(id: ClientTenant["id"], product: Product["id"], value: Partial<P
 
       // Report it to sentry
       reporter.message(`Found cache for products but not for id on ${id} [UPDATE]`, {
-        origin: `fetch_util`,
+        origin: `product_cache`,
         extras: {
           value,
           cached,
@@ -64,7 +64,7 @@ function set(id: ClientTenant["id"], value: Product[]) {
 
     // Report it to sentry
     reporter.message(`Trying to save invalid cache for ${id}`, {
-      origin: `fetch_util`,
+      origin: `product_cache`,
       extras: {
         value,
         cached: cache.get(id),
@@ -116,7 +116,7 @@ function pluck(id: ClientTenant["id"], product: Product["id"]) {
 
       // Report it to sentry
       reporter.message(`Found cache for products but not for id on ${id} [PLUCK]`, {
-        origin: `fetch_util`,
+        origin: `product_cache`,
         extras: {
           id,
           cached,

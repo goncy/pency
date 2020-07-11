@@ -42,6 +42,133 @@ describe("schemas", () => {
 
         expect(schemas.server.fetch.cast(actual)).toEqual(expected);
       });
+
+      it("PENCY-2Z - Cache case", () => {
+        const actual = {
+          category: "jewelry-watches",
+          slug: "michelejoyas",
+          layout: "portrait",
+          description: "Vendo Gran Variedad de Joyas en Acero Quirúrgico y de Cristal con Plata ",
+          phone: "5491158267168",
+          color: "gray",
+          country: "AR",
+          twitter: "",
+          title: "Michele Joyas en Acero Quirúrgico ",
+          highlight: "",
+          hook: "",
+          facebook: "@Michele Joyas En Acero Quirúrgico ",
+          location: {
+            coordinates: {
+              lng: -58.4555318,
+              lat: -34.5680004,
+            },
+            address: "Virrey del Pino 2700, C1426 CABA",
+          },
+          fields: [
+            {
+              title: "De qué Forma pagarías?",
+              note: "Se Retira por Barrio de Belgrano o se manda Moto a cargo del Cliente. ",
+              required: true,
+              id: "1DP_PA5zl",
+              type: "text",
+            },
+            {
+              title: "Tenes Varias Opciones de Pago",
+              options: [
+                {
+                  id: "JHt3WLg2et",
+                  title: "Efectivo",
+                  note: "Mercado Pago",
+                },
+                {
+                  id: "W79szT-jL4",
+                  title: "Tarjeta de Credito",
+                  note: "Tarjeta de Debito",
+                },
+              ],
+              required: true,
+              id: "-R-iRazoj",
+              type: "radio",
+            },
+          ],
+          keywords: "Anillos, Aros, Cadenas, Colgantes, Dijes, Pulseras",
+          flags: [],
+          mercadopago: {token: "", expiration: null, refresh: ""},
+          banner:
+            "https://res.cloudinary.com/goncy/image/upload/v1593371612/pency/michelejoyas/cyath8rdaspggpi1qu8y.jpg",
+          id: "QRWj1dEzx6g4BFwkupX79fhgYUH3",
+          logo:
+            "https://res.cloudinary.com/goncy/image/upload/v1593371400/pency/michelejoyas/a2eoe44p8s3khkbjjb10.jpg",
+          instagram: "Michele_Joyas",
+        };
+        const expected = true;
+
+        expect(schemas.server.fetch.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("PENCY-30 - Cache case", () => {
+        const actual = {
+          category: "other",
+          slug: "unalome",
+          layout: "landscape",
+          description: "Velas de cera de soja y aromas para el hogar",
+          phone: "5491134495118",
+          color: "pink",
+          country: "AR",
+          twitter: "",
+          title: "UNALOME Velas & Aromas",
+          highlight: "",
+          hook: "",
+          facebook: "unalomevelas",
+          location: null,
+          fields: [],
+          keywords:
+            "pency, tienda, online, whatsapp, delivery, pedidos,cera de soja, deco, hogar, quilmes, velas, aromas",
+          flags: [],
+          mercadopago: {token: "", expiration: null, refresh: ""},
+          banner:
+            "https://res.cloudinary.com/goncy/image/upload/v1594421698/pency/unalome/nkmyuziflvl4g79tnoha.jpg",
+          id: "f0N6MLYGlXesZqZg8Bnigxty3Q22",
+          logo:
+            "https://res.cloudinary.com/goncy/image/upload/v1594420621/pency/unalome/iuorwdw8u5mb17grnop0.jpg",
+          instagram: "unalome_velas",
+        };
+        const expected = true;
+
+        expect(schemas.server.fetch.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("PENCY-31 - Cache case", () => {
+        const actual = {
+          instagram: "sexshopsentidos",
+          color: "red",
+          twitter: "",
+          hook: "",
+          keywords: "pency, tienda, online, whatsapp, delivery, pedidos, sex shop",
+          logo:
+            "https://res.cloudinary.com/goncy/image/upload/v1591988905/pency/sexshopsentidos/ide4humvpd3dpawxtdux.jpg",
+          mercadopago: {token: "", expiration: null, refresh: ""},
+          id: "ege30MHDe7Xw5qH0Dbmbp5PKsb13",
+          category: "toys",
+          layout: "portrait",
+          title: "Sentidos Sex Shop",
+          location: null,
+          description: "Los mejores juguetes y lubricantes en la puerta de tu casa",
+          phone: "5491132856279",
+          facebook: "Sex Shop Sentidos",
+          address: "",
+          banner:
+            "https://res.cloudinary.com/goncy/image/upload/v1591988962/pency/sexshopsentidos/elnptptcz39ygnh1oupo.jpg",
+          slug: "sexshopsentidos",
+          country: "AR",
+          flags: [],
+          fields: [],
+          highlight: "Animate a jugar 🔥🔥",
+        };
+        const expected = true;
+
+        expect(schemas.server.fetch.isValidSync(actual)).toEqual(expected);
+      });
     });
 
     describe("update", () => {
