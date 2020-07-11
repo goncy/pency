@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Stack} from "@chakra-ui/core";
+import {Button, Stack, IDrawer} from "@chakra-ui/core";
 import isEqual from "lodash.isequal";
 
 import {Product} from "../../types";
@@ -8,8 +8,7 @@ import Drawer, {DrawerHeader, DrawerBody, DrawerTitle, DrawerFooter} from "~/ui/
 import {useToast} from "~/hooks/toast";
 import ProductsForm from "~/product/forms/ProductsForm";
 
-interface Props {
-  isOpen: boolean;
+interface Props extends Omit<IDrawer, "children"> {
   onClose: () => void;
   onSubmit: (values: Product[]) => Promise<void>;
   defaultValues?: Product[];

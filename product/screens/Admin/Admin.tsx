@@ -99,13 +99,14 @@ const AdminScreen: React.FC = () => {
           </Content>
         </Box>
       </Flex>
-      <ProductDrawer
-        categories={categories}
-        defaultValues={selected}
-        isOpen={Boolean(selected)}
-        onClose={closeProductDrawer}
-        onSubmit={handleSubmit}
-      />
+      {Boolean(selected) && (
+        <ProductDrawer
+          categories={categories}
+          defaultValues={selected}
+          onClose={closeProductDrawer}
+          onSubmit={handleSubmit}
+        />
+      )}
     </>
   );
 };

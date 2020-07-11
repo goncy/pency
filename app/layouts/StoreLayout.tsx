@@ -30,11 +30,6 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
             "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
         }
-
-        #drawer-cart,
-        #drawer-cart-item {
-          height: 100% !important;
-        }
       `}
     />
     <Head>
