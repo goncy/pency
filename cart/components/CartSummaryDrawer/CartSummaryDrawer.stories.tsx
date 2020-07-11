@@ -9,7 +9,6 @@ import tenantMock from "~/tenant/mock";
 
 export const open = () => (
   <CartSummaryDrawer
-    isOpen
     fields={tenantMock.client.full.fields}
     items={[mock.item]}
     onCheckout={() => {
@@ -25,7 +24,6 @@ export const open = () => (
 
 export const manyItems = () => (
   <CartSummaryDrawer
-    isOpen
     fields={tenantMock.client.full.fields}
     items={[
       ...[mock.item, mock.item],

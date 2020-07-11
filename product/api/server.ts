@@ -1,4 +1,5 @@
 import shortid from "shortid";
+import {firestore} from "firebase-admin";
 
 import {Product} from "../types";
 import cache from "../cache";
@@ -18,7 +19,13 @@ export default {
         .get()
         .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
         .then((products) => {
-          const parsed = products.map((product) => schemas.client.fetch.cast(product));
+          // @TODO: Remove once visibility is widely adopted
+          const parsed = products.map((product) =>
+            schemas.client.fetch.cast({
+              ...product,
+              visibility: product.available === false ? "unavailable" : product.visibility,
+            }),
+          );
 
           cache.set(tenant, parsed);
 
@@ -62,7 +69,11 @@ export default {
       .doc(tenant)
       .collection("products")
       .doc(id)
-      .update(casted)
+      .update({
+        ...casted,
+        // TODO: Remove once visibility is widely adopted
+        available: firestore.FieldValue.delete(),
+      })
       .then(() => {
         cache.update(tenant, id, casted);
 

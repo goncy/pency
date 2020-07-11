@@ -14,7 +14,7 @@ interface Props extends Omit<IDrawer, "children"> {
   defaultValues?: Product[];
 }
 
-const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues = [], onSubmit}) => {
+const ProductsUpsertDrawer: React.FC<Props> = ({onClose, defaultValues = [], onSubmit}) => {
   const [isLoading, toggleLoading] = React.useState(false);
   const toast = useToast();
 
@@ -66,7 +66,7 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
   }
 
   return (
-    <Drawer closeOnOverlayClick={false} id="bulk-products" isOpen={isOpen} onClose={onClose}>
+    <Drawer closeOnOverlayClick={false} id="bulk-products" onClose={onClose}>
       <DrawerHeader onClose={onClose} />
       <ProductsForm defaultValues={defaultValues} onSubmit={handleSubmit}>
         {({form, submit}) => (

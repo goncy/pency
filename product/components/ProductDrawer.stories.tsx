@@ -9,7 +9,6 @@ const CATEGORIES = ["some", "categories"];
 
 export const edit = () => (
   <ProductDrawer
-    isOpen
     categories={CATEGORIES}
     defaultValues={mock.full}
     onClose={action("close")}
@@ -19,7 +18,6 @@ export const edit = () => (
 
 export const create = () => (
   <ProductDrawer
-    isOpen
     categories={CATEGORIES}
     defaultValues={undefined}
     onClose={action("close")}

@@ -13,11 +13,11 @@ interface Props extends Omit<IDrawer, "children"> {
   defaultValues?: Partial<Product>;
 }
 
-const ProductDrawer: React.FC<Props> = ({categories, isOpen, defaultValues, onClose, onSubmit}) => {
+const ProductDrawer: React.FC<Props> = ({categories, defaultValues, onClose, onSubmit}) => {
   const isNew = Boolean(!defaultValues?.id);
 
   return (
-    <Drawer closeOnOverlayClick={false} id="product" isOpen={isOpen} onClose={onClose}>
+    <Drawer closeOnOverlayClick={false} id="product" onClose={onClose}>
       <DrawerHeader onClose={onClose} />
       <ProductForm categories={categories} defaultValues={defaultValues} onSubmit={onSubmit}>
         {({form, submit, isLoading}) => (
