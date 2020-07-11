@@ -19,8 +19,6 @@ const PortraitProductCard: React.FC<Props> = ({isRaised = false, product, onClic
     onClick(product);
   }
 
-  console.log({visibility});
-
   // If we get here by any point, return null
   if (visibility === "hidden") return null;
 
