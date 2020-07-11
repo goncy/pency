@@ -18,6 +18,7 @@ import {useAnalytics} from "~/analytics/hooks";
 import Textarea from "~/ui/inputs/Textarea";
 import FormControl from "~/ui/form/FormControl";
 import {useTenant} from "~/tenant/hooks";
+import Button from "~/ui/controls/Button";
 
 interface Props extends Omit<IDrawer, "children"> {
   onSubmit: (product: Product, options: Variant[], count: number, note: string) => void;
@@ -92,6 +93,9 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
     }
   }, [product, log]);
 
+  // If we get here by any point, return null
+  if (product.visibility === "hidden") return null;
+
   return (
     <Drawer id="cart-item" placement="right" size="md" onClose={onClose} {...props}>
       <ProductVariantForm defaultValues={product.options} onSubmit={handleSubmit}>
@@ -100,7 +104,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
 
           return (
             <>
-              <DrawerBody paddingX={0} position="relative">
+              <DrawerBody paddingX={0}>
                 <ArrowLeftIcon
                   background="white"
                   boxShadow="md"
@@ -143,11 +147,18 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                     <Text fontSize="2xl" fontWeight="bold" lineHeight="normal">
                       {product.title}
                     </Text>
-                    <TruncatedText color="gray.500" fontSize="md" limit={280} whiteSpace="pre-line">
-                      {product.description}
-                    </TruncatedText>
+                    {product.description && (
+                      <TruncatedText
+                        color="gray.500"
+                        fontSize="md"
+                        limit={280}
+                        whiteSpace="pre-line"
+                      >
+                        {product.description}
+                      </TruncatedText>
+                    )}
                   </Stack>
-                  {form}
+                  {product.options?.length ? form : null}
                   <Flex alignItems="center" justifyContent="space-between">
                     <FormLabel padding={0}>{t("common.count")}</FormLabel>
                     <Stepper min={1} value={count} onChange={setCount} />
@@ -165,25 +176,43 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                 </Stack>
               </DrawerBody>
               <DrawerFooter>
-                <SummaryButton
-                  isLoading={isLoading}
-                  items={[
-                    {
-                      id: "temp",
-                      note: "",
-                      product,
-                      variants,
-                      count,
-                    },
-                  ]}
-                  onClick={(event) => {
-                    event.stopPropagation();
+                {["unavailable", "available"].includes(product.visibility) && (
+                  <SummaryButton
+                    isDisabled={product.visibility === "unavailable"}
+                    isLoading={isLoading}
+                    items={[
+                      {
+                        id: "temp",
+                        note: "",
+                        product,
+                        variants,
+                        count,
+                      },
+                    ]}
+                    onClick={(event) => {
+                      event.stopPropagation();
 
-                    submit();
-                  }}
-                >
-                  {t("common.add")}
-                </SummaryButton>
+                      submit();
+                    }}
+                  >
+                    {t("common.add")}
+                  </SummaryButton>
+                )}
+                {product.visibility === "ask" && (
+                  <Button
+                    boxShadow="lg"
+                    size="lg"
+                    variantColor="primary"
+                    width="100%"
+                    onClick={(event) => {
+                      event.stopPropagation();
+
+                      submit();
+                    }}
+                  >
+                    Agregar
+                  </Button>
+                )}
               </DrawerFooter>
             </>
           );

@@ -1,7 +1,6 @@
 import React from "react";
 import {GetStaticProps} from "next";
 
-import fetch from "~/utils/fetch";
 import ProductsScreen from "~/product/screens/Products";
 import {ClientTenant} from "~/tenant/types";
 import {Product} from "~/product/types";
@@ -16,6 +15,11 @@ interface Props {
   tenant: ClientTenant;
   products: Product[];
   product: Product;
+}
+
+interface Store {
+  TENANT: ClientTenant;
+  PRODUCTS: Product[];
 }
 
 const DemoRoute: React.FC<Props> = ({tenant, product, products}) => {
@@ -43,26 +47,14 @@ const DemoRoute: React.FC<Props> = ({tenant, product, products}) => {
 
 // Get static props for demo
 export const getStaticProps: GetStaticProps = async () => {
-  // We don't want to generate static assets for testing
-  if (process.env.ENV === "test") {
-    return {
-      props: {},
-    };
-  }
-
-  // Get store from api
-  const tenant: ClientTenant = await fetch("GET", `${process.env.APP_URL}/api/tenant/demo`);
-  // Get products from api
-  const products: Product[] = await fetch(
-    "GET",
-    `${process.env.APP_URL}/api/product?tenant=${tenant.id}`,
-  );
+  // Get store from catalog
+  const {TENANT, PRODUCTS}: Store = await import(`~/app/constants/stores/${process.env.ENV}.ts`);
 
   // Return props
   return {
     props: {
-      tenant,
-      products,
+      tenant: TENANT,
+      products: PRODUCTS,
     },
   };
 };

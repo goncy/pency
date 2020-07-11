@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Stack} from "@chakra-ui/core";
+import {Button, Stack, IDrawer} from "@chakra-ui/core";
 import isEqual from "lodash.isequal";
 
 import {Product} from "../../types";
@@ -8,14 +8,13 @@ import Drawer, {DrawerHeader, DrawerBody, DrawerTitle, DrawerFooter} from "~/ui/
 import {useToast} from "~/hooks/toast";
 import ProductsForm from "~/product/forms/ProductsForm";
 
-interface Props {
-  isOpen: boolean;
+interface Props extends Omit<IDrawer, "children"> {
   onClose: () => void;
   onSubmit: (values: Product[]) => Promise<void>;
   defaultValues?: Product[];
 }
 
-const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues = [], onSubmit}) => {
+const ProductsUpsertDrawer: React.FC<Props> = ({onClose, defaultValues = [], onSubmit}) => {
   const [isLoading, toggleLoading] = React.useState(false);
   const toast = useToast();
 
@@ -67,7 +66,7 @@ const ProductsUpsertDrawer: React.FC<Props> = ({isOpen, onClose, defaultValues =
   }
 
   return (
-    <Drawer closeOnOverlayClick={false} id="bulk-products" isOpen={isOpen} onClose={onClose}>
+    <Drawer closeOnOverlayClick={false} id="bulk-products" onClose={onClose}>
       <DrawerHeader onClose={onClose} />
       <ProductsForm defaultValues={defaultValues} onSubmit={handleSubmit}>
         {({form, submit}) => (

@@ -12,7 +12,7 @@ const Header: React.FC<Props> = ({onBack, onClose, ...props}) => (
   <DrawerHeader padding={4} {...props}>
     <Stack spacing={2}>
       {(onBack || onClose) && (
-        <Flex>
+        <Flex alignItems="center">
           {onBack && <ArrowLeftIcon cursor="pointer" onClick={onBack} />}
           {onClose && (
             <DrawerCloseButton

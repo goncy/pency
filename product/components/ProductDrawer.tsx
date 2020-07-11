@@ -1,24 +1,23 @@
 import React from "react";
-import {Button, Stack} from "@chakra-ui/core";
+import {Button, Stack, IDrawer} from "@chakra-ui/core";
 
 import {Product} from "../types";
 import ProductForm from "../forms/ProductForm";
 
 import Drawer, {DrawerHeader, DrawerBody, DrawerTitle} from "~/ui/controls/Drawer";
 
-interface Props {
-  isOpen: boolean;
+interface Props extends Omit<IDrawer, "children"> {
   onClose: () => void;
   categories: Product["category"][];
   onSubmit: (values: Omit<Product, "id">) => void;
   defaultValues?: Partial<Product>;
 }
 
-const ProductDrawer: React.FC<Props> = ({categories, isOpen, defaultValues, onClose, onSubmit}) => {
+const ProductDrawer: React.FC<Props> = ({categories, defaultValues, onClose, onSubmit}) => {
   const isNew = Boolean(!defaultValues?.id);
 
   return (
-    <Drawer closeOnOverlayClick={false} id="product" isOpen={isOpen} onClose={onClose}>
+    <Drawer closeOnOverlayClick={false} id="product" onClose={onClose}>
       <DrawerHeader onClose={onClose} />
       <ProductForm categories={categories} defaultValues={defaultValues} onSubmit={onSubmit}>
         {({form, submit, isLoading}) => (

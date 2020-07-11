@@ -1,4 +1,5 @@
 import shortid from "shortid";
+import {firestore} from "firebase-admin";
 
 import {Product} from "../types";
 import cache from "../cache";
@@ -18,7 +19,13 @@ export default {
         .get()
         .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
         .then((products) => {
-          const parsed = products.map((product) => schemas.client.fetch.cast(product));
+          // @TODO: Remove once visibility is widely adopted
+          const parsed = products.map((product) =>
+            schemas.client.fetch.cast({
+              ...product,
+              visibility: product.available === false ? "unavailable" : product.visibility,
+            }),
+          );
 
           cache.set(tenant, parsed);
 
@@ -37,6 +44,8 @@ export default {
       .then((snapshot) => {
         const product: Product = {...casted, id: snapshot.id};
 
+        // @TODO: Flip with commented line depending on firebase quota usage
+        // cache.remove(tenant);
         cache.add(tenant, product);
 
         return product;
@@ -50,6 +59,8 @@ export default {
       .doc(product)
       .delete()
       .then(() => {
+        // @TODO: Flip with commented line depending on firebase quota usage
+        // cache.remove(tenant);
         cache.pluck(tenant, product);
 
         return product;
@@ -62,8 +73,14 @@ export default {
       .doc(tenant)
       .collection("products")
       .doc(id)
-      .update(casted)
+      .update({
+        ...casted,
+        // @TODO: Remove once visibility is widely adopted
+        available: firestore.FieldValue.delete(),
+      })
       .then(() => {
+        // @TODO: Flip with commented line depending on firebase quota usage
+        // cache.remove(tenant);
         cache.update(tenant, id, casted);
 
         return casted;
@@ -96,6 +113,9 @@ export default {
     });
 
     return batch.commit().then(() => {
+      // @TODO: Flip with commented line depending on firebase quota usage
+      // cache.remove(tenant);
+
       const products = commited.map(({id, ...product}) => {
         cache.update(tenant, id, product);
 

@@ -7,12 +7,19 @@ export default {
   server: {
     create: yup.object<Product>({
       id: yup.string().strip(true),
-      available: yup.boolean().default(DEFAULT_PRODUCT.available),
+      visibility: yup
+        .string()
+        .oneOf(["available", "unavailable", "ask", "hidden"])
+        .default(DEFAULT_PRODUCT.visibility),
       title: yup.string().default(DEFAULT_PRODUCT.title),
       price: yup
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
         .default(DEFAULT_PRODUCT.price),
+      originalPrice: yup
+        .number()
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .default(DEFAULT_PRODUCT.originalPrice),
       options: yup
         .array(
           yup.object<Variant>({
@@ -41,13 +48,14 @@ export default {
       featured: yup.boolean().default(DEFAULT_PRODUCT.featured),
       image: yup.string().default(DEFAULT_PRODUCT.image),
     }),
-    update: yup.object({
+    update: yup.object<Partial<Product>>({
       id: yup.string().required(),
       title: yup.string().nullable(),
       category: yup.string().trim().nullable(),
       description: yup.string().nullable(),
       price: yup.number().nullable(),
-      available: yup.boolean().nullable(),
+      originalPrice: yup.number().nullable(),
+      visibility: yup.string().oneOf(["available", "unavailable", "ask", "hidden"]).nullable(),
       featured: yup.boolean().nullable(),
       options: yup
         .array(
@@ -78,13 +86,21 @@ export default {
   client: {
     fetch: yup.object<Product>({
       id: yup.string().required(),
-      available: yup.boolean().default(false),
+      visibility: yup
+        .string()
+        .oneOf(["available", "unavailable", "ask", "hidden"])
+        .default(DEFAULT_PRODUCT.visibility),
       title: yup.string().required().default(DEFAULT_PRODUCT.title),
       price: yup
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
         .required()
         .default(DEFAULT_PRODUCT.price),
+      originalPrice: yup
+        .number()
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .required()
+        .default(DEFAULT_PRODUCT.originalPrice),
       options: yup
         .array(
           yup.object<Variant>({
@@ -113,8 +129,8 @@ export default {
       featured: yup.boolean().default(DEFAULT_PRODUCT.featured),
       image: yup.string().default(DEFAULT_PRODUCT.image),
     }),
-    update: yup.object({
-      available: yup.boolean().nullable(),
+    update: yup.object<Partial<Product>>({
+      visibility: yup.string().oneOf(["available", "unavailable", "ask", "hidden"]).nullable(),
       category: yup.string().trim().nullable(),
       description: yup.string().nullable(),
       featured: yup.boolean().nullable(),
@@ -144,16 +160,24 @@ export default {
         )
         .nullable(),
       price: yup.number().nullable(),
+      originalPrice: yup.number().nullable(),
       title: yup.string().nullable(),
     }),
     create: yup.object<Product>({
       id: yup.string().strip(true),
-      available: yup.boolean().default(DEFAULT_PRODUCT.available),
+      visibility: yup
+        .string()
+        .oneOf(["available", "unavailable", "ask", "hidden"])
+        .default(DEFAULT_PRODUCT.visibility),
       title: yup.string().default(DEFAULT_PRODUCT.title),
       price: yup
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
         .default(DEFAULT_PRODUCT.price),
+      originalPrice: yup
+        .number()
+        .transform((value) => (isNaN(value) ? undefined : value))
+        .default(DEFAULT_PRODUCT.originalPrice),
       options: yup
         .array(
           yup
@@ -185,8 +209,8 @@ export default {
       image: yup.string().default(DEFAULT_PRODUCT.image),
     }),
   },
-  csv: yup.object({
-    available: yup.boolean().nullable(),
+  csv: yup.object<Partial<Product>>({
+    visibility: yup.string().oneOf(["available", "unavailable", "ask", "hidden"]).nullable(),
     category: yup.string().trim().nullable(),
     description: yup
       .string()
@@ -219,6 +243,7 @@ export default {
       )
       .nullable(),
     price: yup.number().nullable(),
+    originalPrice: yup.number().nullable(),
     title: yup.string().nullable(),
   }),
 };

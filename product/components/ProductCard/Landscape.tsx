@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Text, Flex, FlexProps, Stack, PseudoBox} from "@chakra-ui/core";
+import {Box, Text, FlexProps, Stack, PseudoBox} from "@chakra-ui/core";
 
 import Image from "~/ui/feedback/Image";
 import {Product} from "~/product/types";
@@ -14,24 +14,22 @@ interface Props extends Omit<FlexProps, "onClick"> {
 
 const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...props}) => {
   const p = usePrice();
-  const {image, title, price, available, description} = product;
+  const {image, title, price, originalPrice, description, visibility} = product;
 
   function handleClick() {
-    available && onClick(product);
+    onClick(product);
   }
+
+  // If we get here by any point, return null
+  if (visibility === "hidden") return null;
 
   return (
     <PseudoBox
-      _hover={{
-        boxShadow: "md",
-        backgroundColor: "gray.50",
-      }}
       backgroundColor="white"
       borderBottomWidth={{base: 1, sm: 0}}
       borderWidth={{sm: 1}}
       boxShadow={isRaised ? "lg" : "none"}
-      cursor={available ? "pointer" : "not-allowed"}
-      opacity={available ? 1 : 0.5}
+      cursor="pointer"
       paddingY={{base: 4, sm: 0}}
       rounded={{base: "none", sm: "md"}}
       transition="all 0.2s"
@@ -68,17 +66,28 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
               </TruncatedText>
             )}
           </Stack>
-          <Flex alignItems="center">
-            <Text
-              color={available ? "green.500" : "yellow.500"}
-              flex={1}
-              fontSize="sm"
-              fontWeight={500}
-              lineHeight={1}
-            >
-              {available ? p(price) : `Sin stock`}
+          {visibility === "available" && (
+            <Stack isInline alignItems="center">
+              <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
+                {p(price)}
+              </Text>
+              {originalPrice && (
+                <Text color="gray.500" fontSize="sm" lineHeight={1} textDecoration="line-through">
+                  {p(price)}
+                </Text>
+              )}
+            </Stack>
+          )}
+          {visibility === "unavailable" && (
+            <Text color="yellow.500" fontSize="sm" fontWeight={500} lineHeight={1}>
+              Sin stock
             </Text>
-          </Flex>
+          )}
+          {visibility === "ask" && (
+            <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
+              A consultar
+            </Text>
+          )}
         </Box>
         {image && (
           <Image

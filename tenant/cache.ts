@@ -1,6 +1,8 @@
 import {ServerTenant} from "./types";
 import schemas from "./schemas";
 
+import reporter from "~/reporting";
+
 const cache = new Map<ServerTenant["slug"], ServerTenant>();
 
 function update(slug: ServerTenant["slug"], value: Partial<ServerTenant>) {
@@ -25,6 +27,15 @@ function set(slug: ServerTenant["slug"], value: ServerTenant) {
   } else {
     // Otherwise remove cache
     remove(slug);
+
+    // Report it to sentry
+    reporter.message(`Trying to save invalid cache for ${slug}`, {
+      origin: `fetch_util`,
+      extras: {
+        value,
+        cached: cache.get(slug),
+      },
+    });
   }
 }
 

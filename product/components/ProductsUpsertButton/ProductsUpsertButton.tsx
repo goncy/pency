@@ -74,12 +74,13 @@ const ProductsUpsertButton: React.FC<Props> = ({products: base, onSubmit}) => {
           Edicion en lote
         </IconButton>
       </Stack>
-      <ProductsUpsertDrawer
-        defaultValues={products}
-        isOpen={Boolean(products?.length)}
-        onClose={handleClose}
-        onSubmit={handleSubmit}
-      />
+      {Boolean(products?.length) && (
+        <ProductsUpsertDrawer
+          defaultValues={products}
+          onClose={handleClose}
+          onSubmit={handleSubmit}
+        />
+      )}
     </>
   );
 };

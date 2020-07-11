@@ -32,7 +32,7 @@ const ProductsScreen: React.FC = () => {
   const {add, increase, decrease, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
-  const {products, filters} = useFilteredProducts();
+  const {products, filters} = useFilteredProducts((product) => product.visibility !== "hidden");
   const {highlight, fields, layout, ...tenant} = useTenant();
   const selected = React.useMemo(() => products.find((_product) => _product.id === product), [
     products,
@@ -79,15 +79,7 @@ const ProductsScreen: React.FC = () => {
   return (
     <>
       <Flex direction="column" height="100%">
-        <Flex
-          as="main"
-          backgroundColor="white"
-          direction="column"
-          flex={1}
-          height="100%"
-          overflowX="hidden"
-          overflowY="auto"
-        >
+        <Flex as="main" backgroundColor="white" direction="column" flex={1} height="100%">
           <Content height="100%" paddingX={{base: 0, sm: 4}}>
             <TenantHeader data-test-id="header" marginBottom={4} tenant={tenant} />
             <Box flex={1}>
@@ -118,7 +110,7 @@ const ProductsScreen: React.FC = () => {
                   </Box>
                 </Flex>
               </Box>
-              <Box paddingX={{base: 4, sm: 0}}>
+              <Box marginBottom={4} paddingX={{base: 4, sm: 0}}>
                 <Stack margin="auto" spacing={5} width="100%">
                   {Boolean(products.length) ? (
                     <Stack spacing={{base: 5, sm: 10}} width="100%">
@@ -138,12 +130,7 @@ const ProductsScreen: React.FC = () => {
                       )}
                       {productsByCategory.map(([category, products]) => {
                         return (
-                          <PseudoBox
-                            key={category}
-                            _last={{marginBottom: 4}}
-                            as="section"
-                            id={category}
-                          >
+                          <PseudoBox key={category} as="section" id={category}>
                             <ProductsGrid data-test-id="category" layout={layout} title={category}>
                               {products.map((product) => (
                                 <ProductCard
@@ -161,51 +148,49 @@ const ProductsScreen: React.FC = () => {
                   ) : (
                     <NoResults data-test-id="empty">{t("products.empty")}</NoResults>
                   )}
-                  {Boolean(items.length) && (
-                    <Flex
-                      as="nav"
-                      bottom={0}
-                      justifyContent="center"
-                      margin={{base: 0, sm: "auto"}}
-                      paddingBottom={4}
-                      position="sticky"
-                      zIndex={2}
-                    >
-                      <Box
-                        display="block"
-                        margin={{base: 0, sm: "auto"}}
-                        minWidth={{base: "100%", sm: 64}}
-                        rounded={4}
-                        width={{base: "100%", sm: "auto"}}
-                      >
-                        <SummaryButton items={items} onClick={handleOpenCart}>
-                          {t("products.review")}
-                        </SummaryButton>
-                      </Box>
-                    </Flex>
-                  )}
                 </Stack>
               </Box>
             </Box>
           </Content>
         </Flex>
       </Flex>
-      <CartSummaryDrawer
-        fields={fields}
-        isOpen={isCartOpen}
-        items={items}
-        onCheckout={checkout}
-        onClose={closeCart}
-        onDecrease={decrease}
-        onIncrease={increase}
-      />
-      {selected && (
-        <CartItemDrawer
-          isOpen
-          product={selected}
-          onClose={handleCloseSelected}
-          onSubmit={handleAdd}
+      {Boolean(items.length) && (
+        <Flex
+          as="nav"
+          bottom={0}
+          justifyContent="center"
+          margin={{base: 0, sm: "auto"}}
+          paddingBottom={4}
+          paddingX={4}
+          position="sticky"
+          width="100%"
+          zIndex={2}
+        >
+          <Box
+            display="block"
+            margin={{base: 0, sm: "auto"}}
+            minWidth={{base: "100%", sm: 64}}
+            rounded={4}
+            width={{base: "100%", sm: "auto"}}
+          >
+            <SummaryButton items={items} onClick={handleOpenCart}>
+              {t("products.review")}
+            </SummaryButton>
+          </Box>
+        </Flex>
+      )}
+      {isCartOpen && (
+        <CartSummaryDrawer
+          fields={fields}
+          items={items}
+          onCheckout={checkout}
+          onClose={closeCart}
+          onDecrease={decrease}
+          onIncrease={increase}
         />
+      )}
+      {Boolean(selected) && (
+        <CartItemDrawer product={selected} onClose={handleCloseSelected} onSubmit={handleAdd} />
       )}
       <Onboarding />
     </>

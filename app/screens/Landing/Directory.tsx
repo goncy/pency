@@ -102,6 +102,9 @@ const Directory: React.FC<Props> = ({tenants}) => {
     });
   }
 
+  // If we don't have a directory, return null
+  if (!tenants?.length) return null;
+
   return (
     <Content
       paddingBottom={{base: 12, sm: 4}}

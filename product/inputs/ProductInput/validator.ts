@@ -5,13 +5,21 @@ import {Product, Variant, Option} from "~/product/types";
 interface Bulk {
   options: Pick<Variant, "options">[];
   price: Product["price"];
-  available: Product["available"];
+  originalPrice: Product["originalPrice"];
+  visibility: Product["visibility"];
 }
 
 const schema = yup.object<Bulk>({
   // We catch typeError as we can have an empty field ("")
   price: yup.number().typeError("El precio es requerido").required("El precio es requerido"),
-  available: yup.boolean().required("El stock es requerido"),
+  originalPrice: yup
+    .number()
+    .typeError("El precio original es requerido, indicá 0 en caso de no corresponder")
+    .required("El precio original es requerido, indicá 0 en caso de no corresponder"),
+  visibility: yup
+    .string()
+    .oneOf(["available", "unavailable", "ask", "hidden"])
+    .required("La visibilidad es requerida"),
   options: yup
     .array(
       yup.object({

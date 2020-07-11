@@ -1,6 +1,6 @@
 import React from "react";
 import {useForm, Controller, FormContext, FieldError} from "react-hook-form";
-import {Flex, Stack, Text, Divider} from "@chakra-ui/core";
+import {Stack, Text, Divider} from "@chakra-ui/core";
 
 import {Product} from "../types";
 import ProductVariantsInput, {
@@ -34,9 +34,8 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
   function handleSubmit(values: Partial<Product>) {
     const product = {...defaultValues, ...values};
 
-    product.category = product.category.trim();
-    product.price = Number(product.price);
-    product.options = product.options || [];
+    product.price = values.visibility === "ask" ? 0 : Number(product.price);
+    product.originalPrice = values.visibility === "ask" ? 0 : Number(product.originalPrice);
 
     return onSubmit(product);
   }
@@ -91,22 +90,39 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                 maxLength={1400}
                 name="description"
                 placeholder="64GB mem. Silver."
-                variant="filled"
               />
             </FormControl>
-            <FormControl
-              isRequired
-              error={errors.price && "Este campo es requerido"}
-              label="Precio"
-              name="price"
-            >
-              <Price
-                ref={register({required: true})}
+            <Stack isInline spacing={2}>
+              <FormControl
+                isRequired
+                error={errors.price && "Este campo es requerido"}
+                flex={1}
+                label="Precio"
                 name="price"
-                placeholder="Precio"
-                rounded="md"
-              />
-            </FormControl>
+              >
+                <Price
+                  ref={register({required: true})}
+                  inputProps={{isDisabled: values.visibility === "ask"}}
+                  name="price"
+                  placeholder="200"
+                  rounded="md"
+                />
+              </FormControl>
+              <FormControl
+                error={errors.originalPrice && "Este valor es inválido"}
+                flex={1}
+                label="Precio original"
+                name="originalPrice"
+              >
+                <Price
+                  ref={register({required: true})}
+                  inputProps={{isDisabled: values.visibility === "ask"}}
+                  name="originalPrice"
+                  placeholder="150"
+                  rounded="md"
+                />
+              </FormControl>
+            </Stack>
             <FormControl
               isRequired
               error={errors.category && "Este campo es requerido"}
@@ -114,16 +130,10 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
               label="Categoría"
               name="category"
             >
-              <Flex>
+              <Stack isInline spacing={2}>
                 <Input ref={register({required: true})} name="category" placeholder="Categoría" />
                 {Boolean(categories.length) && (
-                  <Select
-                    data-test-id="category-select"
-                    flexShrink={2}
-                    marginLeft={4}
-                    variant="filled"
-                    onChange={setCategory}
-                  >
+                  <Select data-test-id="category-select" onChange={setCategory}>
                     <option value="">Cargar</option>
                     {categories.map((category) => (
                       <option key={category} value={category}>
@@ -132,31 +142,36 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                     ))}
                   </Select>
                 )}
-              </Flex>
+              </Stack>
             </FormControl>
-            <Stack isInline spacing={8}>
-              <FormControl error={errors.featured?.message} name="featured">
-                <Controller
-                  as={SwitchInput}
-                  color="primary"
-                  control={control}
-                  defaultValue={false}
-                  display="block"
-                  label="Destacar"
-                  name="featured"
-                />
-              </FormControl>
-              <FormControl error={errors.available?.message} name="available">
-                <Controller
-                  as={SwitchInput}
-                  color="primary"
-                  control={control}
-                  display="block"
-                  label="En stock"
-                  name="available"
-                />
-              </FormControl>
-            </Stack>
+            <FormControl
+              isRequired
+              error={errors.visibility?.message}
+              label="Visibilidad"
+              name="visibility"
+            >
+              <Select
+                ref={register({required: true})}
+                data-test-id="visibility-select"
+                name="visibility"
+              >
+                <option value="available">Disponible</option>
+                <option value="unavailable">Sin stock</option>
+                <option value="ask">A consultar</option>
+                <option value="hidden">Oculto</option>
+              </Select>
+            </FormControl>
+            <FormControl error={errors.featured?.message} name="featured">
+              <Controller
+                as={SwitchInput}
+                color="primary"
+                control={control}
+                defaultValue={false}
+                display="block"
+                label="Destacar"
+                name="featured"
+              />
+            </FormControl>
             <Divider />
             <Text fontSize="xl" fontWeight={500}>
               Variantes
@@ -166,6 +181,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                 as={ProductVariantsInput}
                 base={values?.price}
                 control={control}
+                defaultValue={[]}
                 error={(errors.options as unknown) as FieldError}
                 name="options"
                 rules={{

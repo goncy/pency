@@ -22,7 +22,7 @@ const mock = {
         highlight: faker.lorem.words(10),
         hook: "http://some.url",
         country: "AR",
-        flags: [],
+        flags: ["mercadopago", "bulk", "advanced", "note"],
         location: {
           address: `${faker.address.streetAddress()}, ${faker.address.city()}`,
           coordinates: {

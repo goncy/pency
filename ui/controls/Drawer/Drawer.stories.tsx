@@ -5,7 +5,7 @@ import {action} from "@storybook/addon-actions";
 import Drawer, {DrawerBody, DrawerHeader, DrawerTitle, DrawerFooter} from "./";
 
 export const full = () => (
-  <Drawer isOpen>
+  <Drawer>
     <DrawerHeader onBack={action("back")} onClose={action("close")} />
     <DrawerBody>
       <DrawerTitle>{faker.company.companyName()}</DrawerTitle>

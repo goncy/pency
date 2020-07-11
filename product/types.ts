@@ -1,11 +1,13 @@
 export interface Product {
   id: string;
   title: string;
+  available?: boolean; // @TODO: Remove when visibility is widely adopted
   description?: string;
   category?: string;
   image?: string | undefined;
   price: number;
-  available: boolean;
+  originalPrice?: number;
+  visibility: "available" | "unavailable" | "ask" | "hidden";
   options?: Variant[];
   featured?: boolean;
 }

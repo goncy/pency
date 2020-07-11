@@ -11,16 +11,25 @@ import {useTranslation, usePrice} from "~/i18n/hooks";
 import {getCount, getTotal} from "~/cart/selectors";
 import Stepper from "~/ui/inputs/Stepper";
 import {getVariantsString, getVariantsPrice} from "~/product/selectors";
+import CrossIcon from "~/ui/icons/Cross";
 
 interface Props {
   items: CartItem[];
   onDecrease: (id: CartItem["id"]) => void;
   onIncrease: (id: CartItem["id"]) => void;
   onSubmit: () => Promise<void>;
+  onClose: VoidFunction;
   hasNextStep: boolean;
 }
 
-const Overview: React.FC<Props> = ({items, onIncrease, onDecrease, onSubmit, hasNextStep}) => {
+const Overview: React.FC<Props> = ({
+  items,
+  onIncrease,
+  onDecrease,
+  onSubmit,
+  onClose,
+  hasNextStep,
+}) => {
   const [isLoading, toggleLoading] = React.useState(false);
   const t = useTranslation();
   const p = usePrice();
@@ -48,7 +57,20 @@ const Overview: React.FC<Props> = ({items, onIncrease, onDecrease, onSubmit, has
   return (
     <>
       <DrawerBody>
-        <Stack spacing={6}>
+        <CrossIcon
+          background="white"
+          boxShadow="md"
+          cursor="pointer"
+          marginTop={4}
+          paddingX={4}
+          paddingY={3}
+          position="absolute"
+          right={0}
+          roundedLeft="lg"
+          top={0}
+          onClick={onClose}
+        />
+        <Stack marginTop={20} spacing={6}>
           <DrawerTitle>
             {t("cart.yourOrder")} ({count})
           </DrawerTitle>
@@ -70,7 +92,9 @@ const Overview: React.FC<Props> = ({items, onIncrease, onDecrease, onSubmit, has
                 </Flex>
                 <Flex alignItems="center">
                   <Text fontWeight={500}>
-                    {p((product.price + getVariantsPrice(variants)) * count)}
+                    {product.visibility === "ask"
+                      ? "A consultar"
+                      : p((product.price + getVariantsPrice(variants)) * count)}
                   </Text>
                 </Flex>
               </Flex>

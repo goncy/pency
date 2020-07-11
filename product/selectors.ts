@@ -38,30 +38,3 @@ export function getPrice(product: Product): number {
       }, base)
     : base;
 }
-
-export function hasPriceChanged(changed: Product, base: Product) {
-  // And its price has changed return true
-  if (base.price !== changed.price) return true;
-
-  // If base product has variants
-  if (base.options?.length) {
-    // Iterate over its variants
-    for (let variantIndex = 0; variantIndex < base.options?.length; variantIndex++) {
-      // And its variant options
-      for (
-        let optionIndex = 0;
-        optionIndex < base.options[variantIndex]?.options.length;
-        optionIndex++
-      ) {
-        // And if the variant price has changed
-        if (
-          base.options[variantIndex].options[optionIndex].price !==
-          changed.options[variantIndex].options[optionIndex].price
-        ) {
-          // Return true
-          return true;
-        }
-      }
-    }
-  }
-}
