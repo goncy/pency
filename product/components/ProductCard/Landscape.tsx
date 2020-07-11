@@ -73,7 +73,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
               </Text>
               {originalPrice && (
                 <Text color="gray.500" fontSize="sm" lineHeight={1} textDecoration="line-through">
-                  {p(price)}
+                  {p(originalPrice)}
                 </Text>
               )}
             </Stack>
