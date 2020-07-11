@@ -8,13 +8,17 @@ import CheckoutButton from "./CheckoutButton";
 import {DrawerTitle, DrawerBody, DrawerFooter} from "~/ui/controls/Drawer";
 import {Field} from "~/tenant/types";
 import {useTranslation} from "~/i18n/hooks";
+import ArrowLeftIcon from "~/ui/icons/ArrowLeft";
+import CrossIcon from "~/ui/icons/Cross";
 
 interface Props {
   fields: Field[];
   onSubmit: (fields: Field[]) => void;
+  onClose: VoidFunction;
+  onPrevious: VoidFunction;
 }
 
-const Fields: React.FC<Props> = ({fields, onSubmit}) => {
+const Fields: React.FC<Props> = ({fields, onSubmit, onClose, onPrevious}) => {
   const [isLoading, toggleLoading] = React.useState(false);
   const t = useTranslation();
 
@@ -31,7 +35,33 @@ const Fields: React.FC<Props> = ({fields, onSubmit}) => {
       {({form, submit}) => (
         <>
           <DrawerBody overflowY="auto">
-            <Stack spacing={6}>
+            <ArrowLeftIcon
+              background="white"
+              boxShadow="md"
+              cursor="pointer"
+              left={0}
+              marginTop={4}
+              paddingX={4}
+              paddingY={3}
+              position="absolute"
+              roundedRight="lg"
+              top={0}
+              onClick={onPrevious}
+            />
+            <CrossIcon
+              background="white"
+              boxShadow="md"
+              cursor="pointer"
+              marginTop={4}
+              paddingX={4}
+              paddingY={3}
+              position="absolute"
+              right={0}
+              roundedLeft="lg"
+              top={0}
+              onClick={onClose}
+            />
+            <Stack marginTop={20} spacing={6}>
               <DrawerTitle>{t("cart.completeOrder")}</DrawerTitle>
               {form}
             </Stack>

@@ -14,6 +14,7 @@ const Body: React.FC<BoxProps> = (props) => {
       overflowY="auto"
       paddingX={{base: 4, sm: 12}}
       paddingY={0}
+      position="relative"
       {...props}
     />
   );

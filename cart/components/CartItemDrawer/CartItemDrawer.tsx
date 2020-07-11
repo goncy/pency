@@ -104,7 +104,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
 
           return (
             <>
-              <DrawerBody paddingX={0} position="relative">
+              <DrawerBody paddingX={0}>
                 <ArrowLeftIcon
                   background="white"
                   boxShadow="md"

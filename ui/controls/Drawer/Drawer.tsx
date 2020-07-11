@@ -35,7 +35,7 @@ const Drawer: React.FC<Props> = ({children, onAnimationEnd, onClose, id, ...prop
         preserveScrollBarGap
         id={id}
         placement="right"
-        scrollBehavior="outside"
+        scrollBehavior="inside"
         size="md"
         onClose={handleClose}
         {...props}
