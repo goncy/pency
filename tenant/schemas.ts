@@ -59,6 +59,7 @@ const color = yup
   .oneOf<ServerTenant["color"]>([
     "teal",
     "green",
+    "blue",
     "orange",
     "purple",
     "red",
