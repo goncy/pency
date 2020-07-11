@@ -70,8 +70,8 @@ export default {
       .update(tenant)
       .then(() => {
         // @TODO: Flip with commented line depending on firebase quota usage
-        cache.remove(slug);
-        // cache.update(slug, {id, slug, ...tenant})
+        // cache.remove(slug);
+        cache.update(slug, {id, slug, ...tenant});
 
         return tenant;
       }),

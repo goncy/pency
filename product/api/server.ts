@@ -45,8 +45,8 @@ export default {
         const product: Product = {...casted, id: snapshot.id};
 
         // @TODO: Flip with commented line depending on firebase quota usage
-        cache.remove(tenant);
-        // cache.add(tenant, product);
+        // cache.remove(tenant);
+        cache.add(tenant, product);
 
         return product;
       });
@@ -60,8 +60,8 @@ export default {
       .delete()
       .then(() => {
         // @TODO: Flip with commented line depending on firebase quota usage
-        cache.remove(tenant);
-        // cache.pluck(tenant, product);
+        // cache.remove(tenant);
+        cache.pluck(tenant, product);
 
         return product;
       }),
@@ -75,13 +75,13 @@ export default {
       .doc(id)
       .update({
         ...casted,
-        // TODO: Remove once visibility is widely adopted
+        // @TODO: Remove once visibility is widely adopted
         available: firestore.FieldValue.delete(),
       })
       .then(() => {
         // @TODO: Flip with commented line depending on firebase quota usage
-        cache.remove(tenant);
-        // cache.update(tenant, id, casted);
+        // cache.remove(tenant);
+        cache.update(tenant, id, casted);
 
         return casted;
       });
@@ -114,10 +114,10 @@ export default {
 
     return batch.commit().then(() => {
       // @TODO: Flip with commented line depending on firebase quota usage
-      cache.remove(tenant);
+      // cache.remove(tenant);
 
       const products = commited.map(({id, ...product}) => {
-        // cache.update(tenant, id, product);
+        cache.update(tenant, id, product);
 
         return {id, ...product};
       });
