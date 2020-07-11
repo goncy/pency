@@ -1,4 +1,5 @@
 import React from "react";
+import {IDrawer} from "@chakra-ui/core";
 
 import {CartItem} from "../../types";
 import {getCount} from "../../selectors";
@@ -10,8 +11,7 @@ import Drawer, {DrawerHeader} from "~/ui/controls/Drawer";
 import {ClientTenant, Field} from "~/tenant/types";
 import {useAnalytics} from "~/analytics/hooks";
 
-interface Props {
-  isOpen: boolean;
+interface Props extends Omit<IDrawer, "children"> {
   onClose: VoidFunction;
   items: CartItem[];
   fields?: ClientTenant["fields"];

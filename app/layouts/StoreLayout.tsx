@@ -22,13 +22,6 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           height: 100%;
           width: 100%;
           max-width: 100vw;
-          overscroll-behavior: contain;
-          overflow: hidden;
-          position: fixed;
-        }
-
-        #__next {
-          height: 100%;
         }
 
         * {
@@ -36,11 +29,6 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           touch-action: manipulation;
           font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
             "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
-        }
-
-        #drawer-cart,
-        #drawer-cart-item {
-          height: 100% !important;
         }
       `}
     />
@@ -115,7 +103,7 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           <meta content={tenant.title || META.title} property="og:image:alt" />
         </>
       )}
-      <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+      <meta content="width=device-width, initial-scale=1.0, viewport-fit=contain" name="viewport" />
     </Head>
     {children}
   </>
