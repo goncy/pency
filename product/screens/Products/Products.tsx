@@ -154,6 +154,31 @@ const ProductsScreen: React.FC = () => {
           </Content>
         </Flex>
       </Flex>
+      {Boolean(items.length) && (
+        <Flex
+          as="nav"
+          bottom={0}
+          justifyContent="center"
+          margin={{base: 0, sm: "auto"}}
+          paddingBottom={4}
+          paddingX={4}
+          position="sticky"
+          width="100%"
+          zIndex={2}
+        >
+          <Box
+            display="block"
+            margin={{base: 0, sm: "auto"}}
+            minWidth={{base: "100%", sm: 64}}
+            rounded={4}
+            width={{base: "100%", sm: "auto"}}
+          >
+            <SummaryButton items={items} onClick={handleOpenCart}>
+              {t("products.review")}
+            </SummaryButton>
+          </Box>
+        </Flex>
+      )}
       {isCartOpen && (
         <CartSummaryDrawer
           fields={fields}
@@ -164,7 +189,7 @@ const ProductsScreen: React.FC = () => {
           onIncrease={increase}
         />
       )}
-      {selected && (
+      {Boolean(selected) && (
         <CartItemDrawer product={selected} onClose={handleCloseSelected} onSubmit={handleAdd} />
       )}
       <Onboarding />
