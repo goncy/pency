@@ -3,6 +3,7 @@ import produce from "immer";
 import {Product} from "./types";
 import schemas from "./schemas";
 
+import reporter from "~/reporting";
 import {ClientTenant} from "~/tenant/types";
 
 const cache = new Map<ClientTenant["id"], Product[]>();
@@ -31,6 +32,15 @@ function update(id: ClientTenant["id"], product: Product["id"], value: Partial<P
     } else {
       // Otherwise remove it from cache
       remove(id);
+
+      // Report it to sentry
+      reporter.message(`Found cache for products but not for id on ${id} [UPDATE]`, {
+        origin: `fetch_util`,
+        extras: {
+          value,
+          cached,
+        },
+      });
     }
   } else {
     // Otherwise remove it from cache
@@ -51,6 +61,15 @@ function set(id: ClientTenant["id"], value: Product[]) {
   } else {
     // Otherwise remove cache
     remove(id);
+
+    // Report it to sentry
+    reporter.message(`Trying to save invalid cache for ${id}`, {
+      origin: `fetch_util`,
+      extras: {
+        value,
+        cached: cache.get(id),
+      },
+    });
   }
 }
 
@@ -59,7 +78,7 @@ function add(id: ClientTenant["id"], value: Product) {
   const cached: Product[] = get(id);
 
   // If there is cache
-  if (cached) {
+  if (cached && value) {
     // Add that product
     set(
       id,
@@ -78,7 +97,7 @@ function pluck(id: ClientTenant["id"], product: Product["id"]) {
   const cached: Product[] = get(id);
 
   // If found
-  if (cached) {
+  if (cached && product) {
     // Get the index to remove
     const index = cached.findIndex((item) => item.id === product);
 
@@ -94,6 +113,15 @@ function pluck(id: ClientTenant["id"], product: Product["id"]) {
     } else {
       // Otherwise remove it from cache
       remove(id);
+
+      // Report it to sentry
+      reporter.message(`Found cache for products but not for id on ${id} [PLUCK]`, {
+        origin: `fetch_util`,
+        extras: {
+          id,
+          cached,
+        },
+      });
     }
   } else {
     // Otherwise remove it from cache
