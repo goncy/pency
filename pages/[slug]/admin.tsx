@@ -45,12 +45,12 @@ export async function getServerSideProps({
 
     // Fetch tenant, cache for 60 seconds
     const tenant = await fetch("GET", `${BASE_URL}/tenant/${slug}`, null, {
-      "Cache-Control": "s-maxage=60",
+      "Cache-Control": "no-cache",
     });
 
     // Fetch products, cache for 60 seconds
     const products = await fetch("GET", `${BASE_URL}/product?tenant=${tenant.id}`, null, {
-      "Cache-Control": "s-maxage=60",
+      "Cache-Control": "no-cache",
     });
 
     return {props: {tenant, products}};
