@@ -49,12 +49,12 @@ export default {
       .then((tenants) => tenants),
   update: async (
     id: ServerTenant["id"],
-    slug: ServerTenant["slug"],
+    _slug: ServerTenant["slug"],
     tenant: Partial<ServerTenant>,
   ) =>
     database
       .collection("tenants")
       .doc(id)
       .update(tenant)
-      .then(() => renant),
+      .then(() => tenant),
 };

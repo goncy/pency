@@ -6,7 +6,7 @@ import schemas from "~/tenant/schemas";
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     // Set cache for 1 hour
-    res.setHeader("Cache-Control", "s-maxage=3600");
+    res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
 
     return api
       .list()
