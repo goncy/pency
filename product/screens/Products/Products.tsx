@@ -22,12 +22,14 @@ import SummaryButton from "~/cart/components/SummaryButton";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 import {Product, Variant} from "~/product/types";
 import {useAnalytics} from "~/analytics/hooks";
+import {isIOSInstagramBrowser} from "~/app/selectors";
 
 const ProductsScreen: React.FC = () => {
   const {
     query: {product},
     push,
   } = useRouter();
+  const isInstagramBrowser = isIOSInstagramBrowser();
   const log = useAnalytics();
   const {add, increase, decrease, items, checkout} = useCart();
   const t = useTranslation();
@@ -98,17 +100,19 @@ const ProductsScreen: React.FC = () => {
                   {highlight}
                 </Box>
               )}
-              <Box marginBottom={{base: 5, sm: 10}}>
-                <Flex
-                  backgroundColor="gray.50"
-                  data-test-id="filters"
-                  roundedBottom="lg"
-                  roundedTop={highlight ? "none" : "lg"}
-                >
-                  <Box paddingX={4} paddingY={1}>
-                    {filters}
-                  </Box>
-                </Flex>
+              <Box
+                backgroundColor="gray.50"
+                data-test-id="filters"
+                marginBottom={{base: 5, sm: 10}}
+                position="sticky"
+                roundedBottom="lg"
+                roundedTop={highlight ? "none" : "lg"}
+                top={isInstagramBrowser ? 12 : 0}
+                zIndex={3}
+              >
+                <Box paddingX={4} paddingY={1}>
+                  {filters}
+                </Box>
               </Box>
               <Box marginBottom={4} paddingX={{base: 4, sm: 0}}>
                 <Stack margin="auto" spacing={5} width="100%">
