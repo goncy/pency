@@ -97,6 +97,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                 isRequired
                 error={errors.price && "Este campo es requerido"}
                 flex={1}
+                help="Precio para el comprador"
                 label="Precio"
                 name="price"
               >
@@ -111,6 +112,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
               <FormControl
                 error={errors.originalPrice && "Este valor es inválido"}
                 flex={1}
+                help="$0 si no corresponde"
                 label="Precio original"
                 name="originalPrice"
               >
