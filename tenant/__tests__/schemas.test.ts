@@ -245,6 +245,21 @@ describe("schemas", () => {
 
         expect(schemas.server.fetch.isValidSync(actual)).toEqual(expected);
       });
+
+      it("PENCY-5P - Cache case", () => {
+        const actual = {
+          color: "yellow",
+          logo:
+            "https://res.cloudinary.com/goncy/image/upload/v1587397932/pency/ab40esgl6xvdbvfomggr.png",
+          slug: "eguez",
+          title: "eguez",
+          id: "iZ6m50JdNtRdtc84OUGyTcq4qM22",
+          phone: "5491139033605",
+        };
+        const expected = true;
+
+        expect(schemas.server.fetch.isValidSync(actual)).toEqual(expected);
+      });
     });
 
     describe("update", () => {
