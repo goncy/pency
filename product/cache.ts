@@ -49,27 +49,28 @@ function update(id: ClientTenant["id"], product: Product["id"], value: Partial<P
 }
 
 function set(id: ClientTenant["id"], value: Product[]) {
-  // If the products are valid
-  if (
-    value &&
-    Array.isArray(value) &&
-    value.length &&
-    value.every((product) => schemas.client.fetch.isValidSync(product))
-  ) {
-    // Set it on cache
-    cache.set(id, value);
+  // If we have products
+  if (value && Array.isArray(value) && value.length) {
+    // And all products are valid
+    if (value.every((product) => schemas.client.fetch.isValidSync(product))) {
+      // Set it on cache
+      cache.set(id, value);
+    } else {
+      // Otherwise remove cache
+      remove(id);
+
+      // Report it to sentry
+      reporter.message(`Trying to save invalid cache for ${id} [SET]`, {
+        origin: `product_cache`,
+        extras: {
+          value,
+          cached: cache.get(id),
+        },
+      });
+    }
   } else {
     // Otherwise remove cache
     remove(id);
-
-    // Report it to sentry
-    reporter.message(`Trying to save invalid cache for ${id}`, {
-      origin: `product_cache`,
-      extras: {
-        value,
-        cached: cache.get(id),
-      },
-    });
   }
 }
 
