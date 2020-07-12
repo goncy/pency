@@ -34,4 +34,8 @@ yarn-error.log*
 # unused icons
 /icons
 
+# sitemap
 /public/sitemap.xml
+
+# migrations
+migrations

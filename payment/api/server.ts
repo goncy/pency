@@ -6,7 +6,7 @@ import {ClientTenant} from "~/tenant/types";
 import {getVariantsPrice} from "~/product/selectors";
 
 export default {
-  create: async (items: CartItem[], slug: ClientTenant["slug"], orderId: string, token: string) =>
+  create: (items: CartItem[], slug: ClientTenant["slug"], orderId: string, token: string) =>
     fetch("POST", `https://api.mercadopago.com/checkout/preferences?access_token=${token}`, {
       items: items.map(({product, count, variants}) => ({
         id: product.id,
@@ -33,9 +33,9 @@ export default {
       url: response.init_point,
       orderId,
     })),
-  get: async (collectionId: string, token: string) =>
+  get: (collectionId: string, token: string) =>
     fetch("GET", `https://api.mercadopago.com/v1/payments/${collectionId}?access_token=${token}`),
-  connect: async (code: string): Promise<AuthResponse> =>
+  connect: (code: string): Promise<AuthResponse> =>
     fetch("POST", `https://api.mercadopago.com/oauth/token`, {
       code,
       client_id: process.env.MERCADOPAGO_CLIENT_ID,
@@ -43,13 +43,11 @@ export default {
       grant_type: "authorization_code",
       redirect_uri: `${process.env.APP_URL}/api/payment/auth`,
     }),
-  refresh: async (token: string): Promise<AuthResponse> =>
+  refresh: (token: string): Promise<AuthResponse> =>
     fetch("POST", `https://api.mercadopago.com/oauth/token`, {
       client_id: process.env.MERCADOPAGO_CLIENT_ID,
       client_secret: process.env.MERCADOPAGO_CLIENT_SECRET,
       grant_type: "refresh_token",
       refresh_token: token,
     }),
-  disconnect: async (id: ClientTenant["id"], slug: ClientTenant["slug"]) =>
-    fetch("DELETE", `/api/payment/auth?id=${id}&slug=${slug}`),
 };
