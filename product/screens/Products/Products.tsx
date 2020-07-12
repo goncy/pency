@@ -21,7 +21,6 @@ import Content from "~/ui/structure/Content";
 import SummaryButton from "~/cart/components/SummaryButton";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 import {Product, Variant} from "~/product/types";
-import {useAnalytics} from "~/analytics/hooks";
 import {isIOSInstagramBrowser} from "~/app/selectors";
 
 const ProductsScreen: React.FC = () => {
@@ -30,7 +29,6 @@ const ProductsScreen: React.FC = () => {
     push,
   } = useRouter();
   const isInstagramBrowser = isIOSInstagramBrowser();
-  const log = useAnalytics();
   const {add, increase, decrease, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
@@ -52,8 +50,6 @@ const ProductsScreen: React.FC = () => {
 
   function handleOpenCart() {
     openCart();
-
-    log.viewCart(items);
   }
 
   function handleCloseSelected() {
@@ -104,15 +100,15 @@ const ProductsScreen: React.FC = () => {
                 backgroundColor="gray.50"
                 data-test-id="filters"
                 marginBottom={{base: 5, sm: 10}}
+                paddingX={4}
+                paddingY={1}
                 position="sticky"
                 roundedBottom="lg"
                 roundedTop={highlight ? "none" : "lg"}
                 top={isInstagramBrowser ? 12 : 0}
                 zIndex={3}
               >
-                <Box paddingX={4} paddingY={1}>
-                  {filters}
-                </Box>
+                {filters}
               </Box>
               <Box marginBottom={4} paddingX={{base: 4, sm: 0}}>
                 <Stack margin="auto" spacing={5} width="100%">

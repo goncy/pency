@@ -64,6 +64,12 @@ const CartSummaryDrawer: React.FC<Props> = ({
     if (!count) handleClose();
   }, [count, handleClose]);
 
+  React.useEffect(() => {
+    // We want to log this only once on mount
+    log.viewCart(items);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [log]);
+
   return (
     <Drawer
       id="cart"

@@ -12,7 +12,14 @@ const location = {
       lng: yup.number().default(0),
     }),
   }),
-  lazy: yup.lazy((value) => (value ? location.schema : yup.mixed().oneOf([null]))),
+  lazy: yup.lazy((value) =>
+    value
+      ? location.schema
+      : yup
+          .mixed()
+          .transform(() => null)
+          .oneOf([null]),
+  ),
 };
 const mercadopago = {
   schema: yup.object<ServerTenant["mercadopago"]>({
@@ -23,7 +30,14 @@ const mercadopago = {
       .transform((value) => (isNaN(value) ? undefined : value))
       .default(0),
   }),
-  lazy: yup.lazy((value) => (value ? mercadopago.schema : yup.mixed().oneOf([null]))),
+  lazy: yup.lazy((value) =>
+    value
+      ? mercadopago.schema
+      : yup
+          .mixed()
+          .transform(() => null)
+          .oneOf([null]),
+  ),
 };
 const field = {
   schema: {
@@ -77,24 +91,24 @@ export default {
     fetch: yup.object<Partial<ServerTenant>>({
       id: yup.string().required(),
       slug: yup.string().required(),
-      category: yup.string(),
+      category: yup.string().nullable(),
       color: color.required(),
       phone: yup.string().required(),
-      logo: yup.string(),
+      logo: yup.string().nullable(),
       title: yup.string().required(),
-      instagram: yup.string(),
-      facebook: yup.string(),
-      twitter: yup.string(),
-      keywords: yup.string(),
-      banner: yup.string(),
-      description: yup.string(),
-      country: yup.string(),
+      instagram: yup.string().nullable(),
+      facebook: yup.string().nullable(),
+      twitter: yup.string().nullable(),
+      keywords: yup.string().nullable(),
+      banner: yup.string().nullable(),
+      description: yup.string().nullable(),
+      country: yup.string().nullable(),
       location: location.lazy,
-      highlight: yup.string(),
-      fields,
-      flags,
-      layout,
-      hook: yup.string(),
+      highlight: yup.string().nullable(),
+      fields: fields.nullable(),
+      flags: flags.nullable(),
+      layout: layout.nullable(),
+      hook: yup.string().nullable(),
       mercadopago: mercadopago.lazy,
     }),
     update: yup.object<Partial<ServerTenant>>({
