@@ -115,7 +115,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                 name="originalPrice"
               >
                 <Price
-                  ref={register({required: true})}
+                  ref={register}
                   inputProps={{isDisabled: values.visibility === "ask"}}
                   name="originalPrice"
                   placeholder="150"
