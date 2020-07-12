@@ -1,5 +1,4 @@
 import {ServerTenant} from "../types";
-import cache from "../cache";
 
 import {database, auth} from "~/firebase/admin";
 
@@ -22,25 +21,20 @@ export default {
           : Promise.reject({statusText: "Esa tienda ya existe", status: 409}),
       ),
   fetch: async (slug: ServerTenant["slug"]): Promise<ServerTenant> => {
-    return (
-      cache.get(slug) ||
-      database
-        .collection("tenants")
-        .where("slug", "==", slug)
-        .limit(1)
-        .get()
-        .then((snapshot) =>
-          snapshot.empty
-            ? Promise.reject({statusText: "La tienda no existe", status: 404})
-            : snapshot.docs[0],
-        )
-        .then((doc) => ({...(doc.data() as ServerTenant), id: doc.id}))
-        .then((tenant) => {
-          cache.set(tenant.slug, tenant);
+    console.log("TENANT IMPACTED");
 
-          return tenant;
-        })
-    );
+    return database
+      .collection("tenants")
+      .where("slug", "==", slug)
+      .limit(1)
+      .get()
+      .then((snapshot) =>
+        snapshot.empty
+          ? Promise.reject({statusText: "La tienda no existe", status: 404})
+          : snapshot.docs[0],
+      )
+      .then((doc) => ({...(doc.data() as ServerTenant), id: doc.id}))
+      .then((tenant) => tenant);
   },
   list: async (): Promise<ServerTenant[]> =>
     database
@@ -52,13 +46,7 @@ export default {
           : snapshot.docs,
       )
       .then((docs) => docs.map((doc) => ({...(doc.data() as ServerTenant), id: doc.id})))
-      .then((tenants) => {
-        tenants.forEach((tenant) => {
-          cache.set(tenant.slug, tenant);
-        });
-
-        return tenants;
-      }),
+      .then((tenants) => tenants),
   update: async (
     id: ServerTenant["id"],
     slug: ServerTenant["slug"],
@@ -68,11 +56,5 @@ export default {
       .collection("tenants")
       .doc(id)
       .update(tenant)
-      .then(() => {
-        // @TODO: Flip with commented line depending on firebase quota usage
-        // cache.remove(slug);
-        cache.update(slug, {id, slug, ...tenant});
-
-        return tenant;
-      }),
+      .then(() => renant),
 };

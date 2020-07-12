@@ -43,8 +43,15 @@ export async function getServerSideProps({
   try {
     const BASE_URL = `http://${host}/api`;
 
-    const tenant = await fetch("GET", `${BASE_URL}/tenant/${slug}`);
-    const products = await fetch("GET", `${BASE_URL}/product?tenant=${tenant.id}`);
+    // Fetch tenant, cache for 60 seconds
+    const tenant = await fetch("GET", `${BASE_URL}/tenant/${slug}`, null, {
+      "Cache-Control": "s-maxage=60",
+    });
+
+    // Fetch products, cache for 60 seconds
+    const products = await fetch("GET", `${BASE_URL}/product?tenant=${tenant.id}`, null, {
+      "Cache-Control": "s-maxage=60",
+    });
 
     return {props: {tenant, products}};
   } catch (err) {
