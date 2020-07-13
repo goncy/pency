@@ -25,18 +25,15 @@ interface PostRequest extends NextApiRequest {
 export default async (slug: ClientTenant["slug"], req: NextApiRequest, res: NextApiResponse) => {
   // When a GET request is made
   if (req.method === "GET") {
+    // Set cache for 15 minutes
+    res.setHeader("Cache-Control", "s-maxage=900, stale-while-revalidate");
+
     return (
       api
         // Fetch that tenant from the DB
         .fetch(slug)
         // If found, return it with a 200
-        .then((tenant) => {
-          // Set cache for 15 minutes
-          res.setHeader("Cache-Control", "s-maxage=900, stale-while-revalidate");
-
-          // Return tenant
-          return res.status(200).json(schemas.client.fetch.cast(tenant));
-        })
+        .then((tenant) => res.status(200).json(schemas.client.fetch.cast(tenant)))
         // Otherwise return an error
         .catch(({status, statusText}) => res.status(status).end(statusText))
     );

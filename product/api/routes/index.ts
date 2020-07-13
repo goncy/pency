@@ -66,15 +66,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (!tenant) return res.status(304).end();
 
+    // Set cache for 15 minutes
+    res.setHeader("Cache-Control", "s-maxage=900, stale-while-revalidate");
+
     return api
       .list(tenant)
-      .then((products) => {
-        // Set cache for 15 minutes
-        res.setHeader("Cache-Control", "s-maxage=900, stale-while-revalidate");
-
-        // Return products
-        return res.status(200).json(products || []);
-      })
+      .then((products) => res.status(200).json(products || []))
       .catch(({status, statusText}) => res.status(status).end(statusText));
   }
 
