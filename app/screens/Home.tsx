@@ -32,9 +32,12 @@ const HomeScreen: React.FC = () => {
             solucionarlo y tendremos más información en los próximos días, disculpe los
             inconvenientes.
           </Text>
+        </Stack>
+        <Stack backgroundColor="blue.400" borderRadius="sm" padding={4} spacing={2}>
           <Text color="white">
-            Para evitar contribuir a la sobrecarga te pedímos no recargar repetidas veces e ingresar
-            al panel de administración solo en caso de necesitar hacer modificaciones, gracias.
+            Para evitar contribuir a la sobrecarga te pedímos no recargar repetidas veces, ingresar
+            al panel de administración solo en caso de necesitar hacer modificaciones y realizar
+            todas las modificaciones sin recargar la página luego de cada una, gracias.
           </Text>
         </Stack>
         <SimpleGrid columns={{base: 1, sm: 2}} spacing={{base: 4, sm: 12}}>
