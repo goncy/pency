@@ -32,6 +32,10 @@ const HomeScreen: React.FC = () => {
             solucionarlo y tendremos más información en los próximos días, disculpe los
             inconvenientes.
           </Text>
+          <Text color="white">
+            Para evitar contribuir a la sobrecarga te pedímos no recargar repetidas veces e ingresar
+            al panel de administración solo en caso de necesitar hacer modificaciones, gracias.
+          </Text>
         </Stack>
         <SimpleGrid columns={{base: 1, sm: 2}} spacing={{base: 4, sm: 12}}>
           <Stack spacing={8}>
