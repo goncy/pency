@@ -14,7 +14,6 @@ export default function fetch(
     mode,
     headers: {
       "content-type": "application/json",
-      Authorization: process.browser ? window.localStorage.getItem("token") : null,
       ...headers,
     },
     body: ["PATCH", "POST", "PUT"].includes(method) && body ? JSON.stringify(body) : null,

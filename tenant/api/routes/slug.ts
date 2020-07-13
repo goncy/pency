@@ -25,6 +25,9 @@ interface PostRequest extends NextApiRequest {
 export default async (slug: ClientTenant["slug"], req: NextApiRequest, res: NextApiResponse) => {
   // When a GET request is made
   if (req.method === "GET") {
+    // Set cache for 15 minutes
+    res.setHeader("Cache-Control", "s-maxage=900, stale-while-revalidate");
+
     return (
       api
         // Fetch that tenant from the DB
