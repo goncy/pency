@@ -26,7 +26,7 @@ export default async (slug: ClientTenant["slug"], req: NextApiRequest, res: Next
   // When a GET request is made
   if (req.method === "GET") {
     // Set cache for 15 minutes
-    res.setHeader("Cache-Control", "s-maxage=900, stale-while-revalidate");
+    res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
 
     return (
       api

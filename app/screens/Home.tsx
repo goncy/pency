@@ -27,10 +27,9 @@ const HomeScreen: React.FC = () => {
             Atención
           </Text>
           <Text color="white">
-            Estamos experimentando demoras de hasta 15 minutos para reflejar en la tienda los
-            cambios realizados en el panel de administración, estamos trabajando para poder
-            solucionarlo y tendremos más información en los próximos días, disculpe los
-            inconvenientes.
+            Estamos experimentando demoras de hasta 1 hora para reflejar en la tienda los cambios
+            realizados en el panel de administración, estamos trabajando para poder solucionarlo y
+            tendremos más información en los próximos días, disculpe los inconvenientes.
           </Text>
         </Stack>
         <SimpleGrid columns={{base: 1, sm: 2}} spacing={{base: 4, sm: 12}}>
