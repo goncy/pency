@@ -92,8 +92,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   // Get the slugs of all relevant tenants
   const relevant = tenants
-    // Filter the ones that are not on the free plan
-    .filter((tenant) => tenant.tier !== "free")
     // Get the slugs
     .map((tenant) => tenant.slug);
 
