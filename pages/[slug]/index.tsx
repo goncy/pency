@@ -14,7 +14,6 @@ import {Provider as AnalyticsProvider} from "~/analytics/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import {REVALIDATION_TIMES} from "~/tenant/constants";
-import LoadingScreen from "~/app/screens/Loading";
 
 interface Props {
   tenant: ClientTenant;

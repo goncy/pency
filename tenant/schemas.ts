@@ -85,10 +85,11 @@ const color = yup
 const flags = yup.array(yup.string());
 const fields = yup.array<Field>(field.lazy);
 const layout = yup.string().oneOf(["portrait", "landscape"]);
+const tier = yup.string().oneOf(["free", "enterpreneur", "commercial"]);
 
 export default {
   server: {
-    fetch: yup.object<Partial<ServerTenant>>({
+    fetch: yup.object<ServerTenant>({
       id: yup.string().required(),
       slug: yup.string().required(),
       category: yup.string().nullable(),
@@ -100,6 +101,7 @@ export default {
       facebook: yup.string().nullable(),
       twitter: yup.string().nullable(),
       keywords: yup.string().nullable(),
+      tier: tier.nullable(),
       banner: yup.string().nullable(),
       description: yup.string().nullable(),
       country: yup.string().nullable(),
@@ -145,6 +147,7 @@ export default {
       instagram: yup.string(),
       facebook: yup.string(),
       twitter: yup.string(),
+      tier: tier.default("free"),
       keywords: yup.string().default("pency, tienda, online, whatsapp, delivery, pedidos, shop"),
       banner: yup.string(),
       description: yup.string().default("Armá tu tienda y recibí los pedidos via WhatsApp"),
@@ -177,6 +180,7 @@ export default {
       banner: yup.string().default("").nullable(),
       description: yup.string().default("").nullable(),
       country: yup.string().default("AR").nullable(),
+      tier: tier.default("free").required(),
       location: location.schema.default(null).nullable(),
       highlight: yup.string().default("").nullable(),
       layout: layout.default("portrait").nullable(),

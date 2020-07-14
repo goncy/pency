@@ -3,10 +3,10 @@ import {useForm, Controller, FieldError} from "react-hook-form";
 import {Stack, Text, Divider} from "@chakra-ui/core";
 
 import {ClientTenant} from "../types";
-import {CATEGORIES} from "../constants";
 import FieldsInput, {validator as FieldsInputValidator} from "../inputs/Fields";
 import LayoutInput from "../inputs/Layout";
 
+import {CATEGORIES} from "~/app/constants/catalogs";
 import Select from "~/ui/inputs/Select";
 import Input from "~/ui/inputs/Input";
 import Textarea from "~/ui/inputs/Textarea";

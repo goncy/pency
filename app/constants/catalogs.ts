@@ -1,15 +1,15 @@
-export const COLORS = {
-  yellow: "Amarillo",
-  blue: "Azul",
-  cyan: "Cyan",
-  gray: "Gris",
-  orange: "Naranja",
-  purple: "Purpura",
-  red: "Rojo",
-  pink: "Rosa",
-  teal: "Turquesa",
-  green: "Verde",
-};
+export const COLORS = [
+  "yellow",
+  "blue",
+  "cyan",
+  "gray",
+  "orange",
+  "purple",
+  "red",
+  "pink",
+  "teal",
+  "green",
+];
 
 export const CATEGORIES = [
   "vehicle-accessories",
