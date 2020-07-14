@@ -5,6 +5,12 @@ import schemas from "~/tenant/schemas";
 import api from "~/tenant/api/server";
 import sessionApi from "~/session/api/server";
 
+interface GetRequest extends NextApiRequest {
+  query: {
+    slug: ClientTenant["slug"];
+  };
+}
+
 interface PatchRequest extends NextApiRequest {
   headers: {
     authorization?: string;
@@ -15,6 +21,9 @@ interface PatchRequest extends NextApiRequest {
 }
 
 interface PostRequest extends NextApiRequest {
+  query: {
+    slug: ClientTenant["slug"];
+  };
   body: {
     email: string;
     password: string;
@@ -22,9 +31,14 @@ interface PostRequest extends NextApiRequest {
   };
 }
 
-export default async (slug: ClientTenant["slug"], req: NextApiRequest, res: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   // When a GET request is made
   if (req.method === "GET") {
+    const {
+      // We extract the slug from query
+      query: {slug},
+    } = req as GetRequest;
+
     return (
       api
         // Fetch that tenant from the DB
@@ -41,6 +55,8 @@ export default async (slug: ClientTenant["slug"], req: NextApiRequest, res: Next
     const {
       // We extract what we need from the body
       body: {email, password, secret},
+      // We extract the slug from query
+      query: {slug},
     } = req as PostRequest;
 
     // If we don't have everything we need
@@ -85,7 +101,7 @@ export default async (slug: ClientTenant["slug"], req: NextApiRequest, res: Next
     }
 
     // Extract some values from the tenant
-    const {id, slug, ...rest} = tenant;
+    const {id, ...rest} = tenant;
 
     return (
       sessionApi
@@ -98,7 +114,7 @@ export default async (slug: ClientTenant["slug"], req: NextApiRequest, res: Next
           return (
             api
               // Send that values to the DB
-              .update(id, slug, schemas.server.update.cast(rest))
+              .update(id, schemas.server.update.cast(rest))
               // If everything is fine, return the tenant along with a 200
               .then(() => res.status(200).json(tenant))
               // Otherwise return a 400

@@ -1,7 +1,6 @@
 import React from "react";
 import {GetStaticProps, GetStaticPaths} from "next";
 import {useRouter} from "next/router";
-import {Flex, Spinner} from "@chakra-ui/core";
 
 import fetch from "~/utils/fetch";
 import ProductsScreen from "~/product/screens/Products";
@@ -14,23 +13,25 @@ import {Provider as AnalyticsProvider} from "~/analytics/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import {REVALIDATION_TIMES} from "~/tenant/constants";
+import LoadingScreen from "~/app/screens/Loading";
 
 interface Props {
   tenant: ClientTenant;
   products: Product[];
+  lastUpdate: number;
 }
 
-const SlugRoute: React.FC<Props> = ({tenant, products}) => {
+const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate}) => {
+  // Get router instance
   const router = useRouter();
 
+  // If page is being built
   if (router.isFallback) {
-    return (
-      <Flex alignItems="center" height="100vh" justifyContent="center" width="100vw">
-        <Spinner color="teal.500" />
-      </Flex>
-    );
+    // Show a loading screen
+    return <LoadingScreen />;
   }
 
+  // Get the real product from the product id url
   const product = router.query.product
     ? products.find((product) => product.id === router.query.product) || null
     : null;
@@ -43,7 +44,7 @@ const SlugRoute: React.FC<Props> = ({tenant, products}) => {
             <CartProvider>
               <StoreLayout product={product} tenant={tenant}>
                 <I18nProvider country={tenant.country}>
-                  <ProductsScreen />
+                  <ProductsScreen lastUpdate={lastUpdate} />
                 </I18nProvider>
               </StoreLayout>
             </CartProvider>
@@ -56,31 +57,49 @@ const SlugRoute: React.FC<Props> = ({tenant, products}) => {
 
 export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
+    // Get the base url for requests
     const BASE_URL = `${process.env.APP_URL}/api`;
 
+    // Get the tenant for this page slug
     const tenant: ClientTenant = await fetch("GET", `${BASE_URL}/tenant/${params.slug}`);
-    const products: Product[] = await fetch("GET", `${BASE_URL}/product?tenant=${tenant.id}`);
 
+    // Get its products
+    const products: Product[] = await fetch("GET", `${BASE_URL}/product/${tenant.id}`);
+
+    // Get the last updated time
+    const lastUpdate = +new Date();
+
+    // Get the revalidation time
+    const revalidationTime = REVALIDATION_TIMES[tenant.tier];
+
+    // Return the props and revalidation times
     return {
-      props: {tenant, products},
-      unstable_revalidate: REVALIDATION_TIMES[tenant.tier],
+      props: {tenant, products, lastUpdate},
+      unstable_revalidate: revalidationTime,
     };
   } catch (err) {
+    // If something failed return a status code that will be intercepted by _app
     return {props: {statusCode: err?.status || err?.statusCode || 404}};
   }
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  // Get the base url for requests
   const BASE_URL = `${process.env.APP_URL}/api`;
 
+  // Get all the tenants
   const tenants: ClientTenant[] = await fetch("GET", `${BASE_URL}/tenant`);
 
+  // Get the slugs of all tenants as params
+  const paths = tenants.map((tenant) => ({
+    params: {
+      slug: tenant.slug,
+    },
+  }));
+
+  // Return them for being used on getStaticProps
   return {
-    paths: tenants.map((tenant) => ({
-      params: {
-        slug: tenant.slug,
-      },
-    })),
+    paths,
     fallback: true,
   };
 };

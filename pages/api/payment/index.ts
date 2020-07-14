@@ -1,7 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
 
-import paymentsApi from "../server";
-
+import paymentsApi from "~/payment/api/server";
 import {ClientTenant} from "~/tenant/types";
 import tenantApi from "~/tenant/api/server";
 import {CartItem} from "~/cart/types";
@@ -40,7 +39,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             // Update the tenant with the new credentials
             await tenantApi.update(
               tenant.id,
-              tenant.slug,
               schemas.server.mercadopago.cast({
                 mercadopago: {
                   token: credentials.access_token,
@@ -65,7 +63,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               // If we failed at refreshing, we reset mercadopago for this shop
               await tenantApi.update(
                 tenant.id,
-                tenant.slug,
                 schemas.server.mercadopago.cast({
                   mercadopago: null,
                 }),

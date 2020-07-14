@@ -85,7 +85,7 @@ const SessionProvider: React.FC = ({children}) => {
     [toast, id],
   );
 
-  if (isRestoring) return <LoadingScreen />;
+  if (isRestoring) return <LoadingScreen color="primary" />;
   if (!user) return <AuthScreen tenant={tenant} />;
 
   return <SessionContext.Provider value={{state, actions}}>{children}</SessionContext.Provider>;

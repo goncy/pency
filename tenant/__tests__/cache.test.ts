@@ -81,9 +81,9 @@ describe("Tenant cache", () => {
     });
 
     it("should return tenant if required fields are present", () => {
-      const {title, color, slug, phone, id} = mock.server.full;
+      const {title, color, slug, phone, id, tier} = mock.server.full;
 
-      cache.set(slug, {title, slug, color, phone, id});
+      cache.set(slug, {title, slug, color, phone, id, tier});
 
       expect(cache.get(slug)).toEqual({title, color, slug, phone, id});
     });

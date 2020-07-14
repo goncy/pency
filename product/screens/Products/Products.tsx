@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Box, PseudoBox, Flex, useDisclosure} from "@chakra-ui/core";
+import {Stack, Box, PseudoBox, Flex, useDisclosure, Text} from "@chakra-ui/core";
 import {useRouter} from "next/router";
 
 import ProductCard from "../../components/ProductCard";
@@ -9,6 +9,7 @@ import ProductsCarousel from "../../components/ProductsCarousel";
 
 import Onboarding from "./Onboarding";
 
+import Logo from "~/ui/static/Logo";
 import {useCart} from "~/cart/hooks";
 import {groupBy} from "~/selectors/group";
 import CartSummaryDrawer from "~/cart/components/CartSummaryDrawer";
@@ -22,8 +23,13 @@ import SummaryButton from "~/cart/components/SummaryButton";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 import {Product, Variant} from "~/product/types";
 import {isIOSInstagramBrowser} from "~/app/selectors";
+import Link from "~/ui/controls/Link";
 
-const ProductsScreen: React.FC = () => {
+interface Props {
+  lastUpdate: number;
+}
+
+const ProductsScreen: React.FC<Props> = ({lastUpdate}) => {
   const {
     query: {product},
     push,
@@ -179,6 +185,29 @@ const ProductsScreen: React.FC = () => {
           </Box>
         </Flex>
       )}
+      <Content paddingX={{base: 0, sm: 4}}>
+        <Flex
+          alignItems="center"
+          backgroundColor="gray.50"
+          direction={{base: "column", sm: "row"}}
+          justifyContent="space-between"
+          padding={4}
+          roundedTop={{base: 0, sm: "lg"}}
+        >
+          <Stack isInline alignItems="center" spacing={1}>
+            <Text fontSize="sm">Última actualización:</Text>
+            <Text fontSize="sm" fontWeight={500}>
+              {new Date(lastUpdate).toLocaleString()}
+            </Text>
+          </Stack>
+          <Link href="/">
+            <Stack isInline alignItems="center" spacing={1}>
+              <Text fontSize="sm">By</Text>
+              <Logo size={12} />
+            </Stack>
+          </Link>
+        </Flex>
+      </Content>
       {isCartOpen && (
         <CartSummaryDrawer
           fields={fields}
