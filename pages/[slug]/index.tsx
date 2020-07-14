@@ -1,5 +1,6 @@
 import React from "react";
-import {GetServerSideProps} from "next";
+import {GetStaticProps, GetStaticPaths} from "next";
+import {useRouter} from "next/router";
 
 import fetch from "~/utils/fetch";
 import ProductsScreen from "~/product/screens/Products";
@@ -11,13 +12,24 @@ import {Provider as CartProvider} from "~/cart/context";
 import {Provider as AnalyticsProvider} from "~/analytics/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
+import {REVALIDATION_TIMES} from "~/tenant/constants";
+
 interface Props {
   tenant: ClientTenant;
   products: Product[];
-  product: Product;
 }
 
-const StoreRoute: React.FC<Props> = ({tenant, product, products}) => {
+const SlugRoute: React.FC<Props> = ({tenant, products}) => {
+  const router = useRouter();
+
+  const product = React.useMemo(
+    () =>
+      router.query.product
+        ? products.find((product) => product.id === router.query.product) || null
+        : null,
+    [router.query.product, products],
+  );
+
   return (
     <TenantProvider initialValue={tenant}>
       {(tenant) => (
@@ -37,27 +49,35 @@ const StoreRoute: React.FC<Props> = ({tenant, product, products}) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req: {
-    headers: {host},
-  },
-  params: {slug},
-  query,
-  res,
-}) => {
+export const getStaticProps: GetStaticProps = async ({params}) => {
   try {
-    const BASE_URL = `http://${host}/api`;
+    const BASE_URL = `${process.env.APP_URL}/api`;
 
-    const tenant = await fetch("GET", `${BASE_URL}/tenant/${slug}`);
-    const products = await fetch("GET", `${BASE_URL}/product?tenant=${tenant.id}`);
-    const product = query.product
-      ? products.find((product) => product.id === query.product) || null
-      : null;
+    const tenant: ClientTenant = await fetch("GET", `${BASE_URL}/tenant/${params.slug}`);
+    const products: Product[] = await fetch("GET", `${BASE_URL}/product?tenant=${tenant.id}`);
 
-    return {props: {tenant, products, product}};
+    return {
+      props: {tenant, products},
+      unstable_revalidate: REVALIDATION_TIMES[tenant.tier],
+    };
   } catch (err) {
-    return {props: {statusCode: err?.status || res?.statusCode || 404}};
+    return {props: {statusCode: err?.status || err?.statusCode || 404}};
   }
 };
 
-export default StoreRoute;
+export const getStaticPaths: GetStaticPaths = async () => {
+  const BASE_URL = `${process.env.APP_URL}/api`;
+
+  const tenants: ClientTenant[] = await fetch("GET", `${BASE_URL}/tenant`);
+
+  return {
+    paths: tenants.map((tenant) => ({
+      params: {
+        slug: tenant.slug,
+      },
+    })),
+    fallback: true,
+  };
+};
+
+export default SlugRoute;

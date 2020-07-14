@@ -1,7 +1,8 @@
 import faker from "faker";
 
 import {ClientTenant, ServerTenant} from "./types";
-import {CATEGORIES} from "./constants";
+
+import {CATEGORIES} from "~/app/constants/catalogs";
 
 const mock = {
   client: {
