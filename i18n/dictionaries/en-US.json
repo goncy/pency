@@ -20,6 +20,11 @@
     "item": "Item",
     "item_plural": "Items"
   },
+  "tiers": {
+    "free": "Free",
+    "enterpreneur": "Enterpreneur",
+    "commercial": "Commercial"
+  },
   "landing": {
     "features": {
       "streamlineBusinessManagment":{

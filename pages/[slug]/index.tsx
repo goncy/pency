@@ -90,16 +90,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // Get all the tenants
   const tenants: ClientTenant[] = await fetch("GET", `${BASE_URL}/tenant`);
 
-  // Get the slugs of all tenants as params
-  const paths = tenants.map((tenant) => ({
-    params: {
-      slug: tenant.slug,
-    },
-  }));
+  // Get the slugs of all relevant tenants
+  const relevant = tenants
+    // Filter the ones that are not on the free plan
+    .filter((tenant) => tenant.tier !== "free")
+    // Get the slugs
+    .map((tenant) => tenant.slug);
 
   // Return them for being used on getStaticProps
   return {
-    paths,
+    paths: relevant.map((slug) => ({
+      params: {
+        slug,
+      },
+    })),
     fallback: true,
   };
 };
