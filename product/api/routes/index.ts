@@ -66,9 +66,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (!tenant) return res.status(304).end();
 
-    // Set cache for 15 minutes
-    res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
-
     return api
       .list(tenant)
       .then((products) => res.status(200).json(products || []))
