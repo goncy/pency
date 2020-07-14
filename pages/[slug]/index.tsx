@@ -1,6 +1,7 @@
 import React from "react";
 import {GetStaticProps, GetStaticPaths} from "next";
 import {useRouter} from "next/router";
+import {Flex, Spinner} from "@chakra-ui/core";
 
 import fetch from "~/utils/fetch";
 import ProductsScreen from "~/product/screens/Products";
@@ -13,6 +14,7 @@ import {Provider as AnalyticsProvider} from "~/analytics/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import {REVALIDATION_TIMES} from "~/tenant/constants";
+import LoadingScreen from "~/app/screens/Loading";
 
 interface Props {
   tenant: ClientTenant;
@@ -22,13 +24,17 @@ interface Props {
 const SlugRoute: React.FC<Props> = ({tenant, products}) => {
   const router = useRouter();
 
-  const product = React.useMemo(
-    () =>
-      router.query.product
-        ? products.find((product) => product.id === router.query.product) || null
-        : null,
-    [router.query.product, products],
-  );
+  if (router.isFallback) {
+    return (
+      <Flex alignItems="center" height="100vh" justifyContent="center" width="100vw">
+        <Spinner color="teal.500" />
+      </Flex>
+    );
+  }
+
+  const product = router.query.product
+    ? products.find((product) => product.id === router.query.product) || null
+    : null;
 
   return (
     <TenantProvider initialValue={tenant}>

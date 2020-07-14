@@ -21,6 +21,8 @@ export default {
           : Promise.reject({statusText: "Esa tienda ya existe", status: 409}),
       ),
   fetch: async (slug: ServerTenant["slug"]): Promise<ServerTenant> => {
+    console.log("HITTING TENANT");
+
     return database
       .collection("tenants")
       .where("slug", "==", slug)
