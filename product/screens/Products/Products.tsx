@@ -39,7 +39,7 @@ const ProductsScreen: React.FC<Props> = ({lastUpdate}) => {
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts((product) => product.visibility !== "hidden");
-  const {highlight, fields, layout, ...tenant} = useTenant();
+  const {highlight, fields, layout, tier, ...tenant} = useTenant();
   const selected = React.useMemo(() => products.find((_product) => _product.id === product), [
     products,
     product,
@@ -185,29 +185,31 @@ const ProductsScreen: React.FC<Props> = ({lastUpdate}) => {
           </Box>
         </Flex>
       )}
-      <Content paddingX={{base: 0, sm: 4}}>
-        <Flex
-          alignItems="center"
-          backgroundColor="gray.50"
-          direction={{base: "column", sm: "row"}}
-          justifyContent="space-between"
-          padding={4}
-          roundedTop={{base: 0, sm: "lg"}}
-        >
-          <Stack isInline alignItems="center" spacing={1}>
-            <Text fontSize="sm">Última actualización:</Text>
-            <Text fontSize="sm" fontWeight={500}>
-              {new Date(lastUpdate).toLocaleString()}
-            </Text>
-          </Stack>
-          <Link href="/">
+      {tier !== "commercial" && (
+        <Content paddingX={{base: 0, sm: 4}}>
+          <Flex
+            alignItems="center"
+            backgroundColor="gray.50"
+            direction={{base: "column", sm: "row"}}
+            justifyContent="space-between"
+            padding={4}
+            roundedTop={{base: 0, sm: "lg"}}
+          >
             <Stack isInline alignItems="center" spacing={1}>
-              <Text fontSize="sm">By</Text>
-              <Logo size={12} />
+              <Text fontSize="sm">Última actualización:</Text>
+              <Text fontSize="sm" fontWeight={500}>
+                {new Date(lastUpdate).toLocaleString()}
+              </Text>
             </Stack>
-          </Link>
-        </Flex>
-      </Content>
+            <Link href="/">
+              <Stack isInline alignItems="center" spacing={1}>
+                <Text fontSize="sm">Tienda creada con</Text>
+                <Logo size={12} />
+              </Stack>
+            </Link>
+          </Flex>
+        </Content>
+      )}
       {isCartOpen && (
         <CartSummaryDrawer
           fields={fields}

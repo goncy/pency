@@ -9,8 +9,6 @@ import {ClientTenant} from "~/tenant/types";
 
 export default {
   list: async (tenant: ClientTenant["id"]): Promise<Product[]> => {
-    console.log("HITTING PRODUCTS");
-
     return database
       .collection("tenants")
       .doc(tenant)
