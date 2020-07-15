@@ -25,33 +25,33 @@ const LandingRoute: React.FC<Props> = ({tenants}) => (
 );
 
 export const getStaticProps: GetStaticProps = async () => {
-  // We don't want to generate static assets for testing
-  if (process.env.ENV === "test") {
+  try {
+    // Get stores from db
+    const tenants: ClientTenant[] = await tenantApi
+      .list()
+      // Cast them as client tenants
+      .then((tenants) => tenants.map((tenant) => schemas.client.fetch.cast(tenant)));
+
+    // Get just important ones
+    const filtered = filterByRelevant(tenants);
+
+    // Build sitemap
+    fs.writeFileSync("public/sitemap.xml", buildSitemap(filtered));
+
+    // Return stores so we can build a directory
+    return {
+      props: {
+        tenants: filtered,
+      },
+    };
+  } catch (e) {
+    // Allow this to fail
     return {
       props: {
         tenants: [],
       },
     };
   }
-
-  // Get stores from db
-  const tenants: ClientTenant[] = await tenantApi
-    .list()
-    // Cast them as client tenants
-    .then((tenants) => tenants.map((tenant) => schemas.client.fetch.cast(tenant)));
-
-  // Get just important ones
-  const filtered = filterByRelevant(tenants);
-
-  // Build sitemap
-  fs.writeFileSync("public/sitemap.xml", buildSitemap(filtered));
-
-  // Return stores so we can build a directory
-  return {
-    props: {
-      tenants: filtered,
-    },
-  };
 };
 
 export default LandingRoute;
