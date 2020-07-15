@@ -93,6 +93,7 @@ const ProductInput: React.FC<Props> = ({value: product, onChange, error, ...prop
           <option value="available">Disponible</option>
           <option value="unavailable">Sin stock</option>
           <option value="ask">A consultar</option>
+          <option value="custom">Personalizado</option>
           <option value="hidden">Oculto</option>
         </Select>
       </Stack>

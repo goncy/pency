@@ -35,6 +35,14 @@ export const noStock = () => (
   />
 );
 
+export const custom = () => (
+  <ProductCard
+    layout="portrait"
+    product={{...productMock.withoutVariants, visibility: "custom"}}
+    onClick={action("onClick")}
+  />
+);
+
 export const ask = () => (
   <ProductCard
     layout="portrait"

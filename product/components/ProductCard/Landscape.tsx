@@ -14,7 +14,7 @@ interface Props extends Omit<FlexProps, "onClick"> {
 
 const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...props}) => {
   const p = usePrice();
-  const {image, title, price, originalPrice, description, visibility} = product;
+  const {image, title, price, originalPrice, description, visibility, priceLabel} = product;
 
   function handleClick() {
     onClick(product);
@@ -71,6 +71,13 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
               <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
                 {p(price)}
               </Text>
+            </Stack>
+          )}
+          {visibility === "promotional" && (
+            <Stack isInline alignItems="center">
+              <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
+                {p(price)}
+              </Text>
               {originalPrice && (
                 <Text color="gray.500" fontSize="sm" lineHeight={1} textDecoration="line-through">
                   {p(originalPrice)}
@@ -81,6 +88,11 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
           {visibility === "unavailable" && (
             <Text color="yellow.500" fontSize="sm" fontWeight={500} lineHeight={1}>
               Sin stock
+            </Text>
+          )}
+          {visibility === "custom" && (
+            <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
+              {priceLabel}
             </Text>
           )}
           {visibility === "ask" && (

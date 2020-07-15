@@ -97,7 +97,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                 isRequired
                 error={errors.price && "Este campo es requerido"}
                 flex={1}
-                help="Precio para el comprador"
+                help="Precio base"
                 label="Precio"
                 name="price"
               >
@@ -109,21 +109,41 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                   rounded="md"
                 />
               </FormControl>
-              <FormControl
-                error={errors.originalPrice && "Este valor es inválido"}
-                flex={1}
-                help="$0 si no corresponde"
-                label="Precio original"
-                name="originalPrice"
-              >
-                <Price
-                  ref={register}
-                  inputProps={{isDisabled: values.visibility === "ask"}}
+              {values.visibility === "promotional" && (
+                <FormControl
+                  isRequired
+                  error={errors.originalPrice && "Este valor es requerido"}
+                  flex={1}
+                  help="$0 si no corresponde"
+                  label="Precio original"
                   name="originalPrice"
-                  placeholder="150"
-                  rounded="md"
-                />
-              </FormControl>
+                >
+                  <Price
+                    ref={register({required: true})}
+                    name="originalPrice"
+                    placeholder="150"
+                    rounded="md"
+                  />
+                </FormControl>
+              )}
+              {values.visibility === "custom" && (
+                <FormControl
+                  isRequired
+                  error={errors.priceLabel && "Este valor es requerido"}
+                  flex={1}
+                  help="Máximo 15 caracteres"
+                  label="Etiqueta"
+                  name="priceLabel"
+                >
+                  <Input
+                    ref={register({required: true, maxLength: 15})}
+                    maxLength={15}
+                    name="priceLabel"
+                    placeholder="$150 ~ $350"
+                    rounded="md"
+                  />
+                </FormControl>
+              )}
             </Stack>
             <FormControl
               isRequired
@@ -159,7 +179,9 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
               >
                 <option value="available">Disponible</option>
                 <option value="unavailable">Sin stock</option>
+                <option value="promotional">Promocional</option>
                 <option value="ask">A consultar</option>
+                <option value="custom">Personalizado</option>
                 <option value="hidden">Oculto</option>
               </Select>
             </FormControl>

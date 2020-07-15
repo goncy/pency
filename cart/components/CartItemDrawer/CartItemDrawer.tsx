@@ -101,6 +101,15 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
       <ProductVariantForm defaultValues={product.options} onSubmit={handleSubmit}>
         {({form, submit, isLoading, watch}) => {
           const variants = Object.values(watch());
+          const items = [
+            {
+              id: "temp",
+              note: "",
+              product,
+              variants,
+              count,
+            },
+          ];
 
           return (
             <>
@@ -176,19 +185,13 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                 </Stack>
               </DrawerBody>
               <DrawerFooter>
-                {["unavailable", "available"].includes(product.visibility) && (
+                {["unavailable", "available", "promotional", "custom"].includes(
+                  product.visibility,
+                ) && (
                   <SummaryButton
                     isDisabled={product.visibility === "unavailable"}
                     isLoading={isLoading}
-                    items={[
-                      {
-                        id: "temp",
-                        note: "",
-                        product,
-                        variants,
-                        count,
-                      },
-                    ]}
+                    items={items}
                     onClick={(event) => {
                       event.stopPropagation();
 

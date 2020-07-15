@@ -29,6 +29,14 @@ export const unavailable = () => (
   />
 );
 
+export const custom = () => (
+  <CartItemDrawer
+    product={{...productMock.full, visibility: "custom"}}
+    onClose={action("close")}
+    onSubmit={action("submit")}
+  />
+);
+
 export const ask = () => (
   <CartItemDrawer
     product={{...productMock.full, visibility: "ask"}}

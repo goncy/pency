@@ -9,7 +9,7 @@ export default {
       id: yup.string().strip(true),
       visibility: yup
         .string()
-        .oneOf(["available", "unavailable", "ask", "hidden"])
+        .oneOf(["available", "unavailable", "ask", "promotional", "custom", "hidden"])
         .default(DEFAULT_PRODUCT.visibility),
       title: yup.string().default(DEFAULT_PRODUCT.title),
       price: yup
@@ -20,6 +20,7 @@ export default {
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
         .default(DEFAULT_PRODUCT.originalPrice),
+      priceLabel: yup.string().default(DEFAULT_PRODUCT.priceLabel),
       options: yup
         .array(
           yup.object<Variant>({
@@ -55,7 +56,11 @@ export default {
       description: yup.string().nullable(),
       price: yup.number().nullable(),
       originalPrice: yup.number().nullable(),
-      visibility: yup.string().oneOf(["available", "unavailable", "ask", "hidden"]).nullable(),
+      priceLabel: yup.string().nullable(),
+      visibility: yup
+        .string()
+        .oneOf(["available", "unavailable", "ask", "promotional", "custom", "hidden"])
+        .nullable(),
       featured: yup.boolean().nullable(),
       options: yup
         .array(
@@ -88,7 +93,7 @@ export default {
       id: yup.string().required(),
       visibility: yup
         .string()
-        .oneOf(["available", "unavailable", "ask", "hidden"])
+        .oneOf(["available", "unavailable", "ask", "promotional", "custom", "hidden"])
         .default(DEFAULT_PRODUCT.visibility),
       title: yup.string().required().default(DEFAULT_PRODUCT.title),
       price: yup
@@ -101,6 +106,7 @@ export default {
         .transform((value) => (isNaN(value) ? undefined : value))
         .required()
         .default(DEFAULT_PRODUCT.originalPrice),
+      priceLabel: yup.string().default(DEFAULT_PRODUCT.priceLabel),
       options: yup
         .array(
           yup.object<Variant>({
@@ -130,7 +136,10 @@ export default {
       image: yup.string().default(DEFAULT_PRODUCT.image),
     }),
     update: yup.object<Partial<Product>>({
-      visibility: yup.string().oneOf(["available", "unavailable", "ask", "hidden"]).nullable(),
+      visibility: yup
+        .string()
+        .oneOf(["available", "unavailable", "ask", "promotional", "custom", "hidden"])
+        .nullable(),
       category: yup.string().trim().nullable(),
       description: yup.string().nullable(),
       featured: yup.boolean().nullable(),
@@ -161,13 +170,14 @@ export default {
         .nullable(),
       price: yup.number().nullable(),
       originalPrice: yup.number().nullable(),
+      priceLabel: yup.string().nullable(),
       title: yup.string().nullable(),
     }),
     create: yup.object<Product>({
       id: yup.string().strip(true),
       visibility: yup
         .string()
-        .oneOf(["available", "unavailable", "ask", "hidden"])
+        .oneOf(["available", "unavailable", "ask", "promotional", "custom", "hidden"])
         .default(DEFAULT_PRODUCT.visibility),
       title: yup.string().default(DEFAULT_PRODUCT.title),
       price: yup
@@ -178,6 +188,7 @@ export default {
         .number()
         .transform((value) => (isNaN(value) ? undefined : value))
         .default(DEFAULT_PRODUCT.originalPrice),
+      priceLabel: yup.string().default(DEFAULT_PRODUCT.priceLabel),
       options: yup
         .array(
           yup
@@ -210,7 +221,10 @@ export default {
     }),
   },
   csv: yup.object<Partial<Product>>({
-    visibility: yup.string().oneOf(["available", "unavailable", "ask", "hidden"]).nullable(),
+    visibility: yup
+      .string()
+      .oneOf(["available", "unavailable", "ask", "promotional", "custom", "hidden"])
+      .nullable(),
     category: yup.string().trim().nullable(),
     description: yup
       .string()
@@ -244,6 +258,7 @@ export default {
       .nullable(),
     price: yup.number().nullable(),
     originalPrice: yup.number().nullable(),
+    priceLabel: yup.string().nullable(),
     title: yup.string().nullable(),
   }),
 };

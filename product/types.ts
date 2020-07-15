@@ -7,7 +7,8 @@ export interface Product {
   image?: string | undefined;
   price: number;
   originalPrice?: number;
-  visibility: "available" | "unavailable" | "ask" | "hidden";
+  priceLabel?: string;
+  visibility: "available" | "unavailable" | "custom" | "hidden" | "promotional" | "ask";
   options?: Variant[];
   featured?: boolean;
 }
