@@ -2,9 +2,8 @@ import React from "react";
 import {GetStaticProps, GetStaticPaths} from "next";
 import {useRouter} from "next/router";
 
-import fetch from "~/utils/fetch";
 import ProductsScreen from "~/product/screens/Products";
-import {ClientTenant} from "~/tenant/types";
+import {ClientTenant, ServerTenant} from "~/tenant/types";
 import {Product} from "~/product/types";
 import StoreLayout from "~/app/layouts/StoreLayout";
 import {Provider as I18nProvider} from "~/i18n/context";
@@ -14,6 +13,10 @@ import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import {REVALIDATION_TIMES} from "~/tenant/constants";
 import LoadingScreen from "~/app/screens/Loading";
+import tenantApi from "~/tenant/api/server";
+import productApi from "~/product/api/server";
+import tenantSchemas from "~/tenant/schemas";
+import productSchemas from "~/product/schemas";
 
 interface Props {
   tenant: ClientTenant;
@@ -55,16 +58,19 @@ const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate}) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({params}) => {
+export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
   try {
-    // Get the base url for requests
-    const BASE_URL = `${process.env.APP_URL}/api`;
-
     // Get the tenant for this page slug
-    const tenant: ClientTenant = await fetch("GET", `${BASE_URL}/tenant/${params.slug}`);
+    const tenant: ClientTenant = await tenantApi
+      .fetch(slug as ClientTenant["slug"])
+      // Cast it as a client tenant
+      .then((tenant) => tenantSchemas.client.fetch.cast(tenant));
 
     // Get its products
-    const products: Product[] = await fetch("GET", `${BASE_URL}/product/${tenant.id}`);
+    const products: Product[] = await productApi
+      .list(tenant.id)
+      // Cast all products for client
+      .then((products) => products.map((product) => productSchemas.client.fetch.cast(product)));
 
     // Get the last updated time
     const lastUpdate = +new Date();
@@ -84,11 +90,8 @@ export const getStaticProps: GetStaticProps = async ({params}) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Get the base url for requests
-  const BASE_URL = `${process.env.APP_URL}/api`;
-
   // Get all the tenants
-  const tenants: ClientTenant[] = await fetch("GET", `${BASE_URL}/tenant`);
+  const tenants: ServerTenant[] = await tenantApi.list();
 
   // Get the slugs of all relevant tenants
   const relevant = tenants
