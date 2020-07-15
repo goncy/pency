@@ -251,8 +251,14 @@ export default {
         }),
       )
       .nullable(),
-    price: yup.number().nullable(),
-    originalPrice: yup.number().nullable(),
+    price: yup
+      .number()
+      .transform((value) => (isNaN(value) ? 0 : value))
+      .nullable(),
+    originalPrice: yup
+      .number()
+      .transform((value) => (isNaN(value) ? 0 : value))
+      .nullable(),
     title: yup.string().nullable(),
   }),
 };

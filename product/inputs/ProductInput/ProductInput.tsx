@@ -9,7 +9,6 @@ import {Product, Variant} from "~/product/types";
 import Price from "~/ui/inputs/Price";
 import FormControl from "~/ui/form/FormControl";
 import HelpCircleIcon from "~/ui/icons/HelpCircle";
-import Select from "~/ui/inputs/Select";
 
 interface Props extends Omit<StackProps, "onChange"> {
   value?: Product;
@@ -28,32 +27,11 @@ const ProductInput: React.FC<Props> = ({value: product, onChange, error, ...prop
     );
   }
 
-  function handleOriginalPriceChange(event: React.ChangeEvent<HTMLInputElement>) {
-    onChange(
-      // Produce a new product based on the change
-      produce(product, (product) => {
-        // Cast as unknown and then number so we can have an empty input, we then validate that with the schema
-        product.originalPrice = (event.target.value as unknown) as number;
-      }),
-    );
-  }
-
   function handleVariantsChange(variants: Variant[]) {
     onChange(
       // Produce a new product based on the change
       produce(product, (product) => {
         product.options = variants;
-      }),
-    );
-  }
-
-  function handleTypeChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    const type = event.target.value as Product["type"];
-
-    onChange(
-      // Produce a new product based on the change
-      produce(product, (product) => {
-        product.type = type;
       }),
     );
   }
@@ -82,20 +60,7 @@ const ProductInput: React.FC<Props> = ({value: product, onChange, error, ...prop
           value={product.price}
           onChange={handlePriceChange}
         />
-        <Price
-          inputProps={{isInvalid: false}}
-          rounded="sm"
-          value={product.originalPrice}
-          onChange={handleOriginalPriceChange}
-        />
         <ProductVariantsInput value={product.options} onChange={handleVariantsChange} />
-        <Select onChange={handleTypeChange}>
-          <option value="available">Disponible</option>
-          <option value="unavailable">Sin stock</option>
-          <option value="ask">A consultar</option>
-          <option value="variant">Variante</option>
-          <option value="hidden">Oculto</option>
-        </Select>
       </Stack>
     </FormControl>
   );

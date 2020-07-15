@@ -1,7 +1,6 @@
 import {Variant, Product, Option} from "./types";
 
-export const CSV_TEMPLATE =
-  "title;description;price;originalPrice;priceTag;category;type;featured\n;;;;;;available;FALSE";
+export const CSV_TEMPLATE = "title;description;price;category;featured\n;;;available;FALSE";
 
 export const DEFAULT_PRODUCT: Omit<Product, "id"> = {
   title: "",
