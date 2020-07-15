@@ -20,7 +20,12 @@ export default {
         const parsed = products.map((product) =>
           schemas.client.fetch.cast({
             ...product,
-            visibility: product.available === false ? "unavailable" : product.visibility,
+            visibility:
+              product.available === false
+                ? "unavailable"
+                : product.originalPrice
+                ? "promotional"
+                : product.visibility,
           }),
         );
 
