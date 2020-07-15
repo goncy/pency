@@ -47,13 +47,13 @@ const ProductInput: React.FC<Props> = ({value: product, onChange, error, ...prop
     );
   }
 
-  function handleVisibilityChange(event: React.ChangeEvent<HTMLSelectElement>) {
-    const visibility = event.target.value as Product["visibility"];
+  function handleTypeChange(event: React.ChangeEvent<HTMLSelectElement>) {
+    const type = event.target.value as Product["type"];
 
     onChange(
       // Produce a new product based on the change
       produce(product, (product) => {
-        product.visibility = visibility;
+        product.type = type;
       }),
     );
   }
@@ -89,11 +89,11 @@ const ProductInput: React.FC<Props> = ({value: product, onChange, error, ...prop
           onChange={handleOriginalPriceChange}
         />
         <ProductVariantsInput value={product.options} onChange={handleVariantsChange} />
-        <Select onChange={handleVisibilityChange}>
+        <Select onChange={handleTypeChange}>
           <option value="available">Disponible</option>
           <option value="unavailable">Sin stock</option>
           <option value="ask">A consultar</option>
-          <option value="custom">Personalizado</option>
+          <option value="variant">Variante</option>
           <option value="hidden">Oculto</option>
         </Select>
       </Stack>

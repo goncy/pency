@@ -30,15 +30,15 @@ export const raised = () => (
 export const noStock = () => (
   <ProductCard
     layout="portrait"
-    product={{...productMock.withoutVariants, visibility: "unavailable"}}
+    product={{...productMock.withoutVariants, type: "unavailable"}}
     onClick={action("onClick")}
   />
 );
 
-export const custom = () => (
+export const variant = () => (
   <ProductCard
     layout="portrait"
-    product={{...productMock.withoutVariants, visibility: "custom"}}
+    product={{...productMock.withoutVariants, type: "variant"}}
     onClick={action("onClick")}
   />
 );
@@ -46,7 +46,7 @@ export const custom = () => (
 export const ask = () => (
   <ProductCard
     layout="portrait"
-    product={{...productMock.withoutVariants, visibility: "ask"}}
+    product={{...productMock.withoutVariants, type: "ask"}}
     onClick={action("onClick")}
   />
 );
@@ -54,7 +54,7 @@ export const ask = () => (
 export const hidden = () => (
   <ProductCard
     layout="portrait"
-    product={{...productMock.withoutVariants, visibility: "hidden"}}
+    product={{...productMock.withoutVariants, type: "hidden"}}
     onClick={action("onClick")}
   />
 );

@@ -4,6 +4,7 @@ import {Box, Text, Flex, Stack, FlexProps} from "@chakra-ui/core";
 import Image from "~/ui/feedback/Image";
 import {Product} from "~/product/types";
 import {usePrice} from "~/i18n/hooks";
+import {getVariantsPriceRange} from "~/product/selectors";
 
 interface Props extends Omit<FlexProps, "onClick"> {
   product: Product;
@@ -13,14 +14,15 @@ interface Props extends Omit<FlexProps, "onClick"> {
 
 const PortraitProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...props}) => {
   const p = usePrice();
-  const {image, title, price, originalPrice, visibility, priceLabel} = product;
+  const {image, title, price, originalPrice, type} = product;
+  const [min, max] = getVariantsPriceRange(product.options);
 
   function handleClick() {
     onClick(product);
   }
 
   // If we get here by any point, return null
-  if (visibility === "hidden") return null;
+  if (type === "hidden") return null;
 
   return (
     <Flex
@@ -55,14 +57,14 @@ const PortraitProductCard: React.FC<Props> = ({isRaised = false, product, onClic
         <Text display="block" fontSize="md" fontWeight={500} lineHeight="normal" marginBottom={2}>
           {title}
         </Text>
-        {visibility === "available" && (
+        {type === "available" && (
           <Stack isInline alignItems="center">
             <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
               {p(price)}
             </Text>
           </Stack>
         )}
-        {visibility === "promotional" && (
+        {type === "promotional" && (
           <Stack isInline alignItems="center">
             <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
               {p(price)}
@@ -74,17 +76,17 @@ const PortraitProductCard: React.FC<Props> = ({isRaised = false, product, onClic
             )}
           </Stack>
         )}
-        {visibility === "unavailable" && (
+        {type === "unavailable" && (
           <Text color="yellow.500" fontSize="sm" fontWeight={500} lineHeight={1}>
             Sin stock
           </Text>
         )}
-        {visibility === "custom" && (
+        {type === "variant" && (
           <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
-            {priceLabel}
+            {p(min)} ~ {p(max)}
           </Text>
         )}
-        {visibility === "ask" && (
+        {type === "ask" && (
           <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
             A consultar
           </Text>

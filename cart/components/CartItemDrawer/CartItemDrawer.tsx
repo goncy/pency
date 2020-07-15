@@ -94,7 +94,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
   }, [product, log]);
 
   // If we get here by any point, return null
-  if (product.visibility === "hidden") return null;
+  if (product.type === "hidden") return null;
 
   return (
     <Drawer id="cart-item" placement="right" size="md" onClose={onClose} {...props}>
@@ -185,11 +185,9 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                 </Stack>
               </DrawerBody>
               <DrawerFooter>
-                {["unavailable", "available", "promotional", "custom"].includes(
-                  product.visibility,
-                ) && (
+                {["unavailable", "available", "promotional", "variant"].includes(product.type) && (
                   <SummaryButton
-                    isDisabled={product.visibility === "unavailable"}
+                    isDisabled={product.type === "unavailable"}
                     isLoading={isLoading}
                     items={items}
                     onClick={(event) => {
@@ -201,7 +199,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                     {t("common.add")}
                   </SummaryButton>
                 )}
-                {product.visibility === "ask" && (
+                {product.type === "ask" && (
                   <Button
                     boxShadow="lg"
                     size="lg"

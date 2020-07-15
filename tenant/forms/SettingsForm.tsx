@@ -52,7 +52,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             </Text>
             <FormControl
               isRequired
-              error={errors.phone && "Este campo es requerido y tiene un máximo de 70 caracteres"}
+              error={errors.title && "Este campo es requerido y tiene un máximo de 70 caracteres"}
               help="Solo el nombre, sin slogan"
               label="Nombre de tu negocio"
               name="title"

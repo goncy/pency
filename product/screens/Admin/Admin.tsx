@@ -36,7 +36,7 @@ const AdminScreen: React.FC = () => {
 
   function onCreate() {
     setSelected({
-      visibility: "available",
+      type: "available",
       image: "",
       options: [],
     });

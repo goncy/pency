@@ -16,16 +16,16 @@ export default {
       .get()
       .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
       .then((products) => {
-        // @TODO: Remove once visibility is widely adopted
+        // @TODO: Remove once type is widely adopted
         const parsed = products.map((product) =>
           schemas.client.fetch.cast({
             ...product,
-            visibility:
+            type:
               product.available === false
                 ? "unavailable"
                 : product.originalPrice
                 ? "promotional"
-                : product.visibility,
+                : product.visibility || product.type,
           }),
         );
 
@@ -64,8 +64,9 @@ export default {
       .doc(id)
       .update({
         ...casted,
-        // @TODO: Remove once visibility is widely adopted
+        // @TODO: Remove once type is widely adopted
         available: firestore.FieldValue.delete(),
+        visibility: firestore.FieldValue.delete(),
       })
       .then(() => casted);
   },
