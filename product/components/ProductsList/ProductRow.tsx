@@ -52,7 +52,7 @@ const ProductRow: React.FC<Props> = ({onEdit, onRemove, ...product}) => {
           </Text>
         </Flex>
       </Box>
-      <Box as="td" display={{base: "none", md: "table-cell"}} width="160px">
+      <Box as="td" display={{base: "none", md: "table-cell"}} width="220px">
         <Text fontWeight="500" marginRight={{base: 4, md: 12}} textAlign="left">
           {product.visibility === "ask" && "A consultar"}
           {product.visibility === "custom" && product.priceLabel}
