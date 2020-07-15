@@ -42,7 +42,7 @@ const ProductsForm: React.FC<Props> = ({children, defaultValues, onSubmit}) => {
       <form onSubmit={submit(handleSubmit)}>
         <Stack overflowY="auto" paddingLeft={1} spacing={6}>
           {defaultValues.map((product, index) => {
-            const error = (errors.products?.[index] as FieldError)?.message;
+            const error = ((errors.products?.[index] as unknown) as FieldError)?.message;
 
             return (
               <FormControl

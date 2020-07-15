@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Text} from "@chakra-ui/core";
+import {Stack, Text, Box} from "@chakra-ui/core";
 
 import CheckIcon from "~/ui/icons/Check";
 import CircleIcon from "~/ui/icons/Circle";
@@ -20,40 +20,42 @@ const Challenges: React.FC<Props> = ({tenant, products}) => {
   const hasProducts = Boolean(products.length);
 
   return (
-    <Stack backgroundColor="primary.50" padding={4} rounded="md" spacing={8}>
-      <Text fontSize="lg" fontWeight="bold">
-        {t("landing.home.startWithTheseChallenges")}
-      </Text>
-      <Stack spacing={8}>
-        <Stack isInline opacity={hasBasicComplete ? 0.3 : 1}>
-          {hasBasicComplete ? <CheckIcon /> : <CircleIcon />}
-          <Stack spacing={0}>
-            <Text>{t("landing.home.firstChallenge.title")}</Text>
-            <Text color="gray.500" fontSize="sm">
-              {t("landing.home.firstChallenge.description")}
-            </Text>
+    <Box>
+      <Stack backgroundColor="primary.50" padding={4} rounded="md" spacing={6}>
+        <Text fontSize="lg" fontWeight="bold">
+          {t("landing.home.startWithTheseChallenges")}
+        </Text>
+        <Stack spacing={6}>
+          <Stack isInline opacity={hasBasicComplete ? 0.3 : 1}>
+            {hasBasicComplete ? <CheckIcon /> : <CircleIcon />}
+            <Stack spacing={0}>
+              <Text>{t("landing.home.firstChallenge.title")}</Text>
+              <Text color="gray.500" fontSize="sm">
+                {t("landing.home.firstChallenge.description")}
+              </Text>
+            </Stack>
           </Stack>
-        </Stack>
-        <Stack isInline opacity={hasCustomizationComplete ? 0.3 : 1}>
-          {hasCustomizationComplete ? <CheckIcon /> : <CircleIcon />}
-          <Stack spacing={0}>
-            <Text>{t("landing.home.secondChallenge.title")}</Text>
-            <Text color="gray.500" fontSize="sm">
-              {t("landing.home.secondChallenge.description")}
-            </Text>
+          <Stack isInline opacity={hasCustomizationComplete ? 0.3 : 1}>
+            {hasCustomizationComplete ? <CheckIcon /> : <CircleIcon />}
+            <Stack spacing={0}>
+              <Text>{t("landing.home.secondChallenge.title")}</Text>
+              <Text color="gray.500" fontSize="sm">
+                {t("landing.home.secondChallenge.description")}
+              </Text>
+            </Stack>
           </Stack>
-        </Stack>
-        <Stack isInline opacity={hasProducts ? 0.3 : 1}>
-          {hasProducts ? <CheckIcon /> : <CircleIcon />}
-          <Stack spacing={0}>
-            <Text>{t("landing.home.thirdChallenge.title")}</Text>
-            <Text color="gray.500" fontSize="sm">
-              {t("landing.home.thirdChallenge.description")}
-            </Text>
+          <Stack isInline opacity={hasProducts ? 0.3 : 1}>
+            {hasProducts ? <CheckIcon /> : <CircleIcon />}
+            <Stack spacing={0}>
+              <Text>{t("landing.home.thirdChallenge.title")}</Text>
+              <Text color="gray.500" fontSize="sm">
+                {t("landing.home.thirdChallenge.description")}
+              </Text>
+            </Stack>
           </Stack>
         </Stack>
       </Stack>
-    </Stack>
+    </Box>
   );
 };
 
