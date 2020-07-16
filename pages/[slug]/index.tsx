@@ -95,6 +95,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   // Get the slugs of all relevant tenants
   const relevant = tenants
+    // Filter only relevant ones
+    .filter((tenant) => ["entrepreneur", "commercial"].includes(tenant.tier))
     // Get the slugs
     .map((tenant) => tenant.slug);
 
