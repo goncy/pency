@@ -10,7 +10,7 @@ interface Props {
 
 const COLORS = {
   free: "gray",
-  enterpreneur: "teal",
+  entrepreneur: "teal",
   commercial: "green",
 };
 

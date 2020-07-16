@@ -186,20 +186,15 @@ const ProductsScreen: React.FC<Props> = ({lastUpdate}) => {
         </Flex>
       )}
       {tier !== "commercial" && (
-        <Content paddingX={{base: 0, sm: 4}}>
+        <Content>
           <Flex
             alignItems="center"
-            backgroundColor="gray.50"
             direction={{base: "column", sm: "row"}}
             justifyContent="space-between"
             padding={4}
-            roundedTop={{base: 0, sm: "lg"}}
           >
-            <Stack isInline alignItems="center" spacing={1}>
-              <Text fontSize="sm">Última actualización:</Text>
-              <Text fontSize="sm" fontWeight={500}>
-                {new Date(lastUpdate).toLocaleString()}
-              </Text>
+            <Stack isInline alignItems="center" color="gray.500" fontSize="sm" spacing={1}>
+              <Text>Última actualización: {new Date(lastUpdate).toLocaleString()}</Text>
             </Stack>
             <Link href="/">
               <Stack isInline alignItems="center" spacing={1}>

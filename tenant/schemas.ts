@@ -85,7 +85,7 @@ const color = yup
 const flags = yup.array(yup.string());
 const fields = yup.array<Field>(field.lazy);
 const layout = yup.string().oneOf(["portrait", "landscape"]);
-const tier = yup.string().oneOf(["free", "enterpreneur", "commercial"]);
+const tier = yup.string().oneOf(["free", "entrepreneur", "commercial"]);
 
 export default {
   server: {

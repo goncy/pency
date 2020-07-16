@@ -11,12 +11,12 @@ import {Provider as CartProvider} from "~/cart/context";
 import {Provider as AnalyticsProvider} from "~/analytics/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
-import {REVALIDATION_TIMES} from "~/tenant/constants";
 import LoadingScreen from "~/app/screens/Loading";
 import tenantApi from "~/tenant/api/server";
 import productApi from "~/product/api/server";
 import tenantSchemas from "~/tenant/schemas";
 import productSchemas from "~/product/schemas";
+import {getRevalidationTime} from "~/tenant/selectors";
 
 interface Props {
   tenant: ClientTenant;
@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
     const lastUpdate = +new Date();
 
     // Get the revalidation time
-    const revalidationTime = REVALIDATION_TIMES[tenant.tier];
+    const revalidationTime = getRevalidationTime(tenant.tier);
 
     // Return the props and revalidation times
     return {

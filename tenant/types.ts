@@ -5,7 +5,7 @@ import {Place} from "~/places/types";
 interface Tenant {
   id: string;
   slug: string;
-  tier: "free" | "enterpreneur" | "commercial";
+  tier: "free" | "entrepreneur" | "commercial";
   category?: string;
   color: Extract<
     VariantColor,

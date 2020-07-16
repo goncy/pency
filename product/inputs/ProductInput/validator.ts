@@ -19,7 +19,7 @@ const schema = yup.object<Bulk>({
   type: yup
     .string()
     .oneOf(["available", "unavailable", "variant", "promotional", "ask", "hidden"])
-    .required("La visibilidad es requerida"),
+    .required("El tipo es requerida"),
   options: yup
     .array(
       yup.object({
