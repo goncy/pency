@@ -9,25 +9,25 @@ const Info: React.FC = () => (
     </Text>
     <Text>Las variantes se componen de:</Text>
     <Text>
-      <Text fontWeight="bold">Título:</Text> El nombre de la variante (ej: Salsa, Talle, Cantidad).
+      <Text fontWeight="bold">Título:</Text>El nombre de la variante (ej: Salsa, Talle, Cantidad).
     </Text>
     <Text>
-      <Text fontWeight="bold">Cantidad:</Text> Cuantas opciones puede elegir el usuario antes de
+      <Text fontWeight="bold">Cantidad:</Text>Cuántas opciones puede elegir el usuario antes de
       agregar el producto al pedido.
     </Text>
     <Text>
-      <Text fontWeight="bold">Obligatoriedad:</Text> Define si el usuario debe seleccionar la
+      <Text fontWeight="bold">Obligatoriedad:</Text>Define si el usuario debe seleccionar la
       cantidad definida de opciones para poder agregar el producto al pedido.
     </Text>
     <Text>
-      <Text fontWeight="bold">Opciones:</Text> Compuestas de "título", que indica el nombre de la
-      opción (500GR, 1KG, etc). Y un precio, el cual se sumará al valor base del producto (si el
-      producto tiene un valor de $100 y la opción de $20, cuando el usuario seleccione esta opción
-      el precio final sera de $120).
+      <Text fontWeight="bold">Opciones:</Text>Compuestas de un "título": que indica el nombre de la
+      opción (500GR, 1KG, etc). Y un precio que se sumará al valor base del producto (si el producto
+      tiene un valor de $100 y la opción de $20, cuando el usuario seleccione esta opción el precio
+      final será de $120).
     </Text>
     <Text>
-      En caso de que el producto sea de tipo "Variante", el precio de las opciones indicadas formará
-      el total del valor del producto.
+      En caso de que el producto sea de tipo "Variante", el precio de cada opción indicada será el
+      total del valor del producto.
     </Text>
   </Stack>
 );
