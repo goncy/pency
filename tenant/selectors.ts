@@ -35,12 +35,14 @@ export function getRevalidationTime(tier: ClientTenant["tier"]): number {
         24 * 60 * 60 - now.getHours() * 60 * 60 - now.getMinutes() * 60 - now.getSeconds();
 
       // If deployed near midnight, deploy tomorrow otherwise deploy on specified time
-      return secondsUntilTomorrow < 3600 ? secondsUntilTomorrow + 86400 : secondsUntilTomorrow;
+      return Math.round(
+        secondsUntilTomorrow < 3600 ? secondsUntilTomorrow + 86400 : secondsUntilTomorrow,
+      );
     }
 
     case "entrepreneur": {
       // Seconds until next hour
-      return Math.round(3600000 - (new Date().getTime() % 3600000)) / 1000;
+      return Math.round(3600000 - (new Date().getTime() % 3600000) / 1000);
     }
 
     case "commercial": {
