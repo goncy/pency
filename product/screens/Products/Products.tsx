@@ -39,7 +39,7 @@ const ProductsScreen: React.FC<Props> = ({lastUpdate}) => {
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts((product) => product.type !== "hidden");
-  const {highlight, fields, layout, tier, ...tenant} = useTenant();
+  const {highlight, fields, layout, ...tenant} = useTenant();
   const selected = React.useMemo(() => products.find((_product) => _product.id === product), [
     products,
     product,
@@ -185,26 +185,24 @@ const ProductsScreen: React.FC<Props> = ({lastUpdate}) => {
           </Box>
         </Flex>
       )}
-      {tier !== "commercial" && (
-        <Content>
-          <Flex
-            alignItems="center"
-            direction={{base: "column", sm: "row"}}
-            justifyContent="space-between"
-            padding={4}
-          >
-            <Stack isInline alignItems="center" color="gray.500" fontSize="sm" spacing={1}>
-              <Text>Última actualización: {new Date(lastUpdate).toLocaleString()}</Text>
+      <Content>
+        <Flex
+          alignItems="center"
+          direction={{base: "column", sm: "row"}}
+          justifyContent="space-between"
+          padding={4}
+        >
+          <Stack isInline alignItems="center" color="gray.500" fontSize="sm" spacing={1}>
+            <Text>Última actualización: {new Date(lastUpdate).toLocaleString()}</Text>
+          </Stack>
+          <Link href="/">
+            <Stack isInline alignItems="center" spacing={1}>
+              <Text fontSize="sm">Tienda creada con</Text>
+              <Logo size={12} />
             </Stack>
-            <Link href="/">
-              <Stack isInline alignItems="center" spacing={1}>
-                <Text fontSize="sm">Tienda creada con</Text>
-                <Logo size={12} />
-              </Stack>
-            </Link>
-          </Flex>
-        </Content>
-      )}
+          </Link>
+        </Flex>
+      </Content>
       {isCartOpen && (
         <CartSummaryDrawer
           fields={fields}
