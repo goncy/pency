@@ -383,6 +383,7 @@ describe("schemas", () => {
           description: "Armá tu tienda y recibí los pedidos via WhatsApp",
           keywords: "pency, tienda, online, whatsapp, delivery, pedidos, shop",
           location: null,
+          tier: "free",
           layout: "portrait",
           mercadopago: null,
           phone: "5491173694572",
@@ -396,6 +397,7 @@ describe("schemas", () => {
       it("should normalize location if present", () => {
         const actual = {
           slug: "goncy",
+          tier: "free",
           location: {
             address: "some-address",
             coordinates: {
@@ -412,6 +414,7 @@ describe("schemas", () => {
           keywords: "pency, tienda, online, whatsapp, delivery, pedidos, shop",
           mercadopago: null,
           phone: "5491173694572",
+          tier: "free",
           title: "Pency - Tu tienda online fácil",
           location: {
             address: "some-address",
@@ -465,6 +468,7 @@ describe("schemas", () => {
         const actual = {
           id: "some-id",
           slug: "some-slug",
+          tier: "free",
           color: "teal",
           phone: "1144444444",
         };
@@ -475,6 +479,7 @@ describe("schemas", () => {
           country: "AR",
           description: "",
           facebook: "",
+          tier: "free",
           fields: [],
           flags: [],
           highlight: "",
@@ -497,6 +502,7 @@ describe("schemas", () => {
           id: "some-id",
           slug: "some-slug",
           color: "teal",
+          tier: "free",
           phone: 1144444444,
           highlight: "Some highlight",
         };
@@ -507,6 +513,7 @@ describe("schemas", () => {
           category: "",
           country: "AR",
           description: "",
+          tier: "free",
           facebook: "",
           fields: [],
           flags: [],
@@ -529,6 +536,7 @@ describe("schemas", () => {
           id: "some-id",
           slug: "some-slug",
           color: "teal",
+          tier: "free",
           phone: 1144444444,
           highlight: "Some highlight",
           location: {
@@ -545,6 +553,7 @@ describe("schemas", () => {
           banner: "",
           category: "",
           country: "AR",
+          tier: "free",
           description: "",
           facebook: "",
           fields: [],
@@ -576,6 +585,7 @@ describe("schemas", () => {
           color: "teal",
           phone: 1144444444,
           highlight: "Some highlight",
+          tier: "free",
           flags: [1, 2, 3],
           location: {
             address: "some address",
@@ -596,6 +606,7 @@ describe("schemas", () => {
           fields: [],
           flags: ["1", "2", "3"],
           hook: "",
+          tier: "free",
           instagram: "",
           keywords: "",
           location: {
@@ -621,6 +632,7 @@ describe("schemas", () => {
           slug: "some-slug",
           color: "teal",
           phone: 1144444444,
+          tier: "free",
           highlight: "Some highlight",
           flags: [1, 2, 3],
           location: null,
@@ -636,6 +648,7 @@ describe("schemas", () => {
           fields: [],
           flags: ["1", "2", "3"],
           hook: "",
+          tier: "free",
           instagram: "",
           keywords: "",
           location: null,
@@ -654,6 +667,7 @@ describe("schemas", () => {
           id: "some-id",
           slug: "some-slug",
           color: "teal",
+          tier: "free",
           phone: 1144444444,
           highlight: "Some highlight",
           flags: [1, 2, 3],
@@ -667,6 +681,7 @@ describe("schemas", () => {
           description: "",
           facebook: "",
           fields: [],
+          tier: "free",
           flags: ["1", "2", "3"],
           hook: "",
           instagram: "",
@@ -683,6 +698,46 @@ describe("schemas", () => {
       });
 
       it("should return false when mercadopago is not valid", () => {
+        const actual = {
+          id: "some-id",
+          slug: "some-slug",
+          color: "teal",
+          tier: "free",
+          phone: 1144444444,
+          highlight: "Some highlight",
+          flags: [1, 2, 3],
+          mercadopago: {
+            expiration: null,
+            refresh: "",
+            token: "",
+          },
+        };
+        const expected = {
+          ...actual,
+          phone: "1144444444",
+          banner: "",
+          category: "",
+          country: "AR",
+          description: "",
+          facebook: "",
+          fields: [],
+          flags: ["1", "2", "3"],
+          hook: "",
+          instagram: "",
+          tier: "free",
+          keywords: "",
+          location: null,
+          layout: "portrait",
+          logo: "",
+          mercadopago: false,
+          title: "",
+          twitter: "",
+        };
+
+        expect(schemas.client.fetch.cast(actual)).toEqual(expected);
+      });
+
+      it("should return free when tier is not present", () => {
         const actual = {
           id: "some-id",
           slug: "some-slug",
@@ -704,6 +759,7 @@ describe("schemas", () => {
           country: "AR",
           description: "",
           facebook: "",
+          tier: "free",
           fields: [],
           flags: ["1", "2", "3"],
           hook: "",

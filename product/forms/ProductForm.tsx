@@ -1,12 +1,16 @@
 import React from "react";
 import {useForm, Controller, FormContext, FieldError} from "react-hook-form";
-import {Stack, Text, Divider} from "@chakra-ui/core";
+import {Stack, Divider} from "@chakra-ui/core";
 
 import {Product} from "../types";
 import ProductVariantsInput, {
   validator as ProductVariantsInputValidator,
+  info as ProductVariantsInputInfo,
 } from "../inputs/ProductVariantsInput";
-import ProductTypeInput, {validator as ProductTypeInputValidator} from "../inputs/ProductTypeInput";
+import ProductTypeInput, {
+  validator as ProductTypeInputValidator,
+  info as ProductTypeInputInfo,
+} from "../inputs/ProductTypeInput";
 
 import Input from "~/ui/inputs/Input";
 import Select from "~/ui/inputs/Select";
@@ -96,7 +100,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
             <FormControl
               isRequired
               error={errors.type?.message}
-              help="Tipo de producto"
+              info={<ProductTypeInputInfo />}
               label="Tipo"
               name="type"
             >
@@ -178,10 +182,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
               />
             </FormControl>
             <Divider />
-            <Text fontSize="xl" fontWeight={500}>
-              Variantes
-            </Text>
-            <FormControl name="options">
+            <FormControl info={<ProductVariantsInputInfo />} label="Variantes" name="options">
               <Controller
                 as={ProductVariantsInput}
                 base={values?.price}
