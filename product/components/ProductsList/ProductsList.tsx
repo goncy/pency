@@ -63,10 +63,10 @@ const ProductsList: React.FC<Props> = ({
           spacing={2}
         >
           {isPreviewEnabled && previewMode === "row" && (
-            <GridIcon onClick={handleCardPreviewMode} />
+            <GridIcon cursor="pointer" onClick={handleCardPreviewMode} />
           )}
           {isPreviewEnabled && previewMode === "card" && (
-            <MenuIcon onClick={handleRowPreviewMode} />
+            <MenuIcon cursor="pointer" onClick={handleRowPreviewMode} />
           )}
           <Stack isInline alignItems="center" cursor="pointer" spacing={2} onClick={handleToggle}>
             <Text>{title}</Text>

@@ -384,6 +384,31 @@ describe("schemas", () => {
           keywords: "pency, tienda, online, whatsapp, delivery, pedidos, shop",
           location: null,
           tier: "free",
+          createdAt: 1594090800000,
+          layout: "portrait",
+          mercadopago: null,
+          phone: "5491173694572",
+          title: "Pency - Tu tienda online fácil",
+          flags: [],
+        };
+
+        expect(schemas.server.create.cast(actual)).toEqual(expected);
+      });
+
+      it("should allow custom createdAt", () => {
+        const actual = {
+          slug: "goncy",
+          createdAt: 1,
+        };
+        const expected = {
+          slug: "goncy",
+          color: "teal",
+          country: "AR",
+          description: "Armá tu tienda y recibí los pedidos via WhatsApp",
+          keywords: "pency, tienda, online, whatsapp, delivery, pedidos, shop",
+          location: null,
+          tier: "free",
+          createdAt: 1,
           layout: "portrait",
           mercadopago: null,
           phone: "5491173694572",
@@ -415,6 +440,7 @@ describe("schemas", () => {
           mercadopago: null,
           phone: "5491173694572",
           tier: "free",
+          createdAt: 1594090800000,
           title: "Pency - Tu tienda online fácil",
           location: {
             address: "some-address",
@@ -480,6 +506,7 @@ describe("schemas", () => {
           description: "",
           facebook: "",
           tier: "free",
+          createdAt: 1594090800000,
           fields: [],
           flags: [],
           highlight: "",
@@ -514,6 +541,7 @@ describe("schemas", () => {
           country: "AR",
           description: "",
           tier: "free",
+          createdAt: 1594090800000,
           facebook: "",
           fields: [],
           flags: [],
@@ -554,6 +582,7 @@ describe("schemas", () => {
           category: "",
           country: "AR",
           tier: "free",
+          createdAt: 1594090800000,
           description: "",
           facebook: "",
           fields: [],
@@ -607,6 +636,7 @@ describe("schemas", () => {
           flags: ["1", "2", "3"],
           hook: "",
           tier: "free",
+          createdAt: 1594090800000,
           instagram: "",
           keywords: "",
           location: {
@@ -649,6 +679,7 @@ describe("schemas", () => {
           flags: ["1", "2", "3"],
           hook: "",
           tier: "free",
+          createdAt: 1594090800000,
           instagram: "",
           keywords: "",
           location: null,
@@ -682,6 +713,7 @@ describe("schemas", () => {
           facebook: "",
           fields: [],
           tier: "free",
+          createdAt: 1594090800000,
           flags: ["1", "2", "3"],
           hook: "",
           instagram: "",
@@ -725,6 +757,7 @@ describe("schemas", () => {
           hook: "",
           instagram: "",
           tier: "free",
+          createdAt: 1594090800000,
           keywords: "",
           location: null,
           layout: "portrait",
@@ -760,6 +793,48 @@ describe("schemas", () => {
           description: "",
           facebook: "",
           tier: "free",
+          createdAt: 1594090800000,
+          fields: [],
+          flags: ["1", "2", "3"],
+          hook: "",
+          instagram: "",
+          keywords: "",
+          location: null,
+          layout: "portrait",
+          logo: "",
+          mercadopago: false,
+          title: "",
+          twitter: "",
+        };
+
+        expect(schemas.client.fetch.cast(actual)).toEqual(expected);
+      });
+
+      it("should not update created at if present", () => {
+        const actual = {
+          id: "some-id",
+          slug: "some-slug",
+          color: "teal",
+          phone: 1144444444,
+          highlight: "Some highlight",
+          createdAt: 1,
+          flags: [1, 2, 3],
+          mercadopago: {
+            expiration: null,
+            refresh: "",
+            token: "",
+          },
+        };
+        const expected = {
+          ...actual,
+          phone: "1144444444",
+          banner: "",
+          category: "",
+          country: "AR",
+          description: "",
+          facebook: "",
+          tier: "free",
+          createdAt: 1,
           fields: [],
           flags: ["1", "2", "3"],
           hook: "",
