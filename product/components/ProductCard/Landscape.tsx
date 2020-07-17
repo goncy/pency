@@ -9,7 +9,7 @@ import {getVariantsPriceRange} from "~/product/selectors";
 
 interface Props extends Omit<FlexProps, "onClick"> {
   product: Product;
-  onClick: (product: Product) => void;
+  onClick?: (product: Product) => void;
   isRaised?: boolean;
 }
 
@@ -19,7 +19,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
   const [min, max] = getVariantsPriceRange(product.options);
 
   function handleClick() {
-    onClick(product);
+    onClick && onClick(product);
   }
 
   // If we get here by any point, return null
@@ -31,7 +31,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
       borderBottomWidth={{base: 1, sm: 0}}
       borderWidth={{sm: 1}}
       boxShadow={isRaised ? "lg" : "none"}
-      cursor="pointer"
+      cursor={onClick ? "pointer" : "inherit"}
       paddingY={{base: 4, sm: 0}}
       rounded={{base: "none", sm: "md"}}
       transition="all 0.2s"

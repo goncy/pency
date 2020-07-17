@@ -8,7 +8,7 @@ import {getVariantsPriceRange} from "~/product/selectors";
 
 interface Props extends Omit<FlexProps, "onClick"> {
   product: Product;
-  onClick: (product: Product) => void;
+  onClick?: (product: Product) => void;
   isRaised?: boolean;
 }
 
@@ -18,7 +18,7 @@ const PortraitProductCard: React.FC<Props> = ({isRaised = false, product, onClic
   const [min, max] = getVariantsPriceRange(product.options);
 
   function handleClick() {
-    onClick(product);
+    onClick && onClick(product);
   }
 
   // If we get here by any point, return null
@@ -28,7 +28,7 @@ const PortraitProductCard: React.FC<Props> = ({isRaised = false, product, onClic
     <Flex
       alignItems="flex-end"
       boxShadow={isRaised ? "lg" : "none"}
-      cursor="pointer"
+      cursor={onClick ? "pointer" : "inherit"}
       data-test-id="product"
       direction="column"
       justifyContent="space-between"

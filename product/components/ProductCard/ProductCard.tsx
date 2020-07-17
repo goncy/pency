@@ -8,7 +8,7 @@ import PortraitProductCard from "./Portrait";
 
 interface Props extends Omit<FlexProps, "onClick"> {
   product: Product;
-  onClick: (product: Product) => void;
+  onClick?: (product: Product) => void;
   isRaised?: boolean;
   layout?: "portrait" | "landscape";
 }
