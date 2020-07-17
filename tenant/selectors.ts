@@ -24,7 +24,33 @@ export function filterByRelevant(tenants: ClientTenant[]): ClientTenant[] {
   return tenants.filter((tenant) => schema.isValidSync(tenant));
 }
 
-export function getRevalidationTime(tier: ClientTenant["tier"]): number {
+export function getIsOnGracePeriod(createdAt: ClientTenant["createdAt"]): boolean {
+  // Current date
+  const now = new Date();
+
+  // If created on last week, return true
+  if (+now - createdAt < 604800000) {
+    return true;
+  }
+
+  // Otherwise return false
+  return false;
+}
+
+export function getRemainingGracePeriod(createdAt: ClientTenant["createdAt"]): number {
+  // Remaining grace period days
+  return Math.round(7 - (+new Date() - createdAt) / (1000 * 60 * 60 * 24));
+}
+
+export function getRevalidationTime(
+  tier: ClientTenant["tier"],
+  createdAt: ClientTenant["createdAt"],
+): number {
+  // If created on last week, give commercial tier
+  if (getIsOnGracePeriod(createdAt)) {
+    return 10;
+  }
+
   switch (tier) {
     case "free": {
       // Current date

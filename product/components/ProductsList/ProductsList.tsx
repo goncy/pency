@@ -1,26 +1,54 @@
 import React from "react";
 import {Box, StackProps, Stack, Text} from "@chakra-ui/core";
 
+import ProductCard from "../ProductCard";
+import ProductsGrid from "../ProductsGrid";
+
 import ProductRow from "./ProductRow";
 
 import {Product} from "~/product/types";
 import ChevronUpIcon from "~/ui/icons/ChevronUp";
 import ChevronDownIcon from "~/ui/icons/ChevronDown";
+import GridIcon from "~/ui/icons/Grid";
+import MenuIcon from "~/ui/icons/Menu";
+import {ClientTenant} from "~/tenant/types";
 
 interface Props extends StackProps {
+  layout: ClientTenant["layout"];
   products: Product[];
+  isPreviewEnabled?: boolean;
   title?: string;
   onEdit: (product: Product) => void;
   onRemove: (id: Product["id"]) => Promise<void>;
 }
 
-const ProductsList: React.FC<Props> = ({title = null, products, onEdit, onRemove, ...props}) => {
+const ProductsList: React.FC<Props> = ({
+  title = null,
+  products,
+  onEdit,
+  onRemove,
+  isPreviewEnabled = false,
+  ...props
+}) => {
   // If it doesn't have a title, show it
   const [isToggled, toggle] = React.useState(!Boolean(title));
+
+  // Store preview mode
+  const [previewMode, setPreviewMode] = React.useState("row");
 
   // Handle toggle when title is clicked
   function handleToggle() {
     toggle(!isToggled);
+  }
+
+  // Set card preview mode
+  function handleCardPreviewMode() {
+    setPreviewMode("card");
+  }
+
+  // Set row preview mode
+  function handleRowPreviewMode() {
+    setPreviewMode("row");
   }
 
   return (
@@ -29,28 +57,40 @@ const ProductsList: React.FC<Props> = ({title = null, products, onEdit, onRemove
         <Stack
           isInline
           alignItems="center"
-          borderBottomWidth={1}
-          cursor="pointer"
           fontSize="xl"
           fontWeight={500}
           paddingBottom={2}
           spacing={2}
-          onClick={handleToggle}
         >
-          <Text>{title}</Text>
-          <Text color="gray.500">({products.length})</Text>
-          {!isToggled && <ChevronDownIcon onClick={handleToggle} />}
-          {isToggled && <ChevronUpIcon onClick={handleToggle} />}
+          {isPreviewEnabled && previewMode === "row" && (
+            <GridIcon onClick={handleCardPreviewMode} />
+          )}
+          {isPreviewEnabled && previewMode === "card" && (
+            <MenuIcon onClick={handleRowPreviewMode} />
+          )}
+          <Stack isInline alignItems="center" cursor="pointer" spacing={2} onClick={handleToggle}>
+            <Text>{title}</Text>
+            <Text color="gray.500">({products.length})</Text>
+            {!isToggled && <ChevronDownIcon />}
+            {isToggled && <ChevronUpIcon />}
+          </Stack>
         </Stack>
       )}
-      {isToggled && (
-        <Box as="table" width="100%">
+      {isToggled && previewMode === "row" && (
+        <Box as="table" borderTopWidth={1} width="100%">
           <Box as="tbody">
             {products.map((product) => (
               <ProductRow key={product.id} onEdit={onEdit} onRemove={onRemove} {...product} />
             ))}
           </Box>
         </Box>
+      )}
+      {isToggled && previewMode === "card" && (
+        <ProductsGrid layout="portrait">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </ProductsGrid>
       )}
     </Stack>
   );

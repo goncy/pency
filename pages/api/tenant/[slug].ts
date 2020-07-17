@@ -66,7 +66,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // Store a temp tenant
-    const tenant = schemas.server.create.cast({slug});
+    const tenant = schemas.server.create.cast({slug, createdAt: +new Date()});
 
     // Check if its valid (mocking id as we still don't have it)
     if (!schemas.server.fetch.isValidSync({id: "fake-id", ...tenant})) {

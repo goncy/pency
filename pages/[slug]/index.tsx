@@ -76,7 +76,7 @@ export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
     const lastUpdate = +new Date();
 
     // Get the revalidation time
-    const revalidationTime = getRevalidationTime(tenant.tier);
+    const revalidationTime = getRevalidationTime(tenant.tier, tenant.createdAt);
 
     // Return the props and revalidation times
     return {

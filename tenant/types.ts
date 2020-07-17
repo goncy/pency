@@ -26,6 +26,7 @@ interface Tenant {
   fields?: Field[];
   flags?: string[];
   hook?: string;
+  createdAt: number;
   layout?: "landscape" | "portrait";
   mercadopago?: {
     token: string;

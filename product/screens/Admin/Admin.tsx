@@ -17,7 +17,7 @@ import ProductsUpsertButton from "~/product/components/ProductsUpsertButton";
 
 const AdminScreen: React.FC = () => {
   const [selected, setSelected] = React.useState<Partial<Product> | undefined>(undefined);
-  const {flags} = useTenant();
+  const {flags, layout} = useTenant();
   const {products, filters} = useFilteredProducts();
   const {update, remove, create, upsert} = useProductActions();
   const categories = useProductCategories();
@@ -60,7 +60,11 @@ const AdminScreen: React.FC = () => {
                 {filters}
                 <Stack isInline shouldWrapChildren marginLeft={4} spacing={2}>
                   {flags?.includes("bulk") && (
-                    <ProductsUpsertButton products={products} onSubmit={upsert} />
+                    <ProductsUpsertButton
+                      display={{base: "none", sm: "flex"}}
+                      products={products}
+                      onSubmit={upsert}
+                    />
                   )}
                   <IconButton
                     isCollapsable
@@ -83,6 +87,8 @@ const AdminScreen: React.FC = () => {
                   {productsByCategory.map(([category, products]) => (
                     <Box key={category} id={category}>
                       <ProductsList
+                        isPreviewEnabled={flags.includes("preview")}
+                        layout={layout}
                         products={products}
                         title={category}
                         width="100%"

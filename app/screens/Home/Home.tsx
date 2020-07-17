@@ -22,7 +22,7 @@ const HomeScreen: React.FC = () => {
         <SimpleGrid columns={{base: 1, sm: 2}} spacing={{base: 4, sm: 8}}>
           <Stack shouldWrapChildren spacing={{base: 4, sm: 8}}>
             <Introduction title={tenant.title} />
-            <Tier tier={tenant.tier} />
+            <Tier createdAt={tenant.createdAt} tier={tenant.tier} />
             <Contact />
           </Stack>
           <Challenges products={products} tenant={tenant} />

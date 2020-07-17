@@ -111,11 +111,13 @@ export default {
       flags: flags.nullable(),
       layout: layout.nullable(),
       hook: yup.string().nullable(),
+      createdAt: yup.number().nullable(),
       mercadopago: mercadopago.lazy,
     }),
     update: yup.object<Partial<ServerTenant>>({
       id: yup.string().strip(true),
       slug: yup.string().strip(true),
+      createdAt: yup.number().strip(true),
       category: yup.string(),
       color,
       phone: yup.string(),
@@ -140,6 +142,7 @@ export default {
       id: yup.string().strip(true),
       slug: yup.string().required(),
       category: yup.string(),
+      createdAt: yup.number().default(1594090800000), // When created at was implemented (17/7/2020)
       color: color.default("teal"),
       phone: yup.string().default("5491173694572"),
       logo: yup.string(),
@@ -170,6 +173,7 @@ export default {
       slug: yup.string().required(),
       category: yup.string().default("").nullable(),
       color: color.required(),
+      createdAt: yup.number().default(1594090800000), // When created at was implemented (17/7/2020)
       phone: yup.string().required(),
       logo: yup.string().default("").nullable(),
       title: yup.string().default("").required(),
