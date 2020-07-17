@@ -14,6 +14,7 @@ const mock = {
         twitter: faker.internet.userName(),
         instagram: faker.internet.userName(),
         facebook: faker.internet.userName(),
+        createdAt: faker.random.number(999999999),
         logo: "//placehold.it/128x128",
         banner: "//placehold.it/256x128",
         title: faker.company.companyName(),
