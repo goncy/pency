@@ -8,7 +8,6 @@ import LandingLayout from "~/app/layouts/LandingLayout";
 import {Provider as I18nProvider} from "~/i18n/context";
 import {ClientTenant} from "~/tenant/types";
 import {buildSitemap} from "~/utils/sitemap";
-import {filterByRelevant} from "~/tenant/selectors";
 import tenantApi from "~/tenant/api/server";
 import schemas from "~/tenant/schemas";
 
@@ -32,7 +31,7 @@ export const getStaticProps: GetStaticProps = async () => {
     .then((tenants) => tenants.map((tenant) => schemas.client.fetch.cast(tenant)));
 
   // Get just important ones
-  const filtered = filterByRelevant(tenants);
+  const filtered = tenants.filter((tenant) => schemas.client.relevant.isValidSync(tenant));
 
   // Build sitemap
   fs.writeFileSync("public/sitemap.xml", buildSitemap(filtered));

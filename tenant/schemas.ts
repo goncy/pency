@@ -1,6 +1,7 @@
 import * as yup from "yup";
 
 import {ClientTenant, ServerTenant, Field, RadioField, TextField} from "./types";
+import {DEFAULT_CLIENT_TENANT} from "./constants";
 
 import {Place} from "~/places/types";
 
@@ -142,26 +143,26 @@ export default {
       id: yup.string().strip(true),
       slug: yup.string().required(),
       category: yup.string(),
-      createdAt: yup.number().default(1594090800000), // When created at was implemented (17/7/2020)
-      color: color.default("teal"),
-      phone: yup.string().default("5491173694572"),
+      createdAt: yup.number().default(DEFAULT_CLIENT_TENANT.createdAt), // When created at was implemented (17/7/2020)
+      color: color.default(DEFAULT_CLIENT_TENANT.color),
+      phone: yup.string().default(DEFAULT_CLIENT_TENANT.phone),
       logo: yup.string(),
-      title: yup.string().default("Pency - Tu tienda online fácil"),
+      title: yup.string().default(DEFAULT_CLIENT_TENANT.title),
       instagram: yup.string(),
       facebook: yup.string(),
       twitter: yup.string(),
-      tier: tier.default("free"),
-      keywords: yup.string().default("pency, tienda, online, whatsapp, delivery, pedidos, shop"),
+      tier: tier.default(DEFAULT_CLIENT_TENANT.tier),
+      keywords: yup.string().default(DEFAULT_CLIENT_TENANT.keywords),
       banner: yup.string(),
-      description: yup.string().default("Armá tu tienda y recibí los pedidos via WhatsApp"),
-      country: yup.string().default("AR"),
+      description: yup.string().default(DEFAULT_CLIENT_TENANT.description),
+      country: yup.string().default(DEFAULT_CLIENT_TENANT.country),
       location: location.schema.default(null),
       highlight: yup.string(),
       fields,
-      layout: layout.default("portrait"),
-      flags: flags.default([]),
+      layout: layout.default(DEFAULT_CLIENT_TENANT.layout),
+      flags: flags.default(DEFAULT_CLIENT_TENANT.flags),
       hook: yup.string(),
-      mercadopago: mercadopago.schema.default(null),
+      mercadopago: mercadopago.schema.default(DEFAULT_CLIENT_TENANT.mercadopago),
     }),
     mercadopago: yup.object<Pick<ServerTenant, "mercadopago">>({
       mercadopago: mercadopago.lazy,
@@ -173,7 +174,7 @@ export default {
       slug: yup.string().required(),
       category: yup.string().default("").nullable(),
       color: color.required(),
-      createdAt: yup.number().default(1594090800000), // When created at was implemented (17/7/2020)
+      createdAt: yup.number().default(DEFAULT_CLIENT_TENANT.createdAt), // When created at was implemented (17/7/2020)
       phone: yup.string().required(),
       logo: yup.string().default("").nullable(),
       title: yup.string().default("").required(),
@@ -183,18 +184,32 @@ export default {
       keywords: yup.string().default("").nullable(),
       banner: yup.string().default("").nullable(),
       description: yup.string().default("").nullable(),
-      country: yup.string().default("AR").nullable(),
-      tier: tier.default("free").required(),
+      country: yup.string().default(DEFAULT_CLIENT_TENANT.country).nullable(),
+      tier: tier.default(DEFAULT_CLIENT_TENANT.tier).required(),
       location: location.schema.default(null).nullable(),
       highlight: yup.string().default("").nullable(),
-      layout: layout.default("portrait").nullable(),
-      fields: fields.default([]).nullable(),
-      flags: flags.default([]).nullable(),
+      layout: layout.default(DEFAULT_CLIENT_TENANT.layout).nullable(),
+      fields: fields.default(DEFAULT_CLIENT_TENANT.fields).nullable(),
+      flags: flags.default(DEFAULT_CLIENT_TENANT.flags).nullable(),
       hook: yup.string().default("").nullable(),
       mercadopago: yup
         .boolean()
         .transform((mercadopago) => Boolean(mercadopago?.token))
         .default(false),
+    }),
+    relevant: yup.object<Partial<ClientTenant>>({
+      id: yup.string().required(),
+      slug: yup.string().required(),
+      category: yup.string().required(),
+      logo: yup.string().required(),
+      tier: yup
+        .string()
+        .oneOf(["entrepreneur", "commercial"])
+        .required()
+        .notOneOf([DEFAULT_CLIENT_TENANT.tier]),
+      phone: yup.string().required().notOneOf([DEFAULT_CLIENT_TENANT.phone]),
+      description: yup.string().notOneOf([DEFAULT_CLIENT_TENANT.description]),
+      title: yup.string().notOneOf([DEFAULT_CLIENT_TENANT.title]).required(),
     }),
   },
 };

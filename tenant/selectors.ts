@@ -1,5 +1,3 @@
-import * as yup from "yup";
-
 import {Field, ClientTenant} from "./types";
 
 export function isMercadoPagoSelected(fields?: Field[]): boolean {
@@ -8,20 +6,6 @@ export function isMercadoPagoSelected(fields?: Field[]): boolean {
   const regexp = new RegExp(/mercado(\s{1})?pago/gim);
 
   return fields.some((field) => field.value?.match(regexp));
-}
-
-export function filterByRelevant(tenants: ClientTenant[]): ClientTenant[] {
-  const schema = yup.object<Partial<ClientTenant>>({
-    id: yup.string().required(),
-    slug: yup.string().required(),
-    category: yup.string().required(),
-    logo: yup.string().required(),
-    phone: yup.string().required().notOneOf(["5491173694572"]),
-    description: yup.string().notOneOf(["Armá tu tienda y recibí los pedidos via WhatsApp"]),
-    title: yup.string().notOneOf(["Pency - Tu tienda online fácil"]).required(),
-  });
-
-  return tenants.filter((tenant) => schema.isValidSync(tenant));
 }
 
 export function getIsOnGracePeriod(createdAt: ClientTenant["createdAt"]): boolean {
@@ -56,13 +40,9 @@ export function getRevalidationTime(
       // Current date
       const now = new Date();
 
-      // Seconds until tomorrow
-      const secondsUntilTomorrow =
-        24 * 60 * 60 - now.getHours() * 60 * 60 - now.getMinutes() * 60 - now.getSeconds();
-
       // If deployed near midnight, deploy tomorrow otherwise deploy on specified time
       return Math.round(
-        secondsUntilTomorrow < 3600 ? secondsUntilTomorrow + 86400 : secondsUntilTomorrow,
+        24 * 60 * 60 - now.getHours() * 60 * 60 - now.getMinutes() * 60 - now.getSeconds(),
       );
     }
 

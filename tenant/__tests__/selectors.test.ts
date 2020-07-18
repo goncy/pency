@@ -1,8 +1,8 @@
 import produce from "immer";
 
-import {isMercadoPagoSelected, filterByRelevant} from "../selectors";
+import {isMercadoPagoSelected, getRevalidationTime} from "../selectors";
 import mock from "../mock";
-import {RadioField, ClientTenant} from "../types";
+import {RadioField} from "../types";
 
 describe("selectors", () => {
   describe("isMercadoPagoSelected", () => {
@@ -59,104 +59,22 @@ describe("selectors", () => {
     });
   });
 
-  describe("filterByRelevant", () => {
-    it("should match when relevant fields are required", () => {
-      const actual: ClientTenant[] = [
-        {
-          id: "some-id",
-          slug: "some-slug",
-          category: "some-category",
-          tier: "free",
-          color: "teal",
-          phone: "1144444444",
-          mercadopago: false,
-          logo: "some-logo",
-          description: "some description",
-          title: "some title",
-        },
-      ];
-      const expected = actual;
+  describe("getRevalidationTime", () => {
+    it("should match grace period users as 10", () => {
+      const tier = "free";
+      const base = +new Date();
+      const actual = base - 1000;
+      const expected = 10;
 
-      expect(filterByRelevant(actual)).toEqual(expected);
+      expect(getRevalidationTime(tier, actual)).toEqual(expected);
     });
 
-    it("should not match when logo is not provided", () => {
-      const actual: ClientTenant[] = [
-        {
-          id: "some-id",
-          slug: "some-slug",
-          tier: "free",
-          category: "some-category",
-          mercadopago: false,
-          color: "teal",
-          phone: "1144444444",
-          description: "some description",
-          title: "some title",
-        },
-      ];
-      const expected = [];
+    it("should match commercial", () => {
+      const tier = "commercial";
+      const actual = 1;
+      const expected = 10;
 
-      expect(filterByRelevant(actual)).toEqual(expected);
-    });
-
-    it("should not match when number is 5491173694572", () => {
-      const actual: ClientTenant[] = [
-        {
-          id: "some-id",
-          slug: "some-slug",
-          tier: "free",
-          category: "some-category",
-          color: "teal",
-          phone: "5491173694572",
-          logo: "some-logo",
-          mercadopago: false,
-          description: "some description",
-          title: "some title",
-        },
-      ];
-      const expected = [];
-
-      expect(filterByRelevant(actual)).toEqual(expected);
-    });
-
-    it("should not match when description is Armá tu tienda y recibí los pedidos via WhatsApp", () => {
-      const actual: ClientTenant[] = [
-        {
-          id: "some-id",
-          slug: "some-slug",
-          category: "some-category",
-          color: "teal",
-          tier: "free",
-          phone: "5491144444444",
-          logo: "some-logo",
-          mercadopago: false,
-          description: "Armá tu tienda y recibí los pedidos via WhatsApp",
-          title: "some title",
-        },
-      ];
-      const expected = [];
-
-      expect(filterByRelevant(actual)).toEqual(expected);
-    });
-
-    it("should not match when title is Pency - Tu tienda online fácil", () => {
-      const actual: ClientTenant[] = [
-        {
-          id: "some-id",
-          slug: "some-slug",
-          category: "some-category",
-          color: "teal",
-          tier: "free",
-          phone: "5491144444444",
-          logo: "some-logo",
-          description: "description",
-          mercadopago: false,
-          title: "Pency - Tu tienda online fácil",
-        },
-      ];
-      const expected = [];
-
-      expect(filterByRelevant(actual)).toEqual(expected);
+      expect(getRevalidationTime(tier, actual)).toEqual(expected);
     });
   });
 });

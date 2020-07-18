@@ -17,6 +17,7 @@ import productApi from "~/product/api/server";
 import tenantSchemas from "~/tenant/schemas";
 import productSchemas from "~/product/schemas";
 import {getRevalidationTime} from "~/tenant/selectors";
+import schemas from "~/tenant/schemas";
 
 interface Props {
   tenant: ClientTenant;
@@ -96,7 +97,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   // Get the slugs of all relevant tenants
   const relevant = tenants
     // Filter only relevant ones
-    .filter((tenant) => ["entrepreneur", "commercial"].includes(tenant.tier))
+    .filter((tenant) => schemas.client.relevant.isValidSync(tenant))
     // Get the slugs
     .map((tenant) => tenant.slug);
 

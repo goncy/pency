@@ -1,4 +1,5 @@
 import schemas from "../schemas";
+import {ClientTenant} from "../types";
 
 describe("schemas", () => {
   describe("server", () => {
@@ -849,6 +850,102 @@ describe("schemas", () => {
         };
 
         expect(schemas.client.fetch.cast(actual)).toEqual(expected);
+      });
+    });
+
+    describe("relevant", () => {
+      it("should match when relevant fields are required", () => {
+        const actual: ClientTenant = {
+          id: "some-id",
+          slug: "some-slug",
+          createdAt: 111111,
+          category: "some-category",
+          tier: "entrepreneur",
+          color: "teal",
+          phone: "1144444444",
+          mercadopago: false,
+          logo: "some-logo",
+          description: "some description",
+          title: "some title",
+        };
+        const expected = true;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("should not match when logo is not provided", () => {
+        const actual: ClientTenant = {
+          id: "some-id",
+          slug: "some-slug",
+          tier: "free",
+          createdAt: 111111,
+          category: "some-category",
+          mercadopago: false,
+          color: "teal",
+          phone: "1144444444",
+          description: "some description",
+          title: "some title",
+        };
+        const expected = false;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("should not match when number is 5491173694572", () => {
+        const actual: ClientTenant = {
+          id: "some-id",
+          slug: "some-slug",
+          tier: "free",
+          createdAt: 111111,
+          category: "some-category",
+          color: "teal",
+          phone: "5491173694572",
+          logo: "some-logo",
+          mercadopago: false,
+          description: "some description",
+          title: "some title",
+        };
+        const expected = false;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("should not match when description is Armá tu tienda y recibí los pedidos via WhatsApp", () => {
+        const actual: ClientTenant = {
+          id: "some-id",
+          slug: "some-slug",
+          category: "some-category",
+          createdAt: 111111,
+          color: "teal",
+          tier: "free",
+          phone: "5491144444444",
+          logo: "some-logo",
+          mercadopago: false,
+          description: "Armá tu tienda y recibí los pedidos via WhatsApp",
+          title: "some title",
+        };
+        const expected = false;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("should not match when title is Pency - Tu tienda online fácil", () => {
+        const actual: ClientTenant = {
+          id: "some-id",
+          slug: "some-slug",
+          category: "some-category",
+          createdAt: 111111,
+          color: "teal",
+          tier: "free",
+          phone: "5491144444444",
+          logo: "some-logo",
+          description: "description",
+          mercadopago: false,
+          title: "Pency - Tu tienda online fácil",
+        };
+        const expected = false;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
       });
     });
   });
