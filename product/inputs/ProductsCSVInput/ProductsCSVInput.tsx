@@ -53,8 +53,6 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children, ...props}) => {
         // Cast it
         const casted = schemas.client.create.cast(product);
 
-        console.log(schemas.client.create.validateSync(casted));
-
         // If its valid
         if (schemas.client.create.isValidSync(casted)) {
           // Send it to resolved summary
@@ -97,8 +95,6 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children, ...props}) => {
     } catch (e) {
       // Reset loading
       setLoading(false);
-
-      console.log(e);
 
       // Show toast to user
       toast({
