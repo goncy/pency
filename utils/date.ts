@@ -1,5 +1,3 @@
-const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-
 export default {
   get oneWeekFromNow(): number {
     return +new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
@@ -8,7 +6,9 @@ export default {
     return +new Date();
   },
   get secondsUntilNextHour(): number {
-    return Math.round(3600000 - (new Date().getTime() % 3600000) / 1000);
+    const MS_PER_HOUR = 3600000;
+
+    return Math.round(MS_PER_HOUR - (new Date().getTime() % MS_PER_HOUR) / 1000);
   },
   get twelveHoursInSeconds(): number {
     return 43200;
@@ -22,6 +22,8 @@ export default {
     );
   },
   diffFromNow(date) {
+    const MS_PER_DAY = 1000 * 60 * 60 * 24;
+
     // Now date
     const now = new Date();
 
@@ -33,7 +35,7 @@ export default {
     const utc2 = Date.UTC(target.getFullYear(), target.getMonth(), target.getDate());
 
     // Get real diff
-    const diff = Math.floor((utc2 - utc1) / _MS_PER_DAY);
+    const diff = Math.floor((utc2 - utc1) / MS_PER_DAY);
 
     // Return just positive numbers
     return Math.max(0, diff);

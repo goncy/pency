@@ -188,15 +188,12 @@ export default {
       banner: yup.string().default("").nullable(),
       description: yup.string().default("").nullable(),
       country: yup.string().default(DEFAULT_CLIENT_TENANT.country).nullable(),
-      // @TODO: Remove on monday once all preferential tenants has been updated
-      // tier: tier.default(DEFAULT_CLIENT_TENANT.tier).when("tierUntil", {
-      //   is: (tierUntil) => tierUntil < +new Date(),
-      //   then: tier.transform(() => "free").required(),
-      //   otherwise: tier.required(),
-      // }),
-      tier: tier.default("preferential").required(),
-      // tierUntil: yup.number().default(DEFAULT_CLIENT_TENANT.tierUntil).required(),
-      tierUntil: yup.number().default(1595300400000).required(),
+      tier: tier.default(DEFAULT_CLIENT_TENANT.tier).when("tierUntil", {
+        is: (tierUntil) => tierUntil < +new Date(),
+        then: tier.transform(() => "free").required(),
+        otherwise: tier.required(),
+      }),
+      tierUntil: yup.number().default(DEFAULT_CLIENT_TENANT.tierUntil).required(),
       location: location.schema.default(null).nullable(),
       highlight: yup.string().default("").nullable(),
       layout: layout.default(DEFAULT_CLIENT_TENANT.layout).nullable(),

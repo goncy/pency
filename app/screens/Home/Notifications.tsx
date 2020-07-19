@@ -8,8 +8,7 @@ const Notifications: React.FC = () => (
     </Text>
     <Text color="white">
       Estamos experimentando cambios en el tiempo de actualización de la tienda, un mail fue enviado
-      a cada tienda creada antes del 19/7/2020, el cambio va a ser visible a partir del martes
-      21/7/2020 a las 0:00 horas.
+      a cada tienda creada antes del 19/7/2020.
     </Text>
   </Stack>
 );
