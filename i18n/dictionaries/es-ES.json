@@ -20,6 +20,26 @@
     "item": "Item",
     "item_plural": "Items"
   },
+  "tiers": {
+    "free": {
+      "name": "Gratis",
+      "features": {
+        "update": "A las 00:00 de cada día."
+      }
+    },
+    "preferential": {
+      "name": "Preferencial",
+      "features": {
+        "update": "Cada hora."
+      }
+    },
+    "commercial": {
+      "name": "Comercial",
+      "features": {
+        "update": "Tiempo real."
+      }
+    }
+  },
   "landing": {
     "features": {
       "streamlineBusinessManagment":{

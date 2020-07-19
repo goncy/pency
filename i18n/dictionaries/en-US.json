@@ -21,9 +21,24 @@
     "item_plural": "Items"
   },
   "tiers": {
-    "free": "Free",
-    "preferential": "Preferential",
-    "commercial": "Commercial"
+    "free": {
+      "name": "Free",
+      "features": {
+        "update": "At 00:00 every day."
+      }
+    },
+    "preferential": {
+      "name": "Preferential",
+      "features": {
+        "update": "Every hour."
+      }
+    },
+    "commercial": {
+      "name": "Commercial",
+      "features": {
+        "update": "Realtime."
+      }
+    }
   },
   "landing": {
     "features": {
