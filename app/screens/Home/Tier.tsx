@@ -18,16 +18,23 @@ const COLORS = {
 
 const Tier: React.FC<Props> = ({tier, expiration}) => {
   const t = useTranslation();
+  const remainingDays = dates.diffFromNow(expiration);
 
   return (
     <Stack spacing={1}>
       <Stack isInline alignItems="baseline">
         <Text fontWeight={500}>Plan:</Text>
-        <Badge variantColor={COLORS[tier]}>{t(`tiers.${tier}`)}</Badge>
+        <Badge variantColor={COLORS[tier]}>{t(`tiers.${tier}.name`)}</Badge>
       </Stack>
-      {tier !== "free" && (
+      <Stack marginTop={1}>
+        <Text fontSize="sm">
+          <b>Cambios reflejados en la tienda: </b>
+          {t(`tiers.${tier}.features.update`)}
+        </Text>
+      </Stack>
+      {remainingDays > 0 && (
         <Text color="gray.400" fontSize="sm">
-          {dates.diffFromNow(expiration)} día(s) restantes
+          {remainingDays} día(s) restantes
         </Text>
       )}
     </Stack>
