@@ -4,6 +4,7 @@ import {ClientTenant, ServerTenant} from "~/tenant/types";
 import schemas from "~/tenant/schemas";
 import api from "~/tenant/api/server";
 import sessionApi from "~/session/api/server";
+import dates from "~/utils/date";
 
 interface GetRequest extends NextApiRequest {
   query: {
@@ -66,7 +67,16 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // Store a temp tenant
-    const tenant = schemas.server.create.cast({slug, createdAt: +new Date()});
+    const tenant = schemas.server.create.cast({
+      // Tenant slug
+      slug,
+      // Creation date
+      createdAt: dates.now,
+      // Grace period
+      tier: "commercial",
+      // 1 week from now
+      tierUntil: dates.oneWeekFromNow,
+    });
 
     // Check if its valid (mocking id as we still don't have it)
     if (!schemas.server.fetch.isValidSync({id: "fake-id", ...tenant})) {

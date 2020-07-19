@@ -86,7 +86,7 @@ const color = yup
 const flags = yup.array(yup.string());
 const fields = yup.array<Field>(field.lazy);
 const layout = yup.string().oneOf(["portrait", "landscape"]);
-const tier = yup.string().oneOf(["free", "entrepreneur", "commercial"]);
+const tier = yup.string().oneOf(["free", "preferential", "commercial"]);
 
 export default {
   server: {
@@ -99,6 +99,7 @@ export default {
       logo: yup.string().nullable(),
       title: yup.string().required(),
       instagram: yup.string().nullable(),
+      tierUntil: yup.number().nullable(),
       facebook: yup.string().nullable(),
       twitter: yup.string().nullable(),
       keywords: yup.string().nullable(),
@@ -119,6 +120,7 @@ export default {
       id: yup.string().strip(true),
       slug: yup.string().strip(true),
       createdAt: yup.number().strip(true),
+      tierUntil: yup.number().strip(true),
       category: yup.string(),
       color,
       phone: yup.string(),
@@ -143,7 +145,8 @@ export default {
       id: yup.string().strip(true),
       slug: yup.string().required(),
       category: yup.string(),
-      createdAt: yup.number().default(DEFAULT_CLIENT_TENANT.createdAt), // When created at was implemented (17/7/2020)
+      createdAt: yup.number().default(DEFAULT_CLIENT_TENANT.createdAt),
+      tierUntil: yup.number().default(DEFAULT_CLIENT_TENANT.tierUntil),
       color: color.default(DEFAULT_CLIENT_TENANT.color),
       phone: yup.string().default(DEFAULT_CLIENT_TENANT.phone),
       logo: yup.string(),
@@ -174,7 +177,7 @@ export default {
       slug: yup.string().required(),
       category: yup.string().default("").nullable(),
       color: color.required(),
-      createdAt: yup.number().default(DEFAULT_CLIENT_TENANT.createdAt), // When created at was implemented (17/7/2020)
+      createdAt: yup.number().default(DEFAULT_CLIENT_TENANT.createdAt),
       phone: yup.string().required(),
       logo: yup.string().default("").nullable(),
       title: yup.string().default("").required(),
@@ -185,7 +188,15 @@ export default {
       banner: yup.string().default("").nullable(),
       description: yup.string().default("").nullable(),
       country: yup.string().default(DEFAULT_CLIENT_TENANT.country).nullable(),
-      tier: tier.default(DEFAULT_CLIENT_TENANT.tier).required(),
+      // @TODO: Remove on monday once all preferential tenants has been updated
+      // tier: tier.default(DEFAULT_CLIENT_TENANT.tier).when("tierUntil", {
+      //   is: (tierUntil) => tierUntil < +new Date(),
+      //   then: tier.transform(() => "free").required(),
+      //   otherwise: tier.required(),
+      // }),
+      tier: tier.default("preferential").required(),
+      // tierUntil: yup.number().default(DEFAULT_CLIENT_TENANT.tierUntil).required(),
+      tierUntil: yup.number().default(1595300400000).required(),
       location: location.schema.default(null).nullable(),
       highlight: yup.string().default("").nullable(),
       layout: layout.default(DEFAULT_CLIENT_TENANT.layout).nullable(),
@@ -204,7 +215,7 @@ export default {
       logo: yup.string().required(),
       tier: yup
         .string()
-        .oneOf(["entrepreneur", "commercial"])
+        .oneOf(["preferential", "commercial"])
         .required()
         .notOneOf([DEFAULT_CLIENT_TENANT.tier]),
       phone: yup.string().required().notOneOf([DEFAULT_CLIENT_TENANT.phone]),

@@ -22,7 +22,7 @@
   },
   "tiers": {
     "free": "Gratis",
-    "entrepreneur": "Emprendedor",
+    "preferential": "Preferencial",
     "commercial": "Comercial"
   },
   "landing": {

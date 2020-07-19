@@ -1,6 +1,6 @@
 import produce from "immer";
 
-import {isMercadoPagoSelected, getRevalidationTime} from "../selectors";
+import {isMercadoPagoSelected} from "../selectors";
 import mock from "../mock";
 import {RadioField} from "../types";
 
@@ -56,25 +56,6 @@ describe("selectors", () => {
       const actual = isMercadoPagoSelected(base);
 
       expect(actual).toBe(false);
-    });
-  });
-
-  describe("getRevalidationTime", () => {
-    it("should match grace period users as 10", () => {
-      const tier = "free";
-      const base = +new Date();
-      const actual = base - 1000;
-      const expected = 10;
-
-      expect(getRevalidationTime(tier, actual)).toEqual(expected);
-    });
-
-    it("should match commercial", () => {
-      const tier = "commercial";
-      const actual = 1;
-      const expected = 10;
-
-      expect(getRevalidationTime(tier, actual)).toEqual(expected);
     });
   });
 });

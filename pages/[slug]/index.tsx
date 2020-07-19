@@ -77,7 +77,7 @@ export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
     const lastUpdate = +new Date();
 
     // Get the revalidation time
-    const revalidationTime = getRevalidationTime(tenant.tier, tenant.createdAt);
+    const revalidationTime = getRevalidationTime(tenant.tier);
 
     // Return the props and revalidation times
     return {
@@ -96,6 +96,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   // Get the slugs of all relevant tenants
   const relevant = tenants
+    // @TODO: Remove once all preferential tenants has been loaded
+    .filter(() => false)
     // Filter only relevant ones
     .filter((tenant) => schemas.client.relevant.isValidSync(tenant))
     // Get the slugs
