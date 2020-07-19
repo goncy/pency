@@ -1,9 +1,9 @@
 import React from "react";
-import {GetServerSideProps} from "next";
+import {GetStaticProps, GetStaticPaths} from "next";
+import {useRouter} from "next/router";
 
-import fetch from "~/utils/fetch";
 import ProductsScreen from "~/product/screens/Products";
-import {ClientTenant} from "~/tenant/types";
+import {ClientTenant, ServerTenant} from "~/tenant/types";
 import {Product} from "~/product/types";
 import StoreLayout from "~/app/layouts/StoreLayout";
 import {Provider as I18nProvider} from "~/i18n/context";
@@ -11,13 +11,35 @@ import {Provider as CartProvider} from "~/cart/context";
 import {Provider as AnalyticsProvider} from "~/analytics/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
+import LoadingScreen from "~/app/screens/Loading";
+import tenantApi from "~/tenant/api/server";
+import productApi from "~/product/api/server";
+import tenantSchemas from "~/tenant/schemas";
+import productSchemas from "~/product/schemas";
+import {getRevalidationTime} from "~/tenant/selectors";
+import schemas from "~/tenant/schemas";
+
 interface Props {
   tenant: ClientTenant;
   products: Product[];
-  product: Product;
+  lastUpdate: number;
 }
 
-const StoreRoute: React.FC<Props> = ({tenant, product, products}) => {
+const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate}) => {
+  // Get router instance
+  const router = useRouter();
+
+  // If page is being built
+  if (router.isFallback) {
+    // Show a loading screen
+    return <LoadingScreen />;
+  }
+
+  // Get the real product from the product id url
+  const product = router.query.product
+    ? products.find((product) => product.id === router.query.product) || null
+    : null;
+
   return (
     <TenantProvider initialValue={tenant}>
       {(tenant) => (
@@ -26,7 +48,7 @@ const StoreRoute: React.FC<Props> = ({tenant, product, products}) => {
             <CartProvider>
               <StoreLayout product={product} tenant={tenant}>
                 <I18nProvider country={tenant.country}>
-                  <ProductsScreen />
+                  <ProductsScreen lastUpdate={lastUpdate} />
                 </I18nProvider>
               </StoreLayout>
             </CartProvider>
@@ -37,27 +59,59 @@ const StoreRoute: React.FC<Props> = ({tenant, product, products}) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async ({
-  req: {
-    headers: {host},
-  },
-  params: {slug},
-  query,
-  res,
-}) => {
+export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
   try {
-    const BASE_URL = `http://${host}/api`;
+    // Get the tenant for this page slug
+    const tenant: ClientTenant = await tenantApi
+      .fetch(slug as ClientTenant["slug"])
+      // Cast it as a client tenant
+      .then((tenant) => tenantSchemas.client.fetch.cast(tenant));
 
-    const tenant = await fetch("GET", `${BASE_URL}/tenant/${slug}`);
-    const products = await fetch("GET", `${BASE_URL}/product?tenant=${tenant.id}`);
-    const product = query.product
-      ? products.find((product) => product.id === query.product) || null
-      : null;
+    // Get its products
+    const products: Product[] = await productApi
+      .list(tenant.id)
+      // Cast all products for client
+      .then((products) => products.map((product) => productSchemas.client.fetch.cast(product)));
 
-    return {props: {tenant, products, product}};
+    // Get the last updated time
+    const lastUpdate = +new Date();
+
+    // Get the revalidation time
+    const revalidationTime = getRevalidationTime(tenant.tier);
+
+    // Return the props and revalidation times
+    return {
+      props: {tenant, products, lastUpdate},
+      unstable_revalidate: revalidationTime,
+    };
   } catch (err) {
-    return {props: {statusCode: err?.status || res?.statusCode || 404}};
+    // If something failed return a status code that will be intercepted by _app
+    return {props: {statusCode: err?.status || err?.statusCode || 404}};
   }
 };
 
-export default StoreRoute;
+export const getStaticPaths: GetStaticPaths = async () => {
+  // Get all the tenants
+  const tenants: ServerTenant[] = await tenantApi.list();
+
+  // Get the slugs of all relevant tenants
+  const relevant = tenants
+    // @TODO: Remove once all preferential tenants has been loaded
+    .filter(() => false)
+    // Filter only relevant ones
+    .filter((tenant) => schemas.client.relevant.isValidSync(tenant))
+    // Get the slugs
+    .map((tenant) => tenant.slug);
+
+  // Return them for being used on getStaticProps
+  return {
+    paths: relevant.map((slug) => ({
+      params: {
+        slug,
+      },
+    })),
+    fallback: true,
+  };
+};
+
+export default SlugRoute;

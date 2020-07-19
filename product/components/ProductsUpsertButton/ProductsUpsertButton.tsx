@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack} from "@chakra-ui/core";
+import {Stack, StackProps} from "@chakra-ui/core";
 
 import ProductsCSVInput from "../../inputs/ProductsCSVInput";
 import ProductsUpsertDrawer from "../ProductsUpsertDrawer";
@@ -12,12 +12,12 @@ import {download} from "~/utils/download";
 import {CSV_TEMPLATE} from "~/product/constants";
 import DownloadIcon from "~/ui/icons/Download";
 
-interface Props {
+interface Props extends Omit<StackProps, "onSubmit"> {
   products: Product[];
   onSubmit: (products: Product[]) => Promise<void>;
 }
 
-const ProductsUpsertButton: React.FC<Props> = ({products: base, onSubmit}) => {
+const ProductsUpsertButton: React.FC<Props> = ({products: base, onSubmit, ...props}) => {
   // Store products to edit
   const [products, setProducts] = React.useState<Product[]>([]);
 
@@ -51,7 +51,7 @@ const ProductsUpsertButton: React.FC<Props> = ({products: base, onSubmit}) => {
 
   return (
     <>
-      <Stack isInline spacing={2}>
+      <Stack isInline spacing={2} {...props}>
         <ProductsCSVInput isCollapsable leftIcon={UploadIcon} onChange={handleImport}>
           Importar
         </ProductsCSVInput>

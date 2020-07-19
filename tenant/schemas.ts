@@ -1,6 +1,7 @@
 import * as yup from "yup";
 
 import {ClientTenant, ServerTenant, Field, RadioField, TextField} from "./types";
+import {DEFAULT_CLIENT_TENANT} from "./constants";
 
 import {Place} from "~/places/types";
 
@@ -85,10 +86,11 @@ const color = yup
 const flags = yup.array(yup.string());
 const fields = yup.array<Field>(field.lazy);
 const layout = yup.string().oneOf(["portrait", "landscape"]);
+const tier = yup.string().oneOf(["free", "preferential", "commercial"]);
 
 export default {
   server: {
-    fetch: yup.object<Partial<ServerTenant>>({
+    fetch: yup.object<ServerTenant>({
       id: yup.string().required(),
       slug: yup.string().required(),
       category: yup.string().nullable(),
@@ -97,9 +99,11 @@ export default {
       logo: yup.string().nullable(),
       title: yup.string().required(),
       instagram: yup.string().nullable(),
+      tierUntil: yup.number().nullable(),
       facebook: yup.string().nullable(),
       twitter: yup.string().nullable(),
       keywords: yup.string().nullable(),
+      tier: tier.nullable(),
       banner: yup.string().nullable(),
       description: yup.string().nullable(),
       country: yup.string().nullable(),
@@ -109,11 +113,14 @@ export default {
       flags: flags.nullable(),
       layout: layout.nullable(),
       hook: yup.string().nullable(),
+      createdAt: yup.number().nullable(),
       mercadopago: mercadopago.lazy,
     }),
     update: yup.object<Partial<ServerTenant>>({
       id: yup.string().strip(true),
       slug: yup.string().strip(true),
+      createdAt: yup.number().strip(true),
+      tierUntil: yup.number().strip(true),
       category: yup.string(),
       color,
       phone: yup.string(),
@@ -138,24 +145,27 @@ export default {
       id: yup.string().strip(true),
       slug: yup.string().required(),
       category: yup.string(),
-      color: color.default("teal"),
-      phone: yup.string().default("5491173694572"),
+      createdAt: yup.number().default(DEFAULT_CLIENT_TENANT.createdAt),
+      tierUntil: yup.number().default(DEFAULT_CLIENT_TENANT.tierUntil),
+      color: color.default(DEFAULT_CLIENT_TENANT.color),
+      phone: yup.string().default(DEFAULT_CLIENT_TENANT.phone),
       logo: yup.string(),
-      title: yup.string().default("Pency - Tu tienda online fácil"),
+      title: yup.string().default(DEFAULT_CLIENT_TENANT.title),
       instagram: yup.string(),
       facebook: yup.string(),
       twitter: yup.string(),
-      keywords: yup.string().default("pency, tienda, online, whatsapp, delivery, pedidos, shop"),
+      tier: tier.default(DEFAULT_CLIENT_TENANT.tier),
+      keywords: yup.string().default(DEFAULT_CLIENT_TENANT.keywords),
       banner: yup.string(),
-      description: yup.string().default("Armá tu tienda y recibí los pedidos via WhatsApp"),
-      country: yup.string().default("AR"),
+      description: yup.string().default(DEFAULT_CLIENT_TENANT.description),
+      country: yup.string().default(DEFAULT_CLIENT_TENANT.country),
       location: location.schema.default(null),
       highlight: yup.string(),
       fields,
-      layout: layout.default("portrait"),
-      flags: flags.default([]),
+      layout: layout.default(DEFAULT_CLIENT_TENANT.layout),
+      flags: flags.default(DEFAULT_CLIENT_TENANT.flags),
       hook: yup.string(),
-      mercadopago: mercadopago.schema.default(null),
+      mercadopago: mercadopago.schema.default(DEFAULT_CLIENT_TENANT.mercadopago),
     }),
     mercadopago: yup.object<Pick<ServerTenant, "mercadopago">>({
       mercadopago: mercadopago.lazy,
@@ -167,6 +177,7 @@ export default {
       slug: yup.string().required(),
       category: yup.string().default("").nullable(),
       color: color.required(),
+      createdAt: yup.number().default(DEFAULT_CLIENT_TENANT.createdAt),
       phone: yup.string().required(),
       logo: yup.string().default("").nullable(),
       title: yup.string().default("").required(),
@@ -176,17 +187,40 @@ export default {
       keywords: yup.string().default("").nullable(),
       banner: yup.string().default("").nullable(),
       description: yup.string().default("").nullable(),
-      country: yup.string().default("AR").nullable(),
+      country: yup.string().default(DEFAULT_CLIENT_TENANT.country).nullable(),
+      // @TODO: Remove on monday once all preferential tenants has been updated
+      // tier: tier.default(DEFAULT_CLIENT_TENANT.tier).when("tierUntil", {
+      //   is: (tierUntil) => tierUntil < +new Date(),
+      //   then: tier.transform(() => "free").required(),
+      //   otherwise: tier.required(),
+      // }),
+      tier: tier.default("preferential").required(),
+      // tierUntil: yup.number().default(DEFAULT_CLIENT_TENANT.tierUntil).required(),
+      tierUntil: yup.number().default(1595300400000).required(),
       location: location.schema.default(null).nullable(),
       highlight: yup.string().default("").nullable(),
-      layout: layout.default("portrait").nullable(),
-      fields: fields.default([]).nullable(),
-      flags: flags.default([]).nullable(),
+      layout: layout.default(DEFAULT_CLIENT_TENANT.layout).nullable(),
+      fields: fields.default(DEFAULT_CLIENT_TENANT.fields).nullable(),
+      flags: flags.default(DEFAULT_CLIENT_TENANT.flags).nullable(),
       hook: yup.string().default("").nullable(),
       mercadopago: yup
         .boolean()
         .transform((mercadopago) => Boolean(mercadopago?.token))
         .default(false),
+    }),
+    relevant: yup.object<Partial<ClientTenant>>({
+      id: yup.string().required(),
+      slug: yup.string().required(),
+      category: yup.string().required(),
+      logo: yup.string().required(),
+      tier: yup
+        .string()
+        .oneOf(["preferential", "commercial"])
+        .required()
+        .notOneOf([DEFAULT_CLIENT_TENANT.tier]),
+      phone: yup.string().required().notOneOf([DEFAULT_CLIENT_TENANT.phone]),
+      description: yup.string().notOneOf([DEFAULT_CLIENT_TENANT.description]),
+      title: yup.string().notOneOf([DEFAULT_CLIENT_TENANT.title]).required(),
     }),
   },
 };

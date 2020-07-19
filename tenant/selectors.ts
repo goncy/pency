@@ -1,6 +1,6 @@
-import * as yup from "yup";
-
 import {Field, ClientTenant} from "./types";
+
+import dates from "~/utils/date";
 
 export function isMercadoPagoSelected(fields?: Field[]): boolean {
   if (!Boolean(fields?.length)) return false;
@@ -10,16 +10,26 @@ export function isMercadoPagoSelected(fields?: Field[]): boolean {
   return fields.some((field) => field.value?.match(regexp));
 }
 
-export function filterByRelevant(tenants: ClientTenant[]): ClientTenant[] {
-  const schema = yup.object<Partial<ClientTenant>>({
-    id: yup.string().required(),
-    slug: yup.string().required(),
-    category: yup.string().required(),
-    logo: yup.string().required(),
-    phone: yup.string().required().notOneOf(["5491173694572"]),
-    description: yup.string().notOneOf(["Armá tu tienda y recibí los pedidos via WhatsApp"]),
-    title: yup.string().notOneOf(["Pency - Tu tienda online fácil"]).required(),
-  });
+export function getRevalidationTime(tier: ClientTenant["tier"]): number {
+  switch (tier) {
+    case "free": {
+      // Time until next day
+      return dates.secondsUntilNextDay;
+    }
 
-  return tenants.filter((tenant) => schema.isValidSync(tenant));
+    case "preferential": {
+      // Seconds until next hour
+      return dates.secondsUntilNextHour;
+    }
+
+    case "commercial": {
+      // 10 seconds
+      return 10;
+    }
+
+    default: {
+      // 12 hours
+      return dates.twelveHoursInSeconds;
+    }
+  }
 }

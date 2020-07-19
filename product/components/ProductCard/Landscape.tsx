@@ -5,23 +5,25 @@ import Image from "~/ui/feedback/Image";
 import {Product} from "~/product/types";
 import {usePrice} from "~/i18n/hooks";
 import TruncatedText from "~/ui/feedback/TruncatedText";
+import {getVariantsPriceRange} from "~/product/selectors";
 
 interface Props extends Omit<FlexProps, "onClick"> {
   product: Product;
-  onClick: (product: Product) => void;
+  onClick?: (product: Product) => void;
   isRaised?: boolean;
 }
 
 const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onClick, ...props}) => {
   const p = usePrice();
-  const {image, title, price, originalPrice, description, visibility} = product;
+  const {image, title, price, originalPrice, description, type} = product;
+  const [min, max] = getVariantsPriceRange(product.options);
 
   function handleClick() {
-    onClick(product);
+    onClick && onClick(product);
   }
 
   // If we get here by any point, return null
-  if (visibility === "hidden") return null;
+  if (type === "hidden") return null;
 
   return (
     <PseudoBox
@@ -29,7 +31,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
       borderBottomWidth={{base: 1, sm: 0}}
       borderWidth={{sm: 1}}
       boxShadow={isRaised ? "lg" : "none"}
-      cursor="pointer"
+      cursor={onClick ? "pointer" : "inherit"}
       paddingY={{base: 4, sm: 0}}
       rounded={{base: "none", sm: "md"}}
       transition="all 0.2s"
@@ -66,7 +68,14 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
               </TruncatedText>
             )}
           </Stack>
-          {visibility === "available" && (
+          {type === "available" && (
+            <Stack isInline alignItems="center">
+              <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
+                {p(price)}
+              </Text>
+            </Stack>
+          )}
+          {type === "promotional" && (
             <Stack isInline alignItems="center">
               <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
                 {p(price)}
@@ -78,12 +87,17 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
               )}
             </Stack>
           )}
-          {visibility === "unavailable" && (
+          {type === "unavailable" && (
             <Text color="yellow.500" fontSize="sm" fontWeight={500} lineHeight={1}>
               Sin stock
             </Text>
           )}
-          {visibility === "ask" && (
+          {type === "variant" && (
+            <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
+              {p(min)} ~ {p(max)}
+            </Text>
+          )}
+          {type === "ask" && (
             <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
               A consultar
             </Text>

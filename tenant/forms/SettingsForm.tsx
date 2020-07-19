@@ -3,10 +3,10 @@ import {useForm, Controller, FieldError} from "react-hook-form";
 import {Stack, Text, Divider} from "@chakra-ui/core";
 
 import {ClientTenant} from "../types";
-import {CATEGORIES} from "../constants";
 import FieldsInput, {validator as FieldsInputValidator} from "../inputs/Fields";
 import LayoutInput from "../inputs/Layout";
 
+import {CATEGORIES} from "~/app/constants/catalogs";
 import Select from "~/ui/inputs/Select";
 import Input from "~/ui/inputs/Input";
 import Textarea from "~/ui/inputs/Textarea";
@@ -52,7 +52,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
             </Text>
             <FormControl
               isRequired
-              error={errors.phone && "Este campo es requerido y tiene un máximo de 70 caracteres"}
+              error={errors.title && "Este campo es requerido y tiene un máximo de 70 caracteres"}
               help="Solo el nombre, sin slogan"
               label="Nombre de tu negocio"
               name="title"

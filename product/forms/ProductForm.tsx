@@ -1,11 +1,16 @@
 import React from "react";
 import {useForm, Controller, FormContext, FieldError} from "react-hook-form";
-import {Stack, Text, Divider} from "@chakra-ui/core";
+import {Stack, Divider} from "@chakra-ui/core";
 
 import {Product} from "../types";
 import ProductVariantsInput, {
   validator as ProductVariantsInputValidator,
+  info as ProductVariantsInputInfo,
 } from "../inputs/ProductVariantsInput";
+import ProductTypeInput, {
+  validator as ProductTypeInputValidator,
+  info as ProductTypeInputInfo,
+} from "../inputs/ProductTypeInput";
 
 import Input from "~/ui/inputs/Input";
 import Select from "~/ui/inputs/Select";
@@ -34,8 +39,8 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
   function handleSubmit(values: Partial<Product>) {
     const product = {...defaultValues, ...values};
 
-    product.price = values.visibility === "ask" ? 0 : Number(product.price);
-    product.originalPrice = values.visibility === "ask" ? 0 : Number(product.originalPrice);
+    product.price = values.type === "ask" ? 0 : Number(product.price);
+    product.originalPrice = values.type === "ask" ? 0 : Number(product.originalPrice);
 
     return onSubmit(product);
   }
@@ -92,39 +97,58 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                 placeholder="64GB mem. Silver."
               />
             </FormControl>
-            <Stack isInline spacing={2}>
-              <FormControl
-                isRequired
-                error={errors.price && "Este campo es requerido"}
-                flex={1}
-                help="Precio para el comprador"
-                label="Precio"
-                name="price"
-              >
-                <Price
-                  ref={register({required: true})}
-                  inputProps={{isDisabled: values.visibility === "ask"}}
+            <FormControl
+              isRequired
+              error={errors.type?.message}
+              info={<ProductTypeInputInfo />}
+              label="Tipo"
+              name="type"
+            >
+              <ProductTypeInput
+                data-test-id="type-select"
+                name="type"
+                register={register({
+                  required: true,
+                  validate: ProductTypeInputValidator(values.options),
+                })}
+              />
+            </FormControl>
+            {!["ask", "variant"].includes(values.type) && (
+              <Stack isInline spacing={2}>
+                <FormControl
+                  isRequired
+                  error={errors.price && "Este campo es requerido"}
+                  flex={1}
+                  help="Precio base"
+                  label="Precio"
                   name="price"
-                  placeholder="200"
-                  rounded="md"
-                />
-              </FormControl>
-              <FormControl
-                error={errors.originalPrice && "Este valor es inválido"}
-                flex={1}
-                help="$0 si no corresponde"
-                label="Precio original"
-                name="originalPrice"
-              >
-                <Price
-                  ref={register}
-                  inputProps={{isDisabled: values.visibility === "ask"}}
-                  name="originalPrice"
-                  placeholder="150"
-                  rounded="md"
-                />
-              </FormControl>
-            </Stack>
+                >
+                  <Price
+                    ref={register({required: true})}
+                    name="price"
+                    placeholder="200"
+                    rounded="md"
+                  />
+                </FormControl>
+                {values.type === "promotional" && (
+                  <FormControl
+                    isRequired
+                    error={errors.originalPrice && "Este valor es requerido"}
+                    flex={1}
+                    help="Valor sin promoción"
+                    label="Precio original"
+                    name="originalPrice"
+                  >
+                    <Price
+                      ref={register({required: true})}
+                      name="originalPrice"
+                      placeholder="150"
+                      rounded="md"
+                    />
+                  </FormControl>
+                )}
+              </Stack>
+            )}
             <FormControl
               isRequired
               error={errors.category && "Este campo es requerido"}
@@ -146,23 +170,6 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
                 )}
               </Stack>
             </FormControl>
-            <FormControl
-              isRequired
-              error={errors.visibility?.message}
-              label="Visibilidad"
-              name="visibility"
-            >
-              <Select
-                ref={register({required: true})}
-                data-test-id="visibility-select"
-                name="visibility"
-              >
-                <option value="available">Disponible</option>
-                <option value="unavailable">Sin stock</option>
-                <option value="ask">A consultar</option>
-                <option value="hidden">Oculto</option>
-              </Select>
-            </FormControl>
             <FormControl error={errors.featured?.message} name="featured">
               <Controller
                 as={SwitchInput}
@@ -175,10 +182,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
               />
             </FormControl>
             <Divider />
-            <Text fontSize="xl" fontWeight={500}>
-              Variantes
-            </Text>
-            <FormControl name="options">
+            <FormControl info={<ProductVariantsInputInfo />} label="Variantes" name="options">
               <Controller
                 as={ProductVariantsInput}
                 base={values?.price}

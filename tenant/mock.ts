@@ -1,7 +1,8 @@
 import faker from "faker";
 
 import {ClientTenant, ServerTenant} from "./types";
-import {CATEGORIES} from "./constants";
+
+import {CATEGORIES} from "~/app/constants/catalogs";
 
 const mock = {
   client: {
@@ -13,6 +14,8 @@ const mock = {
         twitter: faker.internet.userName(),
         instagram: faker.internet.userName(),
         facebook: faker.internet.userName(),
+        createdAt: faker.random.number(999999999),
+        tierUntil: faker.random.number(999999999),
         logo: "//placehold.it/128x128",
         banner: "//placehold.it/256x128",
         title: faker.company.companyName(),
@@ -20,6 +23,7 @@ const mock = {
         phone: faker.phone.phoneNumber("##########"),
         category: CATEGORIES[faker.random.number(CATEGORIES.length - 1)],
         highlight: faker.lorem.words(10),
+        tier: "free",
         hook: "http://some.url",
         country: "AR",
         flags: ["mercadopago", "bulk", "advanced", "note"],

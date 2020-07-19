@@ -45,11 +45,7 @@ export default {
       )
       .then((docs) => docs.map((doc) => ({...(doc.data() as ServerTenant), id: doc.id})))
       .then((tenants) => tenants),
-  update: async (
-    id: ServerTenant["id"],
-    _slug: ServerTenant["slug"],
-    tenant: Partial<ServerTenant>,
-  ) =>
+  update: async (id: ServerTenant["id"], tenant: Partial<ServerTenant>) =>
     database
       .collection("tenants")
       .doc(id)

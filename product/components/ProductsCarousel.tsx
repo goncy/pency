@@ -19,7 +19,7 @@ const ProductsCarousel: React.FC<Props> = ({children, title, ...props}) => (
       overflowX="auto"
       overflowY="hidden"
       paddingBottom={4}
-      templateColumns="repeat(auto-fill, minmax(auto,1fr))"
+      templateColumns="repeat(auto-fill, minmax(280px,1fr))"
       {...props}
     >
       {children}

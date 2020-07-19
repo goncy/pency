@@ -1,4 +1,6 @@
 import schemas from "../schemas";
+import {ClientTenant} from "../types";
+import {DEFAULT_CLIENT_TENANT} from "../constants";
 
 describe("schemas", () => {
   describe("server", () => {
@@ -47,11 +49,11 @@ describe("schemas", () => {
         const actual = {
           category: "jewelry-watches",
           slug: "michelejoyas",
-          layout: "portrait",
+          layout: DEFAULT_CLIENT_TENANT.layout,
           description: "Vendo Gran Variedad de Joyas en Acero Quirúrgico y de Cristal con Plata ",
           phone: "5491158267168",
           color: "gray",
-          country: "AR",
+          country: DEFAULT_CLIENT_TENANT.country,
           twitter: "",
           title: "Michele Joyas en Acero Quirúrgico ",
           highlight: "",
@@ -92,7 +94,7 @@ describe("schemas", () => {
             },
           ],
           keywords: "Anillos, Aros, Cadenas, Colgantes, Dijes, Pulseras",
-          flags: [],
+          flags: DEFAULT_CLIENT_TENANT.flags,
           mercadopago: {token: "", expiration: null, refresh: ""},
           banner:
             "https://res.cloudinary.com/goncy/image/upload/v1593371612/pency/michelejoyas/cyath8rdaspggpi1qu8y.jpg",
@@ -114,17 +116,17 @@ describe("schemas", () => {
           description: "Velas de cera de soja y aromas para el hogar",
           phone: "5491134495118",
           color: "pink",
-          country: "AR",
+          country: DEFAULT_CLIENT_TENANT.country,
           twitter: "",
           title: "UNALOME Velas & Aromas",
           highlight: "",
           hook: "",
           facebook: "unalomevelas",
-          location: null,
+          location: DEFAULT_CLIENT_TENANT.location,
           fields: [],
           keywords:
             "pency, tienda, online, whatsapp, delivery, pedidos,cera de soja, deco, hogar, quilmes, velas, aromas",
-          flags: [],
+          flags: DEFAULT_CLIENT_TENANT.flags,
           mercadopago: {token: "", expiration: null, refresh: ""},
           banner:
             "https://res.cloudinary.com/goncy/image/upload/v1594421698/pency/unalome/nkmyuziflvl4g79tnoha.jpg",
@@ -150,9 +152,9 @@ describe("schemas", () => {
           mercadopago: {token: "", expiration: null, refresh: ""},
           id: "ege30MHDe7Xw5qH0Dbmbp5PKsb13",
           category: "toys",
-          layout: "portrait",
+          layout: DEFAULT_CLIENT_TENANT.layout,
           title: "Sentidos Sex Shop",
-          location: null,
+          location: DEFAULT_CLIENT_TENANT.location,
           description: "Los mejores juguetes y lubricantes en la puerta de tu casa",
           phone: "5491132856279",
           facebook: "Sex Shop Sentidos",
@@ -160,8 +162,8 @@ describe("schemas", () => {
           banner:
             "https://res.cloudinary.com/goncy/image/upload/v1591988962/pency/sexshopsentidos/elnptptcz39ygnh1oupo.jpg",
           slug: "sexshopsentidos",
-          country: "AR",
-          flags: [],
+          country: DEFAULT_CLIENT_TENANT.country,
+          flags: DEFAULT_CLIENT_TENANT.flags,
           fields: [],
           highlight: "Animate a jugar 🔥🔥",
         };
@@ -174,12 +176,12 @@ describe("schemas", () => {
         const actual = {
           category: "clothes-accessories",
           slug: "paroditas",
-          layout: "portrait",
+          layout: DEFAULT_CLIENT_TENANT.layout,
           description:
             "Somos una tienda de venta de indumentaria pedidos de lunes a viernes de 9 a 18 hr.",
           phone: "01157499042",
           color: "blue",
-          country: "AR",
+          country: DEFAULT_CLIENT_TENANT.country,
           twitter: "",
           title: "Paroditas indumentaria",
           highlight: "Solo se despacharan pedidos hecho por via whatsapp",
@@ -213,7 +215,7 @@ describe("schemas", () => {
             },
           ],
           keywords: "Paroditas shop",
-          flags: [],
+          flags: DEFAULT_CLIENT_TENANT.flags,
           mercadopago: null,
           banner:
             "https://res.cloudinary.com/goncy/image/upload/v1593959210/pency/paroditas/phtzirdrfva8hsqgqkaj.jpg",
@@ -229,8 +231,8 @@ describe("schemas", () => {
 
       it("PENCY-40 - Cache case", () => {
         const actual = {
-          description: "Armá tu tienda y recibí los pedidos via WhatsApp",
-          title: "Pency - Tu tienda online fácil",
+          description: DEFAULT_CLIENT_TENANT.description,
+          title: DEFAULT_CLIENT_TENANT.title,
           color: "cyan",
           twitter: null,
           slug: "zerditos",
@@ -378,16 +380,69 @@ describe("schemas", () => {
         };
         const expected = {
           slug: "goncy",
-          color: "teal",
-          country: "AR",
-          description: "Armá tu tienda y recibí los pedidos via WhatsApp",
-          keywords: "pency, tienda, online, whatsapp, delivery, pedidos, shop",
-          location: null,
-          layout: "portrait",
-          mercadopago: null,
-          phone: "5491173694572",
-          title: "Pency - Tu tienda online fácil",
-          flags: [],
+          color: DEFAULT_CLIENT_TENANT.color,
+          country: DEFAULT_CLIENT_TENANT.country,
+          description: DEFAULT_CLIENT_TENANT.description,
+          keywords: DEFAULT_CLIENT_TENANT.keywords,
+          location: DEFAULT_CLIENT_TENANT.location,
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
+          layout: DEFAULT_CLIENT_TENANT.layout,
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
+          phone: DEFAULT_CLIENT_TENANT.phone,
+          title: DEFAULT_CLIENT_TENANT.title,
+          flags: DEFAULT_CLIENT_TENANT.flags,
+        };
+
+        expect(schemas.server.create.cast(actual)).toEqual(expected);
+      });
+
+      it("should allow custom createdAt", () => {
+        const actual = {
+          slug: "goncy",
+          createdAt: 1,
+        };
+        const expected = {
+          slug: "goncy",
+          color: DEFAULT_CLIENT_TENANT.color,
+          country: DEFAULT_CLIENT_TENANT.country,
+          description: DEFAULT_CLIENT_TENANT.description,
+          keywords: DEFAULT_CLIENT_TENANT.keywords,
+          location: DEFAULT_CLIENT_TENANT.location,
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
+          createdAt: 1,
+          layout: DEFAULT_CLIENT_TENANT.layout,
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
+          phone: DEFAULT_CLIENT_TENANT.phone,
+          title: DEFAULT_CLIENT_TENANT.title,
+          flags: DEFAULT_CLIENT_TENANT.flags,
+        };
+
+        expect(schemas.server.create.cast(actual)).toEqual(expected);
+      });
+
+      it("should allow custom tierUntil", () => {
+        const actual = {
+          slug: "goncy",
+          tierUntil: 1,
+        };
+        const expected = {
+          slug: "goncy",
+          color: DEFAULT_CLIENT_TENANT.color,
+          country: DEFAULT_CLIENT_TENANT.country,
+          description: DEFAULT_CLIENT_TENANT.description,
+          keywords: DEFAULT_CLIENT_TENANT.keywords,
+          location: DEFAULT_CLIENT_TENANT.location,
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          tierUntil: 1,
+          layout: DEFAULT_CLIENT_TENANT.layout,
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
+          phone: DEFAULT_CLIENT_TENANT.phone,
+          title: DEFAULT_CLIENT_TENANT.title,
+          flags: DEFAULT_CLIENT_TENANT.flags,
         };
 
         expect(schemas.server.create.cast(actual)).toEqual(expected);
@@ -396,6 +451,7 @@ describe("schemas", () => {
       it("should normalize location if present", () => {
         const actual = {
           slug: "goncy",
+          tier: DEFAULT_CLIENT_TENANT.tier,
           location: {
             address: "some-address",
             coordinates: {
@@ -406,13 +462,16 @@ describe("schemas", () => {
         };
         const expected = {
           slug: "goncy",
-          color: "teal",
-          country: "AR",
-          description: "Armá tu tienda y recibí los pedidos via WhatsApp",
-          keywords: "pency, tienda, online, whatsapp, delivery, pedidos, shop",
-          mercadopago: null,
-          phone: "5491173694572",
-          title: "Pency - Tu tienda online fácil",
+          color: DEFAULT_CLIENT_TENANT.color,
+          country: DEFAULT_CLIENT_TENANT.country,
+          description: DEFAULT_CLIENT_TENANT.description,
+          keywords: DEFAULT_CLIENT_TENANT.keywords,
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
+          phone: DEFAULT_CLIENT_TENANT.phone,
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
+          title: DEFAULT_CLIENT_TENANT.title,
           location: {
             address: "some-address",
             coordinates: {
@@ -420,8 +479,8 @@ describe("schemas", () => {
               lng: 100,
             },
           },
-          layout: "portrait",
-          flags: [],
+          layout: DEFAULT_CLIENT_TENANT.layout,
+          flags: DEFAULT_CLIENT_TENANT.flags,
         };
 
         expect(schemas.server.create.cast(actual)).toEqual(expected);
@@ -465,26 +524,66 @@ describe("schemas", () => {
         const actual = {
           id: "some-id",
           slug: "some-slug",
-          color: "teal",
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          color: DEFAULT_CLIENT_TENANT.color,
           phone: "1144444444",
         };
         const expected = {
           ...actual,
           banner: "",
           category: "",
-          country: "AR",
+          country: DEFAULT_CLIENT_TENANT.country,
           description: "",
           facebook: "",
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           fields: [],
-          flags: [],
+          flags: DEFAULT_CLIENT_TENANT.flags,
           highlight: "",
           hook: "",
           instagram: "",
           keywords: "",
-          location: null,
-          layout: "portrait",
+          location: DEFAULT_CLIENT_TENANT.location,
+          layout: DEFAULT_CLIENT_TENANT.layout,
           logo: "",
-          mercadopago: false,
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
+          title: "",
+          twitter: "",
+        };
+
+        expect(schemas.client.fetch.cast(actual)).toEqual(expected);
+      });
+
+      it("should transform commercial to free if expired", () => {
+        const actual = {
+          id: "some-id",
+          slug: "some-slug",
+          tier: "commercial",
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
+          color: DEFAULT_CLIENT_TENANT.color,
+          phone: "1144444444",
+        };
+        const expected = {
+          ...actual,
+          banner: "",
+          category: "",
+          country: DEFAULT_CLIENT_TENANT.country,
+          description: "",
+          facebook: "",
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
+          createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          fields: [],
+          flags: DEFAULT_CLIENT_TENANT.flags,
+          highlight: "",
+          hook: "",
+          instagram: "",
+          keywords: "",
+          location: DEFAULT_CLIENT_TENANT.location,
+          layout: DEFAULT_CLIENT_TENANT.layout,
+          logo: "",
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           title: "",
           twitter: "",
         };
@@ -496,7 +595,8 @@ describe("schemas", () => {
         const actual = {
           id: "some-id",
           slug: "some-slug",
-          color: "teal",
+          color: DEFAULT_CLIENT_TENANT.color,
+          tier: DEFAULT_CLIENT_TENANT.tier,
           phone: 1144444444,
           highlight: "Some highlight",
         };
@@ -505,18 +605,21 @@ describe("schemas", () => {
           phone: "1144444444",
           banner: "",
           category: "",
-          country: "AR",
+          country: DEFAULT_CLIENT_TENANT.country,
           description: "",
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           facebook: "",
           fields: [],
-          flags: [],
+          flags: DEFAULT_CLIENT_TENANT.flags,
           hook: "",
           instagram: "",
           keywords: "",
-          location: null,
-          layout: "portrait",
+          location: DEFAULT_CLIENT_TENANT.location,
+          layout: DEFAULT_CLIENT_TENANT.layout,
           logo: "",
-          mercadopago: false,
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           title: "",
           twitter: "",
         };
@@ -528,7 +631,8 @@ describe("schemas", () => {
         const actual = {
           id: "some-id",
           slug: "some-slug",
-          color: "teal",
+          color: DEFAULT_CLIENT_TENANT.color,
+          tier: DEFAULT_CLIENT_TENANT.tier,
           phone: 1144444444,
           highlight: "Some highlight",
           location: {
@@ -544,11 +648,14 @@ describe("schemas", () => {
           phone: "1144444444",
           banner: "",
           category: "",
-          country: "AR",
+          country: DEFAULT_CLIENT_TENANT.country,
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           description: "",
           facebook: "",
           fields: [],
-          flags: [],
+          flags: DEFAULT_CLIENT_TENANT.flags,
           hook: "",
           instagram: "",
           keywords: "",
@@ -559,9 +666,9 @@ describe("schemas", () => {
               lng: 10.001,
             },
           },
-          layout: "portrait",
+          layout: DEFAULT_CLIENT_TENANT.layout,
           logo: "",
-          mercadopago: false,
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           title: "",
           twitter: "",
         };
@@ -573,9 +680,10 @@ describe("schemas", () => {
         const actual = {
           id: "some-id",
           slug: "some-slug",
-          color: "teal",
+          color: DEFAULT_CLIENT_TENANT.color,
           phone: 1144444444,
           highlight: "Some highlight",
+          tier: DEFAULT_CLIENT_TENANT.tier,
           flags: [1, 2, 3],
           location: {
             address: "some address",
@@ -590,12 +698,15 @@ describe("schemas", () => {
           phone: "1144444444",
           banner: "",
           category: "",
-          country: "AR",
+          country: DEFAULT_CLIENT_TENANT.country,
           description: "",
           facebook: "",
           fields: [],
           flags: ["1", "2", "3"],
           hook: "",
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           instagram: "",
           keywords: "",
           location: {
@@ -605,9 +716,9 @@ describe("schemas", () => {
               lng: 10.001,
             },
           },
-          layout: "portrait",
+          layout: DEFAULT_CLIENT_TENANT.layout,
           logo: "",
-          mercadopago: false,
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           title: "",
           twitter: "",
         };
@@ -619,29 +730,33 @@ describe("schemas", () => {
         const actual = {
           id: "some-id",
           slug: "some-slug",
-          color: "teal",
+          color: DEFAULT_CLIENT_TENANT.color,
           phone: 1144444444,
+          tier: DEFAULT_CLIENT_TENANT.tier,
           highlight: "Some highlight",
           flags: [1, 2, 3],
-          location: null,
+          location: DEFAULT_CLIENT_TENANT.location,
         };
         const expected = {
           ...actual,
           phone: "1144444444",
           banner: "",
           category: "",
-          country: "AR",
+          country: DEFAULT_CLIENT_TENANT.country,
           description: "",
           facebook: "",
           fields: [],
           flags: ["1", "2", "3"],
           hook: "",
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           instagram: "",
           keywords: "",
-          location: null,
-          layout: "portrait",
+          location: DEFAULT_CLIENT_TENANT.location,
+          layout: DEFAULT_CLIENT_TENANT.layout,
           logo: "",
-          mercadopago: false,
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           title: "",
           twitter: "",
         };
@@ -653,7 +768,8 @@ describe("schemas", () => {
         const actual = {
           id: "some-id",
           slug: "some-slug",
-          color: "teal",
+          color: DEFAULT_CLIENT_TENANT.color,
+          tier: DEFAULT_CLIENT_TENANT.tier,
           phone: 1144444444,
           highlight: "Some highlight",
           flags: [1, 2, 3],
@@ -663,18 +779,21 @@ describe("schemas", () => {
           phone: "1144444444",
           banner: "",
           category: "",
-          country: "AR",
+          country: DEFAULT_CLIENT_TENANT.country,
           description: "",
           facebook: "",
           fields: [],
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           flags: ["1", "2", "3"],
           hook: "",
           instagram: "",
           keywords: "",
-          location: null,
-          layout: "portrait",
+          location: DEFAULT_CLIENT_TENANT.location,
+          layout: DEFAULT_CLIENT_TENANT.layout,
           logo: "",
-          mercadopago: false,
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           title: "",
           twitter: "",
         };
@@ -686,7 +805,8 @@ describe("schemas", () => {
         const actual = {
           id: "some-id",
           slug: "some-slug",
-          color: "teal",
+          color: DEFAULT_CLIENT_TENANT.color,
+          tier: DEFAULT_CLIENT_TENANT.tier,
           phone: 1144444444,
           highlight: "Some highlight",
           flags: [1, 2, 3],
@@ -701,23 +821,210 @@ describe("schemas", () => {
           phone: "1144444444",
           banner: "",
           category: "",
-          country: "AR",
+          country: DEFAULT_CLIENT_TENANT.country,
           description: "",
           facebook: "",
           fields: [],
           flags: ["1", "2", "3"],
           hook: "",
           instagram: "",
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           keywords: "",
-          location: null,
-          layout: "portrait",
+          location: DEFAULT_CLIENT_TENANT.location,
+          layout: DEFAULT_CLIENT_TENANT.layout,
           logo: "",
-          mercadopago: false,
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           title: "",
           twitter: "",
         };
 
         expect(schemas.client.fetch.cast(actual)).toEqual(expected);
+      });
+
+      it("should return free when tier is not present", () => {
+        const actual = {
+          id: "some-id",
+          slug: "some-slug",
+          color: DEFAULT_CLIENT_TENANT.color,
+          phone: 1144444444,
+          highlight: "Some highlight",
+          flags: [1, 2, 3],
+          mercadopago: {
+            expiration: null,
+            refresh: "",
+            token: "",
+          },
+        };
+        const expected = {
+          ...actual,
+          phone: "1144444444",
+          banner: "",
+          category: "",
+          country: DEFAULT_CLIENT_TENANT.country,
+          description: "",
+          facebook: "",
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
+          createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          fields: [],
+          flags: ["1", "2", "3"],
+          hook: "",
+          instagram: "",
+          keywords: "",
+          location: DEFAULT_CLIENT_TENANT.location,
+          layout: DEFAULT_CLIENT_TENANT.layout,
+          logo: "",
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
+          title: "",
+          twitter: "",
+        };
+
+        expect(schemas.client.fetch.cast(actual)).toEqual(expected);
+      });
+
+      it("should not update created at if present", () => {
+        const actual = {
+          id: "some-id",
+          slug: "some-slug",
+          color: DEFAULT_CLIENT_TENANT.color,
+          phone: 1144444444,
+          highlight: "Some highlight",
+          createdAt: 1,
+          flags: [1, 2, 3],
+          mercadopago: {
+            expiration: null,
+            refresh: "",
+            token: "",
+          },
+        };
+        const expected = {
+          ...actual,
+          phone: "1144444444",
+          banner: "",
+          category: "",
+          country: DEFAULT_CLIENT_TENANT.country,
+          description: "",
+          facebook: "",
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
+          createdAt: 1,
+          fields: [],
+          flags: ["1", "2", "3"],
+          hook: "",
+          instagram: "",
+          keywords: "",
+          location: DEFAULT_CLIENT_TENANT.location,
+          layout: DEFAULT_CLIENT_TENANT.layout,
+          logo: "",
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
+          title: "",
+          twitter: "",
+        };
+
+        expect(schemas.client.fetch.cast(actual)).toEqual(expected);
+      });
+    });
+
+    describe("relevant", () => {
+      it("should match when relevant fields are required", () => {
+        const actual: ClientTenant = {
+          id: "some-id",
+          slug: "some-slug",
+          createdAt: 111111,
+          category: "some-category",
+          tier: "preferential",
+          tierUntil: +new Date() + 100000,
+          color: DEFAULT_CLIENT_TENANT.color,
+          phone: "1144444444",
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
+          logo: "some-logo",
+          description: "some description",
+          title: "some title",
+        };
+        const expected = true;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("should not match when logo is not provided", () => {
+        const actual: ClientTenant = {
+          id: "some-id",
+          slug: "some-slug",
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
+          createdAt: 111111,
+          category: "some-category",
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
+          color: DEFAULT_CLIENT_TENANT.color,
+          phone: "1144444444",
+          description: "some description",
+          title: "some title",
+        };
+        const expected = false;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("should not match when number is 5491173694572", () => {
+        const actual: ClientTenant = {
+          id: "some-id",
+          slug: "some-slug",
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
+          createdAt: 111111,
+          category: "some-category",
+          color: DEFAULT_CLIENT_TENANT.color,
+          phone: DEFAULT_CLIENT_TENANT.phone,
+          logo: "some-logo",
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
+          description: "some description",
+          title: "some title",
+        };
+        const expected = false;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("should not match when description is Armá tu tienda y recibí los pedidos via WhatsApp", () => {
+        const actual: ClientTenant = {
+          id: "some-id",
+          slug: "some-slug",
+          category: "some-category",
+          createdAt: 111111,
+          color: DEFAULT_CLIENT_TENANT.color,
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
+          phone: DEFAULT_CLIENT_TENANT.phone,
+          logo: "some-logo",
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
+          description: DEFAULT_CLIENT_TENANT.description,
+          title: "some title",
+        };
+        const expected = false;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+      });
+
+      it("should not match when title is Pency - Tu tienda online fácil", () => {
+        const actual: ClientTenant = {
+          id: "some-id",
+          slug: "some-slug",
+          category: "some-category",
+          createdAt: 111111,
+          color: DEFAULT_CLIENT_TENANT.color,
+          tier: DEFAULT_CLIENT_TENANT.tier,
+          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
+          phone: DEFAULT_CLIENT_TENANT.phone,
+          logo: "some-logo",
+          description: "description",
+          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
+          title: DEFAULT_CLIENT_TENANT.title,
+        };
+        const expected = false;
+
+        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
       });
     });
   });

@@ -23,7 +23,15 @@ export const base = () => (
 
 export const unavailable = () => (
   <CartItemDrawer
-    product={{...productMock.full, visibility: "unavailable"}}
+    product={{...productMock.full, type: "unavailable"}}
+    onClose={action("close")}
+    onSubmit={action("submit")}
+  />
+);
+
+export const variant = () => (
+  <CartItemDrawer
+    product={{...productMock.full, type: "variant"}}
     onClose={action("close")}
     onSubmit={action("submit")}
   />
@@ -31,7 +39,7 @@ export const unavailable = () => (
 
 export const ask = () => (
   <CartItemDrawer
-    product={{...productMock.full, visibility: "ask"}}
+    product={{...productMock.full, type: "ask"}}
     onClose={action("close")}
     onSubmit={action("submit")}
   />
@@ -39,7 +47,7 @@ export const ask = () => (
 
 export const hidden = () => (
   <CartItemDrawer
-    product={{...productMock.full, visibility: "hidden"}}
+    product={{...productMock.full, type: "hidden"}}
     onClose={action("close")}
     onSubmit={action("submit")}
   />

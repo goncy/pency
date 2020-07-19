@@ -12,7 +12,7 @@ export default {
       title: faker.commerce.productName(),
       price: Number(faker.commerce.price()),
       originalPrice: Number(faker.commerce.price()),
-      visibility: "available",
+      type: "available",
       featured: true,
       options: [],
     };

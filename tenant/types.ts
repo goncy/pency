@@ -5,6 +5,8 @@ import {Place} from "~/places/types";
 interface Tenant {
   id: string;
   slug: string;
+  tier: "free" | "preferential" | "commercial";
+  tierUntil: number;
   category?: string;
   color: Extract<
     VariantColor,
@@ -25,6 +27,7 @@ interface Tenant {
   fields?: Field[];
   flags?: string[];
   hook?: string;
+  createdAt: number;
   layout?: "landscape" | "portrait";
   mercadopago?: {
     token: string;

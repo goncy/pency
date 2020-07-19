@@ -1,8 +1,7 @@
 import {NextApiResponse, NextApiRequest} from "next";
 
-import {Product} from "../../types";
-import api from "../../api/server";
-
+import api from "~/product/api/server";
+import {Product} from "~/product/types";
 import {ClientTenant} from "~/tenant/types";
 import sessionApi from "~/session/api/server";
 
@@ -53,8 +52,8 @@ interface DeleteRequest extends NextApiRequest {
     authorization: string;
   };
   query: {
-    tenant: ClientTenant["id"];
     product: Product["id"];
+    tenant: ClientTenant["id"];
   };
 }
 
@@ -65,9 +64,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     } = req as GetRequest;
 
     if (!tenant) return res.status(304).end();
-
-    // Set cache for 15 minutes
-    res.setHeader("Cache-Control", "s-maxage=3600, stale-while-revalidate");
 
     return api
       .list(tenant)

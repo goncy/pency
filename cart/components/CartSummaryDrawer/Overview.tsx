@@ -92,7 +92,7 @@ const Overview: React.FC<Props> = ({
                 </Flex>
                 <Flex alignItems="center">
                   <Text fontWeight={500}>
-                    {product.visibility === "ask"
+                    {product.type === "ask"
                       ? "A consultar"
                       : p((product.price + getVariantsPrice(variants)) * count)}
                   </Text>

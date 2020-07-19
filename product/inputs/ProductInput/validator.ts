@@ -6,7 +6,7 @@ interface Bulk {
   options: Pick<Variant, "options">[];
   price: Product["price"];
   originalPrice: Product["originalPrice"];
-  visibility: Product["visibility"];
+  type: Product["type"];
 }
 
 const schema = yup.object<Bulk>({
@@ -16,10 +16,10 @@ const schema = yup.object<Bulk>({
     .number()
     .typeError("El precio original es requerido, indicá 0 en caso de no corresponder")
     .required("El precio original es requerido, indicá 0 en caso de no corresponder"),
-  visibility: yup
+  type: yup
     .string()
-    .oneOf(["available", "unavailable", "ask", "hidden"])
-    .required("La visibilidad es requerida"),
+    .oneOf(["available", "unavailable", "variant", "promotional", "ask", "hidden"])
+    .required("El tipo es requerida"),
   options: yup
     .array(
       yup.object({

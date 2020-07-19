@@ -1,7 +1,6 @@
 import React from "react";
 
 import {Provider as SessionProvider} from "~/session/context";
-import fetch from "~/utils/fetch";
 import {ClientTenant} from "~/tenant/types";
 import {Product} from "~/product/types";
 import AdminScreen from "~/app/screens/Admin";
@@ -9,7 +8,10 @@ import AdminLayout from "~/app/layouts/AdminLayout";
 import {Provider as I18nProvider} from "~/i18n/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
-
+import tenantApi from "~/tenant/api/server";
+import productApi from "~/product/api/server";
+import tenantSchemas from "~/tenant/schemas";
+import productSchemas from "~/product/schemas";
 interface Props {
   tenant: ClientTenant;
   products: Product[];
@@ -33,21 +35,19 @@ const AdminRoute: React.FC<Props> = ({tenant, products}) => {
   );
 };
 
-export async function getServerSideProps({
-  req: {
-    headers: {host},
-  },
-  params: {slug},
-  res,
-}) {
+export async function getServerSideProps({params: {slug}, res}) {
   try {
-    const BASE_URL = `http://${host}/api`;
+    // Get the tenant for this page slug
+    const tenant: ClientTenant = await tenantApi
+      .fetch(slug as ClientTenant["slug"])
+      // Cast it as a client tenant
+      .then((tenant) => tenantSchemas.client.fetch.cast(tenant));
 
-    // Fetch tenant
-    const tenant = await fetch("GET", `${BASE_URL}/tenant/${slug}?v=${+new Date()}`);
-
-    // Fetch products
-    const products = await fetch("GET", `${BASE_URL}/product?tenant=${tenant.id}&v=${+new Date()}`);
+    // Get its products
+    const products: Product[] = await productApi
+      .list(tenant.id)
+      // Cast all products for client
+      .then((products) => products.map((product) => productSchemas.client.fetch.cast(product)));
 
     return {props: {tenant, products}};
   } catch (err) {

@@ -1,13 +1,14 @@
 export interface Product {
   id: string;
   title: string;
-  available?: boolean; // @TODO: Remove when visibility is widely adopted
+  available?: boolean; // @TODO: Remove when type is widely adopted
   description?: string;
   category?: string;
   image?: string | undefined;
   price: number;
   originalPrice?: number;
-  visibility: "available" | "unavailable" | "ask" | "hidden";
+  visibility?: "available" | "unavailable" | "variant" | "hidden" | "promotional" | "ask"; // @TODO: Remove when type is widely adopted
+  type: "available" | "unavailable" | "variant" | "hidden" | "promotional" | "ask";
   options?: Variant[];
   featured?: boolean;
 }

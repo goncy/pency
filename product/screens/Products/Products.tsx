@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack, Box, PseudoBox, Flex, useDisclosure} from "@chakra-ui/core";
+import {Stack, Box, PseudoBox, Flex, useDisclosure, Text} from "@chakra-ui/core";
 import {useRouter} from "next/router";
 
 import ProductCard from "../../components/ProductCard";
@@ -9,6 +9,7 @@ import ProductsCarousel from "../../components/ProductsCarousel";
 
 import Onboarding from "./Onboarding";
 
+import Logo from "~/ui/static/Logo";
 import {useCart} from "~/cart/hooks";
 import {groupBy} from "~/selectors/group";
 import CartSummaryDrawer from "~/cart/components/CartSummaryDrawer";
@@ -22,8 +23,13 @@ import SummaryButton from "~/cart/components/SummaryButton";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 import {Product, Variant} from "~/product/types";
 import {isIOSInstagramBrowser} from "~/app/selectors";
+import Link from "~/ui/controls/Link";
 
-const ProductsScreen: React.FC = () => {
+interface Props {
+  lastUpdate: number;
+}
+
+const ProductsScreen: React.FC<Props> = ({lastUpdate}) => {
   const {
     query: {product},
     push,
@@ -32,7 +38,7 @@ const ProductsScreen: React.FC = () => {
   const {add, increase, decrease, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
-  const {products, filters} = useFilteredProducts((product) => product.visibility !== "hidden");
+  const {products, filters} = useFilteredProducts((product) => product.type !== "hidden");
   const {highlight, fields, layout, ...tenant} = useTenant();
   const selected = React.useMemo(() => products.find((_product) => _product.id === product), [
     products,
@@ -179,6 +185,24 @@ const ProductsScreen: React.FC = () => {
           </Box>
         </Flex>
       )}
+      <Content>
+        <Flex
+          alignItems="center"
+          direction={{base: "column", sm: "row"}}
+          justifyContent="space-between"
+          padding={4}
+        >
+          <Stack isInline alignItems="center" color="gray.500" fontSize="sm" spacing={1}>
+            <Text>Última actualización: {new Date(lastUpdate).toLocaleString()}</Text>
+          </Stack>
+          <Link href="/">
+            <Stack isInline alignItems="center" spacing={1}>
+              <Text fontSize="sm">Tienda creada con</Text>
+              <Logo size={12} />
+            </Stack>
+          </Link>
+        </Flex>
+      </Content>
       {isCartOpen && (
         <CartSummaryDrawer
           fields={fields}

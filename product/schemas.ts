@@ -7,10 +7,10 @@ export default {
   server: {
     create: yup.object<Product>({
       id: yup.string().strip(true),
-      visibility: yup
+      type: yup
         .string()
-        .oneOf(["available", "unavailable", "ask", "hidden"])
-        .default(DEFAULT_PRODUCT.visibility),
+        .oneOf(["available", "unavailable", "ask", "promotional", "variant", "hidden"])
+        .default(DEFAULT_PRODUCT.type),
       title: yup.string().default(DEFAULT_PRODUCT.title),
       price: yup
         .number()
@@ -55,7 +55,10 @@ export default {
       description: yup.string().nullable(),
       price: yup.number().nullable(),
       originalPrice: yup.number().nullable(),
-      visibility: yup.string().oneOf(["available", "unavailable", "ask", "hidden"]).nullable(),
+      type: yup
+        .string()
+        .oneOf(["available", "unavailable", "ask", "promotional", "variant", "hidden"])
+        .nullable(),
       featured: yup.boolean().nullable(),
       options: yup
         .array(
@@ -86,10 +89,10 @@ export default {
   client: {
     fetch: yup.object<Product>({
       id: yup.string().required(),
-      visibility: yup
+      type: yup
         .string()
-        .oneOf(["available", "unavailable", "ask", "hidden"])
-        .default(DEFAULT_PRODUCT.visibility),
+        .oneOf(["available", "unavailable", "ask", "promotional", "variant", "hidden"])
+        .default(DEFAULT_PRODUCT.type),
       title: yup.string().required().default(DEFAULT_PRODUCT.title),
       price: yup
         .number()
@@ -130,7 +133,10 @@ export default {
       image: yup.string().default(DEFAULT_PRODUCT.image),
     }),
     update: yup.object<Partial<Product>>({
-      visibility: yup.string().oneOf(["available", "unavailable", "ask", "hidden"]).nullable(),
+      type: yup
+        .string()
+        .oneOf(["available", "unavailable", "ask", "promotional", "variant", "hidden"])
+        .nullable(),
       category: yup.string().trim().nullable(),
       description: yup.string().nullable(),
       featured: yup.boolean().nullable(),
@@ -165,10 +171,10 @@ export default {
     }),
     create: yup.object<Product>({
       id: yup.string().strip(true),
-      visibility: yup
+      type: yup
         .string()
-        .oneOf(["available", "unavailable", "ask", "hidden"])
-        .default(DEFAULT_PRODUCT.visibility),
+        .oneOf(["available", "unavailable", "ask", "promotional", "variant", "hidden"])
+        .default(DEFAULT_PRODUCT.type),
       title: yup.string().default(DEFAULT_PRODUCT.title),
       price: yup
         .number()
@@ -210,7 +216,10 @@ export default {
     }),
   },
   csv: yup.object<Partial<Product>>({
-    visibility: yup.string().oneOf(["available", "unavailable", "ask", "hidden"]).nullable(),
+    type: yup
+      .string()
+      .oneOf(["available", "unavailable", "ask", "promotional", "variant", "hidden"])
+      .nullable(),
     category: yup.string().trim().nullable(),
     description: yup
       .string()
@@ -242,8 +251,14 @@ export default {
         }),
       )
       .nullable(),
-    price: yup.number().nullable(),
-    originalPrice: yup.number().nullable(),
+    price: yup
+      .number()
+      .transform((value) => (isNaN(value) ? 0 : value))
+      .nullable(),
+    originalPrice: yup
+      .number()
+      .transform((value) => (isNaN(value) ? 0 : value))
+      .nullable(),
     title: yup.string().nullable(),
   }),
 };

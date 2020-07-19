@@ -38,3 +38,14 @@ export function getPrice(product: Product): number {
       }, base)
     : base;
 }
+
+export function getVariantsPriceRange(variants: Variant[] = []): [number, number] {
+  // Get prices for all variants
+  const prices = variants.reduce(
+    (prices, variant) => prices.concat(variant.options.map((option) => option.price)),
+    [],
+  );
+
+  // Return a tuple of min max
+  return [Math.min(...prices), Math.max(...prices)];
+}

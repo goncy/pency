@@ -20,6 +20,11 @@
     "item": "Item",
     "item_plural": "Items"
   },
+  "tiers": {
+    "free": "Gratis",
+    "preferential": "Preferencial",
+    "commercial": "Comercial"
+  },
   "landing": {
     "features": {
       "streamlineBusinessManagment":{

@@ -1,8 +1,7 @@
 import {NextApiRequest, NextApiResponse} from "next";
 
-import api from "../server";
-import {AuthState} from "../../types";
-
+import api from "~/payment/api/server";
+import {AuthState} from "~/payment/types";
 import tenantApi from "~/tenant/api/server";
 import sessionApi from "~/session/api/server";
 import {ClientTenant} from "~/tenant/types";
@@ -13,6 +12,7 @@ interface GetRequest extends NextApiRequest {
   query: {
     code: string;
     state: string;
+    slug: ClientTenant["slug"];
   };
 }
 
@@ -22,7 +22,6 @@ interface DeleteRequest extends NextApiRequest {
   };
   query: {
     id: ClientTenant["id"];
-    slug: ClientTenant["slug"];
   };
 }
 
@@ -49,7 +48,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               // Update the tenant with the credentials
               await tenantApi.update(
                 state.id,
-                state.slug,
                 schemas.server.mercadopago.cast({
                   mercadopago: {
                     token: credentials.access_token,
@@ -85,7 +83,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === "DELETE") {
     const {
-      query: {id, slug},
+      query: {id},
       headers: {authorization: token},
     } = req as DeleteRequest;
 
@@ -99,7 +97,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           // Remove the old credentials from the tenant
           await tenantApi.update(
             id,
-            slug,
             schemas.server.mercadopago.cast({
               mercadopago: null,
             }),

@@ -11,7 +11,7 @@ module.exports = {
     "~/(.*)": "<rootDir>/$1",
   },
   testMatch: ["**/__tests__/**/*.test.[jt]s?(x)"],
-  testPathIgnorePatterns: ['/node_modules/', '/.next/'],
+  testPathIgnorePatterns: ['/node_modules/', '/.next/', '/migrations/'],
   transformIgnorePatterns: [
     '/node_modules/',
   ]
