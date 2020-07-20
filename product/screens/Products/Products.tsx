@@ -24,12 +24,14 @@ import CartItemDrawer from "~/cart/components/CartItemDrawer";
 import {Product, Variant} from "~/product/types";
 import {isIOSInstagramBrowser} from "~/app/selectors";
 import Link from "~/ui/controls/Link";
+import date from "~/utils/date";
 
 interface Props {
   lastUpdate: number;
+  nextUpdate: number;
 }
 
-const ProductsScreen: React.FC<Props> = ({lastUpdate}) => {
+const ProductsScreen: React.FC<Props> = ({lastUpdate, nextUpdate}) => {
   const {
     query: {product},
     push,
@@ -39,7 +41,7 @@ const ProductsScreen: React.FC<Props> = ({lastUpdate}) => {
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts((product) => product.type !== "hidden");
-  const {highlight, fields, layout, ...tenant} = useTenant();
+  const {highlight, fields, layout, country, ...tenant} = useTenant();
   const selected = React.useMemo(() => products.find((_product) => _product.id === product), [
     products,
     product,
@@ -187,13 +189,18 @@ const ProductsScreen: React.FC<Props> = ({lastUpdate}) => {
       )}
       <Content>
         <Flex
-          alignItems="center"
+          alignItems={{base: "center", sm: "flex-end"}}
           direction={{base: "column", sm: "row"}}
           justifyContent="space-between"
           padding={4}
         >
-          <Stack isInline alignItems="center" color="gray.500" fontSize="sm" spacing={1}>
-            <Text>Última actualización: {new Date(lastUpdate).toLocaleString()}</Text>
+          <Stack alignItems="center" marginBottom={{base: 2}} spacing={0}>
+            <Text color="gray.500" fontSize="sm">
+              Última actualización: {date.localeDateTime(lastUpdate, country)}
+            </Text>
+            <Text color="gray.500" fontSize="sm">
+              Próxima actualización: {date.localeDateTime(nextUpdate, country)}
+            </Text>
           </Stack>
           <Link href="/">
             <Stack isInline alignItems="center" spacing={1}>

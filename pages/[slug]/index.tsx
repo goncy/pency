@@ -23,9 +23,10 @@ interface Props {
   tenant: ClientTenant;
   products: Product[];
   lastUpdate: number;
+  nextUpdate: number;
 }
 
-const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate}) => {
+const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate, nextUpdate}) => {
   // Get router instance
   const router = useRouter();
 
@@ -48,7 +49,7 @@ const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate}) => {
             <CartProvider>
               <StoreLayout product={product} tenant={tenant}>
                 <I18nProvider country={tenant.country}>
-                  <ProductsScreen lastUpdate={lastUpdate} />
+                  <ProductsScreen lastUpdate={lastUpdate} nextUpdate={nextUpdate} />
                 </I18nProvider>
               </StoreLayout>
             </CartProvider>
@@ -73,15 +74,18 @@ export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
       // Cast all products for client
       .then((products) => products.map((product) => productSchemas.client.fetch.cast(product)));
 
-    // Get the last updated time
-    const lastUpdate = +new Date();
-
     // Get the revalidation time
     const revalidationTime = getRevalidationTime(tenant.tier);
 
+    // Get the last updated time
+    const lastUpdate = +new Date();
+
+    // Get the next updated time
+    const nextUpdate = lastUpdate + revalidationTime * 1000;
+
     // Return the props and revalidation times
     return {
-      props: {tenant, products, lastUpdate},
+      props: {tenant, products, lastUpdate, nextUpdate},
       unstable_revalidate: revalidationTime,
     };
   } catch (err) {

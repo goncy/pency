@@ -1,3 +1,5 @@
+import {LOCALES} from "~/i18n/constants";
+
 export default {
   get oneWeekFromNow(): number {
     return +new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
@@ -6,9 +8,9 @@ export default {
     return +new Date();
   },
   get secondsUntilNextHour(): number {
-    const MS_PER_HOUR = 3600000;
+    const SEC_PER_HOUR = 3600;
 
-    return Math.round(MS_PER_HOUR - (new Date().getTime() % MS_PER_HOUR) / 1000);
+    return Math.round(SEC_PER_HOUR - (new Date().getTime() % (SEC_PER_HOUR * 1000)) / 1000);
   },
   get twelveHoursInSeconds(): number {
     return 43200;
@@ -39,5 +41,9 @@ export default {
 
     // Return just positive numbers
     return Math.max(0, diff);
+  },
+  localeDateTime(date: number, country: string) {
+    // Return localized string
+    return new Date(date).toLocaleString(LOCALES[country]);
   },
 };
