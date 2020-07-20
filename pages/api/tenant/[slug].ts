@@ -9,6 +9,7 @@ import dates from "~/utils/date";
 interface GetRequest extends NextApiRequest {
   query: {
     slug: ClientTenant["slug"];
+    secret: string;
   };
 }
 
@@ -37,8 +38,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "GET") {
     const {
       // We extract the slug from query
-      query: {slug},
+      query: {slug, secret},
     } = req as GetRequest;
+
+    // If we don't have everything we need
+    if (secret !== process.env.SECRET) {
+      // Return a 304
+      return res.status(304).end();
+    }
 
     return (
       api
