@@ -22,7 +22,6 @@ import Content from "~/ui/structure/Content";
 import SummaryButton from "~/cart/components/SummaryButton";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 import {Product, Variant} from "~/product/types";
-import {isIOSInstagramBrowser} from "~/app/selectors";
 import Link from "~/ui/controls/Link";
 import date from "~/utils/date";
 
@@ -36,7 +35,6 @@ const ProductsScreen: React.FC<Props> = ({lastUpdate, nextUpdate}) => {
     query: {product},
     push,
   } = useRouter();
-  const isInstagramBrowser = isIOSInstagramBrowser();
   const {add, increase, decrease, items, checkout} = useCart();
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
@@ -113,7 +111,7 @@ const ProductsScreen: React.FC<Props> = ({lastUpdate, nextUpdate}) => {
                 position="sticky"
                 roundedBottom="lg"
                 roundedTop={highlight ? "none" : "lg"}
-                top={isInstagramBrowser ? 12 : 0}
+                top={0}
                 zIndex={3}
               >
                 {filters}
