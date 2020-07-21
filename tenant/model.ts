@@ -6,7 +6,6 @@ type TenantModel = Document & ServerTenant;
 
 const TenantSchema = new Schema(
   {
-    id: String,
     slug: String,
     category: String,
     color: String,
@@ -70,25 +69,32 @@ const TenantSchema = new Schema(
       },
     ],
   },
-  {timestamps: true},
-);
+  {
+    timestamps: true,
+    toJSON: {
+      transform: (_doc, tenant) => {
+        // Remove mongo keys for tenant
+        delete tenant._id;
+        delete tenant.updatedAt;
+        delete tenant.createdAt;
 
-TenantSchema.set("toJSON", {
-  transform: function (_doc, tenant) {
-    // Remove _id for tenant
-    delete tenant._id;
+        tenant.products?.forEach((product) => {
+          product.options?.forEach((option) => {
+            // Remove mongo keys for options
+            delete option._id;
+            delete option.updatedAt;
+            delete option.createdAt;
+          });
 
-    tenant.products?.forEach((product) => {
-      product.options?.forEach((option) => {
-        // Remove _id for options
-        delete option._id;
-      });
-
-      // Remove _id for products
-      delete product._id;
-    });
+          // Remove mongo keys for products
+          delete product._id;
+          delete product.updatedAt;
+          delete product.createdAt;
+        });
+      },
+    },
   },
-});
+);
 
 export default (mongoose.models.Tenant as mongoose.Model<TenantModel>) ||
   mongoose.model<TenantModel>("Tenant", TenantSchema);

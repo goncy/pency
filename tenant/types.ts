@@ -3,7 +3,7 @@ import {VariantColor} from "@chakra-ui/core";
 import {Place} from "~/places/types";
 import {Product} from "~/product/types";
 
-interface Tenant {
+export interface ServerTenant {
   id: string;
   slug: string;
   tier: "free" | "preferential" | "commercial";
@@ -38,11 +38,9 @@ interface Tenant {
   };
 }
 
-export interface ClientTenant extends Omit<Tenant, "mercadopago"> {
+export interface ClientTenant extends Omit<ServerTenant, "mercadopago"> {
   mercadopago: boolean;
 }
-
-export type ServerTenant = Tenant;
 
 export type Field = TextField | RadioField;
 
