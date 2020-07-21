@@ -3,7 +3,7 @@ import {GetStaticProps, GetStaticPaths} from "next";
 import {useRouter} from "next/router";
 
 import ProductsScreen from "~/product/screens/Products";
-import {ClientTenant, ServerTenant} from "~/tenant/types";
+import {ClientTenant} from "~/tenant/types";
 import {Product} from "~/product/types";
 import StoreLayout from "~/app/layouts/StoreLayout";
 import {Provider as I18nProvider} from "~/i18n/context";
@@ -13,11 +13,8 @@ import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import LoadingScreen from "~/app/screens/Loading";
 import tenantApi from "~/tenant/api/server";
-import productApi from "~/product/api/server";
 import tenantSchemas from "~/tenant/schemas";
-import productSchemas from "~/product/schemas";
 import {getRevalidationTime} from "~/tenant/selectors";
-import schemas from "~/tenant/schemas";
 
 interface Props {
   tenant: ClientTenant;
@@ -63,16 +60,10 @@ const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate, nextUpdate}) 
 export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
   try {
     // Get the tenant for this page slug
-    const tenant: ClientTenant = await tenantApi
+    const {products, ...tenant}: ClientTenant = await tenantApi
       .fetch(slug as ClientTenant["slug"])
       // Cast it as a client tenant
       .then((tenant) => tenantSchemas.client.fetch.cast(tenant));
-
-    // Get its products
-    const products: Product[] = await productApi
-      .list(tenant.id)
-      // Cast all products for client
-      .then((products) => products.map((product) => productSchemas.client.fetch.cast(product)));
 
     // Get the revalidation time
     const revalidationTime = getRevalidationTime(tenant.tier);
@@ -95,25 +86,8 @@ export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Get all the tenants
-  const tenants: ServerTenant[] = await tenantApi.list();
-
-  // Get the slugs of all relevant tenants
-  const relevant = tenants
-    // @TODO: Remove once all preferential tenants has been loaded
-    .filter(() => false)
-    // Filter only relevant ones
-    .filter((tenant) => schemas.client.relevant.isValidSync(tenant))
-    // Get the slugs
-    .map((tenant) => tenant.slug);
-
-  // Return them for being used on getStaticProps
   return {
-    paths: relevant.map((slug) => ({
-      params: {
-        slug,
-      },
-    })),
+    paths: [],
     fallback: true,
   };
 };

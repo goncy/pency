@@ -194,7 +194,11 @@ const ProductsScreen: React.FC<Props> = ({lastUpdate, nextUpdate}) => {
           justifyContent="space-between"
           padding={4}
         >
-          <Stack alignItems="center" marginBottom={{base: 2}} spacing={0}>
+          <Stack
+            alignItems={{base: "center", sm: "flex-start"}}
+            marginBottom={{base: 2, sm: 0}}
+            spacing={0}
+          >
             <Text color="gray.500" fontSize="sm">
               Última actualización: {date.localeDateTime(lastUpdate, country)}
             </Text>

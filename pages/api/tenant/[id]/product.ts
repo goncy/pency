@@ -1,22 +1,16 @@
 import {NextApiResponse, NextApiRequest} from "next";
 
-import api from "~/product/api/server";
+import api from "~/tenant/api/server";
 import {Product} from "~/product/types";
 import {ClientTenant} from "~/tenant/types";
 import sessionApi from "~/session/api/server";
-
-interface GetRequest extends NextApiRequest {
-  query: {
-    tenant: ClientTenant["id"];
-  };
-}
 
 interface PostRequest extends NextApiRequest {
   headers: {
     authorization: string;
   };
   query: {
-    tenant: ClientTenant["id"];
+    id: ClientTenant["id"];
   };
   body: {
     product: Product;
@@ -28,7 +22,7 @@ interface PatchRequest extends NextApiRequest {
     authorization: string;
   };
   query: {
-    tenant: ClientTenant["id"];
+    id: ClientTenant["id"];
   };
   body: {
     product: Product;
@@ -40,7 +34,7 @@ interface PutRequest extends NextApiRequest {
     authorization: string;
   };
   query: {
-    tenant: ClientTenant["id"];
+    id: ClientTenant["id"];
   };
   body: {
     products: Product[];
@@ -53,40 +47,27 @@ interface DeleteRequest extends NextApiRequest {
   };
   query: {
     product: Product["id"];
-    tenant: ClientTenant["id"];
+    id: ClientTenant["id"];
   };
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method === "GET") {
-    const {
-      query: {tenant},
-    } = req as GetRequest;
-
-    if (!tenant) return res.status(304).end();
-
-    return api
-      .list(tenant)
-      .then((products) => res.status(200).json(products || []))
-      .catch(({status, statusText}) => res.status(status).end(statusText));
-  }
-
   if (req.method === "POST") {
     const {
-      query: {tenant},
+      query: {id},
       body: {product},
       headers: {authorization: token},
     } = req as PostRequest;
 
-    if (!tenant) return res.status(304).end();
+    if (!id) return res.status(304).end();
 
     return sessionApi
       .verify(token)
       .then(({uid}) => {
-        if (uid !== tenant) return res.status(403).end();
+        if (uid !== id) return res.status(403).end();
 
-        return api
-          .create(tenant, product)
+        return api.product
+          .create(id, product)
           .then((product) => res.status(200).json(product))
           .catch(() => res.status(400).end("Hubo un error creando el producto"));
       })
@@ -95,20 +76,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === "PATCH") {
     const {
-      query: {tenant},
+      query: {id},
       body: {product},
       headers: {authorization: token},
     } = req as PatchRequest;
 
-    if (!tenant) return res.status(304).end();
+    if (!id) return res.status(304).end();
 
     return sessionApi
       .verify(token)
       .then(({uid}) => {
-        if (uid !== tenant) return res.status(403).end();
+        if (uid !== id) return res.status(403).end();
 
-        return api
-          .update(tenant, product)
+        return api.product
+          .update(id, product)
           .then(() => res.status(200).json(product))
           .catch(() => res.status(400).end("Hubo un error actualizando el producto"));
       })
@@ -117,33 +98,36 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === "PUT") {
     const {
-      // Extract tenant id
-      query: {tenant},
+      // Extract id id
+      query: {id},
       // Extract products to change
       body: {products},
       // Extract token
       headers: {authorization: token},
     } = req as PutRequest;
 
-    // If we don't have a tenant, return 304
-    if (!tenant) return res.status(304).end();
+    // If we don't have a id, return 304
+    if (!id) return res.status(304).end();
 
     // Verify that session es valid
     return (
       sessionApi
         .verify(token)
         .then(({uid}) => {
-          // If the user doesn't belong to the tenant, return a 403
-          if (uid !== tenant) return res.status(403).end();
+          // If the user doesn't belong to the id, return a 403
+          if (uid !== id) return res.status(403).end();
 
           return (
-            api
+            api.product
               // Upsert products
-              .upsert(tenant, products)
+              .upsert(id, products)
               // As this is not just un update operation we have to return the products because it includes ids for created ones
               .then((products) => res.status(200).json(products))
               // If something failed, return a 400
-              .catch(() => res.status(400).end("Hubo un error actualizando los productos"))
+              .catch((e) => {
+                console.log(e);
+                return res.status(400).end("Hubo un error actualizando los productos");
+              })
           );
         })
         // If the session is not valid, return a 401
@@ -153,21 +137,21 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   if (req.method === "DELETE") {
     const {
-      query: {tenant, product},
+      query: {id, product},
       headers: {authorization: token},
     } = req as DeleteRequest;
 
-    if (!tenant) return res.status(304).end();
+    if (!id) return res.status(304).end();
 
     return sessionApi
       .verify(token)
       .then(({uid}) => {
-        if (uid !== tenant) return res.status(403).end();
+        if (uid !== id) return res.status(403).end();
 
-        return api
-          .remove(tenant, product)
+        return api.product
+          .remove(id, product)
           .then(() => res.status(200).json({success: true}))
-          .catch(() => res.status(400).end("Hubo un error borrando el producto"));
+          .catch((err) => res.status(400).end("Hubo un error borrando el producto"));
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
   }
