@@ -3,7 +3,7 @@ import {GetStaticProps, GetStaticPaths} from "next";
 import {useRouter} from "next/router";
 
 import ProductsScreen from "~/product/screens/Products";
-import {ClientTenant, ServerTenant} from "~/tenant/types";
+import {ClientTenant} from "~/tenant/types";
 import {Product} from "~/product/types";
 import StoreLayout from "~/app/layouts/StoreLayout";
 import {Provider as I18nProvider} from "~/i18n/context";
@@ -17,7 +17,6 @@ import productApi from "~/product/api/server";
 import tenantSchemas from "~/tenant/schemas";
 import productSchemas from "~/product/schemas";
 import {getRevalidationTime} from "~/tenant/selectors";
-import schemas from "~/tenant/schemas";
 
 interface Props {
   tenant: ClientTenant;
@@ -95,25 +94,8 @@ export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Get all the tenants
-  const tenants: ServerTenant[] = await tenantApi.list();
-
-  // Get the slugs of all relevant tenants
-  const relevant = tenants
-    // @TODO: Remove once all preferential tenants has been loaded
-    .filter(() => false)
-    // Filter only relevant ones
-    .filter((tenant) => schemas.client.relevant.isValidSync(tenant))
-    // Get the slugs
-    .map((tenant) => tenant.slug);
-
-  // Return them for being used on getStaticProps
   return {
-    paths: relevant.map((slug) => ({
-      params: {
-        slug,
-      },
-    })),
+    paths: [],
     fallback: true,
   };
 };
