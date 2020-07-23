@@ -7,6 +7,8 @@ export default {
   server: {
     create: yup.object<Product>({
       id: yup.string().strip(true),
+      createdAt: yup.number().default(DEFAULT_PRODUCT.createdAt),
+      updatedAt: yup.number().default(DEFAULT_PRODUCT.updatedAt),
       type: yup
         .string()
         .oneOf(["available", "unavailable", "ask", "promotional", "variant", "hidden"])
@@ -53,6 +55,8 @@ export default {
       title: yup.string().nullable(),
       category: yup.string().trim().nullable(),
       description: yup.string().nullable(),
+      createdAt: yup.number().nullable().strip(true),
+      updatedAt: yup.number().nullable().strip(true),
       price: yup.number().nullable(),
       originalPrice: yup.number().nullable(),
       type: yup
@@ -89,6 +93,8 @@ export default {
   client: {
     fetch: yup.object<Product>({
       id: yup.string().required(),
+      createdAt: yup.number().default(DEFAULT_PRODUCT.createdAt),
+      updatedAt: yup.number().default(DEFAULT_PRODUCT.updatedAt),
       type: yup
         .string()
         .oneOf(["available", "unavailable", "ask", "promotional", "variant", "hidden"])
@@ -137,6 +143,8 @@ export default {
         .string()
         .oneOf(["available", "unavailable", "ask", "promotional", "variant", "hidden"])
         .nullable(),
+      createdAt: yup.number().nullable().strip(true),
+      updatedAt: yup.number().nullable().strip(true),
       category: yup.string().trim().nullable(),
       description: yup.string().nullable(),
       featured: yup.boolean().nullable(),
@@ -171,6 +179,8 @@ export default {
     }),
     create: yup.object<Product>({
       id: yup.string().strip(true),
+      createdAt: yup.number().default(DEFAULT_PRODUCT.createdAt),
+      updatedAt: yup.number().default(DEFAULT_PRODUCT.updatedAt),
       type: yup
         .string()
         .oneOf(["available", "unavailable", "ask", "promotional", "variant", "hidden"])
@@ -216,6 +226,9 @@ export default {
     }),
   },
   csv: yup.object<Partial<Product>>({
+    id: yup.string().nullable(),
+    createdAt: yup.number().nullable(),
+    updatedAt: yup.number().nullable(),
     type: yup
       .string()
       .oneOf(["available", "unavailable", "ask", "promotional", "variant", "hidden"])
@@ -226,7 +239,6 @@ export default {
       .transform((value) => value || "")
       .nullable(),
     featured: yup.boolean().nullable(),
-    id: yup.string().nullable(),
     image: yup
       .string()
       .transform((value) => value || "")

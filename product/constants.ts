@@ -12,6 +12,8 @@ export const DEFAULT_PRODUCT: Omit<Product, "id"> = {
   type: "available",
   featured: false,
   options: [],
+  createdAt: 1594090800000,
+  updatedAt: 1594090800000,
 };
 
 export const DEFAULT_PRODUCT_VARIANT: Omit<Variant, "id"> = {
