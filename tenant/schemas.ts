@@ -288,11 +288,6 @@ export default {
       slug: yup.string().required(),
       category: yup.string().required(),
       logo: yup.string().required(),
-      tier: yup
-        .string()
-        .oneOf(["preferential", "commercial"])
-        .required()
-        .notOneOf([DEFAULT_CLIENT_TENANT.tier]),
       phone: yup.string().required().notOneOf([DEFAULT_CLIENT_TENANT.phone]),
       description: yup.string().notOneOf([DEFAULT_CLIENT_TENANT.description]),
       title: yup.string().notOneOf([DEFAULT_CLIENT_TENANT.title]).required(),
