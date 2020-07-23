@@ -1,4 +1,5 @@
 import React from "react";
+import {GetServerSideProps} from "next";
 
 import {Provider as SessionProvider} from "~/session/context";
 import {ClientTenant} from "~/tenant/types";
@@ -8,7 +9,8 @@ import AdminLayout from "~/app/layouts/AdminLayout";
 import {Provider as I18nProvider} from "~/i18n/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
-import tenantApi from "~/tenant/api/server";
+import api from "~/tenant/api/server";
+import schemas from "~/tenant/schemas";
 
 interface Props {
   tenant: ClientTenant;
@@ -33,15 +35,20 @@ const AdminRoute: React.FC<Props> = ({tenant, products}) => {
   );
 };
 
-export async function getServerSideProps({params: {slug}, res}) {
+export const getServerSideProps: GetServerSideProps = async function ({params: {slug}, res}) {
   try {
     // Get the tenant for this page slug
-    const {products, ...tenant} = await tenantApi.fetch(slug as ClientTenant["slug"]);
+    const {products, ...tenant} = await api
+      .fetch(slug as ClientTenant["slug"])
+      // Cast it as a client tenant
+      .then((tenant) => schemas.client.fetch.cast(tenant, {stripUnknown: true}));
 
+    // Return props
     return {props: {tenant, products}};
   } catch (err) {
+    // If something failed report it to _app.tsx
     return {props: {statusCode: err?.status || res?.statusCode || 404}};
   }
-}
+};
 
 export default AdminRoute;

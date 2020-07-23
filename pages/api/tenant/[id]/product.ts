@@ -1,9 +1,10 @@
 import {NextApiResponse, NextApiRequest} from "next";
 
-import api from "~/tenant/api/server";
+import api from "~/product/api/server";
 import {Product} from "~/product/types";
 import {ClientTenant} from "~/tenant/types";
 import sessionApi from "~/session/api/server";
+import schemas from "~/product/schemas";
 
 interface PostRequest extends NextApiRequest {
   headers: {
@@ -25,7 +26,7 @@ interface PatchRequest extends NextApiRequest {
     id: ClientTenant["id"];
   };
   body: {
-    product: Product;
+    product: Partial<Product>;
   };
 }
 
@@ -59,16 +60,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       headers: {authorization: token},
     } = req as PostRequest;
 
-    if (!id) return res.status(304).end();
+    if (!id || !product) return res.status(304).end();
 
     return sessionApi
       .verify(token)
       .then(({uid}) => {
         if (uid !== id) return res.status(403).end();
 
-        return api.product
-          .create(id, product)
-          .then((product) => res.status(200).json(product))
+        const casted = schemas.client.create.cast(product, {stripUnkown: true});
+
+        return api
+          .create(id, casted)
+          .then(() => res.status(200).json(casted))
           .catch(() => res.status(400).end("Hubo un error creando el producto"));
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
@@ -81,16 +84,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       headers: {authorization: token},
     } = req as PatchRequest;
 
-    if (!id) return res.status(304).end();
+    if (!id || !product) return res.status(304).end();
 
     return sessionApi
       .verify(token)
       .then(({uid}) => {
         if (uid !== id) return res.status(403).end();
 
-        return api.product
-          .update(id, product)
-          .then(() => res.status(200).json(product))
+        const casted = schemas.client.update.cast(product, {stripUnkown: true});
+
+        return api
+          .update(id, casted)
+          .then(() => res.status(200).json(casted))
           .catch(() => res.status(400).end("Hubo un error actualizando el producto"));
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
@@ -107,7 +112,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     } = req as PutRequest;
 
     // If we don't have a id, return 304
-    if (!id) return res.status(304).end();
+    if (!id || !products?.length) return res.status(304).end();
 
     // Verify that session es valid
     return (
@@ -117,17 +122,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           // If the user doesn't belong to the id, return a 403
           if (uid !== id) return res.status(403).end();
 
+          // Cast them as creations
+          const casted = products.map((product) =>
+            schemas.client.update.cast(product, {stripUnkown: true}),
+          );
+
           return (
-            api.product
+            api
               // Upsert products
-              .upsert(id, products)
+              .upsert(id, casted)
               // As this is not just un update operation we have to return the products because it includes ids for created ones
-              .then((products) => res.status(200).json(products))
+              .then(() => res.status(200).json(casted))
               // If something failed, return a 400
-              .catch((e) => {
-                console.log(e);
-                return res.status(400).end("Hubo un error actualizando los productos");
-              })
+              .catch(() => res.status(400).end("Hubo un error actualizando los productos"))
           );
         })
         // If the session is not valid, return a 401
@@ -141,17 +148,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       headers: {authorization: token},
     } = req as DeleteRequest;
 
-    if (!id) return res.status(304).end();
+    if (!id || !product) return res.status(304).end();
 
     return sessionApi
       .verify(token)
       .then(({uid}) => {
         if (uid !== id) return res.status(403).end();
 
-        return api.product
+        return api
           .remove(id, product)
           .then(() => res.status(200).json({success: true}))
-          .catch((err) => res.status(400).end("Hubo un error borrando el producto"));
+          .catch(() => res.status(400).end("Hubo un error borrando el producto"));
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
   }

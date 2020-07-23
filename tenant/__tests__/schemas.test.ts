@@ -47,6 +47,7 @@ describe("schemas", () => {
 
       it("PENCY-2Z - Cache case", () => {
         const actual = {
+          products: [],
           category: "jewelry-watches",
           slug: "michelejoyas",
           layout: DEFAULT_CLIENT_TENANT.layout,
@@ -110,6 +111,7 @@ describe("schemas", () => {
 
       it("PENCY-30 - Cache case", () => {
         const actual = {
+          products: [],
           category: "other",
           slug: "unalome",
           layout: "landscape",
@@ -142,6 +144,7 @@ describe("schemas", () => {
 
       it("PENCY-31 - Cache case", () => {
         const actual = {
+          products: [],
           instagram: "sexshopsentidos",
           color: "red",
           twitter: "",
@@ -174,6 +177,7 @@ describe("schemas", () => {
 
       it("PENCY-39 - Cache case", () => {
         const actual = {
+          products: [],
           category: "clothes-accessories",
           slug: "paroditas",
           layout: DEFAULT_CLIENT_TENANT.layout,
@@ -231,6 +235,7 @@ describe("schemas", () => {
 
       it("PENCY-40 - Cache case", () => {
         const actual = {
+          products: [],
           description: DEFAULT_CLIENT_TENANT.description,
           title: DEFAULT_CLIENT_TENANT.title,
           color: "cyan",
@@ -250,6 +255,7 @@ describe("schemas", () => {
 
       it("PENCY-5P - Cache case", () => {
         const actual = {
+          products: [],
           color: "yellow",
           logo:
             "https://res.cloudinary.com/goncy/image/upload/v1587397932/pency/ab40esgl6xvdbvfomggr.png",
@@ -391,6 +397,7 @@ describe("schemas", () => {
           layout: DEFAULT_CLIENT_TENANT.layout,
           mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           phone: DEFAULT_CLIENT_TENANT.phone,
+          products: DEFAULT_CLIENT_TENANT.products,
           title: DEFAULT_CLIENT_TENANT.title,
           flags: DEFAULT_CLIENT_TENANT.flags,
         };
@@ -416,6 +423,7 @@ describe("schemas", () => {
           layout: DEFAULT_CLIENT_TENANT.layout,
           mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           phone: DEFAULT_CLIENT_TENANT.phone,
+          products: DEFAULT_CLIENT_TENANT.products,
           title: DEFAULT_CLIENT_TENANT.title,
           flags: DEFAULT_CLIENT_TENANT.flags,
         };
@@ -441,6 +449,7 @@ describe("schemas", () => {
           layout: DEFAULT_CLIENT_TENANT.layout,
           mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           phone: DEFAULT_CLIENT_TENANT.phone,
+          products: DEFAULT_CLIENT_TENANT.products,
           title: DEFAULT_CLIENT_TENANT.title,
           flags: DEFAULT_CLIENT_TENANT.flags,
         };
@@ -468,6 +477,7 @@ describe("schemas", () => {
           keywords: DEFAULT_CLIENT_TENANT.keywords,
           mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           phone: DEFAULT_CLIENT_TENANT.phone,
+          products: DEFAULT_CLIENT_TENANT.products,
           tier: DEFAULT_CLIENT_TENANT.tier,
           createdAt: DEFAULT_CLIENT_TENANT.createdAt,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
@@ -527,6 +537,7 @@ describe("schemas", () => {
           tier: DEFAULT_CLIENT_TENANT.tier,
           color: DEFAULT_CLIENT_TENANT.color,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
         };
         const expected = {
           ...actual,
@@ -563,6 +574,7 @@ describe("schemas", () => {
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           color: DEFAULT_CLIENT_TENANT.color,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
         };
         const expected = {
           ...actual,
@@ -603,6 +615,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -646,6 +659,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -696,6 +710,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -740,6 +755,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -777,6 +793,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -819,6 +836,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -860,6 +878,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -902,6 +921,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -936,6 +956,7 @@ describe("schemas", () => {
           category: "some-category",
           tier: "preferential",
           tierUntil: +new Date() + 100000,
+          products: DEFAULT_CLIENT_TENANT.products,
           color: DEFAULT_CLIENT_TENANT.color,
           phone: "1144444444",
           mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
@@ -955,6 +976,7 @@ describe("schemas", () => {
           tier: DEFAULT_CLIENT_TENANT.tier,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           createdAt: 111111,
+          products: DEFAULT_CLIENT_TENANT.products,
           category: "some-category",
           mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           color: DEFAULT_CLIENT_TENANT.color,
@@ -975,6 +997,7 @@ describe("schemas", () => {
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           createdAt: 111111,
           category: "some-category",
+          products: DEFAULT_CLIENT_TENANT.products,
           color: DEFAULT_CLIENT_TENANT.color,
           phone: DEFAULT_CLIENT_TENANT.phone,
           logo: "some-logo",
@@ -993,6 +1016,7 @@ describe("schemas", () => {
           slug: "some-slug",
           category: "some-category",
           createdAt: 111111,
+          products: DEFAULT_CLIENT_TENANT.products,
           color: DEFAULT_CLIENT_TENANT.color,
           tier: DEFAULT_CLIENT_TENANT.tier,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
@@ -1013,6 +1037,7 @@ describe("schemas", () => {
           slug: "some-slug",
           category: "some-category",
           createdAt: 111111,
+          products: DEFAULT_CLIENT_TENANT.products,
           color: DEFAULT_CLIENT_TENANT.color,
           tier: DEFAULT_CLIENT_TENANT.tier,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,

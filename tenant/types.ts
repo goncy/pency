@@ -30,6 +30,7 @@ export interface ServerTenant {
   flags?: string[];
   hook?: string;
   createdAt: number;
+  updatedAt: number;
   layout?: "landscape" | "portrait";
   mercadopago?: {
     token: string;

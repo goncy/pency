@@ -1,9 +1,9 @@
 import {NextApiResponse, NextApiRequest} from "next";
 
 import api from "~/tenant/api/server";
-import schemas from "~/tenant/schemas";
 import {ClientTenant} from "~/tenant/types";
 import dates from "~/utils/date";
+import schemas from "~/tenant/schemas";
 
 interface PostRequest extends NextApiRequest {
   body: {
@@ -29,22 +29,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // Store a temp tenant
-    const tenant = schemas.server.create.cast({
-      // Tenant slug
-      slug,
-      // Creation date
-      createdAt: dates.now,
-      // Grace period
-      tier: "commercial",
-      // 1 week from now
-      tierUntil: dates.oneWeekFromNow,
-    });
-
-    // Check if its valid (mocking id as we still don't have it)
-    if (!schemas.server.fetch.isValidSync({id: "fake-id", ...tenant})) {
-      // If its not return a 304
-      return res.status(304).end();
-    }
+    const tenant = schemas.client.create.cast(
+      {
+        // Tenant slug
+        slug,
+        // Grace period
+        tier: "commercial",
+        // 1 week from now
+        tierUntil: dates.oneWeekFromNow,
+      },
+      {stripUnkown: true},
+    );
 
     return (
       api
@@ -57,5 +52,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     );
   }
 
+  // If nothing matched return a 304
   return res.status(304).end();
 };

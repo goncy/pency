@@ -28,7 +28,9 @@ export const getStaticProps: GetStaticProps = async () => {
   const tenants: ClientTenant[] = await tenantApi
     .list()
     // Cast them as client tenants
-    .then((tenants) => tenants.map((tenant) => schemas.client.fetch.cast(tenant)));
+    .then((tenants) =>
+      tenants.map((tenant) => schemas.client.fetch.cast(tenant, {stripUnknown: true})),
+    );
 
   // Get just important ones
   const filtered = tenants.filter((tenant) => schemas.client.relevant.isValidSync(tenant));

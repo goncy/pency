@@ -3,7 +3,9 @@ import * as yup from "yup";
 import {ClientTenant, ServerTenant, Field, RadioField, TextField} from "./types";
 import {DEFAULT_CLIENT_TENANT} from "./constants";
 
+import productSchemas from "~/product/schemas";
 import {Place} from "~/places/types";
+import {Product} from "~/product/types";
 
 const location = {
   schema: yup.object<Place>({
@@ -87,6 +89,17 @@ const flags = yup.array(yup.string());
 const fields = yup.array<Field>(field.lazy);
 const layout = yup.string().oneOf(["portrait", "landscape"]);
 const tier = yup.string().oneOf(["free", "preferential", "commercial"]);
+const products = {
+  schema: yup.array().of(productSchemas.client.fetch),
+  lazy: yup.lazy((value: Product[]) =>
+    value?.length
+      ? products.schema
+      : yup
+          .mixed()
+          .transform(() => null)
+          .oneOf([null]),
+  ),
+};
 
 export default {
   server: {
@@ -98,6 +111,7 @@ export default {
       phone: yup.string().required(),
       logo: yup.string().nullable(),
       title: yup.string().required(),
+      products: products.lazy,
       instagram: yup.string().nullable(),
       tierUntil: yup.number().nullable(),
       facebook: yup.string().nullable(),
@@ -121,27 +135,29 @@ export default {
       slug: yup.string().strip(true),
       createdAt: yup.number().strip(true),
       tierUntil: yup.number().strip(true),
-      category: yup.string(),
-      color,
-      phone: yup.string(),
-      logo: yup.string(),
-      title: yup.string(),
-      instagram: yup.string(),
-      facebook: yup.string(),
-      twitter: yup.string(),
-      keywords: yup.string(),
-      banner: yup.string(),
-      description: yup.string(),
-      country: yup.string(),
+      category: yup.string().nullable(),
+      color: color.nullable(),
+      phone: yup.string().nullable(),
+      logo: yup.string().nullable(),
+      title: yup.string().nullable(),
+      instagram: yup.string().nullable(),
+      facebook: yup.string().nullable(),
+      twitter: yup.string().nullable(),
+      keywords: yup.string().nullable(),
+      banner: yup.string().nullable(),
+      description: yup.string().nullable(),
+      country: yup.string().nullable(),
       location: location.lazy,
-      highlight: yup.string(),
-      fields,
-      flags,
-      layout,
-      hook: yup.string(),
+      highlight: yup.string().nullable(),
+      tier: tier.nullable(),
+      fields: fields.nullable(),
+      flags: flags.nullable(),
+      layout: layout.nullable(),
+      hook: yup.string().nullable(),
       mercadopago: mercadopago.schema.nullable().strip(true),
+      products: products.lazy,
     }),
-    create: yup.object<Partial<ServerTenant>>({
+    create: yup.object<ServerTenant>({
       id: yup.string().strip(true),
       slug: yup.string().required(),
       category: yup.string(),
@@ -151,6 +167,7 @@ export default {
       phone: yup.string().default(DEFAULT_CLIENT_TENANT.phone),
       logo: yup.string(),
       title: yup.string().default(DEFAULT_CLIENT_TENANT.title),
+      products: products.schema.default(DEFAULT_CLIENT_TENANT.products),
       instagram: yup.string(),
       facebook: yup.string(),
       twitter: yup.string(),
@@ -177,6 +194,7 @@ export default {
       slug: yup.string().required(),
       category: yup.string().default("").nullable(),
       color: color.required(),
+      products: products.schema.default(DEFAULT_CLIENT_TENANT.products).required(),
       createdAt: yup.number().default(DEFAULT_CLIENT_TENANT.createdAt),
       phone: yup.string().required(),
       logo: yup.string().default("").nullable(),
@@ -204,6 +222,60 @@ export default {
         .boolean()
         .transform((mercadopago) => Boolean(mercadopago?.token))
         .default(false),
+    }),
+    update: yup.object<Partial<ClientTenant>>({
+      id: yup.string().strip(true),
+      slug: yup.string().strip(true),
+      createdAt: yup.number().strip(true),
+      tierUntil: yup.number().strip(true),
+      category: yup.string().nullable(),
+      color: color.nullable(),
+      phone: yup.string().nullable(),
+      logo: yup.string().nullable(),
+      title: yup.string().nullable(),
+      instagram: yup.string().nullable(),
+      facebook: yup.string().nullable(),
+      twitter: yup.string().nullable(),
+      keywords: yup.string().nullable(),
+      banner: yup.string().nullable(),
+      description: yup.string().nullable(),
+      country: yup.string().nullable(),
+      location: location.lazy,
+      highlight: yup.string().nullable(),
+      tier: tier.nullable(),
+      fields: fields.nullable(),
+      flags: flags.nullable(),
+      layout: layout.nullable(),
+      hook: yup.string().nullable(),
+      mercadopago: yup.boolean().strip(true),
+      products: products.lazy,
+    }),
+    create: yup.object<ClientTenant>({
+      id: yup.string().strip(true),
+      slug: yup.string().required(),
+      category: yup.string(),
+      createdAt: yup.number().default(DEFAULT_CLIENT_TENANT.createdAt),
+      tierUntil: yup.number().default(DEFAULT_CLIENT_TENANT.tierUntil),
+      color: color.default(DEFAULT_CLIENT_TENANT.color),
+      phone: yup.string().default(DEFAULT_CLIENT_TENANT.phone),
+      logo: yup.string(),
+      title: yup.string().default(DEFAULT_CLIENT_TENANT.title),
+      products: products.schema.default(DEFAULT_CLIENT_TENANT.products),
+      instagram: yup.string(),
+      facebook: yup.string(),
+      twitter: yup.string(),
+      tier: tier.default(DEFAULT_CLIENT_TENANT.tier),
+      keywords: yup.string().default(DEFAULT_CLIENT_TENANT.keywords),
+      banner: yup.string(),
+      description: yup.string().default(DEFAULT_CLIENT_TENANT.description),
+      country: yup.string().default(DEFAULT_CLIENT_TENANT.country),
+      location: location.schema.default(null),
+      highlight: yup.string(),
+      fields,
+      layout: layout.default(DEFAULT_CLIENT_TENANT.layout),
+      flags: flags.default(DEFAULT_CLIENT_TENANT.flags),
+      hook: yup.string(),
+      mercadopago: yup.boolean().default(DEFAULT_CLIENT_TENANT.mercadopago),
     }),
     relevant: yup.object<Partial<ClientTenant>>({
       id: yup.string().required(),

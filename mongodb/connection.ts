@@ -1,22 +1,17 @@
-import mongoose from "mongoose";
+import {MongoClient} from "mongodb";
 
-const connection = {} as any;
+const client = new MongoClient(
+  `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+);
 
-async function dbConnect() {
-  if (connection.isConnected) {
-    return;
-  }
+async function connect() {
+  if (!client.isConnected()) await client.connect();
 
-  const db = await mongoose.connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-    },
-  );
-
-  connection.isConnected = db.connections[0].readyState;
+  return client.db(process.env.DB_NAME);
 }
 
-export default dbConnect;
+export default connect;

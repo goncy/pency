@@ -2,6 +2,7 @@ import faker from "faker";
 
 import {ClientTenant, ServerTenant} from "./types";
 
+import productMock from "~/product/mock";
 import {CATEGORIES} from "~/app/constants/catalogs";
 
 const mock = {
@@ -19,6 +20,7 @@ const mock = {
         logo: "//placehold.it/128x128",
         banner: "//placehold.it/256x128",
         title: faker.company.companyName(),
+        products: [productMock.full, productMock.full],
         description: faker.lorem.lines(2),
         phone: faker.phone.phoneNumber("##########"),
         category: CATEGORIES[faker.random.number(CATEGORIES.length - 1)],

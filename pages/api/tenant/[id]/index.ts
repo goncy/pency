@@ -1,6 +1,6 @@
 import {NextApiRequest, NextApiResponse} from "next";
 
-import {ClientTenant, ServerTenant} from "~/tenant/types";
+import {ClientTenant} from "~/tenant/types";
 import schemas from "~/tenant/schemas";
 import api from "~/tenant/api/server";
 import sessionApi from "~/session/api/server";
@@ -13,7 +13,7 @@ interface PatchRequest extends NextApiRequest {
     id: ClientTenant["id"];
   };
   body: {
-    tenant: ClientTenant | ServerTenant;
+    tenant: ClientTenant;
   };
 }
 
@@ -43,12 +43,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           // If its not, return a 403
           if (uid !== id) return res.status(403).end();
 
+          // Cast it
+          const casted = schemas.client.update.cast(tenant, {stripUnknown: true});
+
           return (
             api
               // Send that values to the DB
-              .update(id, schemas.server.update.cast(tenant))
+              .update(id, casted)
               // If everything is fine, return the tenant along with a 200
-              .then(() => res.status(200).json(tenant))
+              .then(() => res.status(200).json(casted))
               // Otherwise return a 400
               .catch(() => res.status(400).end("Hubo un error actualizando la tienda"))
           );

@@ -13,6 +13,7 @@ export const DEFAULT_CLIENT_TENANT: Partial<ClientTenant> = {
   layout: "portrait",
   flags: [],
   fields: [],
+  products: [],
   mercadopago: false,
   location: null,
 };

@@ -12,8 +12,8 @@ import {Provider as AnalyticsProvider} from "~/analytics/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import LoadingScreen from "~/app/screens/Loading";
-import tenantApi from "~/tenant/api/server";
-import tenantSchemas from "~/tenant/schemas";
+import api from "~/tenant/api/server";
+import schemas from "~/tenant/schemas";
 import {getRevalidationTime} from "~/tenant/selectors";
 
 interface Props {
@@ -60,10 +60,10 @@ const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate, nextUpdate}) 
 export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
   try {
     // Get the tenant for this page slug
-    const {products, ...tenant}: ClientTenant = await tenantApi
+    const {products, ...tenant}: ClientTenant = await api
       .fetch(slug as ClientTenant["slug"])
       // Cast it as a client tenant
-      .then((tenant) => tenantSchemas.client.fetch.cast(tenant));
+      .then((tenant) => schemas.client.fetch.cast(tenant));
 
     // Get the revalidation time
     const revalidationTime = getRevalidationTime(tenant.tier);

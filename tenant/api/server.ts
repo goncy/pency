@@ -1,133 +1,97 @@
-import shortid from "shortid";
-
-import {ServerTenant} from "../types";
-import Tenant from "../model";
+import {ServerTenant, ClientTenant} from "../types";
+import schemas from "../schemas";
 
 import connection from "~/mongodb/connection";
 import {auth} from "~/firebase/admin";
-import {Product} from "~/product/types";
+import dates from "~/utils/date";
 
 export default {
-  create: async (email: string, password: string, tenant: ServerTenant) => {
-    await connection();
+  create: async (email: string, password: string, tenant: ClientTenant | ServerTenant) => {
+    // Connect to DB
+    const db = await connection();
 
-    const match = await Tenant.findOne({slug: tenant.slug}).lean();
+    // Check if tenant already exist
+    const match = await db.collection<ServerTenant>("tenants").findOne({slug: tenant.slug});
 
+    // If already exists
     if (match) {
+      // Return a 409
       return Promise.reject({statusText: "Esa tienda ya existe", status: 409});
     }
 
+    // Create the user for this tenant
     const user = await auth.createUser({
       email,
       password,
     });
 
-    return await Tenant.create({id: user.uid, ...tenant});
+    // Cast it
+    const casted = schemas.server.create.cast(tenant, {stripUnknown: true});
+
+    // Set timestamps
+    casted.createdAt = dates.now;
+    casted.updatedAt = dates.now;
+
+    // Create the tenant
+    const result = await db
+      .collection("tenants")
+      .updateOne({id: user.uid}, {$set: casted}, {upsert: true});
+
+    // Return the created tenant
+    return result;
   },
   fetch: async (slug: ServerTenant["slug"]): Promise<ServerTenant> => {
-    await connection();
+    // Connect to DB
+    const db = await connection();
 
-    const tenant = await Tenant.findOne({slug});
+    // Find the tenant
+    const tenant = await db.collection<ServerTenant>("tenants").findOne({slug});
 
+    // If we don't have a match
     if (!tenant) {
+      // Return a 404
       return Promise.reject({statusText: "La tienda no existe", status: 404});
     }
 
-    return tenant.toJSON();
+    // Cast it
+    const casted = schemas.server.fetch.cast(tenant, {stripUnknown: true});
+
+    // Stringify
+    return casted;
   },
   list: async (): Promise<ServerTenant[]> => {
-    await connection();
+    // Connect to DB
+    const db = await connection();
 
-    const tenants = await Tenant.find();
+    // Get all tenants
+    const tenants = await db.collection<ServerTenant>("tenants").find();
 
-    if (!tenants.length) {
+    // If no tenants
+    if (!tenants.count) {
+      // Return a 404
       return Promise.reject({statusText: "No hay tiendas", status: 404});
     }
 
-    return tenants;
+    // Convert to array
+    const list = await tenants.toArray();
+
+    // Cast it
+    const casted = list.map((tenant) => schemas.server.fetch.cast(tenant, {stripUnknown: true}));
+
+    // Return them as array
+    return casted;
   },
-  update: async (id: ServerTenant["id"], value: Partial<ServerTenant>) => {
-    await connection();
+  update: async (id: ServerTenant["id"], value: Partial<ServerTenant> | Partial<ClientTenant>) => {
+    // Connect to DB
+    const db = await connection();
 
-    return await Tenant.updateOne({id}, value, {new: true}).lean();
-  },
-  product: {
-    create: async (tenant: ServerTenant["id"], product: Product) => {
-      await connection();
+    // Cast it
+    const casted = schemas.server.update.cast(value, {stripUnknown: true});
 
-      const draft = {
-        ...product,
-        id: shortid.generate(),
-      };
+    // Set updated timestamp
+    casted.updatedAt = dates.now;
 
-      await Tenant.findOneAndUpdate(
-        {
-          id: tenant,
-        },
-        {
-          $push: {
-            products: draft,
-          },
-        },
-        {new: true},
-      );
-
-      return draft;
-    },
-    update: async (tenant: ServerTenant["id"], product: Product) => {
-      await connection();
-
-      return await Tenant.findOneAndUpdate(
-        {
-          id: tenant,
-          "products.id": product.id,
-        },
-        {
-          $set: {
-            "products.$": product,
-          },
-        },
-        {new: true},
-      );
-    },
-    upsert: async (tenant: ServerTenant["id"], products: Product[]) => {
-      await connection();
-
-      // Find original tenant
-      const draft = await Tenant.findOne({
-        id: tenant,
-      });
-
-      // Get modified product ids
-      const ids = products.map((product) => product.id);
-
-      // Update draft products
-      draft.products = draft.products
-        // Remove old ones
-        .filter((_product) => !ids.includes(_product.id))
-        // Add new ones
-        .concat(products);
-
-      // Save model
-      const result = await draft.save();
-
-      // Return products
-      return result.toJSON().products;
-    },
-    remove: async (tenant: ServerTenant["id"], product: Product["id"]) => {
-      await connection();
-
-      return await Tenant.findOneAndUpdate(
-        {
-          id: tenant,
-        },
-        {
-          $pull: {
-            products: {id: product},
-          },
-        },
-        {new: true},
-      );
-    },
+    // Updated specified tenant
+    return await db.collection("tenants").updateOne({id}, {$set: casted});
   },
 };
