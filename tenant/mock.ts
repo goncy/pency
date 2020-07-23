@@ -16,6 +16,7 @@ const mock = {
         instagram: faker.internet.userName(),
         facebook: faker.internet.userName(),
         createdAt: faker.random.number(999999999),
+        updatedAt: faker.random.number(999999999),
         tierUntil: faker.random.number(999999999),
         logo: "//placehold.it/128x128",
         banner: "//placehold.it/256x128",
