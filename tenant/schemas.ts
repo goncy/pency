@@ -92,7 +92,7 @@ const tier = yup.string().oneOf(["free", "preferential", "commercial"]);
 const products = {
   schema: yup.array().of(productSchemas.client.fetch),
   lazy: yup.lazy((value: Product[]) =>
-    value?.length
+    Array.isArray(value)
       ? products.schema
       : yup
           .mixed()
@@ -151,7 +151,7 @@ export default {
       country: yup.string().nullable(),
       location: location.lazy,
       highlight: yup.string().nullable(),
-      tier: tier.nullable(),
+      tier: tier.nullable().strip(true),
       fields: fields.nullable(),
       flags: flags.nullable(),
       layout: layout.nullable(),
@@ -247,7 +247,7 @@ export default {
       country: yup.string().nullable(),
       location: location.lazy,
       highlight: yup.string().nullable(),
-      tier: tier.nullable(),
+      tier: tier.nullable().strip(true),
       fields: fields.nullable(),
       flags: flags.nullable(),
       layout: layout.nullable(),
