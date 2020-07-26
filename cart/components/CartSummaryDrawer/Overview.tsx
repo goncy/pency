@@ -79,7 +79,7 @@ const Overview: React.FC<Props> = ({
               <Flex key={id} alignItems="flex-start" justifyContent="space-between">
                 <Flex alignItems="center" mr={2}>
                   <Stack spacing={0}>
-                    <Text fontWeight={500}>{product.title}</Text>
+                    <Text fontWeight={500} maxWidth={{ base: "2xs", lg: "xs"}} overflowWrap="break-word">{product.title}</Text>
                     {variants && <Text color="gray.600">{getVariantsString(variants)}</Text>}
                     {note && <Text color="gray.600">({note})</Text>}
                     <Stepper
