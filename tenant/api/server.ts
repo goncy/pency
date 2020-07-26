@@ -6,7 +6,7 @@ import {auth} from "~/firebase/admin";
 import dates from "~/utils/date";
 
 export default {
-  create: async (email: string, password: string, tenant: ClientTenant | ServerTenant) => {
+  create: async (email: string, password: string, tenant: Partial<ServerTenant>) => {
     // Connect to DB
     const db = await connection();
 

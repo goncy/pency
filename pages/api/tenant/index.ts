@@ -1,9 +1,8 @@
 import {NextApiResponse, NextApiRequest} from "next";
 
 import api from "~/tenant/api/server";
-import {ClientTenant} from "~/tenant/types";
+import {ClientTenant, ServerTenant} from "~/tenant/types";
 import dates from "~/utils/date";
-import schemas from "~/tenant/schemas";
 
 interface PostRequest extends NextApiRequest {
   body: {
@@ -29,17 +28,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // Store a temp tenant
-    const tenant = schemas.client.create.cast(
-      {
-        // Tenant slug
-        slug,
-        // Grace period
-        tier: "commercial",
-        // 1 week from now
-        tierUntil: dates.oneWeekFromNow,
-      },
-      {stripUnkown: true},
-    );
+    const tenant: Partial<ServerTenant> = {
+      // Tenant slug
+      slug,
+      // Grace period
+      tier: "commercial",
+      // 1 week from now
+      tierUntil: dates.oneWeekFromNow,
+    };
 
     return (
       api
@@ -48,7 +44,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         // If everything went fine, return a 200
         .then(() => res.status(200).json({success: true}))
         // Otherwise return an error
-        .catch(({status, statusText}) => res.status(status).end(statusText))
+        .catch(() => res.status(400).end("Fallo la creación de la tienda"))
     );
   }
 
