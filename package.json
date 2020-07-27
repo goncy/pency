@@ -21,7 +21,6 @@
     "firebase": "^7.15.1",
     "firebase-admin": "^8.12.1",
     "formidable": "^1.2.2",
-    "formidable-serverless": "^1.0.3",
     "i18next": "^19.4.4",
     "i18next-browser-languagedetector": "^5.0.0",
     "immer": "^6.0.3",
