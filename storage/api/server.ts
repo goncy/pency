@@ -3,11 +3,6 @@ import sharp from "sharp";
 
 import {Quality} from "../types";
 
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_IMAGES_ID,
-  secretAccessKey: process.env.AWS_IMAGES_SECRET,
-});
-
 export default {
   optimize: (image: Buffer, quality: Quality = "low") => {
     switch (quality) {
@@ -24,6 +19,11 @@ export default {
     }
   },
   upload: async (file: Buffer, folder: string = "root"): Promise<string> => {
+    const s3 = new AWS.S3({
+      accessKeyId: process.env.AWS_IMAGES_ID,
+      secretAccessKey: process.env.AWS_IMAGES_SECRET,
+    });
+
     // Prepare params
     const params: AWS.S3.PutObjectRequest = {
       Bucket: process.env.AWS_IMAGES_BUCKET,
