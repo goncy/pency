@@ -20,6 +20,9 @@ declare namespace NodeJS {
     DB_PASSWORD: string;
     DB_HOST: string;
     DB_NAME: string;
+    AWS_IMAGES_BUCKET: string;
+    AWS_IMAGES_SECRET: string;
+    AWS_IMAGES_ID: string;
     SENTRY_DSN: string;
     ENCRYPTION_IV: string;
     ENCRYPTION_KEY: string;

@@ -7,7 +7,7 @@ import Image from "../feedback/Image";
 
 import Input from "./Input";
 
-import storage from "~/storage/api";
+import storage from "~/storage/api/client";
 import {Quality} from "~/storage/types";
 import {useToast} from "~/hooks/toast";
 import {useTenant} from "~/tenant/hooks";
@@ -60,8 +60,7 @@ const ImageInput: React.FC<Props> = ({
       // Show toast to user
       toast({
         title: "Error",
-        description:
-          "Hubo un error subiendo la imágen, intentá de nuevo mas tarde o probá cargando otra imágen",
+        description: e.message,
         status: "error",
       });
 
