@@ -1,7 +1,7 @@
 import {MongoClient} from "mongodb";
 
 const client = new MongoClient(
-  `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/?authSource=${process.env.DB_NAME}&readPreference=primary`,
+  `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/?authSource=${process.env.DB_NAME}&readPreference=primary&ssl=false`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,
