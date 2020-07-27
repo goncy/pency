@@ -22,7 +22,11 @@ const Image: React.FC<Props> = ({src, ...props}) => {
           const isShowing = intersections[0]?.isIntersecting;
 
           if (isShowing) {
-            setImage(src);
+            const img = new (window as any).Image();
+            img.src = src;
+            img.onload = () => {
+              setImage(src);
+            }
           }
         },
         {rootMargin: `45px`},
@@ -40,6 +44,8 @@ const Image: React.FC<Props> = ({src, ...props}) => {
     <Box
       ref={container}
       backgroundColor="gray.100"
+      opacity={image ? 1 : 0}
+      transition="opacity 700ms ease-in"
       backgroundImage={image ? `url(${src})` : ""}
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
