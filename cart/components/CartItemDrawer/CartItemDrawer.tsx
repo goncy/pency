@@ -153,7 +153,12 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                   spacing={6}
                 >
                   <Stack spacing={2}>
-                    <Text fontSize="2xl" fontWeight="bold" lineHeight="normal" overflowWrap="break-word">
+                    <Text
+                      fontSize="2xl"
+                      fontWeight="bold"
+                      lineHeight="normal"
+                      overflowWrap="break-word"
+                    >
                       {product.title}
                     </Text>
                     {product.description && (
