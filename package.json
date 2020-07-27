@@ -27,7 +27,7 @@
     "isomorphic-unfetch": "^3.0.0",
     "lodash.isequal": "^4.5.0",
     "mongodb": "^3.5.9",
-    "next": "canary",
+    "next": "^9.5.0",
     "papaparse": "^5.2.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",

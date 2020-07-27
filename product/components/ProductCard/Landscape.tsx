@@ -105,6 +105,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
         </Box>
         {image && (
           <Image
+            fadeIn
             height={{base: 24, sm: "auto"}}
             minHeight={{base: 24, sm: "9rem"}}
             roundedLeft={{base: "md", sm: "none"}}
