@@ -53,7 +53,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       // If we don't have all the data we need
       if (!image) {
         // Return a 304
-        return res.status(304).end();
+        return res.status(304).end("No se encontró una imágen para subir");
       }
 
       try {
@@ -68,15 +68,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           return res.status(200).json({url});
         } catch (error) {
           //  If something went wrong
-          return res.status(400).end("Hubo un error subiendo la imagen");
+          return res
+            .status(400)
+            .json({message: "Hubo un error subiendo la imagen", details: error});
         }
-      } catch (e) {
+      } catch (error) {
         //  If something went wrong
-        return res.status(400).end("Hubo un error comprimiendo la imagen");
+        return res
+          .status(400)
+          .json({message: "Hubo un error comprimiendo la imagen", details: error});
       }
     } catch (error) {
       //  If something went wrong
-      return res.status(400).end("Hubo un error parseando la imagen");
+      return res.status(400).json({message: "Hubo un error parseando la imagen", details: error});
     }
   }
 
