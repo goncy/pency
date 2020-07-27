@@ -54,7 +54,7 @@ const PortraitProductCard: React.FC<Props> = ({isRaised = false, product, onClic
         paddingTop={2}
         width="100%"
       >
-        <Text display="block" fontSize="md" fontWeight={500} lineHeight="normal" marginBottom={2}>
+        <Text display="block" fontSize="md" fontWeight={500} lineHeight="normal" marginBottom={2} overflowWrap="break-word">
           {title}
         </Text>
         {type === "available" && (
