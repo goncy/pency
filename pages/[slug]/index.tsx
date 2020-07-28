@@ -3,7 +3,7 @@ import {GetStaticProps, GetStaticPaths} from "next";
 import {useRouter} from "next/router";
 
 import ProductsScreen from "~/product/screens/Products";
-import {ClientTenant, ServerTenant} from "~/tenant/types";
+import {ClientTenant} from "~/tenant/types";
 import {Product} from "~/product/types";
 import StoreLayout from "~/app/layouts/StoreLayout";
 import {Provider as I18nProvider} from "~/i18n/context";
@@ -17,15 +17,15 @@ import productApi from "~/product/api/server";
 import tenantSchemas from "~/tenant/schemas";
 import productSchemas from "~/product/schemas";
 import {getRevalidationTime} from "~/tenant/selectors";
-import schemas from "~/tenant/schemas";
 
 interface Props {
   tenant: ClientTenant;
   products: Product[];
   lastUpdate: number;
+  nextUpdate: number;
 }
 
-const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate}) => {
+const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate, nextUpdate}) => {
   // Get router instance
   const router = useRouter();
 
@@ -48,7 +48,7 @@ const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate}) => {
             <CartProvider>
               <StoreLayout product={product} tenant={tenant}>
                 <I18nProvider country={tenant.country}>
-                  <ProductsScreen lastUpdate={lastUpdate} />
+                  <ProductsScreen lastUpdate={lastUpdate} nextUpdate={nextUpdate} />
                 </I18nProvider>
               </StoreLayout>
             </CartProvider>
@@ -73,15 +73,18 @@ export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
       // Cast all products for client
       .then((products) => products.map((product) => productSchemas.client.fetch.cast(product)));
 
-    // Get the last updated time
-    const lastUpdate = +new Date();
-
     // Get the revalidation time
     const revalidationTime = getRevalidationTime(tenant.tier);
 
+    // Get the last updated time
+    const lastUpdate = +new Date();
+
+    // Get the next updated time
+    const nextUpdate = lastUpdate + revalidationTime * 1000;
+
     // Return the props and revalidation times
     return {
-      props: {tenant, products, lastUpdate},
+      props: {tenant, products, lastUpdate, nextUpdate},
       unstable_revalidate: revalidationTime,
     };
   } catch (err) {
@@ -91,25 +94,8 @@ export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  // Get all the tenants
-  const tenants: ServerTenant[] = await tenantApi.list();
-
-  // Get the slugs of all relevant tenants
-  const relevant = tenants
-    // @TODO: Remove once all preferential tenants has been loaded
-    .filter(() => false)
-    // Filter only relevant ones
-    .filter((tenant) => schemas.client.relevant.isValidSync(tenant))
-    // Get the slugs
-    .map((tenant) => tenant.slug);
-
-  // Return them for being used on getStaticProps
   return {
-    paths: relevant.map((slug) => ({
-      params: {
-        slug,
-      },
-    })),
+    paths: [],
     fallback: true,
   };
 };

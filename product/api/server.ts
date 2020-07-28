@@ -1,5 +1,4 @@
 import shortid from "shortid";
-import {firestore} from "firebase-admin";
 
 import {Product} from "../types";
 import schemas from "../schemas";
@@ -15,22 +14,7 @@ export default {
       .collection("products")
       .get()
       .then((snapshot) => snapshot.docs.map((doc) => ({...(doc.data() as Product), id: doc.id})))
-      .then((products) => {
-        // @TODO: Remove once type is widely adopted
-        const parsed = products.map((product) =>
-          schemas.client.fetch.cast({
-            ...product,
-            type:
-              product.available === false
-                ? "unavailable"
-                : product.originalPrice
-                ? "promotional"
-                : product.visibility || product.type,
-          }),
-        );
-
-        return parsed;
-      });
+      .then((products) => products.map((product) => schemas.client.fetch.cast(product)));
   },
   create: (tenant: ClientTenant["id"], product: Product) => {
     const casted = schemas.server.create.cast(product);
@@ -62,12 +46,7 @@ export default {
       .doc(tenant)
       .collection("products")
       .doc(id)
-      .update({
-        ...casted,
-        // @TODO: Remove once type is widely adopted
-        available: firestore.FieldValue.delete(),
-        visibility: firestore.FieldValue.delete(),
-      })
+      .update(casted)
       .then(() => casted);
   },
   upsert: (tenant: ClientTenant["id"], products: Product[]) => {

@@ -24,7 +24,7 @@
     "free": {
       "name": "Gratis",
       "features": {
-        "update": "A las 00:00 de cada día."
+        "update": "A las 00:00 (UTC) de cada día."
       }
     },
     "preferential": {

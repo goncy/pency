@@ -26,7 +26,7 @@ const Tier: React.FC<Props> = ({tier, expiration}) => {
         <Text fontWeight={500}>Plan:</Text>
         <Badge variantColor={COLORS[tier]}>{t(`tiers.${tier}.name`)}</Badge>
       </Stack>
-      <Stack marginTop={1}>
+      <Stack>
         <Text fontSize="sm">
           <b>Cambios reflejados en la tienda: </b>
           {t(`tiers.${tier}.features.update`)}
