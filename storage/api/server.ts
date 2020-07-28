@@ -13,13 +13,21 @@ export default {
     switch (quality) {
       // Banners
       case "high": {
-        return sharp(image).jpeg({quality: 20}).resize(1200, 630, {fit: "inside"}).toBuffer();
+        return sharp(image)
+          .flatten({background: {r: 255, g: 255, b: 255}})
+          .jpeg({quality: 20})
+          .resize(1200, 630, {fit: "inside"})
+          .toBuffer();
       }
 
       // Products
       case "low":
       default: {
-        return sharp(image).jpeg({quality: 20}).resize(500, 500, {fit: "inside"}).toBuffer();
+        return sharp(image)
+          .flatten({background: {r: 255, g: 255, b: 255}})
+          .jpeg({quality: 20})
+          .resize(500, 500, {fit: "inside"})
+          .toBuffer();
       }
     }
   },
