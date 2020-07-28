@@ -8,14 +8,14 @@ describe("User filters", () => {
       cy.visit("/test");
 
       cy.get(`[data-test-id="product"]`).should("have.length", 3);
-      cy.get(`[data-test-id="filters"] input`).type("con sub categoria");
+      cy.get(`[data-test-id="filters"] input`).type("con categoria");
       cy.get(`[data-test-id="product"]`).should("have.length", 1);
     });
 
     it("should filter by criteria being case insensitive", () => {
       cy.visit("/test");
 
-      cy.get(`[data-test-id="filters"] input`).type("con Sub CategOria");
+      cy.get(`[data-test-id="filters"] input`).type("con CategOria");
       cy.get(`[data-test-id="product"]`).should("have.length", 1);
     });
 
@@ -32,8 +32,8 @@ describe("User filters", () => {
     it("should filter by category", () => {
       cy.visit("/test");
 
-      cy.get(`[data-test-id="filters"] select`).select("Solitario");
-      cy.get(`[id="Solitario"] [data-test-id="title"]`).should("be.visible");
+      cy.get(`[data-test-id="filters"] select`).select("solitario");
+      cy.get(`[id="solitario"] [data-test-id="title"]`).should("be.visible");
     });
   });
 });
