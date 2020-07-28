@@ -26,9 +26,7 @@ jobs:
 
       GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 
-      DB_USER: ${{ secrets.DB_USER }}
-      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_URL: ${{ secrets.DB_URL }}
       DB_NAME: ${{ secrets.DB_NAME }}
 
       AWS_IMAGES_BUCKET: ${{ secrets.AWS_IMAGES_BUCKET }}
