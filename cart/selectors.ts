@@ -29,6 +29,30 @@ export function getPrice(item: CartItem): number {
   }
 }
 
+export function getFormattedPrice(item: CartItem): string {
+  switch (item.product.type) {
+    // This should never be shown
+    case "hidden": {
+      return "No disponible";
+    }
+
+    // No stock
+    case "unavailable": {
+      return "Sin stock";
+    }
+
+    // Ask price
+    case "ask": {
+      return "A consultar";
+    }
+
+    // Get price
+    default: {
+      return formatPrice(getPrice(item));
+    }
+  }
+}
+
 export function getCount(items: CartItem[]): number {
   return items.reduce((total, item) => total + item.count, 0);
 }
@@ -60,7 +84,7 @@ function _getItems(items: CartItem[]): string {
           item.product.title,
           item.variants ? `_${getVariantsString(item.variants)}_` : "",
           item.note ? `(${item.note})` : "",
-          `> *${formatPrice(getPrice(item))}*`,
+          `> *${getFormattedPrice(item)}*`,
         ]
           .filter(Boolean)
           .join(" ")}`,

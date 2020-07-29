@@ -8,7 +8,7 @@ import CheckoutButton from "./CheckoutButton";
 import {DrawerTitle, DrawerBody, DrawerFooter} from "~/ui/controls/Drawer";
 import Button from "~/ui/controls/Button";
 import {useTranslation, usePrice} from "~/i18n/hooks";
-import {getCount, getTotal, getPrice} from "~/cart/selectors";
+import {getCount, getTotal, getPrice, getFormattedPrice} from "~/cart/selectors";
 import Stepper from "~/ui/inputs/Stepper";
 import {getVariantsString} from "~/product/selectors";
 import CrossIcon from "~/ui/icons/Cross";
@@ -95,9 +95,7 @@ const Overview: React.FC<Props> = ({
                   </Stack>
                 </Flex>
                 <Flex alignItems="center">
-                  <Text fontWeight={500}>
-                    {item.product.type === "ask" ? "A consultar" : p(getPrice(item))}
-                  </Text>
+                  <Text fontWeight={500}>{getFormattedPrice(item)}</Text>
                 </Flex>
               </Flex>
             ))}
