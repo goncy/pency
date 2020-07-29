@@ -59,12 +59,15 @@ export default {
     // Stringify
     return casted;
   },
-  list: async (): Promise<ServerTenant[]> => {
+  list: async (
+    query: Record<string, any> = {},
+    project: Record<string, any> = {},
+  ): Promise<ServerTenant[]> => {
     // Connect to DB
     const db = await connection();
 
     // Get all tenants
-    const tenants = await db.collection<ServerTenant>("tenants").find();
+    const tenants = await db.collection<ServerTenant>("tenants").find(query, project);
 
     // If no tenants
     if (!tenants.count) {

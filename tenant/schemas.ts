@@ -6,7 +6,6 @@ import {DEFAULT_CLIENT_TENANT} from "./constants";
 import productSchemas from "~/product/schemas";
 import {Place} from "~/places/types";
 import {Product} from "~/product/types";
-import dates from "~/utils/date";
 
 const location = {
   schema: yup.object<Place>({
@@ -283,20 +282,6 @@ export default {
       flags: flags.default(DEFAULT_CLIENT_TENANT.flags),
       hook: yup.string(),
       mercadopago: yup.boolean().default(DEFAULT_CLIENT_TENANT.mercadopago),
-    }),
-    relevant: yup.object<Partial<ClientTenant>>({
-      id: yup.string().required(),
-      slug: yup.string().required(),
-      category: yup.string().required(),
-      logo: yup.string().required(),
-      phone: yup.string().notOneOf([DEFAULT_CLIENT_TENANT.phone]).required(),
-      description: yup.string().notOneOf([DEFAULT_CLIENT_TENANT.description]),
-      title: yup.string().notOneOf([DEFAULT_CLIENT_TENANT.title]).required(),
-      products: products.schema.min(5).required(),
-      updatedAt: yup
-        .number()
-        .min(dates.now - 2592000000)
-        .required(),
     }),
   },
 };
