@@ -1,5 +1,4 @@
 import schemas from "../schemas";
-import {ClientTenant} from "../types";
 import {DEFAULT_CLIENT_TENANT} from "../constants";
 
 describe("schemas", () => {
