@@ -23,7 +23,7 @@ export default {
       24 * 60 * 60 - now.getHours() * 60 * 60 - now.getMinutes() * 60 - now.getSeconds(),
     );
   },
-  diffFromNow(date) {
+  daysDiffFromNow(date) {
     const MS_PER_DAY = 1000 * 60 * 60 * 24;
 
     // Now date

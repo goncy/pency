@@ -5,10 +5,26 @@ import {getVariantsString, getVariantsPrice} from "~/product/selectors";
 import {formatPrice} from "~/i18n/selectors";
 
 export function getTotal(items: CartItem[]): number {
-  return items.reduce(
-    (total, item) => total + (item.product.price + getVariantsPrice(item.variants)) * item.count,
-    0,
-  );
+  return items.reduce((total, item) => {
+    switch (item.product.type) {
+      // Price should not be modified
+      case "hidden":
+      case "unavailable":
+      case "ask": {
+        return total;
+      }
+
+      // Price depends only on the variants
+      case "variant": {
+        return total + getVariantsPrice(item.variants) * item.count;
+      }
+
+      // Sum total and variants
+      default: {
+        return total + (item.product.price + getVariantsPrice(item.variants)) * item.count;
+      }
+    }
+  }, 0);
 }
 
 export function getCount(items: CartItem[]): number {
