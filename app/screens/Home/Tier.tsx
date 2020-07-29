@@ -18,7 +18,7 @@ const COLORS = {
 
 const Tier: React.FC<Props> = ({tier, expiration}) => {
   const t = useTranslation();
-  const remainingDays = dates.diffFromNow(expiration);
+  const remainingDays = dates.daysDiffFromNow(expiration);
 
   return (
     <Stack spacing={1}>

@@ -14,7 +14,6 @@ import Price from "~/ui/inputs/Price";
 
 interface Props {
   index: number;
-  base: number;
   error?: {
     index: number;
     type: string;
@@ -24,7 +23,7 @@ interface Props {
   onChange: (option: Partial<Variant>) => void;
 }
 
-const OptionInput: React.FC<Props> = ({error: _error, value, onChange, base = 0}) => {
+const OptionInput: React.FC<Props> = ({error: _error, value, onChange}) => {
   const error = React.useMemo(() => {
     if (!_error) return null;
 
@@ -133,18 +132,12 @@ const OptionInput: React.FC<Props> = ({error: _error, value, onChange, base = 0}
                     </Flex>
                   )}
                 </Stack>
-                {value.count === 1 && option.price && (
-                  <FormHelperText>
-                    Precio del producto + opción = ${Number(option.price) + Number(base)}
-                  </FormHelperText>
-                )}
               </Stack>
             );
           })}
         </Stack>
         <FormHelperText>
-          El precio de la opción se le sumará al valor del producto, en caso de no modificar el
-          valor original, ingresá 0.
+          Si seleccionar una opción no debería modificar el precio final, ingresá 0.
         </FormHelperText>
       </Stack>
       <IconButton
