@@ -28,6 +28,7 @@ export default {
         id: tenant,
       },
       {
+        updatedAt: dates.now,
         $push: {
           products: casted,
         },
@@ -47,6 +48,7 @@ export default {
         id: tenant,
       },
       {
+        updatedAt: dates.now,
         $pull: {
           products: {id: product},
         },
@@ -73,6 +75,7 @@ export default {
         "products.id": casted.id,
       },
       {
+        updatedAt: dates.now,
         $set: {
           "products.$": casted,
         },
@@ -120,6 +123,7 @@ export default {
     const result = await db.collection<ServerTenant>("tenants").updateOne(
       {id: tenant},
       {
+        updatedAt: dates.now,
         $set: {
           products: updated,
         },
