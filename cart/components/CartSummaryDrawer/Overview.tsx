@@ -8,9 +8,9 @@ import CheckoutButton from "./CheckoutButton";
 import {DrawerTitle, DrawerBody, DrawerFooter} from "~/ui/controls/Drawer";
 import Button from "~/ui/controls/Button";
 import {useTranslation, usePrice} from "~/i18n/hooks";
-import {getCount, getTotal} from "~/cart/selectors";
+import {getCount, getTotal, getPrice} from "~/cart/selectors";
 import Stepper from "~/ui/inputs/Stepper";
-import {getVariantsString, getVariantsPrice} from "~/product/selectors";
+import {getVariantsString} from "~/product/selectors";
 import CrossIcon from "~/ui/icons/Cross";
 
 interface Props {
@@ -75,28 +75,28 @@ const Overview: React.FC<Props> = ({
             {t("cart.yourOrder")} ({count})
           </DrawerTitle>
           <Stack shouldWrapChildren spacing={6}>
-            {items.map(({id, product, count, variants, note}) => (
-              <Flex key={id} alignItems="flex-start" justifyContent="space-between">
+            {items.map((item) => (
+              <Flex key={item.id} alignItems="flex-start" justifyContent="space-between">
                 <Flex alignItems="center" mr={2}>
                   <Stack spacing={0}>
                     <Text fontWeight={500} overflowWrap="break-word">
-                      {product.title}
+                      {item.product.title}
                     </Text>
-                    {variants && <Text color="gray.600">{getVariantsString(variants)}</Text>}
-                    {note && <Text color="gray.600">({note})</Text>}
+                    {item.variants && (
+                      <Text color="gray.600">{getVariantsString(item.variants)}</Text>
+                    )}
+                    {item.note && <Text color="gray.600">({item.note})</Text>}
                     <Stepper
                       marginTop={2}
                       value={count}
-                      onDecrease={() => handleDecrease(id)}
-                      onIncrease={() => handleIncrease(id)}
+                      onDecrease={() => handleDecrease(item.id)}
+                      onIncrease={() => handleIncrease(item.id)}
                     />
                   </Stack>
                 </Flex>
                 <Flex alignItems="center">
                   <Text fontWeight={500}>
-                    {product.type === "ask"
-                      ? "A consultar"
-                      : p((product.price + getVariantsPrice(variants)) * count)}
+                    {item.product.type === "ask" ? "A consultar" : p(getPrice(item))}
                   </Text>
                 </Flex>
               </Flex>
