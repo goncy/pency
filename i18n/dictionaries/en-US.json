@@ -14,6 +14,7 @@
     "exit": "Exit",
     "count": "Quantity",
     "products": "Products",
+    "comments": "Comentarios",
     "shop": "Shop",
     "options": "Options",
     "next": "Next",
@@ -131,20 +132,27 @@
     }
   },
   "cartItemDrawer":{
-    "toastSharePrompt":{
-      "status": "success",
-      "title": "Bien!",
-      "description": "El enlace fue compartido correctamente"
+    "comments": {
+      "label": "Comments",
+      "help": "140 chars max",
+      "placeholder": "I would like to..."
     },
-    "toastShareClipboard":{
-      "status": "success",
-      "title": "Link copiado",
-      "description": "El link se copió al portapapeles"
-    },
-    "toastShareError":{
-      "status": "warning",
-      "title": "No se pudo copiar el link",
-      "description": "No se tienen permisos para acceder al portapapeles en este navegador"
+    "share": {
+      "prompt":{
+        "status": "success",
+        "title": "Yeah!",
+        "description": "Link was shared successfully"
+      },
+      "clipboard":{
+        "status": "success",
+        "title": "Link copied",
+        "description": "Link was copied to the clipboard",
+        "error":{
+          "status": "warning",
+          "title": "No se pudo copiar el link",
+          "description": "No se tienen permisos para acceder al portapapeles en este navegador"
+        }
+      }
     }
   },
   "form": {
@@ -170,6 +178,11 @@
     "variants": {
       "countError": "You must select {{count}} options",
       "emptyError": "You must select at least one option"
+    },
+    "footer": {
+      "lastUpdate": "Last update",
+      "nextUpdate": "Next update",
+      "createdWith": "Created with"
     }
   },
   "auth": {

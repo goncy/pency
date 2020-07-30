@@ -131,20 +131,27 @@
     }
   },
   "cartItemDrawer":{
-    "toastSharePrompt":{
-      "status": "success",
-      "title": "Bien!",
-      "description": "El enlace fue compartido correctamente"
+    "comments": {
+      "label": "Comentarios",
+      "help": "Máximo 140 caracteres",
+      "placeholder": "Me gustaría que..."
     },
-    "toastShareClipboard":{
-      "status": "success",
-      "title": "Link copiado",
-      "description": "El link se copió al portapapeles"
-    },
-    "toastShareError":{
-      "status": "warning",
-      "title": "No se pudo copiar el link",
-      "description": "No se tienen permisos para acceder al portapapeles en este navegador"
+    "share": {
+      "prompt":{
+        "status": "success",
+        "title": "Bien!",
+        "description": "El enlace fue compartido correctamente"
+      },
+      "clipboard":{
+        "status": "success",
+        "title": "Link copiado",
+        "description": "El link se copió al portapapeles",
+        "error":{
+          "status": "warning",
+          "title": "No se pudo copiar el link",
+          "description": "No se tienen permisos para acceder al portapapeles en este navegador"
+        }
+      }
     }
   },
   "form": {
@@ -170,6 +177,11 @@
     "variants": {
       "countError": "Debes seleccionar {{count}} opciones",
       "emptyError": "Debes seleccionar al menos una opción"
+    },
+    "footer": {
+      "lastUpdate": "Última actualización",
+      "nextUpdate": "Próxima actualización",
+      "createdWith": "Tienda creada con"
     }
   },
   "auth": {

@@ -198,15 +198,15 @@ const ProductsScreen: React.FC<Props> = ({lastUpdate, nextUpdate}) => {
             spacing={0}
           >
             <Text color="gray.500" fontSize="sm">
-              Última actualización: {date.localeDateTime(lastUpdate, country)}
+              {t("products.footer.lastUpdate")}: {date.localeDateTime(lastUpdate, country)}
             </Text>
             <Text color="gray.500" fontSize="sm">
-              Próxima actualización: {date.localeDateTime(nextUpdate, country)}
+              {t("products.footer.nextUpdate")}: {date.localeDateTime(nextUpdate, country)}
             </Text>
           </Stack>
           <Link href="/">
             <Stack isInline alignItems="center" spacing={1}>
-              <Text fontSize="sm">Tienda creada con</Text>
+              <Text fontSize="sm">{t("products.footer.createdWith")}</Text>
               <Logo size={12} />
             </Stack>
           </Link>

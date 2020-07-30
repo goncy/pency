@@ -39,9 +39,6 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
   function handleSubmit(values: Partial<Product>) {
     const product = {...defaultValues, ...values};
 
-    product.price = values.type === "ask" ? 0 : Number(product.price);
-    product.originalPrice = values.type === "ask" ? 0 : Number(product.originalPrice);
-
     return onSubmit(product);
   }
 
@@ -185,7 +182,6 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
             <FormControl info={<ProductVariantsInputInfo />} label="Variantes" name="options">
               <Controller
                 as={ProductVariantsInput}
-                base={values?.price}
                 control={control}
                 defaultValue={[]}
                 error={(errors.options as unknown) as FieldError}
