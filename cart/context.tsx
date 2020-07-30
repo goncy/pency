@@ -12,6 +12,7 @@ import paymentApi from "~/payment/api/client";
 import {useTenant} from "~/tenant/hooks";
 import {Field} from "~/tenant/types";
 import {isMercadoPagoSelected} from "~/tenant/selectors";
+import {generateOrderId} from "~/tenant/utils";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -81,7 +82,7 @@ const CartProvider = ({children}: Props) => {
 
   async function checkout(fields?: Field[]) {
     // We generate an order id
-    const orderId = shortid.generate();
+    const orderId = generateOrderId(slug);
 
     // Log to analytics
     log.checkout(orderId, items);

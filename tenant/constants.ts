@@ -16,3 +16,6 @@ export const DEFAULT_CLIENT_TENANT: Partial<ClientTenant> = {
   mercadopago: false,
   location: null,
 };
+
+export const SHORTID_DICTIONARY =
+  "0123456789abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZÑ";
