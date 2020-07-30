@@ -20,11 +20,10 @@ import ChevronDownIcon from "~/ui/icons/ChevronDown";
 interface Props {
   value?: Partial<Variant[]>;
   error?: FieldError;
-  base?: number;
   onChange: (options: Variant[]) => void;
 }
 
-const ProductVariantsInput: React.FC<Props> = ({value = [], error: _error, base = 0, onChange}) => {
+const ProductVariantsInput: React.FC<Props> = ({value = [], error: _error, onChange}) => {
   const [active, setActive] = React.useState(null);
   const error = React.useMemo(() => {
     if (!_error) return null;
@@ -132,7 +131,6 @@ const ProductVariantsInput: React.FC<Props> = ({value = [], error: _error, base 
               />
             </FormControl>
             <OptionInput
-              base={base}
               error={variantError}
               index={index}
               value={option}
