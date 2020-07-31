@@ -88,8 +88,14 @@ export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
       revalidate: revalidationTime,
     };
   } catch (err) {
-    // If something failed return a status code that will be intercepted by _app
-    return {props: {statusCode: err?.status || err?.statusCode || 404}};
+    return {
+      // If something failed return a status code that will be intercepted by _app
+      props: {
+        statusCode: err?.status || err?.statusCode || 404,
+      },
+      // Revalidate after an hour
+      revalidate: 3600,
+    };
   }
 };
 
