@@ -85,7 +85,7 @@ export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
     // Return the props and revalidation times
     return {
       props: {tenant, products, lastUpdate, nextUpdate},
-      unstable_revalidate: revalidationTime,
+      revalidate: revalidationTime,
     };
   } catch (err) {
     // If something failed return a status code that will be intercepted by _app

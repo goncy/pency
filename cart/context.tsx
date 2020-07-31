@@ -5,6 +5,7 @@ import produce from "immer";
 import {Product, Variant} from "../product/types";
 
 import {CartItem, Context, State, Actions, Cart} from "./types";
+import {getOrderId} from "./selectors";
 import api from "./api";
 
 import {useAnalytics} from "~/analytics/hooks";
@@ -12,7 +13,6 @@ import paymentApi from "~/payment/api/client";
 import {useTenant} from "~/tenant/hooks";
 import {Field} from "~/tenant/types";
 import {isMercadoPagoSelected} from "~/tenant/selectors";
-import {generateOrderId} from "~/tenant/utils";
 
 interface Props {
   children: JSX.Element | JSX.Element[];
@@ -82,7 +82,7 @@ const CartProvider = ({children}: Props) => {
 
   async function checkout(fields?: Field[]) {
     // We generate an order id
-    const orderId = generateOrderId(slug);
+    const orderId = getOrderId(slug);
 
     // Log to analytics
     log.checkout(orderId, items);
