@@ -150,7 +150,8 @@
         }
       },
       "assets": {
-        "title": "Tus descargables"
+        "title": "Imprimí y comparti tu código QR",
+        "footer": "Escaneando este código tus clientes podrán acceder a tu tienda."
       },
       "tiers": {
         "free": {

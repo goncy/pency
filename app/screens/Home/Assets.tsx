@@ -23,6 +23,9 @@ const Assets: React.FC<Props> = ({tenant}) => {
           borderWidth={1}
           text={`${process.env.APP_URL}/${tenant.slug}`}
         />
+        <Text color="gray.500" fontSize="sm">
+          {t("admin.home.assets.footer")}
+        </Text>
       </Stack>
     </Box>
   );

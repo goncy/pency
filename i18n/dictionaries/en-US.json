@@ -151,7 +151,8 @@
         }
       },
       "assets": {
-        "title": "Your assets"
+        "title": "Print and share your QR code",
+        "footer": "Scanning this code will get your clients to your store."
       },
       "tiers": {
         "free": {
