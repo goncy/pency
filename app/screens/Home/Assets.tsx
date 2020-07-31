@@ -18,7 +18,11 @@ const Assets: React.FC<Props> = ({tenant}) => {
         <Text fontSize="lg" fontWeight="bold">
           {t("admin.home.assets.title")}
         </Text>
-        <QrCode borderColor="gray.300" borderWidth={1} text={tenant.slug} />
+        <QrCode
+          borderColor="gray.300"
+          borderWidth={1}
+          text={`${process.env.APP_URL}/${tenant.slug}`}
+        />
       </Stack>
     </Box>
   );
