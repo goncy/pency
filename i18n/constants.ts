@@ -39,7 +39,7 @@ export const LOCALES = {
 export const CURRENCIES = {
   AR: "ARS",
   BR: "BRL",
-  CL: "CHL",
+  CL: "CLP",
   CO: "COP",
   CR: "CRC",
   CU: "CUC",
