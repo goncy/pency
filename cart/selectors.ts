@@ -8,10 +8,52 @@ import {getVariantsString, getVariantsPrice} from "~/product/selectors";
 import {formatPrice} from "~/i18n/selectors";
 
 export function getTotal(items: CartItem[]): number {
-  return items.reduce(
-    (total, item) => total + (item.product.price + getVariantsPrice(item.variants)) * item.count,
-    0,
-  );
+  return items.reduce((total, item) => total + getPrice(item), 0);
+}
+
+export function getPrice(item: CartItem): number {
+  switch (item.product.type) {
+    // Price should not be modified
+    case "hidden":
+    case "unavailable":
+    case "ask": {
+      return 0;
+    }
+
+    // Price depends only on the variants
+    case "variant": {
+      return getVariantsPrice(item.variants) * item.count;
+    }
+
+    // Sum total and variants
+    default: {
+      return (item.product.price + getVariantsPrice(item.variants)) * item.count;
+    }
+  }
+}
+
+export function getFormattedPrice(item: CartItem): string {
+  switch (item.product.type) {
+    // This should never be shown
+    case "hidden": {
+      return "No disponible";
+    }
+
+    // No stock
+    case "unavailable": {
+      return "Sin stock";
+    }
+
+    // Ask price
+    case "ask": {
+      return "A consultar";
+    }
+
+    // Get price
+    default: {
+      return formatPrice(getPrice(item));
+    }
+  }
 }
 
 export function getCount(items: CartItem[]): number {
@@ -39,13 +81,13 @@ ${preference}`;
 function _getItems(items: CartItem[]): string {
   return items
     .map(
-      ({product, count, variants, note}) =>
+      (item) =>
         `— ${[
-          count > 1 ? `*[ ${count} ]*` : "",
-          product.title,
-          variants ? `_${getVariantsString(variants)}_` : "",
-          note ? `(${note})` : "",
-          `> *${formatPrice((product.price + getVariantsPrice(variants)) * count)}*`,
+          item.count > 1 ? `*[ ${item.count} ]*` : "",
+          item.product.title,
+          item.variants ? `_${getVariantsString(item.variants)}_` : "",
+          item.note ? `(${item.note})` : "",
+          `> *${getFormattedPrice(item)}*`,
         ]
           .filter(Boolean)
           .join(" ")}`,

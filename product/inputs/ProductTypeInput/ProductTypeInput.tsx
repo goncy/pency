@@ -1,8 +1,9 @@
 import React from "react";
+import {SelectProps} from "@chakra-ui/core";
 
 import Select from "~/ui/inputs/Select";
 
-interface Props {
+interface Props extends SelectProps {
   register: React.Ref<HTMLSelectElement>;
   name: string;
 }

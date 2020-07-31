@@ -51,9 +51,9 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
         })
         .then(() => {
           toast({
-            status: t("cartItemDrawer.toastSharePrompt.status"),
-            title: t("cartItemDrawer.toastSharePrompt.title"),
-            description: t("cartItemDrawer.toastSharePrompt.description"),
+            status: t("cartItemDrawer.share.prompt.status"),
+            title: t("cartItemDrawer.share.prompt.title"),
+            description: t("cartItemDrawer.share.prompt.description"),
           });
 
           log.share(product, "mobile");
@@ -66,18 +66,18 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
         .writeText(window.location.href)
         .then(() => {
           toast({
-            status: t("cartItemDrawer.toastShareClipboard.status"),
-            title: t("cartItemDrawer.toastShareClipboard.title"),
-            description: t("cartItemDrawer.toastShareClipboard.description"),
+            status: t("cartItemDrawer.share.clipboard.status"),
+            title: t("cartItemDrawer.share.clipboard.title"),
+            description: t("cartItemDrawer.share.clipboard.description"),
           });
 
           log.share(product, "desktop");
         })
         .catch(() => {
           toast({
-            status: t("cartItemDrawer.toastShareError.status"),
-            title: t("cartItemDrawer.toastShareError.title"),
-            description: t("cartItemDrawer.toastShareError.description"),
+            status: t("cartItemDrawer.share.clipboard.error.status"),
+            title: t("cartItemDrawer.share.clipboard.error.title"),
+            description: t("cartItemDrawer.share.clipboard.error.description"),
           });
         });
     }
@@ -153,7 +153,12 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                   spacing={6}
                 >
                   <Stack spacing={2}>
-                    <Text fontSize="2xl" fontWeight="bold" lineHeight="normal">
+                    <Text
+                      fontSize="2xl"
+                      fontWeight="bold"
+                      lineHeight="normal"
+                      overflowWrap="break-word"
+                    >
                       {product.title}
                     </Text>
                     {product.description && (
@@ -173,10 +178,13 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                     <Stepper min={1} value={count} onChange={setCount} />
                   </Flex>
                   {flags.includes("note") && (
-                    <FormControl help="Máximo 140 caracteres" label="Comentarios">
+                    <FormControl
+                      help={t("cartItemDrawer.comments.placeholder")}
+                      label={t("cartItemDrawer.comments.label")}
+                    >
                       <Textarea
                         max={140}
-                        placeholder="Notas adicionales"
+                        placeholder={t("cartItemDrawer.comments.placeholder")}
                         value={note}
                         onChange={handleNoteChange}
                       />
@@ -211,7 +219,7 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
                       submit();
                     }}
                   >
-                    Agregar
+                    {t("common.add")}
                   </Button>
                 )}
               </DrawerFooter>

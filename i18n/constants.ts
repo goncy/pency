@@ -3,7 +3,9 @@ export const DEFAULT_COUNTRY = "AR";
 export const COUNTRIES = {
   AR: "Argentina",
   BR: "Brazil",
+  CL: "Chile",
   CO: "Colombia",
+  CR: "Costa Rica",
   CU: "Cuba",
   EC: "Ecuador",
   ES: "España",
@@ -19,7 +21,9 @@ export const COUNTRIES = {
 export const LOCALES = {
   AR: "es-AR",
   BR: "pt-BR",
+  CL: "es-CL",
   CO: "es-CO",
+  CR: "es-CR",
   CU: "es-CU",
   EC: "es-EC",
   ES: "es-ES",
@@ -35,7 +39,9 @@ export const LOCALES = {
 export const CURRENCIES = {
   AR: "ARS",
   BR: "BRL",
+  CL: "CHL",
   CO: "COP",
+  CR: "CRC",
   CU: "CUC",
   EC: "USD",
   ES: "EUR",
