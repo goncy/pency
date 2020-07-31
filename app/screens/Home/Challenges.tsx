@@ -23,33 +23,33 @@ const Challenges: React.FC<Props> = ({tenant, products}) => {
     <Box>
       <Stack backgroundColor="primary.50" padding={4} rounded="md" spacing={6}>
         <Text fontSize="lg" fontWeight="bold">
-          {t("landing.home.startWithTheseChallenges")}
+          {t("admin.home.challenges.title")}
         </Text>
         <Stack spacing={6}>
           <Stack isInline opacity={hasBasicComplete ? 0.3 : 1}>
             {hasBasicComplete ? <CheckIcon /> : <CircleIcon />}
             <Stack spacing={0}>
-              <Text>{t("landing.home.firstChallenge.title")}</Text>
+              <Text>{t("admin.home.challenges.first.title")}</Text>
               <Text color="gray.500" fontSize="sm">
-                {t("landing.home.firstChallenge.description")}
+                {t("admin.home.challenges.first.description")}
               </Text>
             </Stack>
           </Stack>
           <Stack isInline opacity={hasCustomizationComplete ? 0.3 : 1}>
             {hasCustomizationComplete ? <CheckIcon /> : <CircleIcon />}
             <Stack spacing={0}>
-              <Text>{t("landing.home.secondChallenge.title")}</Text>
+              <Text>{t("admin.home.challenges.second.title")}</Text>
               <Text color="gray.500" fontSize="sm">
-                {t("landing.home.secondChallenge.description")}
+                {t("admin.home.challenges.second.description")}
               </Text>
             </Stack>
           </Stack>
           <Stack isInline opacity={hasProducts ? 0.3 : 1}>
             {hasProducts ? <CheckIcon /> : <CircleIcon />}
             <Stack spacing={0}>
-              <Text>{t("landing.home.thirdChallenge.title")}</Text>
+              <Text>{t("admin.home.challenges.third.title")}</Text>
               <Text color="gray.500" fontSize="sm">
-                {t("landing.home.thirdChallenge.description")}
+                {t("admin.home.challenges.third.description")}
               </Text>
             </Stack>
           </Stack>

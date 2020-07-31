@@ -5,6 +5,7 @@ import Introduction from "./Introduction";
 import Contact from "./Contact";
 import Challenges from "./Challenges";
 import Tier from "./Tier";
+import Assets from "./Assets";
 
 import Content from "~/ui/structure/Content";
 import {useTenant} from "~/tenant/hooks";
@@ -23,7 +24,10 @@ const HomeScreen: React.FC = () => {
             <Tier expiration={tenant.tierUntil} tier={tenant.tier} />
             <Contact />
           </Stack>
-          <Challenges products={products} tenant={tenant} />
+          <Stack shouldWrapChildren spacing={{base: 4, sm: 8}}>
+            <Challenges products={products} tenant={tenant} />
+            <Assets tenant={tenant} />
+          </Stack>
         </SimpleGrid>
       </Stack>
     </Content>

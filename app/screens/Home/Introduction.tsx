@@ -14,9 +14,9 @@ const Introduction: React.FC<Props> = ({title}) => {
   return (
     <Stack spacing={1}>
       <Text fontSize="xl" fontWeight="bold">
-        {t("landing.home.hello")} {title}
+        {t("admin.home.introduction.title")} {title}
       </Text>
-      <Text color="gray.500">{t("landing.home.introduction")}</Text>
+      <Text color="gray.500">{t("admin.home.introduction.blurb")}</Text>
     </Stack>
   );
 };
