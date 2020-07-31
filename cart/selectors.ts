@@ -1,6 +1,9 @@
-import {CartItem} from "./types";
+import shortId from "shortid";
 
-import {Field} from "~/tenant/types";
+import {CartItem} from "./types";
+import {SHORTID_DICTIONARY} from "./constants";
+
+import {Field, ClientTenant} from "~/tenant/types";
 import {getVariantsString, getVariantsPrice} from "~/product/selectors";
 import {formatPrice} from "~/i18n/selectors";
 
@@ -108,3 +111,9 @@ export function getMessage(
     (preference ? `\n\n${_getPreferenceFooter(preference)}` : "")
   );
 }
+
+export const getOrderId = (slug: ClientTenant["slug"]) => {
+  shortId.characters(SHORTID_DICTIONARY);
+
+  return `${slug.slice(0, 3).toUpperCase()}-${shortId.generate().slice(0, 5).toUpperCase()}`;
+};
