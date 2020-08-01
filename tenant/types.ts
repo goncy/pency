@@ -27,7 +27,7 @@ interface Tenant {
   fields?: Field[];
   flags?: string[];
   hook?: string;
-  pixel?: number;
+  pixel?: string;
   createdAt: number;
   layout?: "landscape" | "portrait";
   mercadopago?: {
