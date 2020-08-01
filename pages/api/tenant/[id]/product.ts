@@ -96,7 +96,12 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         return api
           .update(id, casted)
           .then(() => res.status(200).json(casted))
-          .catch(() => res.status(400).end("Hubo un error actualizando el producto"));
+          .catch((error) =>
+            res.status(400).json({
+              message: "Hubo un error actualizando el producto",
+              details: error,
+            }),
+          );
       })
       .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"));
   }

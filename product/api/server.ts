@@ -28,7 +28,9 @@ export default {
         id: tenant,
       },
       {
-        updatedAt: dates.now,
+        $set: {
+          updatedAt: dates.now,
+        },
         $push: {
           products: casted,
         },
@@ -48,7 +50,9 @@ export default {
         id: tenant,
       },
       {
-        updatedAt: dates.now,
+        $set: {
+          updatedAt: dates.now,
+        },
         $pull: {
           products: {id: product},
         },
@@ -75,8 +79,8 @@ export default {
         "products.id": casted.id,
       },
       {
-        updatedAt: dates.now,
         $set: {
+          updatedAt: dates.now,
           "products.$": casted,
         },
       },
