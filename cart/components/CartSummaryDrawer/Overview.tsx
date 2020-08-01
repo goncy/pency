@@ -88,7 +88,7 @@ const Overview: React.FC<Props> = ({
                     {item.note && <Text color="gray.600">({item.note})</Text>}
                     <Stepper
                       marginTop={2}
-                      value={count}
+                      value={item.count}
                       onDecrease={() => handleDecrease(item.id)}
                       onIncrease={() => handleIncrease(item.id)}
                     />

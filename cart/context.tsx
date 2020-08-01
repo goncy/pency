@@ -5,6 +5,7 @@ import produce from "immer";
 import {Product, Variant} from "../product/types";
 
 import {CartItem, Context, State, Actions, Cart} from "./types";
+import {getOrderId} from "./selectors";
 import api from "./api";
 
 import {useAnalytics} from "~/analytics/hooks";
@@ -81,7 +82,7 @@ const CartProvider = ({children}: Props) => {
 
   async function checkout(fields?: Field[]) {
     // We generate an order id
-    const orderId = shortid.generate();
+    const orderId = getOrderId(slug);
 
     // Log to analytics
     log.checkout(orderId, items);

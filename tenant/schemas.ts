@@ -129,6 +129,7 @@ export default {
       flags: flags.nullable(),
       layout: layout.nullable(),
       hook: yup.string().nullable(),
+      pixel: yup.number().nullable(),
       mercadopago: mercadopago.lazy,
     }),
     update: yup.object<Partial<ServerTenant>>({
@@ -156,6 +157,7 @@ export default {
       flags: flags.nullable(),
       layout: layout.nullable(),
       hook: yup.string().nullable(),
+      pixel: yup.number().nullable(),
       mercadopago: mercadopago.schema.nullable().strip(true),
       products: products.lazy,
     }),
@@ -185,6 +187,7 @@ export default {
       layout: layout.default(DEFAULT_CLIENT_TENANT.layout),
       flags: flags.default(DEFAULT_CLIENT_TENANT.flags),
       hook: yup.string(),
+      pixel: yup.number(),
       mercadopago: mercadopago.schema.default(DEFAULT_CLIENT_TENANT.mercadopago),
     }),
     mercadopago: yup.object<Pick<ServerTenant, "mercadopago">>({
@@ -222,6 +225,7 @@ export default {
       fields: fields.default(DEFAULT_CLIENT_TENANT.fields).nullable(),
       flags: flags.default(DEFAULT_CLIENT_TENANT.flags).nullable(),
       hook: yup.string().default("").nullable(),
+      pixel: yup.number().default(0).nullable(),
       mercadopago: yup
         .boolean()
         .transform((mercadopago) => Boolean(mercadopago?.token))

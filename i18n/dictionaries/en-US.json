@@ -21,26 +21,6 @@
     "item": "Item",
     "item_plural": "Items"
   },
-  "tiers": {
-    "free": {
-      "name": "Free",
-      "features": {
-        "update": "At 00:00 (UTC) every day."
-      }
-    },
-    "preferential": {
-      "name": "Preferential",
-      "features": {
-        "update": "Every hour."
-      }
-    },
-    "commercial": {
-      "name": "Commercial",
-      "features": {
-        "update": "Realtime."
-      }
-    }
-  },
   "landing": {
     "features": {
       "streamlineBusinessManagment":{
@@ -111,24 +91,6 @@
       "userName":"Francisco Bellocchio",
       "message": "\"Pency apareció en el momento justo como una herramienta para ayudar a nuestra marca a potenciar la venta on line y llegar a nuestros clientes de manera simple y segura.\"",
       "ownerOf": "Dueño de Blondies"
-    },
-    "home":{
-      "hello": "Hola",
-      "introduction": "Comenzar a utilizar una nueva herramienta nunca es fácil, por eso lo hicimos bien simple. Seguí estos pasos y en unos minutos tendrás tu tienda lista para compartir.",
-      "contactChannels": "Si necesitas ayuda, escribinos:",
-      "startWithTheseChallenges": "Comenzá con estos desafíos:",
-      "firstChallenge": {
-        "title": "Completá la info de tu negocio",
-        "description": "Nombre de tu negocio, rubro, una descripción y número de whatsapp."
-      },
-      "secondChallenge": {
-        "title": "Personalizá tu tienda",
-        "description": "Subí tu logo, una imagen de cabecera y elegí el color de tu tienda."
-      },
-      "thirdChallenge": {
-        "title": "Cargá tus productos",
-        "description": "Cargá tus productos y empezá a vender ya!"
-      }
     }
   },
   "cartItemDrawer":{
@@ -164,7 +126,55 @@
   },
   "admin": {
     "preview": "Preview",
-    "empty": "No products found"
+    "empty": "No products found",
+    "home":{
+      "introduction": {
+        "title": "Hola",
+        "blurb": "Comenzar a utilizar una nueva herramienta nunca es fácil, por eso lo hicimos bien simple. Seguí estos pasos y en unos minutos tendrás tu tienda lista para compartir."
+      },
+      "contact": {
+        "title": "Si necesitas ayuda, escribinos:"
+      },
+      "challenges": {
+        "title": "Comenzá con estos desafíos:",
+        "first": {
+          "title": "Completá la info de tu negocio",
+          "description": "Nombre de tu negocio, rubro, una descripción y número de whatsapp."
+        },
+        "second": {
+          "title": "Personalizá tu tienda",
+          "description": "Subí tu logo, una imagen de cabecera y elegí el color de tu tienda."
+        },
+        "third": {
+          "title": "Cargá tus productos",
+          "description": "Cargá tus productos y empezá a vender ya!"
+        }
+      },
+      "assets": {
+        "title": "Print and share your QR code",
+        "footer": "Scanning this code will get your clients to your store."
+      },
+      "tiers": {
+        "free": {
+          "name": "Free",
+          "features": {
+            "update": "At 00:00 (UTC) every day."
+          }
+        },
+        "preferential": {
+          "name": "Preferential",
+          "features": {
+            "update": "Every hour."
+          }
+        },
+        "commercial": {
+          "name": "Commercial",
+          "features": {
+            "update": "Realtime."
+          }
+        }
+      }
+    }
   },
   "cart": {
     "yourOrder": "Your order",

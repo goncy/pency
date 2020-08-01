@@ -17,6 +17,10 @@ import MPConnect from "~/payment/inputs/MPConnect";
 import PlaceInput from "~/ui/inputs/Place";
 import {COUNTRIES} from "~/i18n/constants";
 import {useTranslation} from "~/i18n/hooks";
+import PixelInput, {
+  info as PixelInputInfo,
+  validator as PixelInputValidator,
+} from "~/ui/inputs/Pixel";
 
 interface Props {
   defaultValues: Partial<ClientTenant>;
@@ -335,7 +339,8 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               </Stack>
             </>
           )}
-          {defaultValues.flags?.includes("advanced") && (
+
+          {defaultValues.tier === "commercial" && (
             <>
               <Divider />
               <Stack marginTop={8} spacing={4}>
@@ -343,19 +348,36 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                   <Text fontSize="2xl" fontWeight={500} id="advanced">
                     Opciones avanzadas
                   </Text>
-                  <Text color="gray.600">
-                    Conectá tu servicio de facturación o aplicación con Pency mediante webhooks o
-                    más
-                  </Text>
+                  <Text color="gray.600">Llevá tu negocio a otro nivel</Text>
                 </Stack>
-                <FormControl help="Vamos a hacer un POST a esta url" name="hook">
-                  <Input
-                    ref={register}
+                <FormControl
+                  error={errors.pixel?.message}
+                  help="Solo el ID del pixel"
+                  info={<PixelInputInfo />}
+                  label="Pixel de Facebook"
+                  name="pixel"
+                >
+                  <PixelInput
                     defaultValue=""
-                    name="hook"
-                    placeholder="https://tuwebhook.com"
+                    name="pixel"
+                    placeholder="333964417633206"
+                    register={register({validate: PixelInputValidator})}
                   />
                 </FormControl>
+                {defaultValues.flags?.includes("advanced") && (
+                  <FormControl
+                    help="Vamos a hacer un POST a esta url cada vez que un usuario complete un pedido"
+                    label="Webhook"
+                    name="hook"
+                  >
+                    <Input
+                      ref={register}
+                      defaultValue=""
+                      name="hook"
+                      placeholder="https://tuwebhook.com"
+                    />
+                  </FormControl>
+                )}
               </Stack>
             </>
           )}
