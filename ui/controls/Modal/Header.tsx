@@ -2,7 +2,6 @@ import React from "react";
 import {BoxProps, ModalHeader, Stack, IModal, ModalCloseButton} from "@chakra-ui/core";
 
 interface Props extends BoxProps {
-  onBack?: IModal["onClose"] | VoidFunction;
   onClose?: IModal["onClose"];
 }
 

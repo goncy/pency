@@ -35,7 +35,7 @@ const Modal: React.FC<Props> = ({children, onAnimationEnd, onClose, id, ...props
         onClose={handleClose}
         {...props}
       >
-        <ModalOverlay />
+        <ModalOverlay zIndex={1400} />
         <Content>{children}</Content>
       </ChakraModal>
     </>
