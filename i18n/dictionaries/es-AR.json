@@ -157,19 +157,22 @@
         "free": {
           "name": "Emprendedor",
           "features": {
-            "update": "A las 00:00 (UTC) de cada día."
+            "update": "A las 00:00 (UTC) de cada día.",
+            "products": "100."
           }
         },
         "preferential": {
           "name": "Preferencial",
           "features": {
-            "update": "Cada hora."
+            "update": "Cada hora.",
+            "products": "150."
           }
         },
         "commercial": {
           "name": "Comercial",
           "features": {
-            "update": "Tiempo real."
+            "update": "Tiempo real.",
+            "products": "Sin límite."
           }
         }
       }
