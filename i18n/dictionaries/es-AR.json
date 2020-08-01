@@ -48,7 +48,7 @@
       "privacyPolicies": "Políticas de privacidad"
     },
     "header": {
-      "saveTimeMoney":"Ahorrá tiempo y dinero con tu tienda pency",
+      "saveTimeMoney":"Ahorrá tiempo y dinero con tu tienda Pency",
       "publishCatalogOnline": "Publicá tu catálogo online y recibí por Whatsapp los pedidos de tus clientes ¡GRATIS!",
       "createStore": "Crear tienda",
       "seeDemo": "Ver tienda de prueba"
@@ -58,14 +58,11 @@
       "createStore": "Crear tienda"
     },
     "directory": {
-      "title": {
-        "withLocation": "Conocé la comunidad de tiendas Pency cerca tuyo",
-        "withoutLocation": "Conocé la comunidad de tiendas Pency"
-      },
-      "subtitle": "¡Somos más de 1000 tiendas abiertas!",
+      "title": "¡Somos más de 1000 tiendas abiertas!",
+      "subtitle": "Conocé la comunidad de tiendas Pency",
       "noResults": "No se encontraron resultados",
       "footer": {
-        "withLocation": "Se muestran resultados dentro de los 25 KM de tu ubicación.",
+        "withLocation": "Se muestran resultados dentro de los 5 KM de tu ubicación.",
         "withoutLocation": "Se muestran todas las tiendas que posean la información relevante cargada.",
         "seeAll": "Ver todas.",
         "seeNear": "Ver cercanas."
@@ -78,7 +75,7 @@
       }
     },
     "shout": {
-      "createOnlineStore": "Creá ahora tu tienda online y potenciá la gestión de tu negocio",
+      "createOnlineStore": "Creá gratis tu tienda online y potenciá la gestión de tu negocio",
       "createStore": "Crear tienda",
       "seeDemo": "Ver demo"
     },

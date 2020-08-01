@@ -59,14 +59,11 @@
       "createStore": "Crear tienda"
     },
     "directory": {
-      "title": {
-        "withLocation": "Conoce la comunidad de tiendas Pency cerca tuyo",
-        "withoutLocation": "Conoce la comunidad de tiendas Pency"
-      },
-      "subtitle": "¡Somos más de 1000 tiendas abiertas!",
+      "title": "¡Sumate a nuestras más de 1000 tiendas abiertas!",
+      "subtitle": "Conoce la comunidad de tiendas Pency",
       "noResults": "No se encontraron resultados",
       "footer": {
-        "withLocation": "Se muestran resultados dentro de los 25 KM de tu ubicación.",
+        "withLocation": "Se muestran resultados dentro de los 5 KM de tu ubicación.",
         "withoutLocation": "Se muestran todas las tiendas que posean la información relevante cargada.",
         "seeAll": "Ver todas.",
         "seeNear": "Ver cercanas."
@@ -79,7 +76,7 @@
       }
     },
     "shout": {
-      "createOnlineStore": "Crea ahora tu tienda online y potencia la gestión de tu negocio",
+      "createOnlineStore": "Crea gratis tu tienda online y potencia la gestión de tu negocio",
       "createStore": "Crear tienda",
       "seeDemo": "Ver demo"
     },

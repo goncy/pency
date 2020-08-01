@@ -59,14 +59,11 @@
       "createStore": "Create store"
     },
     "directory": {
-      "title": {
-        "withLocation": "Get to know the Pency stores community near you",
-        "withoutLocation": "Get to know the Pency stores community"
-      },
-      "subtitle": "¡We are more than 1000 stores!",
+      "title": "Join as one of our more than 1000 stores!",
+      "subtitle": "Get to know the Pency stores community near you",
       "noResults": "No results found",
       "footer": {
-        "withLocation": "Showing results withing 25 KM of your location.",
+        "withLocation": "Showing results withing 5 KM of your location.",
         "withoutLocation": "Showing all relevant stores.",
         "seeAll": "See all.",
         "seeNear": "See near."
@@ -79,7 +76,7 @@
       }
     },
     "shout": {
-      "createOnlineStore": "Creá ahora tu tienda online y potenciá la gestión de tu negocio",
+      "createOnlineStore": "Creá gratis tu tienda online y potenciá la gestión de tu negocio",
       "createStore": "Crear tienda",
       "seeDemo": "Ver tienda de prueba"
     },
