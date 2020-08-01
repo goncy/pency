@@ -24,12 +24,12 @@ const Tier: React.FC<Props> = ({tier, expiration}) => {
     <Stack spacing={1}>
       <Stack isInline alignItems="baseline">
         <Text fontWeight={500}>Plan:</Text>
-        <Badge variantColor={COLORS[tier]}>{t(`tiers.${tier}.name`)}</Badge>
+        <Badge variantColor={COLORS[tier]}>{t(`admin.home.tiers.${tier}.name`)}</Badge>
       </Stack>
       <Stack>
         <Text fontSize="sm">
           <b>Cambios reflejados en la tienda: </b>
-          {t(`tiers.${tier}.features.update`)}
+          {t(`admin.home.tiers.${tier}.features.update`)}
         </Text>
       </Stack>
       {remainingDays > 0 && (

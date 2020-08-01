@@ -50,6 +50,30 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
       <meta content="summary_large_image" name="twitter:card" />
       <meta content={tenant.twitter ? `@${tenant.twitter}` : META.twitter} name="twitter:creator" />
       <meta content={META.twitter} name="twitter:site" />
+      {tenant.pixel && (
+        <>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `!function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '${tenant.pixel}');
+      fbq('track', 'PageView');`,
+            }}
+          />
+          <noscript
+            dangerouslySetInnerHTML={{
+              __html: `<img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=${tenant.pixel}&ev=PageView&noscript=1" />`,
+            }}
+          />
+        </>
+      )}
       {product ? (
         <>
           <meta content={product.title} name="twitter:title" />

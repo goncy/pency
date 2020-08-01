@@ -1,6 +1,8 @@
+import shortId from "shortid";
+
 import {CartItem} from "./types";
 
-import {Field} from "~/tenant/types";
+import {Field, ClientTenant} from "~/tenant/types";
 import {getVariantsString, getVariantsPrice} from "~/product/selectors";
 import {formatPrice} from "~/i18n/selectors";
 
@@ -108,3 +110,11 @@ export function getMessage(
     (preference ? `\n\n${_getPreferenceFooter(preference)}` : "")
   );
 }
+
+export const getOrderId = (slug: ClientTenant["slug"]) => {
+  // Set characters
+  shortId.characters("0123456789abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZÑ");
+
+  // Generate order id
+  return `${slug.slice(0, 3).toUpperCase()}-${shortId.generate().slice(0, 5).toUpperCase()}`;
+};

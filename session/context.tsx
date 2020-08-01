@@ -49,7 +49,7 @@ const SessionProvider: React.FC = ({children}) => {
         if (user) {
           if (user.uid === id) {
             user.getIdToken().then((token) => {
-              localStorage.setItem("token", token);
+              window.localStorage.setItem("token", token);
 
               setUser(user);
 
@@ -62,7 +62,7 @@ const SessionProvider: React.FC = ({children}) => {
               toggleRestoring(false);
             });
           } else {
-            localStorage.removeItem("token");
+            window.localStorage.removeItem("token");
 
             api.signOut();
 
@@ -75,7 +75,7 @@ const SessionProvider: React.FC = ({children}) => {
             return toggleRestoring(false);
           }
         } else {
-          localStorage.removeItem("token");
+          window.localStorage.removeItem("token");
 
           setUser(user);
 

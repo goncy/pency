@@ -71,7 +71,7 @@ const MPConnect: React.FC<Props> = ({id, checked, onChange, slug, ...props}) => 
       }&response_type=code&platform_id=mp&redirect_uri=${
         process.env.APP_URL
       }/api/payment/auth&state=${encodeURIComponent(
-        JSON.stringify({id, slug, token: localStorage.getItem("token")}),
+        JSON.stringify({id, slug, token: window.localStorage.getItem("token")}),
       )}`}
       onClick={handleConnect}
     >
