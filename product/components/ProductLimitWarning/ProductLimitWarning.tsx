@@ -14,14 +14,14 @@ const ProductLimitWarning: React.FC<Props> = ({onClose}) => (
     <ModalCloseButton size="lg" zIndex={1500} />
     <ModalBody height="auto" marginTop={4} padding={6}>
       <Stack spacing={2}>
-        <ModalTitle>Llegaste al límite!</ModalTitle>
+        <ModalTitle>¡Llegaste al límite!</ModalTitle>
         <Stack spacing={2}>
           <Text>
-            Para poder seguir agregando nuevos productos tenés que contratar un plan mejor
+            Para poder seguir agregando nuevos productos tenés que contratar un plan mejor.
           </Text>
           <Text color="gray.500" fontSize="sm">
             También podés reducir la cantidad de productos usando variantes, los clientes compran
-            más en tiendas con menos productos!
+            más en tiendas con menos productos.
           </Text>
         </Stack>
         <Link
