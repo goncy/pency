@@ -6,7 +6,7 @@ import Modal, {ModalBody, ModalHeader, ModalTitle, ModalFooter} from ".";
 
 export const full = () => (
   <Modal>
-    <ModalHeader onBack={action("back")} onClose={action("close")} />
+    <ModalHeader onClose={action("close")} />
     <ModalBody>
       <ModalTitle>{faker.company.companyName()}</ModalTitle>
       {faker.lorem.paragraphs(3)}
