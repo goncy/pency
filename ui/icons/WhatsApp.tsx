@@ -1,7 +1,7 @@
 import React from "react";
 import {Box, BoxProps} from "@chakra-ui/core";
 
-const WhatsappIcon: React.FC<BoxProps> = (props) => {
+const WhatsAppIcon: React.FC<BoxProps> = (props) => {
   return (
     <Box fill="currentColor" {...props}>
       <svg height="100%" viewBox="0 0 24 24" width="100%" xmlns="http://www.w3.org/2000/svg">
@@ -14,4 +14,4 @@ const WhatsappIcon: React.FC<BoxProps> = (props) => {
   );
 };
 
-export default WhatsappIcon;
+export default WhatsAppIcon;
