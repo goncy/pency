@@ -6,16 +6,21 @@ import "firebase/analytics";
 
 import {FirebaseService} from "./types";
 
+function getApp() {
+  // Get a string based on pathname
+  return window.location.pathname.replace(/\//g, "");
+}
+
 export default new Proxy(
   {
     get database() {
-      return firebase.app(window.location.pathname).firestore();
+      return firebase.app(getApp()).firestore();
     },
     get analytics() {
-      return firebase.app(window.location.pathname).analytics();
+      return firebase.app(getApp()).analytics();
     },
     get auth() {
-      return firebase.app(window.location.pathname).auth();
+      return firebase.app(getApp()).auth();
     },
     providers: {
       get google() {
@@ -37,7 +42,7 @@ export default new Proxy(
             appId: process.env.FIREBASE_APP_ID,
             measurementId: process.env.FIREBASE_MEASUREMENT_ID,
           },
-          window.location.pathname,
+          getApp(),
         );
       }
 
