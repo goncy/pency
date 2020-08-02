@@ -7,6 +7,7 @@ import schemas from "./schemas";
 import {canAddProduct} from "./selectors";
 import ProductLimitWarning from "./components/ProductLimitWarning";
 
+import reporter from "~/reporting";
 import {useToast} from "~/hooks/toast";
 import {useTenant} from "~/tenant/hooks";
 import {sortBy} from "~/selectors/sort";
@@ -41,11 +42,19 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
     onClose: closeLimitWarning,
   } = useDisclosure();
 
-  function create(product: Product) {
+  async function create(product: Product) {
     if (!canAddProduct(tenant.tier, products.length)) {
-      showLimitWarning();
+      // Report to sentry
+      reporter.message("Se alcanzó el límite de productos para tu plan", {
+        origin: "ProductContext",
+        extras: {
+          slug: tenant.slug,
+          tier: tenant.tier,
+        },
+      });
 
-      return Promise.reject("Se alcanzó el límite de productos para tu plan");
+      // Early return
+      return showLimitWarning();
     }
 
     const casted = schemas.client.create.cast(product);
