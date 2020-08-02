@@ -55,7 +55,8 @@ const FAQ = () => (
             <br />
             Pronto sumaremos un Plan Comercial con nuevas funcionalidades para seguir potenciando tu
             negocio.
-            <br />
+          </Question>
+          <Question title="¿Ofrecen soluciones para grandes empresas?">
             Para empresas grandes y cadenas ofrecemos una integración personalizada de nuestra
             plataforma. Pueden escribirnos a <Mail />.
           </Question>
