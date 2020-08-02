@@ -15,7 +15,7 @@ export default {
       case "high": {
         return sharp(image)
           .flatten({background: {r: 255, g: 255, b: 255}})
-          .jpeg({quality: 20})
+          .jpeg({quality: 25})
           .resize(1200, 630, {fit: "inside"})
           .toBuffer();
       }
@@ -25,7 +25,7 @@ export default {
       default: {
         return sharp(image)
           .flatten({background: {r: 255, g: 255, b: 255}})
-          .jpeg({quality: 20})
+          .jpeg({quality: 25})
           .resize(500, 500, {fit: "inside"})
           .toBuffer();
       }
