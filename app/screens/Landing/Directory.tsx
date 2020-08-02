@@ -37,8 +37,8 @@ const Directory: React.FC<Props> = ({tenants}) => {
 
           // If we have coordinates for this tenant
           if (location?.coordinates) {
-            // Return true if the distance is below 25 KM
-            return getDistance(coordinates, location.coordinates) <= 25;
+            // Return true if the distance is below 5 KM
+            return getDistance(coordinates, location.coordinates) <= 5;
           }
 
           // Otherwise return false
@@ -121,9 +121,7 @@ const Directory: React.FC<Props> = ({tenants}) => {
             lineHeight="130%"
             maxWidth={{base: "auto", sm: "3xl", xl: "5xl"}}
           >
-            {coordinates
-              ? t("landing.directory.title.withLocation")
-              : t("landing.directory.title.withoutLocation")}
+            {t("landing.directory.title")}
           </Text>
           <Text
             as="h4"

@@ -28,7 +28,7 @@ const mock = {
         highlight: faker.lorem.words(10),
         tier: "free",
         hook: "http://some.url",
-        pixel: 1000,
+        pixel: "1000",
         country: "AR",
         flags: ["mercadopago", "bulk", "advanced", "note"],
         location: {

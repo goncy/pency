@@ -12,7 +12,7 @@ const Mail = () => (
     fontWeight={500}
     href={`mailto:${process.env.MANTAINER_EMAIL}?subject=Consulta por la tienda`}
   >
-    hola@pency.app
+    ayuda@pency.app
   </Link>
 );
 
@@ -50,11 +50,15 @@ const FAQ = () => (
             sociales y el WhatsApp de tu negocio.
           </Question>
           <Question title="¿Cuál es el costo de crear una tienda Pency?">
-            Para pequeñas y medianas empresas crear su tienda online es totalmente gratis. Sin
-            costos de alta, mantenimiento ni comisiones por venta.
+            Contamos con un Plan Emprendedor que te permite crear tu tienda personalizada, cargar
+            hasta 100 productos y tomar pedidos ilimitados COMPLETAMENTE GRATIS.
             <br />
-            Si se trata de empresas grandes y cadenas ofrecemos una integración personalizada de
-            nuestra plataforma. Pueden escribirnos a <Mail />.
+            Pronto sumaremos un Plan Comercial con nuevas funcionalidades para seguir potenciando tu
+            negocio.
+          </Question>
+          <Question title="¿Ofrecen soluciones para grandes empresas?">
+            Para empresas grandes y cadenas ofrecemos una integración personalizada de nuestra
+            plataforma. Pueden escribirnos a <Mail />.
           </Question>
           <Question title="¿Cómo agrego productos a mi tienda?">
             En el panel Admin vas a encontrar el botón “Agregar producto”. Ahí, podés colocar

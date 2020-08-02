@@ -21,15 +21,19 @@ const Tier: React.FC<Props> = ({tier, expiration}) => {
   const remainingDays = dates.daysDiffFromNow(expiration);
 
   return (
-    <Stack spacing={1}>
+    <Stack spacing={2}>
       <Stack isInline alignItems="baseline">
         <Text fontWeight={500}>Plan:</Text>
         <Badge variantColor={COLORS[tier]}>{t(`admin.home.tiers.${tier}.name`)}</Badge>
       </Stack>
-      <Stack>
+      <Stack spacing={1}>
         <Text fontSize="sm">
           <b>Cambios reflejados en la tienda: </b>
           {t(`admin.home.tiers.${tier}.features.update`)}
+        </Text>
+        <Text fontSize="sm">
+          <b>Cantidad máxima de productos: </b>
+          {t(`admin.home.tiers.${tier}.features.products`)}
         </Text>
       </Stack>
       {remainingDays > 0 && (

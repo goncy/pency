@@ -129,7 +129,7 @@ export default {
       flags: flags.nullable(),
       layout: layout.nullable(),
       hook: yup.string().nullable(),
-      pixel: yup.number().nullable(),
+      pixel: yup.string().nullable(),
       mercadopago: mercadopago.lazy,
     }),
     update: yup.object<Partial<ServerTenant>>({
@@ -157,7 +157,7 @@ export default {
       flags: flags.nullable(),
       layout: layout.nullable(),
       hook: yup.string().nullable(),
-      pixel: yup.number().nullable(),
+      pixel: yup.string().nullable(),
       mercadopago: mercadopago.schema.nullable().strip(true),
       products: products.lazy,
     }),
@@ -187,7 +187,7 @@ export default {
       layout: layout.default(DEFAULT_CLIENT_TENANT.layout),
       flags: flags.default(DEFAULT_CLIENT_TENANT.flags),
       hook: yup.string(),
-      pixel: yup.number(),
+      pixel: yup.string(),
       mercadopago: mercadopago.schema.default(DEFAULT_CLIENT_TENANT.mercadopago),
     }),
     mercadopago: yup.object<Pick<ServerTenant, "mercadopago">>({
@@ -225,7 +225,7 @@ export default {
       fields: fields.default(DEFAULT_CLIENT_TENANT.fields).nullable(),
       flags: flags.default(DEFAULT_CLIENT_TENANT.flags).nullable(),
       hook: yup.string().default("").nullable(),
-      pixel: yup.number().default(0).nullable(),
+      pixel: yup.string().default("").nullable(),
       mercadopago: yup
         .boolean()
         .transform((mercadopago) => Boolean(mercadopago?.token))
@@ -256,7 +256,7 @@ export default {
       flags: flags.nullable(),
       layout: layout.nullable(),
       hook: yup.string().nullable(),
-      pixel: yup.number().nullable(),
+      pixel: yup.string().nullable(),
       mercadopago: yup.boolean().strip(true),
       products: products.lazy,
     }),
@@ -286,7 +286,7 @@ export default {
       layout: layout.default(DEFAULT_CLIENT_TENANT.layout),
       flags: flags.default(DEFAULT_CLIENT_TENANT.flags),
       hook: yup.string(),
-      pixel: yup.number(),
+      pixel: yup.string(),
       mercadopago: yup.boolean().default(DEFAULT_CLIENT_TENANT.mercadopago),
     }),
   },

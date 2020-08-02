@@ -8,6 +8,8 @@ interface Props extends InputProps {
   name: string;
 }
 
-const PixelInput: React.FC<Props> = ({register, ...props}) => <Input ref={register} {...props} />;
+const PixelInput: React.FC<Props> = ({register, ...props}) => (
+  <Input ref={register} inputMode="numeric" type="number" {...props} />
+);
 
 export default PixelInput;

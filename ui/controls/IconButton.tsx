@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, ButtonProps, Box} from "@chakra-ui/core";
 
-interface Props extends Omit<ButtonProps, "leftIcon" | "rightIcon" | "children"> {
+export interface Props extends Omit<ButtonProps, "leftIcon" | "rightIcon" | "children"> {
   leftIcon?: React.ElementType;
   rightIcon?: React.ElementType;
   children?: React.ReactNode;

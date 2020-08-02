@@ -1,12 +1,13 @@
 import * as yup from "yup";
 
-const schema = yup
-  .number()
-  .typeError("Ingresá solamente el id del pixel, el cual consta solo de números.");
+const schema = yup.lazy((value) =>
+  value
+    ? yup.number().typeError("Ingresá solamente el id del pixel, el cual consta solo de números.")
+    : yup.string().equals([""]),
+);
 
 export default function validator(id: number) {
   try {
-    // Check if pixel is valid
     schema.validateSync(id);
 
     // Return true if no errors were found

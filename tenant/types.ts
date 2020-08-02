@@ -29,7 +29,7 @@ export interface ServerTenant {
   fields?: Field[];
   flags?: string[];
   hook?: string;
-  pixel?: number;
+  pixel?: string;
   createdAt: number;
   updatedAt: number;
   layout?: "landscape" | "portrait";
