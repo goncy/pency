@@ -1007,6 +1007,7 @@ describe("schemas", () => {
           fields: [],
           flags: ["1", "2", "3"],
           hook: "",
+          pixel: "",
           instagram: "",
           keywords: "",
           location: DEFAULT_CLIENT_TENANT.location,
