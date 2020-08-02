@@ -127,8 +127,8 @@ export default {
     const result = await db.collection<ServerTenant>("tenants").updateOne(
       {id: tenant},
       {
-        updatedAt: dates.now,
         $set: {
+          updatedAt: dates.now,
           products: updated,
         },
       },

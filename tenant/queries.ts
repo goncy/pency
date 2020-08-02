@@ -22,6 +22,11 @@ export default {
       title: {
         $ne: DEFAULT_CLIENT_TENANT.title,
       },
+      // Non free tiers
+      tier: {
+        $exists: true,
+        $nin: ["free", ""],
+      },
       // Changed description
       description: {
         $ne: DEFAULT_CLIENT_TENANT.description,
