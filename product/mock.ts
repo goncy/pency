@@ -12,6 +12,8 @@ export default {
       title: faker.commerce.productName(),
       price: Number(faker.commerce.price()),
       originalPrice: Number(faker.commerce.price()),
+      createdAt: faker.random.number(999999999),
+      updatedAt: faker.random.number(999999999),
       type: "available",
       featured: true,
       options: [],

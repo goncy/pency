@@ -17,6 +17,11 @@ module.exports = withSourceMaps({
       MERCADOPAGO_CLIENT_ID: process.env.MERCADOPAGO_CLIENT_ID,
       MERCADOPAGO_CLIENT_SECRET: process.env.MERCADOPAGO_CLIENT_SECRET,
       APP_URL: process.env.APP_URL,
+      AWS_IMAGES_BUCKET:process.env.AWS_IMAGES_BUCKET,
+      AWS_IMAGES_ID:process.env.AWS_IMAGES_ID,
+      AWS_IMAGES_SECRET:process.env.AWS_IMAGES_SECRET,
+      DB_URL:process.env.DB_URL,
+      DB_NAME:process.env.DB_NAME,
       ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
       ENCRYPTION_IV: process.env.ENCRYPTION_IV,
       SECRET: process.env.SECRET,
@@ -24,14 +29,5 @@ module.exports = withSourceMaps({
       SENTRY_DSN: process.env.SENTRY_DSN,
       MANTAINER_EMAIL: process.env.MANTAINER_EMAIL,
       MANTAINER_PHONE: process.env.MANTAINER_PHONE,
-  },
-  async redirects() {
-    return [
-      {
-        source: "/((?!maintenance).*)",
-        destination: "/maintenance.html",
-        permanent: false
-      },
-    ]
-  },
+  }
 })

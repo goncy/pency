@@ -9,10 +9,12 @@ export const DEFAULT_CLIENT_TENANT: Partial<ClientTenant> = {
   phone: "5491173694572",
   color: "teal",
   createdAt: 1594090800000,
+  updatedAt: 1594090800000,
   tierUntil: 1594090800000,
   layout: "portrait",
   flags: [],
   fields: [],
+  products: [],
   mercadopago: false,
   location: null,
 };

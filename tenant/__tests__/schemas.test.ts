@@ -1,5 +1,4 @@
 import schemas from "../schemas";
-import {ClientTenant} from "../types";
 import {DEFAULT_CLIENT_TENANT} from "../constants";
 
 describe("schemas", () => {
@@ -47,6 +46,7 @@ describe("schemas", () => {
 
       it("PENCY-2Z - Cache case", () => {
         const actual = {
+          products: [],
           category: "jewelry-watches",
           slug: "michelejoyas",
           layout: DEFAULT_CLIENT_TENANT.layout,
@@ -111,6 +111,7 @@ describe("schemas", () => {
 
       it("PENCY-30 - Cache case", () => {
         const actual = {
+          products: [],
           category: "other",
           slug: "unalome",
           layout: "landscape",
@@ -144,6 +145,7 @@ describe("schemas", () => {
 
       it("PENCY-31 - Cache case", () => {
         const actual = {
+          products: [],
           instagram: "sexshopsentidos",
           color: "red",
           twitter: "",
@@ -177,6 +179,7 @@ describe("schemas", () => {
 
       it("PENCY-39 - Cache case", () => {
         const actual = {
+          products: [],
           category: "clothes-accessories",
           slug: "paroditas",
           layout: DEFAULT_CLIENT_TENANT.layout,
@@ -235,6 +238,7 @@ describe("schemas", () => {
 
       it("PENCY-40 - Cache case", () => {
         const actual = {
+          products: [],
           description: DEFAULT_CLIENT_TENANT.description,
           title: DEFAULT_CLIENT_TENANT.title,
           color: "cyan",
@@ -254,6 +258,7 @@ describe("schemas", () => {
 
       it("PENCY-5P - Cache case", () => {
         const actual = {
+          products: [],
           color: "yellow",
           logo:
             "https://res.cloudinary.com/goncy/image/upload/v1587397932/pency/ab40esgl6xvdbvfomggr.png",
@@ -391,10 +396,12 @@ describe("schemas", () => {
           location: DEFAULT_CLIENT_TENANT.location,
           tier: DEFAULT_CLIENT_TENANT.tier,
           createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          updatedAt: DEFAULT_CLIENT_TENANT.createdAt,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           layout: DEFAULT_CLIENT_TENANT.layout,
           mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           phone: DEFAULT_CLIENT_TENANT.phone,
+          products: DEFAULT_CLIENT_TENANT.products,
           title: DEFAULT_CLIENT_TENANT.title,
           flags: DEFAULT_CLIENT_TENANT.flags,
         };
@@ -406,6 +413,7 @@ describe("schemas", () => {
         const actual = {
           slug: "goncy",
           createdAt: 1,
+          updatedAt: 1,
         };
         const expected = {
           slug: "goncy",
@@ -417,9 +425,11 @@ describe("schemas", () => {
           tier: DEFAULT_CLIENT_TENANT.tier,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           createdAt: 1,
+          updatedAt: 1,
           layout: DEFAULT_CLIENT_TENANT.layout,
           mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           phone: DEFAULT_CLIENT_TENANT.phone,
+          products: DEFAULT_CLIENT_TENANT.products,
           title: DEFAULT_CLIENT_TENANT.title,
           flags: DEFAULT_CLIENT_TENANT.flags,
         };
@@ -441,10 +451,12 @@ describe("schemas", () => {
           location: DEFAULT_CLIENT_TENANT.location,
           tier: DEFAULT_CLIENT_TENANT.tier,
           createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          updatedAt: DEFAULT_CLIENT_TENANT.createdAt,
           tierUntil: 1,
           layout: DEFAULT_CLIENT_TENANT.layout,
           mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           phone: DEFAULT_CLIENT_TENANT.phone,
+          products: DEFAULT_CLIENT_TENANT.products,
           title: DEFAULT_CLIENT_TENANT.title,
           flags: DEFAULT_CLIENT_TENANT.flags,
         };
@@ -472,8 +484,10 @@ describe("schemas", () => {
           keywords: DEFAULT_CLIENT_TENANT.keywords,
           mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
           phone: DEFAULT_CLIENT_TENANT.phone,
+          products: DEFAULT_CLIENT_TENANT.products,
           tier: DEFAULT_CLIENT_TENANT.tier,
           createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          updatedAt: DEFAULT_CLIENT_TENANT.createdAt,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           title: DEFAULT_CLIENT_TENANT.title,
           location: {
@@ -531,6 +545,7 @@ describe("schemas", () => {
           tier: DEFAULT_CLIENT_TENANT.tier,
           color: DEFAULT_CLIENT_TENANT.color,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
         };
         const expected = {
           ...actual,
@@ -541,6 +556,7 @@ describe("schemas", () => {
           facebook: "",
           tier: DEFAULT_CLIENT_TENANT.tier,
           createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          updatedAt: DEFAULT_CLIENT_TENANT.createdAt,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           fields: [],
           flags: DEFAULT_CLIENT_TENANT.flags,
@@ -568,6 +584,7 @@ describe("schemas", () => {
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           color: DEFAULT_CLIENT_TENANT.color,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
         };
         const expected = {
           ...actual,
@@ -579,6 +596,7 @@ describe("schemas", () => {
           tier: DEFAULT_CLIENT_TENANT.tier,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          updatedAt: DEFAULT_CLIENT_TENANT.createdAt,
           fields: [],
           flags: DEFAULT_CLIENT_TENANT.flags,
           highlight: "",
@@ -609,12 +627,14 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
           description: "",
           tier: DEFAULT_CLIENT_TENANT.tier,
           createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          updatedAt: DEFAULT_CLIENT_TENANT.createdAt,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           facebook: "",
           fields: [],
@@ -653,11 +673,13 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
           tier: DEFAULT_CLIENT_TENANT.tier,
           createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          updatedAt: DEFAULT_CLIENT_TENANT.createdAt,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           description: "",
           facebook: "",
@@ -704,6 +726,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -715,6 +738,7 @@ describe("schemas", () => {
           pixel: "",
           tier: DEFAULT_CLIENT_TENANT.tier,
           createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          updatedAt: DEFAULT_CLIENT_TENANT.createdAt,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           instagram: "",
           keywords: "",
@@ -749,6 +773,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -760,6 +785,7 @@ describe("schemas", () => {
           pixel: "",
           tier: DEFAULT_CLIENT_TENANT.tier,
           createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          updatedAt: DEFAULT_CLIENT_TENANT.createdAt,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           instagram: "",
           keywords: "",
@@ -787,6 +813,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -795,6 +822,7 @@ describe("schemas", () => {
           fields: [],
           tier: DEFAULT_CLIENT_TENANT.tier,
           createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          updatedAt: DEFAULT_CLIENT_TENANT.createdAt,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           flags: ["1", "2", "3"],
           hook: "",
@@ -830,6 +858,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -842,6 +871,7 @@ describe("schemas", () => {
           instagram: "",
           tier: DEFAULT_CLIENT_TENANT.tier,
           createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          updatedAt: DEFAULT_CLIENT_TENANT.updatedAt,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           keywords: "",
           location: DEFAULT_CLIENT_TENANT.location,
@@ -872,6 +902,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -880,6 +911,7 @@ describe("schemas", () => {
           tier: DEFAULT_CLIENT_TENANT.tier,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           createdAt: DEFAULT_CLIENT_TENANT.createdAt,
+          updatedAt: DEFAULT_CLIENT_TENANT.createdAt,
           fields: [],
           flags: ["1", "2", "3"],
           hook: "",
@@ -905,6 +937,7 @@ describe("schemas", () => {
           phone: 1144444444,
           highlight: "Some highlight",
           createdAt: 1,
+          updatedAt: 1,
           flags: [1, 2, 3],
           mercadopago: {
             expiration: null,
@@ -915,6 +948,7 @@ describe("schemas", () => {
         const expected = {
           ...actual,
           phone: "1144444444",
+          products: DEFAULT_CLIENT_TENANT.products,
           banner: "",
           category: "",
           country: DEFAULT_CLIENT_TENANT.country,
@@ -923,6 +957,7 @@ describe("schemas", () => {
           tier: DEFAULT_CLIENT_TENANT.tier,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
           createdAt: 1,
+          updatedAt: 1,
           fields: [],
           flags: ["1", "2", "3"],
           hook: "",
@@ -939,106 +974,51 @@ describe("schemas", () => {
 
         expect(schemas.client.fetch.cast(actual)).toEqual(expected);
       });
-    });
 
-    describe("relevant", () => {
-      it("should match when relevant fields are required", () => {
-        const actual: ClientTenant = {
+      it("should not update updated at if present", () => {
+        const actual = {
           id: "some-id",
           slug: "some-slug",
-          createdAt: 111111,
-          category: "some-category",
-          tier: "preferential",
-          tierUntil: +new Date() + 100000,
           color: DEFAULT_CLIENT_TENANT.color,
+          phone: 1144444444,
+          highlight: "Some highlight",
+          createdAt: 1,
+          updatedAt: 1,
+          flags: [1, 2, 3],
+          mercadopago: {
+            expiration: null,
+            refresh: "",
+            token: "",
+          },
+        };
+        const expected = {
+          ...actual,
           phone: "1144444444",
-          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
-          logo: "some-logo",
-          description: "some description",
-          title: "some title",
-        };
-        const expected = true;
-
-        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
-      });
-
-      it("should not match when logo is not provided", () => {
-        const actual: ClientTenant = {
-          id: "some-id",
-          slug: "some-slug",
+          products: DEFAULT_CLIENT_TENANT.products,
+          banner: "",
+          category: "",
+          country: DEFAULT_CLIENT_TENANT.country,
+          description: "",
+          facebook: "",
           tier: DEFAULT_CLIENT_TENANT.tier,
           tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
-          createdAt: 111111,
-          category: "some-category",
+          createdAt: 1,
+          updatedAt: 1,
+          fields: [],
+          flags: ["1", "2", "3"],
+          hook: "",
+          pixel: "",
+          instagram: "",
+          keywords: "",
+          location: DEFAULT_CLIENT_TENANT.location,
+          layout: DEFAULT_CLIENT_TENANT.layout,
+          logo: "",
           mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
-          color: DEFAULT_CLIENT_TENANT.color,
-          phone: "1144444444",
-          description: "some description",
-          title: "some title",
+          title: "",
+          twitter: "",
         };
-        const expected = false;
 
-        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
-      });
-
-      it("should not match when number is 5491173694572", () => {
-        const actual: ClientTenant = {
-          id: "some-id",
-          slug: "some-slug",
-          tier: DEFAULT_CLIENT_TENANT.tier,
-          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
-          createdAt: 111111,
-          category: "some-category",
-          color: DEFAULT_CLIENT_TENANT.color,
-          phone: DEFAULT_CLIENT_TENANT.phone,
-          logo: "some-logo",
-          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
-          description: "some description",
-          title: "some title",
-        };
-        const expected = false;
-
-        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
-      });
-
-      it("should not match when description is Armá tu tienda y recibí los pedidos via WhatsApp", () => {
-        const actual: ClientTenant = {
-          id: "some-id",
-          slug: "some-slug",
-          category: "some-category",
-          createdAt: 111111,
-          color: DEFAULT_CLIENT_TENANT.color,
-          tier: DEFAULT_CLIENT_TENANT.tier,
-          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
-          phone: DEFAULT_CLIENT_TENANT.phone,
-          logo: "some-logo",
-          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
-          description: DEFAULT_CLIENT_TENANT.description,
-          title: "some title",
-        };
-        const expected = false;
-
-        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
-      });
-
-      it("should not match when title is Pency - Tu tienda online fácil", () => {
-        const actual: ClientTenant = {
-          id: "some-id",
-          slug: "some-slug",
-          category: "some-category",
-          createdAt: 111111,
-          color: DEFAULT_CLIENT_TENANT.color,
-          tier: DEFAULT_CLIENT_TENANT.tier,
-          tierUntil: DEFAULT_CLIENT_TENANT.tierUntil,
-          phone: DEFAULT_CLIENT_TENANT.phone,
-          logo: "some-logo",
-          description: "description",
-          mercadopago: DEFAULT_CLIENT_TENANT.mercadopago,
-          title: DEFAULT_CLIENT_TENANT.title,
-        };
-        const expected = false;
-
-        expect(schemas.client.relevant.isValidSync(actual)).toEqual(expected);
+        expect(schemas.client.fetch.cast(actual)).toEqual(expected);
       });
     });
   });

@@ -12,11 +12,10 @@ import {Provider as AnalyticsProvider} from "~/analytics/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
 import LoadingScreen from "~/app/screens/Loading";
-import tenantApi from "~/tenant/api/server";
-import productApi from "~/product/api/server";
-import tenantSchemas from "~/tenant/schemas";
-import productSchemas from "~/product/schemas";
+import api from "~/tenant/api/server";
+import schemas from "~/tenant/schemas";
 import {getRevalidationTime} from "~/tenant/selectors";
+import queries from "~/tenant/queries";
 
 interface Props {
   tenant: ClientTenant;
@@ -62,16 +61,10 @@ const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate, nextUpdate}) 
 export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
   try {
     // Get the tenant for this page slug
-    const tenant: ClientTenant = await tenantApi
+    const {products, ...tenant}: ClientTenant = await api
       .fetch(slug as ClientTenant["slug"])
       // Cast it as a client tenant
-      .then((tenant) => tenantSchemas.client.fetch.cast(tenant));
-
-    // Get its products
-    const products: Product[] = await productApi
-      .list(tenant.id)
-      // Cast all products for client
-      .then((products) => products.map((product) => productSchemas.client.fetch.cast(product)));
+      .then((tenant) => schemas.client.fetch.cast(tenant));
 
     // Get the revalidation time
     const revalidationTime = getRevalidationTime(tenant.tier);
@@ -100,8 +93,19 @@ export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  // Get slugs from db
+  const slugs: string[] = await api
+    .list(queries.relevant, {
+      // Get just relevant fields
+      slug: 1,
+    })
+    // Map slugs
+    .then((tenants) => tenants.map((tenant) => tenant.slug));
+
   return {
-    paths: [],
+    // Map slugs as params
+    paths: slugs.map((slug) => ({params: {slug}})),
+    // Build not relevant ones on demand
     fallback: true,
   };
 };

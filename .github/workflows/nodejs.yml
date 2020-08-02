@@ -26,10 +26,12 @@ jobs:
 
       GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
 
-      CLOUDINARY_CLOUD: ${{ secrets.CLOUDINARY_CLOUD }}
-      CLOUDINARY_FOLDER: ${{ secrets.CLOUDINARY_FOLDER }}
-      CLOUDINARY_PRESET_LOW: ${{ secrets.CLOUDINARY_PRESET_LOW }}
-      CLOUDINARY_PRESET_HIGH: ${{ secrets.CLOUDINARY_PRESET_HIGH }}
+      DB_URL: ${{ secrets.DB_URL }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+
+      AWS_IMAGES_BUCKET: ${{ secrets.AWS_IMAGES_BUCKET }}
+      AWS_IMAGES_SECRET: ${{ secrets.AWS_IMAGES_SECRET }}
+      AWS_IMAGES_ID: ${{ secrets.AWS_IMAGES_ID }}
 
       MERCADOPAGO_CLIENT_ID: ${{ secrets.MERCADOPAGO_CLIENT_ID }}
       MERCADOPAGO_CLIENT_SECRET: ${{ secrets.MERCADOPAGO_CLIENT_SECRET }}

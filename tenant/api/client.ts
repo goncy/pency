@@ -6,7 +6,7 @@ export default {
   update: (tenant: ClientTenant) =>
     fetch(
       "PATCH",
-      `/api/tenant/${tenant.slug}`,
+      `/api/tenant/${tenant.id}`,
       {tenant},
       {
         Authorization: window.localStorage.getItem("token"),
