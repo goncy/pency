@@ -1,3 +1,5 @@
+import {ParsedUrlQuery} from "querystring";
+
 import React from "react";
 import {GetServerSideProps} from "next";
 
@@ -15,6 +17,10 @@ import schemas from "~/tenant/schemas";
 interface Props {
   tenant: ClientTenant;
   products: Product[];
+}
+
+interface Params extends ParsedUrlQuery {
+  slug: ClientTenant["slug"];
 }
 
 const AdminRoute: React.FC<Props> = ({tenant, products}) => {
@@ -35,11 +41,14 @@ const AdminRoute: React.FC<Props> = ({tenant, products}) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps = async function ({params: {slug}, res}) {
+export const getServerSideProps: GetServerSideProps<any, Params> = async function ({
+  params: {slug},
+  res,
+}) {
   try {
     // Get the tenant for this page slug
     const {products, ...tenant} = await api
-      .fetch(slug as ClientTenant["slug"])
+      .fetch({slug})
       // Cast it as a client tenant
       .then((tenant) => schemas.client.fetch.cast(tenant, {stripUnknown: true}));
 

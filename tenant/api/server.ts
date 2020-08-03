@@ -1,3 +1,5 @@
+import {FilterQuery} from "mongodb";
+
 import {ServerTenant, ClientTenant} from "../types";
 import schemas from "../schemas";
 
@@ -40,12 +42,15 @@ export default {
     // Return the created tenant
     return result;
   },
-  fetch: async (slug: ServerTenant["slug"]): Promise<ServerTenant> => {
+  fetch: async (
+    query: FilterQuery<ServerTenant> = {},
+    project: Record<string, number> = {},
+  ): Promise<ServerTenant> => {
     // Connect to DB
     const db = await connection();
 
     // Find the tenant
-    const tenant = await db.collection<ServerTenant>("tenants").findOne({slug});
+    const tenant = await db.collection<ServerTenant>("tenants").findOne(query, project);
 
     // If we don't have a match
     if (!tenant) {
@@ -60,8 +65,8 @@ export default {
     return casted;
   },
   list: async (
-    query: Record<string, any> = {},
-    project: Record<string, any> = {},
+    query: FilterQuery<ServerTenant> = {},
+    project: Record<string, number> = {},
   ): Promise<ServerTenant[]> => {
     // Connect to DB
     const db = await connection();

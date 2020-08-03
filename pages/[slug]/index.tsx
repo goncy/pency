@@ -1,3 +1,5 @@
+import {ParsedUrlQuery} from "querystring";
+
 import React from "react";
 import {GetStaticProps, GetStaticPaths} from "next";
 import {useRouter} from "next/router";
@@ -22,6 +24,10 @@ interface Props {
   products: Product[];
   lastUpdate: number;
   nextUpdate: number;
+}
+
+interface Params extends ParsedUrlQuery {
+  slug: ClientTenant["slug"];
 }
 
 const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate, nextUpdate}) => {
@@ -58,11 +64,11 @@ const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate, nextUpdate}) 
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({params: {slug}}) => {
+export const getStaticProps: GetStaticProps<any, Params> = async ({params: {slug}}) => {
   try {
     // Get the tenant for this page slug
     const {products, ...tenant}: ClientTenant = await api
-      .fetch(slug as ClientTenant["slug"])
+      .fetch({slug})
       // Cast it as a client tenant
       .then((tenant) => schemas.client.fetch.cast(tenant));
 

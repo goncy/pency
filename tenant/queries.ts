@@ -1,8 +1,12 @@
+import {FilterQuery} from "mongodb";
+
+import {ServerTenant} from "./types";
+
 import dates from "~/utils/date";
 import {DEFAULT_CLIENT_TENANT} from "~/tenant/constants";
 
 export default {
-  get relevant() {
+  get relevant(): FilterQuery<ServerTenant> {
     return {
       // Has a category
       category: {
@@ -25,7 +29,7 @@ export default {
       // Non free tiers
       tier: {
         $exists: true,
-        $nin: ["free", ""],
+        $nin: ["free"],
       },
       // Changed description
       description: {
