@@ -72,7 +72,7 @@ const AdminScreen: React.FC = () => {
                 Mercado Pago
               </Link>
             )}
-            {tenant.flags?.includes("advanced") && (
+            {tenant.tier === "commercial" && (
               <Link
                 _hover={{color: "primary.500"}}
                 color="gray.600"
