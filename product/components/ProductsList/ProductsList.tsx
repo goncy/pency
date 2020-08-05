@@ -24,10 +24,11 @@ interface Props extends StackProps {
 
 const ProductsList: React.FC<Props> = ({
   title = null,
+  isPreviewEnabled = false,
   products,
   onEdit,
   onRemove,
-  isPreviewEnabled = false,
+  layout,
   ...props
 }) => {
   // If it doesn't have a title, show it
@@ -86,9 +87,9 @@ const ProductsList: React.FC<Props> = ({
         </Box>
       )}
       {isToggled && previewMode === "card" && (
-        <ProductsGrid layout="portrait">
+        <ProductsGrid layout={layout}>
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id} layout={layout} product={product} />
           ))}
         </ProductsGrid>
       )}

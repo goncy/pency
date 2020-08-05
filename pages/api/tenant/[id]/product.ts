@@ -139,11 +139,21 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               // As this is not just un update operation we have to return the products because it includes ids for created ones
               .then(() => res.status(200).json(casted))
               // If something failed, return a 400
-              .catch(() => res.status(400).end("Hubo un error actualizando los productos"))
+              .catch((error) =>
+                res.status(400).json({
+                  message: "Hubo un error actualizando los productos",
+                  details: error,
+                }),
+              )
           );
         })
         // If the session is not valid, return a 401
-        .catch(() => res.status(401).end("La sesión expiró, volvé a iniciar sesión para continuar"))
+        .catch((error) =>
+          res.status(401).json({
+            message: "La sesión expiró, volvé a iniciar sesión para continuar",
+            details: error,
+          }),
+        )
     );
   }
 

@@ -26,7 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     try {
       // We get the tenant
-      const tenant = await tenantApi.fetch(slug);
+      const tenant = await tenantApi.fetch({slug});
 
       // If we have a mercadopago token...
       if (tenant.mercadopago?.token) {
