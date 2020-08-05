@@ -1,5 +1,5 @@
 import React from "react";
-import {Stack} from "@chakra-ui/core";
+import {Stack, PseudoBox} from "@chakra-ui/core";
 import {useForm, Controller, FieldError} from "react-hook-form";
 
 import {Product} from "../../types";
@@ -40,27 +40,28 @@ const ProductsForm: React.FC<Props> = ({children, defaultValues, onSubmit}) => {
     submit: submit(handleSubmit),
     form: (
       <form onSubmit={submit(handleSubmit)}>
-        <Stack overflowY="auto" paddingLeft={1} spacing={6}>
+        <Stack overflowY="auto" spacing={0}>
           {defaultValues.map((product, index) => {
             const error = ((errors.products?.[index] as unknown) as FieldError)?.message;
 
             return (
-              <FormControl
+              <PseudoBox
                 key={product.id || index}
+                _first={{borderTopWidth: 1}}
                 borderBottomWidth={1}
-                name={`products[${index}]`}
-                paddingBottom={6}
               >
-                <Controller
-                  as={ProductInput}
-                  control={control}
-                  error={error}
-                  name={`products[${index}]`}
-                  rules={{
-                    validate: ProductInputValidator,
-                  }}
-                />
-              </FormControl>
+                <FormControl name={`products[${index}]`}>
+                  <Controller
+                    as={ProductInput}
+                    control={control}
+                    error={error}
+                    name={`products[${index}]`}
+                    rules={{
+                      validate: ProductInputValidator,
+                    }}
+                  />
+                </FormControl>
+              </PseudoBox>
             );
           })}
         </Stack>

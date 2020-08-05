@@ -1,11 +1,11 @@
 import React from "react";
-import {PseudoBox, Input, ButtonProps} from "@chakra-ui/core";
+import * as yup from "yup";
+import {Box, Input, ButtonProps} from "@chakra-ui/core";
 
 import {fromCSV} from "~/utils/csv";
 import {useToast} from "~/hooks/toast";
 import {Product} from "~/product/types";
 import schemas from "~/product/schemas";
-import IconButton from "~/ui/controls/IconButton";
 
 interface Props extends Omit<ButtonProps, "onChange" | "leftIcon" | "rightIcon" | "children"> {
   onChange?: (products: Partial<Product>[]) => void;
@@ -15,7 +15,15 @@ interface Props extends Omit<ButtonProps, "onChange" | "leftIcon" | "rightIcon" 
   isCollapsable?: boolean;
 }
 
-const ProductsCSVInput: React.FC<Props> = ({onChange, children, ...props}) => {
+// CSV Schema
+const schema = yup.object<Partial<Product>>({
+  category: yup.string().trim().required("La categoría es requerida"),
+  description: yup.string().default("").nullable(),
+  price: yup.number().typeError("El precio debe ser un número").required("El precio es requerido"),
+  title: yup.string().required("El título es requerido"),
+});
+
+const ProductsCSVInput: React.FC<Props> = ({onChange, children}) => {
   // Track loading state
   const [isLoading, setLoading] = React.useState(false);
 
@@ -40,66 +48,29 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children, ...props}) => {
       const rows = await fromCSV<Partial<Product>>(file);
 
       // Cast data
-      const data: Partial<Product>[] = rows.map((product) => schemas.csv.cast(product));
+      const data: Product[] = rows.map((product) => schemas.client.create.cast(product));
 
-      // Store summary
-      const summary = {
-        resolved: [],
-        rejected: [],
-      };
-
-      // Store products
-      const value = data.map((product) => {
-        // Cast it
-        const casted = schemas.client.create.cast(product);
-
-        // If its valid
-        if (schemas.client.create.isValidSync(casted)) {
-          // Send it to resolved summary
-          summary.resolved.push(casted.title);
-
-          return casted;
-        } else {
-          // Otherwise send it to rejected summary
-          summary.rejected.push(product?.title);
-
-          // Return product
-          return product;
-        }
+      // Validate
+      data.forEach((product) => {
+        schema.validateSync(product);
       });
 
-      // If we have rejected products
-      if (summary.rejected.length) {
-        // Reset loading
-        setLoading(false);
+      // Reset loading
+      setLoading(false);
 
-        // Show toast to user
-        toast({
-          title: "Error",
-          description: `Hubo un error procesando los productos (${summary.rejected.join(", ")})`,
-          status: "error",
-        });
+      // Call on change with the value
+      onChange(data);
 
-        // Reset input
-        event.target.value = "";
-      } else {
-        // Reset loading
-        setLoading(false);
-
-        // Call on change with the value
-        onChange(value);
-
-        // Reset input
-        event.target.value = "";
-      }
-    } catch (e) {
+      // Reset input
+      event.target.value = "";
+    } catch (error) {
       // Reset loading
       setLoading(false);
 
       // Show toast to user
       toast({
         title: "Error",
-        description: `Hubo un error procesando el archivo, asegurate de que los campos requeridos esten completados y sean válidos`,
+        description: `Hubo un error procesando el archivo, asegurate de que los campos requeridos esten completados y sean válidos (${error.message})`,
         status: "error",
       });
 
@@ -109,13 +80,8 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children, ...props}) => {
   }
 
   return (
-    <PseudoBox
-      alignItems="center"
-      display="flex"
-      justifyContent="center"
-      position="relative"
-      width="fit-content"
-    >
+    <Box position="relative">
+      {children}
       <Input
         accept=".csv"
         height="100%"
@@ -132,10 +98,7 @@ const ProductsCSVInput: React.FC<Props> = ({onChange, children, ...props}) => {
         zIndex={1}
         onChange={handleChange}
       />
-      <IconButton isLoading={isLoading} {...props}>
-        {children}
-      </IconButton>
-    </PseudoBox>
+    </Box>
   );
 };
 
