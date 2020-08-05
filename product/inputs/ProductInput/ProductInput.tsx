@@ -1,5 +1,5 @@
 import React from "react";
-import {StackProps, Stack, Text, Box} from "@chakra-ui/core";
+import {StackProps, Stack, Text} from "@chakra-ui/core";
 import produce from "immer";
 import {Message} from "react-hook-form";
 
@@ -95,9 +95,9 @@ const ProductInput: React.FC<Props> = ({value: product, onChange, error, ...prop
         />
       )}
       {error && (
-        <Box backgroundColor="red.100" color="red.500" padding={2} rounded="md">
+        <Text backgroundColor="red.100" color="red.500" padding={2} rounded="md">
           {error}
-        </Box>
+        </Text>
       )}
     </Stack>
   );
