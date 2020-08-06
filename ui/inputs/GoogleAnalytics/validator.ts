@@ -1,11 +1,15 @@
 import * as yup from "yup";
 
-const schema = yup
-  .string()
-  .matches(
-    /G-[a-zA-Z0-9]{10}/g,
-    "Ingresá solamente el numero de seguimiento, que se ve algo como G-XXXXXXXXXX.",
-  );
+const schema = yup.lazy((value) =>
+  value
+    ? yup
+        .string()
+        .matches(
+          /G-[a-zA-Z0-9]{10}/g,
+          "Ingresá solamente el numero de seguimiento, que se ve algo como G-XXXXXXXXXX.",
+        )
+    : yup.string().equals([""]),
+);
 
 export default function validator(id: number) {
   try {
