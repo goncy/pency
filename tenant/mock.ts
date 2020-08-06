@@ -29,6 +29,7 @@ const mock = {
         tier: "free",
         hook: "http://some.url",
         pixel: "1000",
+        ga: "ASD123",
         country: "AR",
         flags: ["mercadopago", "bulk", "advanced", "note"],
         location: {

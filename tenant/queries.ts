@@ -31,6 +31,10 @@ export default {
         $exists: true,
         $nin: ["free"],
       },
+      // Tier active
+      tierUntil: {
+        $gte: dates.now,
+      },
       // Changed description
       description: {
         $ne: DEFAULT_CLIENT_TENANT.description,

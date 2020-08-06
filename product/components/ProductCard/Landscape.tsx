@@ -94,7 +94,7 @@ const LandscapeProductCard: React.FC<Props> = ({isRaised = false, product, onCli
           )}
           {type === "variant" && (
             <Text color="green.500" fontSize="sm" fontWeight={500} lineHeight={1}>
-              {p(min)} ~ {p(max)}
+              {min === max ? p(min) : p(min)} ~ {p(max)}
             </Text>
           )}
           {type === "ask" && (

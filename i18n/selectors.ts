@@ -1,23 +1,23 @@
 import i18n from "./instance";
 import {CURRENCIES, LOCALES, DEFAULT_COUNTRY} from "./constants";
 
-export function formatPrice(price: number, _country?: string) {
-  let country = _country;
+export function formatPrice(price: number, format: "locale" | "iso" = "locale") {
+  const locale = i18n?.language || LOCALES[DEFAULT_COUNTRY];
+  const result = Object.entries(LOCALES).find(([, _locale]) => locale === _locale);
 
-  if (!country) {
-    const locale = i18n?.language;
+  const country = result?.[0] || DEFAULT_COUNTRY;
 
-    if (!locale) {
-      country = DEFAULT_COUNTRY;
-    } else {
-      const result = Object.entries(LOCALES).find(([, _locale]) => locale === _locale);
+  switch (format) {
+    case "iso": {
+      return `${Number(price).toFixed(2)} ${CURRENCIES[country]}`;
+    }
 
-      country = result?.[0] || DEFAULT_COUNTRY;
+    case "locale":
+    default: {
+      return Number(price).toLocaleString(LOCALES[country], {
+        style: "currency",
+        currency: CURRENCIES[country],
+      });
     }
   }
-
-  return Number(price).toLocaleString(LOCALES[country], {
-    style: "currency",
-    currency: CURRENCIES[country],
-  });
 }

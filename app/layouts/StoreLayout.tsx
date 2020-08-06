@@ -50,7 +50,21 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
       <meta content="summary_large_image" name="twitter:card" />
       <meta content={tenant.twitter ? `@${tenant.twitter}` : META.twitter} name="twitter:creator" />
       <meta content={META.twitter} name="twitter:site" />
-      {tenant.pixel && (
+      {tenant.tier === "commercial" && tenant.ga && (
+        <>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${tenant.ga}`} />
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '${tenant.ga}');`,
+            }}
+          />
+        </>
+      )}
+      {tenant.tier === "commercial" && tenant.pixel && (
         <>
           <script
             dangerouslySetInnerHTML={{
@@ -88,9 +102,9 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           <meta content={product.image} property="og:image:url" />
           <meta content="image/jpeg" property="og:image:type" />
           <meta content={product.title} property="og:image:alt" />
-          <meta content={String(product.price)} property="og:price:amount" />
+          <meta content={product.price.toFixed(2)} property="og:price:amount" />
           <meta content={CURRENCIES[tenant.country]} property="og:price:currency" />
-          <meta content={String(product.price)} property="product:price:amount" />
+          <meta content={product.price.toFixed(2)} property="product:price:amount" />
           <meta content={CURRENCIES[tenant.country]} property="product:price:currency" />
           <meta content={product.category} property="article:section" />
           <meta content={product.title} itemProp="name" />

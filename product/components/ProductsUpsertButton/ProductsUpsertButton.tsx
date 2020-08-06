@@ -1,16 +1,13 @@
 import React from "react";
 import {Stack, StackProps} from "@chakra-ui/core";
 
-import ProductsCSVInput from "../../inputs/ProductsCSVInput";
 import ProductsUpsertDrawer from "../ProductsUpsertDrawer";
+import ProductsUpsertModal from "../ProductsUpsertModal";
 
 import UploadIcon from "~/ui/icons/Upload";
 import IconButton from "~/ui/controls/IconButton";
 import EditIcon from "~/ui/icons/Edit";
 import {Product} from "~/product/types";
-import {download} from "~/utils/download";
-import {CSV_TEMPLATE} from "~/product/constants";
-import DownloadIcon from "~/ui/icons/Download";
 
 interface Props extends Omit<StackProps, "onSubmit"> {
   products: Product[];
@@ -21,12 +18,25 @@ const ProductsUpsertButton: React.FC<Props> = ({products: base, onSubmit, ...pro
   // Store products to edit
   const [products, setProducts] = React.useState<Product[]>([]);
 
+  // Store modal open flag
+  const [isImportModalShown, toggleImportModal] = React.useState(false);
+
   function handleImport(products: Product[]) {
     // Open drawer with imported products
     setProducts(products);
   }
 
-  function handleBulkOpen() {
+  function handleImportOpen() {
+    // Open import modal
+    toggleImportModal(true);
+  }
+
+  function handleImportClose() {
+    // Close import modal
+    toggleImportModal(false);
+  }
+
+  function handleBulkEdit() {
     // Open drawer with prop-passed products
     setProducts(base);
   }
@@ -44,36 +54,31 @@ const ProductsUpsertButton: React.FC<Props> = ({products: base, onSubmit, ...pro
     setProducts([]);
   }
 
-  function handleDownload() {
-    // Download the base CSV file
-    download("pency.csv", CSV_TEMPLATE);
-  }
-
   return (
     <>
       <Stack isInline spacing={2} {...props}>
-        <ProductsCSVInput isCollapsable leftIcon={UploadIcon} onChange={handleImport}>
-          Importar
-        </ProductsCSVInput>
         <IconButton
           isCollapsable
-          data-test-id="bulk-button"
-          leftIcon={DownloadIcon}
+          data-test-id="import-button"
+          leftIcon={UploadIcon}
           size="md"
-          onClick={handleDownload}
+          onClick={handleImportOpen}
         >
-          Descargar planilla
+          Importar
         </IconButton>
         <IconButton
           isCollapsable
-          data-test-id="bulk-button"
+          data-test-id="bulk-edit-button"
           leftIcon={EditIcon}
           size="md"
-          onClick={handleBulkOpen}
+          onClick={handleBulkEdit}
         >
           Edicion en lote
         </IconButton>
       </Stack>
+      {isImportModalShown && (
+        <ProductsUpsertModal onChange={handleImport} onClose={handleImportClose} />
+      )}
       {Boolean(products?.length) && (
         <ProductsUpsertDrawer
           defaultValues={products}

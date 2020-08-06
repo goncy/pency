@@ -4,9 +4,10 @@ import isEqual from "lodash.isequal";
 
 import {Product} from "../../types";
 
-import Drawer, {DrawerHeader, DrawerBody, DrawerTitle, DrawerFooter} from "~/ui/controls/Drawer";
+import Drawer, {DrawerHeader, DrawerBody, DrawerTitle} from "~/ui/controls/Drawer";
 import {useToast} from "~/hooks/toast";
 import ProductsForm from "~/product/forms/ProductsForm";
+import Content from "~/ui/structure/Content";
 
 interface Props extends Omit<IDrawer, "children"> {
   onClose: () => void;
@@ -66,35 +67,37 @@ const ProductsUpsertDrawer: React.FC<Props> = ({onClose, defaultValues = [], onS
   }
 
   return (
-    <Drawer closeOnOverlayClick={false} id="bulk-products" onClose={onClose}>
+    <Drawer closeOnOverlayClick={false} id="bulk-products" size="full" onClose={onClose}>
       <DrawerHeader onClose={onClose} />
       <ProductsForm defaultValues={defaultValues} onSubmit={handleSubmit}>
         {({form, submit}) => (
           <>
             <DrawerBody marginBottom={4}>
-              <Stack shouldWrapChildren spacing={4}>
-                <DrawerTitle>Herramienta de importación / edición en lote</DrawerTitle>
-                {form}
-              </Stack>
-            </DrawerBody>
-            <DrawerFooter>
-              <Button
-                backgroundColor="primary.500"
-                color="white"
-                data-test-id="submit-bulk-products"
-                isLoading={isLoading}
-                type="submit"
-                variantColor="primary"
-                width="100%"
-                onClick={(event) => {
-                  event.stopPropagation();
+              <Content marginY={0} paddingX={4}>
+                <Stack shouldWrapChildren spacing={4}>
+                  <DrawerTitle>Edición masiva</DrawerTitle>
+                  <Stack isInline>
+                    <Button
+                      backgroundColor="primary.500"
+                      color="white"
+                      data-test-id="submit-bulk-products"
+                      isLoading={isLoading}
+                      marginLeft="auto"
+                      type="submit"
+                      variantColor="primary"
+                      onClick={(event) => {
+                        event.stopPropagation();
 
-                  submit();
-                }}
-              >
-                Guardar productos
-              </Button>
-            </DrawerFooter>
+                        submit();
+                      }}
+                    >
+                      Guardar productos
+                    </Button>
+                  </Stack>
+                  {form}
+                </Stack>
+              </Content>
+            </DrawerBody>
           </>
         )}
       </ProductsForm>
