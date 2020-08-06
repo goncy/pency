@@ -1,1 +1,1 @@
-export type FirebaseService = "database" | "auth" | "providers" | "analytics";
+export type FirebaseService = "auth" | "providers" | "analytics";

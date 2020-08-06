@@ -1,7 +1,6 @@
 import firebase from "firebase/app";
 
 import "firebase/auth";
-import "firebase/firestore";
 import "firebase/analytics";
 
 import {FirebaseService} from "./types";
@@ -13,9 +12,6 @@ function getApp() {
 
 export default new Proxy(
   {
-    get database() {
-      return firebase.app(getApp()).firestore();
-    },
     get analytics() {
       return firebase.app(getApp()).analytics();
     },
