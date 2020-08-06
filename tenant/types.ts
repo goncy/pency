@@ -30,6 +30,7 @@ export interface ServerTenant {
   flags?: string[];
   hook?: string;
   pixel?: string;
+  ga?: string;
   createdAt: number;
   updatedAt: number;
   layout?: "landscape" | "portrait";

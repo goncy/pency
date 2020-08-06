@@ -21,6 +21,10 @@ import PixelInput, {
   info as PixelInputInfo,
   validator as PixelInputValidator,
 } from "~/ui/inputs/Pixel";
+import GoogleAnalyticsInput, {
+  info as GoogleAnalyticsInputInfo,
+  validator as GoogleAnalyticsInputValidator,
+} from "~/ui/inputs/GoogleAnalytics";
 
 interface Props {
   defaultValues: Partial<ClientTenant>;
@@ -362,6 +366,20 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                     name="pixel"
                     placeholder="333964417633206"
                     register={register({validate: PixelInputValidator})}
+                  />
+                </FormControl>
+                <FormControl
+                  error={errors.ga?.message}
+                  help="Solo el ID del Google Analytics"
+                  info={<GoogleAnalyticsInputInfo />}
+                  label="Código de seguimiento de Google Analytics"
+                  name="ga"
+                >
+                  <GoogleAnalyticsInput
+                    defaultValue=""
+                    name="ga"
+                    placeholder="G-191W3C3RPC"
+                    register={register({validate: GoogleAnalyticsInputValidator})}
                   />
                 </FormControl>
                 {defaultValues.flags?.includes("advanced") && (
