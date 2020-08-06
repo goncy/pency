@@ -88,9 +88,9 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           <meta content={product.image} property="og:image:url" />
           <meta content="image/jpeg" property="og:image:type" />
           <meta content={product.title} property="og:image:alt" />
-          <meta content={String(product.price)} property="og:price:amount" />
+          <meta content={product.price.toFixed(2)} property="og:price:amount" />
           <meta content={CURRENCIES[tenant.country]} property="og:price:currency" />
-          <meta content={String(product.price)} property="product:price:amount" />
+          <meta content={product.price.toFixed(2)} property="product:price:amount" />
           <meta content={CURRENCIES[tenant.country]} property="product:price:currency" />
           <meta content={product.category} property="article:section" />
           <meta content={product.title} itemProp="name" />
