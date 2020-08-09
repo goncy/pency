@@ -34,7 +34,7 @@ const selector = (tenant: ClientTenant) =>
       price: yup
         .string()
         .transform((price) => `${Number(price || 0).toFixed(2)} ${CURRENCIES[tenant.country]}`),
-      link: yup.string().transform((id) => `${process.env.APP_URL}?product=${id}`),
+      link: yup.string().transform((id) => `${process.env.APP_URL}/${tenant.slug}?product=${id}`),
       image_link: yup.string().transform((image) => image || tenant.logo || tenant.banner),
       brand: yup.string().transform(() => tenant.title),
     })
