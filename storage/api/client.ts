@@ -4,12 +4,12 @@ import reporter from "~/reporting";
 
 export default {
   upload: (file: File, quality: Quality, folder: string = "") => {
-    // If file size > 2mb
-    if (file.size > 2048000) {
+    // If file size > 5mb
+    if (file.size > 5120000) {
       // Reject with error
       return Promise.reject({
         status: 304,
-        message: `El tamaño máximo de imágenes es de 2mb (2048000) pero esta imágen pesa ${parseFloat(
+        message: `El tamaño máximo de imágenes es de 5mb (5120000) pero esta imágen pesa ${parseFloat(
           Number(file.size / 1000000).toFixed(2),
         )}mb (${file.size})`,
       });
