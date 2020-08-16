@@ -378,7 +378,7 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
                   <GoogleAnalyticsInput
                     defaultValue=""
                     name="ga"
-                    placeholder="G-191W3C3RPC"
+                    placeholder="UA-XXXXXXXXX-X"
                     register={register({validate: GoogleAnalyticsInputValidator})}
                   />
                 </FormControl>

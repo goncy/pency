@@ -71,7 +71,7 @@ const TenantHeader: React.FC<Props> = ({
               <MarkerIcon minWidth={4} size={4} />
               <Link
                 isExternal
-                href={`https://www.google.com.ar/maps/place/${location.address}/@${location.coordinates.lat},${location.coordinates.lng}`}
+                href={`https://www.google.com/maps/place/${location.address}/@${location.coordinates.lat},${location.coordinates.lng}`}
               >
                 <Text fontSize={{base: "sm", sm: "md"}} lineHeight="tall">
                   {location.address.length > 50

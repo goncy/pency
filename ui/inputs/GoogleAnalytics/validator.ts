@@ -5,8 +5,8 @@ const schema = yup.lazy((value) =>
     ? yup
         .string()
         .matches(
-          /G-[a-zA-Z0-9]{10}/g,
-          "Ingresá solamente el numero de seguimiento, que se ve algo como G-XXXXXXXXXX.",
+          /(UA|G)(\w|-){8,12}/g,
+          "Ingresá solamente el numero de seguimiento, que se ve algo como UA-XXXXXXXXX-X.",
         )
     : yup.string().equals([""]),
 );
