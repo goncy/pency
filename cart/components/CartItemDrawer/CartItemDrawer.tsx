@@ -98,7 +98,11 @@ const CartItemDrawer: React.FC<Props> = ({onClose, product, onSubmit, ...props})
 
   return (
     <Drawer id="cart-item" placement="right" size="md" onClose={onClose} {...props}>
-      <ProductVariantForm defaultValues={product.options} onSubmit={handleSubmit}>
+      <ProductVariantForm
+        defaultValues={product.options}
+        type={product.type}
+        onSubmit={handleSubmit}
+      >
         {({form, submit, isLoading, watch}) => {
           const variants = Object.values(watch());
           const items = [

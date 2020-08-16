@@ -7,10 +7,7 @@ import ProductVariantsInput, {
   validator as ProductVariantsInputValidator,
   info as ProductVariantsInputInfo,
 } from "../inputs/ProductVariantsInput";
-import ProductTypeInput, {
-  validator as ProductTypeInputValidator,
-  info as ProductTypeInputInfo,
-} from "../inputs/ProductTypeInput";
+import ProductTypeInput, {info as ProductTypeInputInfo} from "../inputs/ProductTypeInput";
 
 import Input from "~/ui/inputs/Input";
 import Select from "~/ui/inputs/Select";
@@ -104,10 +101,7 @@ const ProductForm: React.FC<Props> = ({defaultValues, children, onSubmit, catego
               <ProductTypeInput
                 data-test-id="type-select"
                 name="type"
-                register={register({
-                  required: true,
-                  validate: ProductTypeInputValidator(values.options),
-                })}
+                register={register({required: true})}
               />
             </FormControl>
             {!["ask", "variant"].includes(values.type) && (

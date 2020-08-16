@@ -33,8 +33,6 @@ export function getVariantsPrice(variants: Variant[]): number {
 export function getVariantsPriceRange(variants: Variant[] = []): [number, number] {
   // Get prices for all variants
   const prices = variants
-    // Get just the prices of required ones
-    .filter((variant) => variant.required)
     // Get all the prices
     .reduce((prices, variant) => prices.concat(variant.options.map((option) => option.price)), [])
     // Get valid prices
