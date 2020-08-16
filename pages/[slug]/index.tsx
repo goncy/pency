@@ -11,7 +11,7 @@ import {Provider as CartProvider} from "~/cart/context";
 import {Provider as AnalyticsProvider} from "~/analytics/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
-import LoadingScreen from "~/app/screens/Loading";
+import LoadingScreen from "~/session/screens/Loading";
 import tenantApi from "~/tenant/api/server";
 import productApi from "~/product/api/server";
 import tenantSchemas from "~/tenant/schemas";
