@@ -6,8 +6,6 @@ import {Product} from "~/product/types";
 export interface ServerTenant {
   id: string;
   slug: string;
-  tier: "free" | "preferential" | "commercial";
-  tierUntil: number;
   category?: string;
   color: Extract<
     VariantColor,

@@ -1,13 +1,9 @@
 import React from "react";
-import {useDisclosure} from "@chakra-ui/core";
 
 import {Product} from "./types";
 import api from "./api/client";
 import schemas from "./schemas";
-import {canAddProduct} from "./selectors";
-import ProductLimitWarning from "./components/ProductLimitWarning";
 
-import reporter from "~/reporting";
 import {useToast} from "~/hooks/toast";
 import {useTenant} from "~/tenant/hooks";
 import {sortBy} from "~/selectors/sort";
@@ -35,28 +31,8 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
   const [products, setProducts] = React.useState<Product[]>(
     sortBy(initialValues, (item) => item?.title),
   );
-  // Create a state to show in case a user wants to add more products than allowed
-  const {
-    isOpen: isLimitWarningShown,
-    onOpen: showLimitWarning,
-    onClose: closeLimitWarning,
-  } = useDisclosure();
 
   async function create(product: Product) {
-    if (!canAddProduct(tenant.tier, products.length)) {
-      // Report to sentry
-      reporter.message("Se alcanzó el límite de productos para tu plan", {
-        origin: "ProductContext",
-        extras: {
-          slug: tenant.slug,
-          tier: tenant.tier,
-        },
-      });
-
-      // Early return
-      return showLimitWarning();
-    }
-
     const casted = schemas.client.create.cast(product);
 
     return api
@@ -171,12 +147,7 @@ const ProductProvider: React.FC<Props> = ({initialValues, children}) => {
     upsert,
   };
 
-  return (
-    <ProductContext.Provider value={{state, actions}}>
-      {children}
-      {isLimitWarningShown && <ProductLimitWarning onClose={closeLimitWarning} />}
-    </ProductContext.Provider>
-  );
+  return <ProductContext.Provider value={{state, actions}}>{children}</ProductContext.Provider>;
 };
 
 export {ProductProvider as Provider, ProductContext as default};

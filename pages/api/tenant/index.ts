@@ -31,10 +31,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const tenant: Partial<ServerTenant> = {
       // Tenant slug
       slug,
-      // Grace period
-      tier: "commercial",
-      // 1 week from now
-      tierUntil: dates.oneWeekFromNow,
     };
 
     return (

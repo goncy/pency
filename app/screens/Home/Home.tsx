@@ -4,7 +4,6 @@ import {SimpleGrid, Stack} from "@chakra-ui/core";
 import Introduction from "./Introduction";
 import Contact from "./Contact";
 import Challenges from "./Challenges";
-import Tier from "./Tier";
 import Assets from "./Assets";
 
 import Content from "~/ui/structure/Content";
@@ -21,7 +20,6 @@ const HomeScreen: React.FC = () => {
         <SimpleGrid columns={{base: 1, sm: 2}} spacing={{base: 4, sm: 8}}>
           <Stack shouldWrapChildren spacing={{base: 4, sm: 8}}>
             <Introduction title={tenant.title} />
-            <Tier expiration={tenant.tierUntil} tier={tenant.tier} />
             <Contact />
           </Stack>
           <Stack shouldWrapChildren spacing={{base: 4, sm: 8}}>

@@ -41,14 +41,11 @@ const AdminRoute: React.FC<Props> = ({tenant, products}) => {
   );
 };
 
-export const getServerSideProps: GetServerSideProps<any, Params> = async function ({
-  params: {slug},
-  res,
-}) {
+export const getServerSideProps: GetServerSideProps<any, Params> = async function ({res}) {
   try {
     // Get the tenant for this page slug
     const {products, ...tenant} = await api
-      .fetch({slug})
+      .fetch({slug: "store"})
       // Cast it as a client tenant
       .then((tenant) => schemas.client.fetch.cast(tenant, {stripUnknown: true}));
 
