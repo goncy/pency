@@ -11,26 +11,19 @@ import {Provider as CartProvider} from "~/cart/context";
 import {Provider as AnalyticsProvider} from "~/analytics/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
-import LoadingScreen from "~/app/screens/Loading";
-import api from "~/tenant/api/server";
-import schemas from "~/tenant/schemas";
+import tenantApi from "~/tenant/api/server";
+import productApi from "~/product/api/server";
+import tenantSchemas from "~/tenant/schemas";
+import productSchemas from "~/product/schemas";
 
 interface Props {
   tenant: ClientTenant;
   products: Product[];
-  lastUpdate: number;
-  nextUpdate: number;
 }
 
-const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate, nextUpdate}) => {
+const SlugRoute: React.FC<Props> = ({tenant, products}) => {
   // Get router instance
   const router = useRouter();
-
-  // If page is being built
-  if (router.isFallback) {
-    // Show a loading screen
-    return <LoadingScreen />;
-  }
 
   // Get the real product from the product id url
   const product = router.query.product
@@ -45,7 +38,7 @@ const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate, nextUpdate}) 
             <CartProvider>
               <StoreLayout product={product} tenant={tenant}>
                 <I18nProvider country={tenant.country}>
-                  <ProductsScreen lastUpdate={lastUpdate} nextUpdate={nextUpdate} />
+                  <ProductsScreen />
                 </I18nProvider>
               </StoreLayout>
             </CartProvider>
@@ -59,10 +52,18 @@ const SlugRoute: React.FC<Props> = ({tenant, products, lastUpdate, nextUpdate}) 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     // Get the tenant for this page slug
-    const {products, ...tenant}: ClientTenant = await api
-      .fetch({slug: "store"})
+    const tenant: ClientTenant = await tenantApi
+      .fetch("goncy")
       // Cast it as a client tenant
-      .then((tenant) => schemas.client.fetch.cast(tenant));
+      .then((tenant) => tenantSchemas.client.fetch.cast(tenant, {stripUnknown: true}));
+
+    // Get its products
+    const products: Product[] = await productApi
+      .list(tenant.id)
+      // Cast all products for client
+      .then((products) =>
+        products.map((product) => productSchemas.client.fetch.cast(product, {stripUnknown: true})),
+      );
 
     // Return props
     return {

@@ -27,11 +27,9 @@ import {useSession} from "~/session/hooks";
 import Content from "~/ui/structure/Content";
 import {useTranslation} from "~/i18n/hooks";
 import HomeIcon from "~/ui/icons/Home";
-import {useTenant} from "~/tenant/hooks";
 
 const AdminScreen: React.FC = () => {
   const {signOut} = useSession();
-  const tenant = useTenant();
   const t = useTranslation();
 
   return (
@@ -45,7 +43,7 @@ const AdminScreen: React.FC = () => {
                 _hover={{
                   textDecoration: "none",
                 }}
-                href={`/${tenant.slug}`}
+                href="/"
                 rel="noopener noreferrer"
                 target="_blank"
               >

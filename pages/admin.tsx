@@ -11,8 +11,10 @@ import AdminLayout from "~/app/layouts/AdminLayout";
 import {Provider as I18nProvider} from "~/i18n/context";
 import {Provider as ProductProvider} from "~/product/context";
 import {Provider as TenantProvider} from "~/tenant/context";
-import api from "~/tenant/api/server";
-import schemas from "~/tenant/schemas";
+import tenantApi from "~/tenant/api/server";
+import productApi from "~/product/api/server";
+import tenantSchemas from "~/tenant/schemas";
+import productSchemas from "~/product/schemas";
 
 interface Props {
   tenant: ClientTenant;
@@ -44,10 +46,18 @@ const AdminRoute: React.FC<Props> = ({tenant, products}) => {
 export const getServerSideProps: GetServerSideProps<any, Params> = async function ({res}) {
   try {
     // Get the tenant for this page slug
-    const {products, ...tenant} = await api
-      .fetch({slug: "store"})
+    const tenant: ClientTenant = await tenantApi
+      .fetch("goncy")
       // Cast it as a client tenant
-      .then((tenant) => schemas.client.fetch.cast(tenant, {stripUnknown: true}));
+      .then((tenant) => tenantSchemas.client.fetch.cast(tenant, {stripUnknown: true}));
+
+    // Get its products
+    const products: Product[] = await productApi
+      .list(tenant.id)
+      // Cast all products for client
+      .then((products) =>
+        products.map((product) => productSchemas.client.fetch.cast(product, {stripUnknown: true})),
+      );
 
     // Return props
     return {props: {tenant, products}};
