@@ -53,7 +53,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   try {
     // Get the tenant for this page slug
     const tenant: ClientTenant = await tenantApi
-      .fetch("goncy")
+      .fetch(process.env.STORE_SLUG)
       // Cast it as a client tenant
       .then((tenant) => tenantSchemas.client.fetch.cast(tenant, {stripUnknown: true}));
 
