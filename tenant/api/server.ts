@@ -1,4 +1,4 @@
-import {ServerTenant} from "../types";
+import {ServerTenant, ClientTenant} from "../types";
 
 import {database, auth} from "~/firebase/admin";
 
@@ -34,18 +34,7 @@ export default {
       .then((doc) => ({...(doc.data() as ServerTenant), id: doc.id}))
       .then((tenant) => tenant);
   },
-  list: async (): Promise<ServerTenant[]> =>
-    database
-      .collection("tenants")
-      .get()
-      .then((snapshot) =>
-        snapshot.empty
-          ? Promise.reject({statusText: "No hay tiendas", status: 404})
-          : snapshot.docs,
-      )
-      .then((docs) => docs.map((doc) => ({...(doc.data() as ServerTenant), id: doc.id})))
-      .then((tenants) => tenants),
-  update: async (id: ServerTenant["id"], tenant: Partial<ServerTenant>) =>
+  update: async (id: ServerTenant["id"], tenant: Partial<ServerTenant> | Partial<ClientTenant>) =>
     database
       .collection("tenants")
       .doc(id)

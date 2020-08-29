@@ -222,7 +222,7 @@ export default {
         .transform((mercadopago) => Boolean(mercadopago?.token))
         .default(false),
     }),
-    update: yup.object<Partial<ClientTenant>>({
+    update: yup.object<ClientTenant>({
       id: yup.string().strip(true),
       slug: yup.string().strip(true),
       createdAt: yup.number().strip(true),

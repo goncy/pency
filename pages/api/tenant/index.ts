@@ -2,7 +2,6 @@ import {NextApiResponse, NextApiRequest} from "next";
 
 import api from "~/tenant/api/server";
 import {ClientTenant, ServerTenant} from "~/tenant/types";
-import dates from "~/utils/date";
 
 interface PostRequest extends NextApiRequest {
   body: {
