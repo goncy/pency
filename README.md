@@ -77,21 +77,19 @@ npm install && npm run dev
 ## Creando la tienda
  - Bajamos y abrimos [Postman](https://www.postman.com/downloads/).
  - Comprobamos que la aplicación este corriendo en **http://localhost:3000/**.
- - Seleccionamos POST Request y colocamos como URL: `http://localhost:3000/api/tenant/NOMBRE_DE_TU_TIENDA` (si bien podemos poner lo que queramos en slug recomiendo que sean solo letras minúsculas y guiones)
+ - Seleccionamos POST Request y colocamos como URL: `http://localhost:3000/api/tenant` (si bien podemos poner lo que queramos en slug recomiendo que sean solo letras minúsculas y guiones)
  - En `body` seleccionamos `x-www-form-urlencoded` y colocamos los siguientes valores:
 ```markdown
 	|   KEY  |                    VALUE                         |
 	|:------:|:------------------------------------------------:|
+	|slug    | slug de la tienda                                |
 	|email   | tuEmail@email.com                                |
 	|password| tuContraseña                                     |
 	|secret  | valor de SECRET en .env.[ambiente].local         |
 ```
- - Hacemos click en `Send` y comprobamos si se creó la tienda entrando en: `http://localhost:3000/NOMBRE_DE_TU_TIENDA`
- -  Para acceder al panel de administración debemos entrar mediante el siguiente link: `http://localhost:3000/NOMBRE_DE_TU_TIENDA/admin`
+ - Hacemos click en `Send` y comprobamos si se creó la tienda seteando la variable `STORE_SLUG` con el nombre de la tienda y entrando en: `http://localhost:3000`
+ -  Para acceder al panel de administración debemos entrar mediante el siguiente link: `http://localhost:3000/admin`
  > Tomá en cuenta que ya que usamos el uid del usuario como id del documento, no podémos tener más de un usuario por tienda ni tampoco más de una tienda por usuario.
-
-## Primer deploy a Vercel
-Buildeamos la tienda de `/demo` y las tiendas de `/index` estáticamente, por lo que necesitamos que la app ya este deployada en Vercel. Claramente no es posible si querés deployarla la primera vez y va a fallar el build en Vercel. Así que recorda comentar / borrar el `getStaticProps` para `pages/index.tsx` y `pages/demo.tsx` antes de deployar la primera vez (después podés volver a habilitarlo si te sirven).
 
 ## ¿Qué puedo hacer con Pency?
 Podés leer la licencia [acá](./LICENSE.md). En resumen, podés usar Pency para lo que quieras mientras no lucres con eso y menciones la fuente original cuando lo uses 🥰.
