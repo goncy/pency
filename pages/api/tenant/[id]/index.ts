@@ -53,7 +53,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           return (
             api
               // Send that values to the DB
-              .fetch({id})
+              .fetch(id)
               // If everything is fine, return the tenant along with a 200
               .then((tenant) => res.status(200).json(schemas.client.fetch.cast(tenant)))
               // Otherwise return a 400

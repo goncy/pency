@@ -7,10 +7,9 @@ import Image from "../feedback/Image";
 
 import Input from "./Input";
 
-import storage from "~/storage/api/client";
+import storage from "~/storage/api";
 import {Quality} from "~/storage/types";
 import {useToast} from "~/hooks/toast";
-import {useTenant} from "~/tenant/hooks";
 
 interface Props {
   value?: string;
@@ -29,7 +28,6 @@ const ImageInput: React.FC<Props> = ({
 }) => {
   const [isLoading, setLoading] = React.useState(false);
   const toast = useToast();
-  const {slug: tenant} = useTenant();
 
   async function handleUpload(event: React.ChangeEvent<HTMLInputElement>) {
     // Perist event so we can reset on fail
@@ -46,7 +44,7 @@ const ImageInput: React.FC<Props> = ({
       setLoading(true);
 
       // Get uploaded image url
-      const url = await storage.upload(file, quality, tenant);
+      const url = await storage.upload(file, quality);
 
       // Return it to parent
       onChange(url);

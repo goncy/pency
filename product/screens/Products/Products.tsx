@@ -23,14 +23,8 @@ import SummaryButton from "~/cart/components/SummaryButton";
 import CartItemDrawer from "~/cart/components/CartItemDrawer";
 import {Product, Variant} from "~/product/types";
 import Link from "~/ui/controls/Link";
-import date from "~/utils/date";
 
-interface Props {
-  lastUpdate: number;
-  nextUpdate: number;
-}
-
-const ProductsScreen: React.FC<Props> = ({lastUpdate, nextUpdate}) => {
+const ProductsScreen: React.FC = () => {
   const {
     query: {product},
     push,
@@ -39,7 +33,7 @@ const ProductsScreen: React.FC<Props> = ({lastUpdate, nextUpdate}) => {
   const t = useTranslation();
   const {isOpen: isCartOpen, onOpen: openCart, onClose: closeCart} = useDisclosure();
   const {products, filters} = useFilteredProducts((product) => product.type !== "hidden");
-  const {highlight, fields, layout, country, ...tenant} = useTenant();
+  const {highlight, fields, layout, ...tenant} = useTenant();
   const selected = React.useMemo(() => products.find((_product) => _product.id === product), [
     products,
     product,
@@ -189,21 +183,9 @@ const ProductsScreen: React.FC<Props> = ({lastUpdate, nextUpdate}) => {
         <Flex
           alignItems={{base: "center", sm: "flex-end"}}
           direction={{base: "column", sm: "row"}}
-          justifyContent="space-between"
+          justifyContent="flex-end"
           padding={4}
         >
-          <Stack
-            alignItems={{base: "center", sm: "flex-start"}}
-            marginBottom={{base: 2, sm: 0}}
-            spacing={0}
-          >
-            <Text color="gray.500" fontSize="sm">
-              {t("products.footer.lastUpdate")}: {date.localeDateTime(lastUpdate, country)}
-            </Text>
-            <Text color="gray.500" fontSize="sm">
-              {t("products.footer.nextUpdate")}: {date.localeDateTime(nextUpdate, country)}
-            </Text>
-          </Stack>
           <Link href="/">
             <Stack isInline alignItems="center" spacing={1}>
               <Text fontSize="sm">{t("products.footer.createdWith")}</Text>

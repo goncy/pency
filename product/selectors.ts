@@ -1,7 +1,6 @@
 import {Variant} from "./types";
 
 import {groupBy} from "~/selectors/group";
-import {ClientTenant} from "~/tenant/types";
 
 export function getVariantsString(variants: Variant[]): string {
   if (!variants?.length) return "";
@@ -40,28 +39,4 @@ export function getVariantsPriceRange(variants: Variant[] = []): [number, number
 
   // Return a tuple of min max
   return [Math.min(...prices), Math.max(...prices)];
-}
-
-export function canAddProduct(tier: ClientTenant["tier"], count: number): boolean {
-  switch (tier) {
-    case "free": {
-      // Free can add 100
-      return count < 100;
-    }
-
-    case "preferential": {
-      // Preferential can add 150
-      return count < 150;
-    }
-
-    case "commercial": {
-      // Commercial can always add
-      return true;
-    }
-
-    default: {
-      // Negate by default
-      return false;
-    }
-  }
 }

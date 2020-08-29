@@ -138,7 +138,7 @@ export default {
       featured: yup.boolean().default(DEFAULT_PRODUCT.featured),
       image: yup.string().default(DEFAULT_PRODUCT.image),
     }),
-    update: yup.object<Partial<Product>>({
+    update: yup.object<Product>({
       type: yup
         .string()
         .oneOf(["available", "unavailable", "ask", "promotional", "variant", "hidden"])

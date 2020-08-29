@@ -88,7 +88,6 @@ const color = yup
 const flags = yup.array(yup.string());
 const fields = yup.array<Field>(field.lazy);
 const layout = yup.string().oneOf(["portrait", "landscape"]);
-const tier = yup.string().oneOf(["free", "preferential", "commercial"]);
 const products = {
   schema: yup.array().of(productSchemas.client.fetch),
   lazy: yup.lazy((value: Product[]) =>
@@ -115,11 +114,9 @@ export default {
       title: yup.string().required(),
       products: products.lazy,
       instagram: yup.string().nullable(),
-      tierUntil: yup.number().nullable(),
       facebook: yup.string().nullable(),
       twitter: yup.string().nullable(),
       keywords: yup.string().nullable(),
-      tier: tier.nullable(),
       banner: yup.string().nullable(),
       description: yup.string().nullable(),
       country: yup.string().nullable(),
@@ -138,7 +135,6 @@ export default {
       slug: yup.string().strip(true),
       createdAt: yup.number().strip(true),
       updatedAt: yup.number().strip(true),
-      tierUntil: yup.number().strip(true),
       category: yup.string().nullable(),
       color: color.nullable(),
       phone: yup.string().nullable(),
@@ -153,7 +149,6 @@ export default {
       country: yup.string().nullable(),
       location: location.lazy,
       highlight: yup.string().nullable(),
-      tier: tier.nullable().strip(true),
       fields: fields.nullable(),
       flags: flags.nullable(),
       layout: layout.nullable(),
@@ -169,7 +164,6 @@ export default {
       category: yup.string(),
       createdAt: yup.number().default(DEFAULT_CLIENT_TENANT.createdAt),
       updatedAt: yup.number().default(DEFAULT_CLIENT_TENANT.updatedAt),
-      tierUntil: yup.number().default(DEFAULT_CLIENT_TENANT.tierUntil),
       color: color.default(DEFAULT_CLIENT_TENANT.color),
       phone: yup.string().default(DEFAULT_CLIENT_TENANT.phone),
       logo: yup.string(),
@@ -178,7 +172,6 @@ export default {
       instagram: yup.string(),
       facebook: yup.string(),
       twitter: yup.string(),
-      tier: tier.default(DEFAULT_CLIENT_TENANT.tier),
       keywords: yup.string().default(DEFAULT_CLIENT_TENANT.keywords),
       banner: yup.string(),
       description: yup.string().default(DEFAULT_CLIENT_TENANT.description),
@@ -216,12 +209,6 @@ export default {
       banner: yup.string().default("").nullable(),
       description: yup.string().default("").nullable(),
       country: yup.string().default(DEFAULT_CLIENT_TENANT.country).nullable(),
-      tier: tier.default(DEFAULT_CLIENT_TENANT.tier).when("tierUntil", {
-        is: (tierUntil) => tierUntil < +new Date(),
-        then: tier.transform(() => "free").required(),
-        otherwise: tier.required(),
-      }),
-      tierUntil: yup.number().default(DEFAULT_CLIENT_TENANT.tierUntil).required(),
       location: location.schema.default(null).nullable(),
       highlight: yup.string().default("").nullable(),
       layout: layout.default(DEFAULT_CLIENT_TENANT.layout).nullable(),
@@ -235,12 +222,11 @@ export default {
         .transform((mercadopago) => Boolean(mercadopago?.token))
         .default(false),
     }),
-    update: yup.object<Partial<ClientTenant>>({
+    update: yup.object<ClientTenant>({
       id: yup.string().strip(true),
       slug: yup.string().strip(true),
       createdAt: yup.number().strip(true),
       updatedAt: yup.number().strip(true),
-      tierUntil: yup.number().strip(true),
       category: yup.string().nullable(),
       color: color.nullable(),
       phone: yup.string().nullable(),
@@ -255,7 +241,6 @@ export default {
       country: yup.string().nullable(),
       location: location.lazy,
       highlight: yup.string().nullable(),
-      tier: tier.nullable().strip(true),
       fields: fields.nullable(),
       flags: flags.nullable(),
       layout: layout.nullable(),
@@ -271,7 +256,6 @@ export default {
       category: yup.string(),
       createdAt: yup.number().default(DEFAULT_CLIENT_TENANT.createdAt),
       updatedAt: yup.number().default(DEFAULT_CLIENT_TENANT.updatedAt),
-      tierUntil: yup.number().default(DEFAULT_CLIENT_TENANT.tierUntil),
       color: color.default(DEFAULT_CLIENT_TENANT.color),
       phone: yup.string().default(DEFAULT_CLIENT_TENANT.phone),
       logo: yup.string(),
@@ -280,7 +264,6 @@ export default {
       instagram: yup.string(),
       facebook: yup.string(),
       twitter: yup.string(),
-      tier: tier.default(DEFAULT_CLIENT_TENANT.tier),
       keywords: yup.string().default(DEFAULT_CLIENT_TENANT.keywords),
       banner: yup.string(),
       description: yup.string().default(DEFAULT_CLIENT_TENANT.description),

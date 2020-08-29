@@ -61,7 +61,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return (
       api
         // Get tenant from DB
-        .fetch({id})
+        .fetch(id)
         // If everything is fine, return the tenant along with a 200
         .then((tenant) => {
           const casted = schemas.client.fetch.cast(tenant);

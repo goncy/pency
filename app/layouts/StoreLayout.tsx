@@ -50,7 +50,7 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
       <meta content="summary_large_image" name="twitter:card" />
       <meta content={tenant.twitter ? `@${tenant.twitter}` : META.twitter} name="twitter:creator" />
       <meta content={META.twitter} name="twitter:site" />
-      {tenant.tier === "commercial" && tenant.ga && (
+      {tenant.ga && (
         <>
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${tenant.ga}`} />
           <script
@@ -64,7 +64,7 @@ const StoreLayout: React.FC<Props> = ({tenant, product, children}) => (
           />
         </>
       )}
-      {tenant.tier === "commercial" && tenant.pixel && (
+      {tenant.pixel && (
         <>
           <script
             dangerouslySetInnerHTML={{

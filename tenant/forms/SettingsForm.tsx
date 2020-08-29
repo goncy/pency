@@ -343,62 +343,57 @@ const SettingsForm: React.FC<Props> = ({defaultValues = {}, children, onSubmit})
               </Stack>
             </>
           )}
-
-          {defaultValues.tier === "commercial" && (
-            <>
-              <Divider />
-              <Stack marginTop={8} spacing={4}>
-                <Stack spacing={1}>
-                  <Text fontSize="2xl" fontWeight={500} id="advanced">
-                    Opciones avanzadas
-                  </Text>
-                  <Text color="gray.600">Llevá tu negocio a otro nivel</Text>
-                </Stack>
-                <FormControl
-                  error={errors.pixel?.message}
-                  help="Solo el ID del pixel"
-                  info={<PixelInputInfo />}
-                  label="Pixel de Facebook"
-                  name="pixel"
-                >
-                  <PixelInput
-                    defaultValue=""
-                    name="pixel"
-                    placeholder="333964417633206"
-                    register={register({validate: PixelInputValidator})}
-                  />
-                </FormControl>
-                <FormControl
-                  error={errors.ga?.message}
-                  help="Solo el ID del Google Analytics"
-                  info={<GoogleAnalyticsInputInfo />}
-                  label="Código de seguimiento de Google Analytics"
-                  name="ga"
-                >
-                  <GoogleAnalyticsInput
-                    defaultValue=""
-                    name="ga"
-                    placeholder="UA-XXXXXXXXX-X"
-                    register={register({validate: GoogleAnalyticsInputValidator})}
-                  />
-                </FormControl>
-                {defaultValues.flags?.includes("advanced") && (
-                  <FormControl
-                    help="Vamos a hacer un POST a esta url cada vez que un usuario complete un pedido"
-                    label="Webhook"
-                    name="hook"
-                  >
-                    <Input
-                      ref={register}
-                      defaultValue=""
-                      name="hook"
-                      placeholder="https://tuwebhook.com"
-                    />
-                  </FormControl>
-                )}
-              </Stack>
-            </>
-          )}
+          <Divider />
+          <Stack marginTop={8} spacing={4}>
+            <Stack spacing={1}>
+              <Text fontSize="2xl" fontWeight={500} id="advanced">
+                Opciones avanzadas
+              </Text>
+              <Text color="gray.600">Llevá tu negocio a otro nivel</Text>
+            </Stack>
+            <FormControl
+              error={errors.pixel?.message}
+              help="Solo el ID del pixel"
+              info={<PixelInputInfo />}
+              label="Pixel de Facebook"
+              name="pixel"
+            >
+              <PixelInput
+                defaultValue=""
+                name="pixel"
+                placeholder="333964417633206"
+                register={register({validate: PixelInputValidator})}
+              />
+            </FormControl>
+            <FormControl
+              error={errors.ga?.message}
+              help="Solo el ID del Google Analytics"
+              info={<GoogleAnalyticsInputInfo />}
+              label="Código de seguimiento de Google Analytics"
+              name="ga"
+            >
+              <GoogleAnalyticsInput
+                defaultValue=""
+                name="ga"
+                placeholder="UA-XXXXXXXXX-X"
+                register={register({validate: GoogleAnalyticsInputValidator})}
+              />
+            </FormControl>
+            {defaultValues.flags?.includes("advanced") && (
+              <FormControl
+                help="Vamos a hacer un POST a esta url cada vez que un usuario complete un pedido"
+                label="Webhook"
+                name="hook"
+              >
+                <Input
+                  ref={register}
+                  defaultValue=""
+                  name="hook"
+                  placeholder="https://tuwebhook.com"
+                />
+              </FormControl>
+            )}
+          </Stack>
         </Stack>
       </form>
     ),

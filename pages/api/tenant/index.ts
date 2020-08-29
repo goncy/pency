@@ -2,7 +2,6 @@ import {NextApiResponse, NextApiRequest} from "next";
 
 import api from "~/tenant/api/server";
 import {ClientTenant, ServerTenant} from "~/tenant/types";
-import dates from "~/utils/date";
 
 interface PostRequest extends NextApiRequest {
   body: {
@@ -31,10 +30,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const tenant: Partial<ServerTenant> = {
       // Tenant slug
       slug,
-      // Grace period
-      tier: "commercial",
-      // 1 week from now
-      tierUntil: dates.oneWeekFromNow,
     };
 
     return (
