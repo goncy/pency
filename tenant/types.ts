@@ -1,7 +1,6 @@
 import {VariantColor} from "@chakra-ui/core";
 
 import {Place} from "~/places/types";
-import {Product} from "~/product/types";
 
 export interface ServerTenant {
   id: string;
@@ -13,7 +12,6 @@ export interface ServerTenant {
   >;
   phone: string;
   logo?: string;
-  products: Product[];
   title: string;
   instagram?: string;
   facebook?: string;

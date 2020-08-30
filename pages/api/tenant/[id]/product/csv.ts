@@ -2,6 +2,7 @@ import {NextApiResponse, NextApiRequest} from "next";
 import * as yup from "yup";
 
 import api from "~/tenant/api/server";
+import productApi from "~/product/api/server";
 import {ClientTenant} from "~/tenant/types";
 import schemas from "~/tenant/schemas";
 import {CURRENCIES} from "~/i18n/constants";
@@ -66,27 +67,30 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         .then((tenant) => {
           const casted = schemas.client.fetch.cast(tenant);
 
-          // Format products
-          const products = casted.products
-            .filter((product) => schema.isValidSync(product))
-            .map((product) => selector(casted).cast(product, {stripUnknown: true}));
+          // Fetch products
+          return productApi.list(id).then((products) => {
+            // Format products
+            const filtered = products
+              .filter((product) => schema.isValidSync(product))
+              .map((product) => selector(casted).cast(product, {stripUnknown: true}));
 
-          return toCSV(products, [
-            "id",
-            "title",
-            "description",
-            "availability",
-            "condition",
-            "price",
-            "link",
-            "image_link",
-            "brand",
-          ]).then((csv) => {
-            // Set header to download as file
-            res.setHeader("Content-Disposition", "attachment; filename=pency.csv");
+            return toCSV(filtered, [
+              "id",
+              "title",
+              "description",
+              "availability",
+              "condition",
+              "price",
+              "link",
+              "image_link",
+              "brand",
+            ]).then((csv) => {
+              // Set header to download as file
+              res.setHeader("Content-Disposition", "attachment; filename=pency.csv");
 
-            // If everything is ok, return a 200
-            return res.status(200).end(csv);
+              // If everything is ok, return a 200
+              return res.status(200).end(csv);
+            });
           });
         })
         // Otherwise return a 400
