@@ -2,6 +2,7 @@ import {NextApiResponse, NextApiRequest} from "next";
 
 import api from "~/tenant/api/server";
 import {ClientTenant, ServerTenant} from "~/tenant/types";
+import schemas from "~/tenant/schemas";
 
 interface PostRequest extends NextApiRequest {
   body: {
@@ -27,10 +28,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     // Store a temp tenant
-    const tenant: Partial<ServerTenant> = {
-      // Tenant slug
-      slug,
-    };
+    const tenant: Partial<ServerTenant> = schemas.server.create.cast(
+      {
+        // Tenant slug
+        slug,
+      },
+      {
+        stripUnknown: true,
+      },
+    );
 
     return (
       api
