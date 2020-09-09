@@ -58,7 +58,23 @@ npm run storybook
 ```
 
 ## Configurando Firebase
-Para esta aplicación vamos a necesitar dos cosas de Firebase, la primera va a ser configurar las reglas de firestore (las podés encontrar en el archivo `firestore.rules`) y habilitar en firebase el inicio de sesión con usuario y contraseña (lo haces en Firebase desde `Auth > Sign in methods`).
+1. Accedé a [Firebase](ttps://console.firebase.google.com/).
+2. Creá un nuevo proyecto.
+3. Habilitá el inicio de sesión con correo electrónico y contraseña desde `Desarrollo > Authentication > Sign-in method`.
+4. Andá a `Configuración > General` y en el apartado "Tus apps" agregá una nueva app web. Al cliquear en "Registrar" te va a aparecer un código HTML con la configuración que necesitamos en una var "firebaseConfig".
+5. Completá con esos datos las variables del .env.development.local relacionadas a Firebase.
+
+## Configurando MongoDB
+1. Logueate a MongoDB o create una cuenta si hace falta: https://www.mongodb.com/cloud/atlas/register
+2. Creá una organización si no tenés ninguna,te sugerimos usar el servicio Cloud Atlas.
+3. Ahora creá un nuevo proyecto para tu tienda.
+4. Creá un cluster, con la versión free estamos bien.
+5. Una vez listo el cluster configurá cómo te vas a conectar cliqueando en "Connect" y elegí "Connect your application" como método de conexión.
+6. Creá un usuario y contraseña y guardá estos datos que los vas a necesitar después.
+7. También copiá la URL de conexión. 
+8. Ahora creá una BD. Andá a tu cluster > Collections y cliqueá en "Add my Own data" (si es tu primera BD) o en "Add database" si ya tenés otras BBDD.
+9. Elegí un nombre para tu BD y creá la collection "tenants".
+6. Ahora que ya tenemos todos los datos que necesitamos completamos el .env.development.local. En <DB_URL> poné la URL de conexión reemplazando  el usuario, contraseña y nombre de la BD y en <DB_NAME> poné el nombre de la BD.
 
 ## Configurando Cloudinary
 También vamos a necesitar una cuenta en Cloudinary para alojar las imágenes de la tienda. De allí vamos a necesitar el Cloudinary Cloud name para la variable `CLOUDINARY_CLOUD` del _environment_ (lo vas a ver arriba a la derecha una vez que inicies sesión). Además vamos a tener que ir a `Settings > Upload` donde podemos configurar los presets. El `CLOUDINARY_PRESET_LOW` se va a usar para las imágenes de los productos cargados y `CLOUDINARY_PRESET_HIGH` para las imágenes de banner y logo. Tenemos que asegurarnos de setear el Signing Mode en *Unsigned*, el resto de las configuraciones depende de tus preferencias. También vamos a setear la variable `CLOUDINARY_FOLDER` con el nombre de la carpeta donde queremos que se guarden las imágenes dentro de cloudinary, "pency", por ejemplo.
